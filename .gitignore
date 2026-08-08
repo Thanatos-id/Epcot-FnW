@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+logs/*.log
+data/html_fixtures_export/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.DS_Store
+.claude/
+tools/data_ledger/epcot_db_snapshot.json
