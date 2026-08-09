@@ -37,13 +37,35 @@ def _freeze_today(monkeypatch, year: int, month: int, day: int) -> None:
     monkeypatch.setattr(datetime, "date", _FixedDate)
 
 
-def test_seed_creates_all_sources_disabled_by_default(seed_session_factory):
+def test_seed_creates_every_source(seed_session_factory):
     seed_module.seed()
 
     session = seed_session_factory()
     sources = session.query(Source).order_by(Source.priority_rank).all()
     assert [s.key for s in sources] == [row["key"] for row in seed_module.SOURCES]
-    assert all(s.enabled is False for s in sources)
+
+
+def test_crawled_sources_start_disabled_pending_tos_review(seed_session_factory):
+    seed_module.seed()
+
+    session = seed_session_factory()
+    crawled = session.query(Source).filter(Source.key != "manual").all()
+    assert crawled, "expected some crawled sources"
+    assert all(s.enabled is False for s in crawled)
+
+
+def test_manual_source_outranks_every_crawled_source(seed_session_factory):
+    """Curated facts must win field resolution, which is decided by the
+    lowest priority_rank. It is also enabled out of the box - it is never
+    fetched, so it has no terms of service to review first."""
+    seed_module.seed()
+
+    session = seed_session_factory()
+    manual = session.query(Source).filter_by(key="manual").one()
+    crawled = session.query(Source).filter(Source.key != "manual").all()
+
+    assert manual.enabled is True
+    assert all(manual.priority_rank < s.priority_rank for s in crawled)
 
 
 def test_seed_creates_all_dietary_tags(seed_session_factory):

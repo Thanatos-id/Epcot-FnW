@@ -6,6 +6,18 @@ from epcot_fw.db.base import SessionLocal
 from epcot_fw.db.models import DietaryTag, Festival, Source
 
 SOURCES = [
+    # Hand-curated facts that no source publishes - booth coordinates above
+    # all. priority_rank 0 puts it above every crawled source, so a correction
+    # entered by hand is never overwritten by a later crawl. It has no adapter
+    # and is never fetched; see pipeline/manual.py.
+    dict(
+        key="manual",
+        display_name="Manual curation",
+        base_url="manual://curated",
+        priority_rank=0,
+        crawl_delay_sec=0,
+        enabled=True,
+    ),
     dict(
         key="disney_official",
         display_name="Disney World Official Site",
@@ -71,9 +83,12 @@ DIETARY_TAGS = [
 def seed() -> None:
     with SessionLocal() as session:
         for row in SOURCES:
+            # Crawled sources start disabled until their ToS has been
+            # reviewed; a row may override that (see "manual", which is never
+            # fetched and so has nothing to review).
             stmt = (
                 pg_insert(Source)
-                .values(**row, enabled=False)
+                .values(**{"enabled": False, **row})
                 .on_conflict_do_nothing(index_elements=["key"])
             )
             session.execute(stmt)

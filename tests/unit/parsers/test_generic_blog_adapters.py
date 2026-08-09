@@ -76,7 +76,7 @@ def test_touring_plans_discover_new_urls_hits_its_own_feed():
         mock.get(TOURING_PLANS_FEED_URL).mock(
             return_value=httpx.Response(200, text=_feed_xml("https://touringplans.com/blog/new-post"))
         )
-        seeds = TouringPlansAdapter().discover_new_urls(since)
+        seeds = TouringPlansAdapter().discover_new_urls(since, 2026)
 
     assert [s.url for s in seeds] == ["https://touringplans.com/blog/new-post"]
 
@@ -88,7 +88,7 @@ def test_wdw_prep_school_discover_new_urls_hits_its_own_feed():
         mock.get(PREP_SCHOOL_FEED_URL).mock(
             return_value=httpx.Response(200, text=_feed_xml("https://wdwprepschool.com/new-post"))
         )
-        seeds = WdwPrepSchoolAdapter().discover_new_urls(since)
+        seeds = WdwPrepSchoolAdapter().discover_new_urls(since, 2026)
 
     assert [s.url for s in seeds] == ["https://wdwprepschool.com/new-post"]
 
@@ -100,6 +100,6 @@ def test_disney_parks_blog_discover_new_urls_hits_its_own_feed():
         mock.get(PARKS_BLOG_FEED_URL).mock(
             return_value=httpx.Response(200, text=_feed_xml("https://disneyparksblog.com/new-post"))
         )
-        seeds = DisneyParksBlogAdapter().discover_new_urls(since)
+        seeds = DisneyParksBlogAdapter().discover_new_urls(since, 2026)
 
     assert [s.url for s in seeds] == ["https://disneyparksblog.com/new-post"]

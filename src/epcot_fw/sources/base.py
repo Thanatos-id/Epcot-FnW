@@ -20,9 +20,15 @@ class SourceAdapter(ABC):
     def seed_urls(self, festival_year: int) -> list[SeedUrl]:
         """Fixed set of URLs to (re)fetch every crawl/refresh run."""
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         """New URLs (e.g. blog posts) published since `since`. Default: none -
-        override for sources with an RSS feed or a "recent posts" index."""
+        override for sources with an RSS feed or a "recent posts" index.
+
+        `festival_year` is the year being crawled. Sources whose discovered
+        URLs are year-specific must use it to reject other years' pages:
+        booth and dish names repeat season to season, so a prior year's post
+        will happily fuzzy-match onto this year's entities.
+        """
         return []
 
     @abstractmethod

@@ -32,6 +32,42 @@ def test_default_strategy_picks_lowest_priority_rank():
     assert result.winner_refs == ["b"]
 
 
+def test_a_corrected_value_from_the_same_source_supersedes_the_old_one():
+    """A source that re-reports a changed value contributes a second
+    candidate at the same rank. Without a recency tie-break the stale one can
+    win, and which one does is down to row order."""
+    early = datetime.datetime(2026, 1, 1, tzinfo=datetime.UTC)
+    late = datetime.datetime(2026, 6, 1, tzinfo=datetime.UTC)
+    candidates = [
+        _cand("old", source_id=1, priority_rank=0, observed_at=early, value="surveyed wrong"),
+        _cand("new", source_id=1, priority_rank=0, observed_at=late, value="corrected"),
+    ]
+    result = resolve_field("location_description", candidates)
+    assert result.value == "corrected"
+    assert result.winner_refs == ["new"]
+
+
+def test_recency_never_beats_a_better_source():
+    """The tie-break applies only within the winning rank - a newer reading
+    from a lesser source must not outrank a trusted one."""
+    early = datetime.datetime(2026, 1, 1, tzinfo=datetime.UTC)
+    late = datetime.datetime(2026, 6, 1, tzinfo=datetime.UTC)
+    candidates = [
+        _cand("curated", source_id=1, priority_rank=0, observed_at=early, value="curated"),
+        _cand("blog", source_id=2, priority_rank=6, observed_at=late, value="blog guess"),
+    ]
+    assert resolve_field("location_description", candidates).value == "curated"
+
+
+def test_priority_winner_is_deterministic_regardless_of_candidate_order():
+    early = datetime.datetime(2026, 1, 1, tzinfo=datetime.UTC)
+    late = datetime.datetime(2026, 6, 1, tzinfo=datetime.UTC)
+    a = _cand("old", source_id=1, priority_rank=0, observed_at=early, value="old")
+    b = _cand("new", source_id=1, priority_rank=0, observed_at=late, value="new")
+    assert resolve_field("category", [a, b]).value == "new"
+    assert resolve_field("category", [b, a]).value == "new"
+
+
 def test_most_recent_strategy_picks_latest_observed_at():
     early = datetime.datetime(2026, 1, 1, tzinfo=datetime.UTC)
     late = datetime.datetime(2026, 1, 2, tzinfo=datetime.UTC)

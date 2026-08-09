@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from decimal import Decimal
 from typing import Generic, TypeVar
 
@@ -39,6 +40,8 @@ class FestivalOut(BaseModel):
 class BoothOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
+    # Store this, not `id` or `slug` - see Booth.public_id.
+    public_id: uuid.UUID
     festival_id: int
     canonical_name: str
     slug: str
@@ -46,6 +49,8 @@ class BoothOut(BaseModel):
     region_theme: str | None
     description: str | None
     location_description: str | None
+    latitude: Decimal | None = None
+    longitude: Decimal | None = None
     image_url: str | None
     is_active: bool
     average_rating: float | None = None
@@ -75,6 +80,8 @@ class ReviewCreate(BaseModel):
 class MenuItemOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
+    # Store this, not `id` - see MenuItem.public_id.
+    public_id: uuid.UUID
     booth_id: int
     canonical_name: str
     description: str | None
@@ -142,6 +149,21 @@ class CrawlRunOut(BaseModel):
     finished_at: datetime.datetime | None
     status: str
     stats: dict | None
+
+
+class SnapshotOut(BaseModel):
+    """The whole festival in one payload, for offline clients.
+
+    Menu items are a flat list keyed back to booths by `booth_id` rather than
+    nested inside each booth, so a client can index them however it likes
+    (by booth, by dietary tag, by price) without re-walking a tree.
+    """
+
+    festival: FestivalOut
+    booths: list[BoothOut] = []
+    menu_items: list[MenuItemOut] = []
+    events: list[ConcertEventOut] = []
+    seminars: list[SeminarOut] = []
 
 
 class FieldProvenanceOut(BaseModel):

@@ -40,6 +40,12 @@ which `refresh` discovers and crawls (see
 `sources/disney_food_blog.py`). The **Dishes photographed** row in *What
 changed* tracks how that coverage moves between crawls.
 
+Expect that row to sit at 0 until the festival is open. Those posts only get
+photographed once the booths are serving, and discovery ignores any post
+whose slug names a different year — the undated hub keeps serving last
+season's line-up until the new one is published, and ingesting it would
+attach last year's plates to this year's dishes.
+
 ## Pipeline confidence
 
 `pipeline_metrics.json` holds the test-coverage readings shown in the

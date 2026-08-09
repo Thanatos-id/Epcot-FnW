@@ -42,7 +42,7 @@ def test_discover_new_urls_filters_by_date_embedded_in_the_article_url():
         mock.get(f"{BASE_URL}/robots.txt").mock(return_value=httpx.Response(404))
         mock.get(f"{BASE_URL}{NEWS_INDEX_PATH}").mock(return_value=httpx.Response(200, text=NEWS_INDEX_HTML))
 
-        seeds = WdwMagicAdapter().discover_new_urls(since)
+        seeds = WdwMagicAdapter().discover_new_urls(since, 2026)
 
     urls = {s.url for s in seeds}
     assert f"{BASE_URL}/events/international-food-and-wine-festival/news/07aug2026-epcot-food-wine-menus.htm" in urls
@@ -57,7 +57,7 @@ def test_discover_new_urls_returns_empty_when_not_modified():
         mock.get(f"{BASE_URL}/robots.txt").mock(return_value=httpx.Response(404))
         mock.get(f"{BASE_URL}{NEWS_INDEX_PATH}").mock(return_value=httpx.Response(304))
 
-        seeds = WdwMagicAdapter().discover_new_urls(since)
+        seeds = WdwMagicAdapter().discover_new_urls(since, 2026)
 
     assert seeds == []
 
@@ -72,6 +72,6 @@ def test_discover_new_urls_dedupes_repeated_links():
         mock.get(f"{BASE_URL}/robots.txt").mock(return_value=httpx.Response(404))
         mock.get(f"{BASE_URL}{NEWS_INDEX_PATH}").mock(return_value=httpx.Response(200, text=html))
 
-        seeds = WdwMagicAdapter().discover_new_urls(since)
+        seeds = WdwMagicAdapter().discover_new_urls(since, 2026)
 
     assert len(seeds) == 1

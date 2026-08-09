@@ -13,6 +13,7 @@ from epcot_fw.pipeline.crawl import (
     _fetch_and_stage,
     _sum_stats,
 )
+from epcot_fw.pipeline.manual import stage_manual_overrides
 from epcot_fw.pipeline.resolve_pipeline import run_resolve
 from epcot_fw.sources.registry import SOURCE_REGISTRY
 
@@ -74,7 +75,7 @@ def run_refresh(
 
         seeds = list(adapter.seed_urls(festival.year))
         try:
-            seeds.extend(adapter.discover_new_urls(since))
+            seeds.extend(adapter.discover_new_urls(since, festival.year))
         except Exception:
             logger.exception("discover_new_urls failed for %s", source.key)
 
@@ -82,6 +83,7 @@ def run_refresh(
             _sum_stats(totals, _fetch_and_stage(session, adapter, source, seed))
         session.commit()
 
+    totals["manual_overrides"] = stage_manual_overrides(session)
     resolve_stats = run_resolve(session, festival_id=festival.id)
     totals.update(resolve_stats)
 

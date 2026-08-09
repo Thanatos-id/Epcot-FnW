@@ -53,7 +53,18 @@ def resolve_field(field_name: str, candidates: list[FieldCandidate]) -> FieldRes
     if strategy == "most_recent":
         winner = max(candidates, key=lambda c: c.observed_at)
     else:  # "priority"
-        winner = min(candidates, key=lambda c: c.priority_rank)
+        # Best source wins; among equally-trusted observations the most recent
+        # one does. The tie-break matters more than it looks: a source that
+        # re-reports a changed value (a revised description, a corrected
+        # coordinate) contributes a second candidate at the *same* rank, and
+        # picking either arbitrarily means a stale value can outlive its
+        # correction - non-deterministically, since the rows come back
+        # unordered.
+        best_rank = min(c.priority_rank for c in candidates)
+        winner = max(
+            (c for c in candidates if c.priority_rank == best_rank),
+            key=lambda c: c.observed_at,
+        )
 
     return FieldResolution(
         value=winner.value,

@@ -23,7 +23,7 @@ class TouringPlansAdapter(SourceAdapter):
         # source and doesn't have that limitation.
         return [SeedUrl(url=f"{BASE_URL}{EVENT_PAGE_PATH}", page_kind="festival_overview")]
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         return rss_discover(FEED_URL, since, crawl_delay_sec=5)
 
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:

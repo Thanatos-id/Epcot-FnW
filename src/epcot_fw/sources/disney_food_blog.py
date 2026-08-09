@@ -21,8 +21,18 @@ _CLICK_TO_SEE_RE = re.compile(r"click to see photos", re.IGNORECASE)
 # /australia-2025-epcot-food-and-wine-festival-2/  -> "australia"  (WordPress
 # appends -2 when a slug collides with a previous year's post)
 _DETAIL_SLUG_RE = re.compile(
-    r"^(?P<booth>.+?)-\d{4}-epcot-food-and-wine-festival(?:-\d+)?$", re.IGNORECASE
+    r"^(?P<booth>.+?)-(?P<year>\d{4})-epcot-food-and-wine-festival(?:-\d+)?$", re.IGNORECASE
 )
+
+
+def _slug_year(url: str) -> int | None:
+    """Festival year named by a per-booth photo post's slug, or None if the
+    URL isn't one of those posts."""
+    from urllib.parse import urlparse
+
+    slug = urlparse(url).path.strip("/").rsplit("/", 1)[-1]
+    match = _DETAIL_SLUG_RE.match(slug)
+    return int(match.group("year")) if match else None
 
 
 def _booth_name_from_detail(soup: Tag, url: str) -> str | None:
@@ -67,7 +77,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             ),
         ]
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         """The per-booth "CLICK TO SEE PHOTOS OF MENU ITEMS" posts, one per
         booth, scraped off the hub page.
 
@@ -75,6 +85,14 @@ class DisneyFoodBlogAdapter(SourceAdapter):
         slugs are year- and booth-specific (`/the-alps-2025-epcot-food-and-
         wine-festival/`) so they can't be enumerated ahead of time, which is
         why they're discovered rather than declared in seed_urls().
+
+        Only posts whose slug names `festival_year` are returned. The undated
+        hub keeps serving last season's line-up until DFB publishes the new
+        one, so ahead of opening day this page is still linking to the
+        previous year's photo posts. Booth names repeat season to season and
+        many dish names do too, so those would fuzzy-match onto this year's
+        entities and quietly fill the ledger with last year's plates - which
+        reads as success rather than as the no-data-yet it actually is.
 
         `since` is deliberately ignored: these posts are edited in place as
         photos get added over the season rather than republished with a new
@@ -88,9 +106,9 @@ class DisneyFoodBlogAdapter(SourceAdapter):
         result = fetch(f"{BASE_URL}{BOOTH_HUB_PATH}", crawl_delay_sec=5)
         if result.not_modified or not result.text:
             return []
-        return self._detail_seeds(result.text)
+        return self._detail_seeds(result.text, festival_year)
 
-    def _detail_seeds(self, raw_html: str) -> list[SeedUrl]:
+    def _detail_seeds(self, raw_html: str, festival_year: int) -> list[SeedUrl]:
         soup = soupify(raw_html)
         article = soup.find("article") or soup
         seeds: list[SeedUrl] = []
@@ -104,6 +122,8 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             if not href.startswith("http"):
                 href = f"{BASE_URL}{href}"
             if href in seen:
+                continue
+            if _slug_year(href) != festival_year:
                 continue
             seen.add(href)
             seeds.append(SeedUrl(url=href, page_kind="booth_detail"))
