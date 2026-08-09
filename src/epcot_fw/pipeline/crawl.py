@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from epcot_fw.db.models import CrawlRun, ExtractedRecord, Festival, Source
 from epcot_fw.fetch import cache, http_client
 from epcot_fw.fetch.http_client import RobotsDisallowedError
+from epcot_fw.pipeline.manual import stage_manual_overrides
 from epcot_fw.pipeline.resolve_pipeline import run_resolve
 from epcot_fw.sources.base import SeedUrl, SourceAdapter
 from epcot_fw.sources.registry import SOURCE_REGISTRY
@@ -137,6 +138,7 @@ def run_full_crawl(
             _sum_stats(totals, _fetch_and_stage(session, adapter, source, seed))
         session.commit()
 
+    totals["manual_overrides"] = stage_manual_overrides(session)
     resolve_stats = run_resolve(session, festival_id=festival.id)
     totals.update(resolve_stats)
 

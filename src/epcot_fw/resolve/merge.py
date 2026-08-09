@@ -60,6 +60,12 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "region_theme": "region_theme",
         "description": "description",
         "image_url": "image_url",
+        # No crawled source publishes coordinates; these arrive from the
+        # curated `manual` source (priority_rank 0), which therefore wins
+        # field resolution against anything a crawl might later contribute.
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "location_description": "location_description",
     },
     "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},

@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from decimal import Decimal
 
 from sqlalchemy import (
@@ -14,7 +15,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from epcot_fw.db.base import Base
@@ -194,6 +195,13 @@ class Booth(Base):
     __tablename__ = "booths"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    # Stable handle for anything outside this database - saved favourites, deep
+    # links, client-side caches. `id` is an autoincrement that a rebuild
+    # renumbers and `slug` is derived from a name that sources revise mid-
+    # season, so neither can safely be stored by a client.
+    public_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), server_default=func.gen_random_uuid(), unique=True, nullable=False
+    )
     festival_id: Mapped[int] = mapped_column(ForeignKey("festivals.id"), nullable=False)
     canonical_name: Mapped[str] = mapped_column(Text, nullable=False)
     slug: Mapped[str] = mapped_column(Text, nullable=False)
@@ -230,6 +238,11 @@ class MenuItem(Base):
     __tablename__ = "menu_items"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    # See Booth.public_id - a favourited dish has to survive both a rename and
+    # a full re-resolution of the canonical layer.
+    public_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), server_default=func.gen_random_uuid(), unique=True, nullable=False
+    )
     booth_id: Mapped[int] = mapped_column(ForeignKey("booths.id"), nullable=False)
     canonical_name: Mapped[str] = mapped_column(Text, nullable=False)
     description: Mapped[str | None] = mapped_column(Text)

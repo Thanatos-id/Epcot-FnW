@@ -164,6 +164,26 @@ def review_reject(conflict_id: int) -> None:
     console.print(f"dismissed conflict {conflict_id}")
 
 
+@app.command("manual")
+def manual_apply() -> None:
+    """Apply hand-curated booth facts (coordinates, location notes) from
+    data/manual/booth_locations.json and re-resolve.
+
+    Runs automatically as part of crawl/refresh; use this to pick up an edit
+    without waiting for the next crawl. Re-running with an unchanged file is
+    a no-op.
+    """
+    from epcot_fw.pipeline.manual import stage_manual_overrides
+
+    with SessionLocal() as session:
+        staged = stage_manual_overrides(session)
+        festival = _current_festival(session)
+        stats = run_resolve(session, festival_id=festival.id)
+        session.commit()
+    console.print(f"staged {staged} curated override(s)")
+    console.print(stats)
+
+
 @db_app.command("upgrade")
 def db_upgrade() -> None:
     """Apply Alembic migrations (equivalent to `alembic upgrade head`)."""

@@ -1,0 +1,24 @@
+{
+  "_README": [
+    "Hand-curated booth facts that no crawled source publishes - coordinates above all.",
+    "",
+    "Staged through the normal extracted_record -> resolve path under the 'manual'",
+    "source (priority_rank 0), so these values win field resolution against every",
+    "crawled source and are never overwritten by a later refresh. Applied by",
+    "`epcot-fw manual apply`, and automatically at the start of crawl/refresh.",
+    "",
+    "`name` is matched fuzzily against booths for the current festival, exactly the",
+    "way a crawled record is, so it does not have to be byte-identical to the",
+    "canonical name. A name that matches nothing confidently is reported rather than",
+    "guessed at.",
+    "",
+    "Every field except `name` is optional - omit what you have not surveyed rather",
+    "than writing a placeholder, because a null is never merged but a wrong number",
+    "is. Coordinates are decimal degrees (WGS84); ~5 decimal places is about a",
+    "metre, which is far more than enough to sort booths by distance.",
+    "",
+    "Booth positions are stable season to season, so this file is worth surveying",
+    "once and keeping."
+  ],
+  "booths": []
+}

@@ -11,6 +11,7 @@ from epcot_fw.db.models import DietaryTag, Festival, Source
 TEST_DB_URL = settings.test_database_url
 
 SOURCE_ROWS = [
+    dict(key="manual", display_name="Manual curation", base_url="manual://curated", priority_rank=0, enabled=True, crawl_delay_sec=0),
     dict(key="disney_official", display_name="Disney World Official Site", base_url="https://disneyworld.disney.go.com", priority_rank=1, enabled=True, crawl_delay_sec=8),
     dict(key="disney_parks_blog", display_name="Disney Parks Blog", base_url="https://disneyparksblog.com", priority_rank=2, enabled=False, crawl_delay_sec=8),
     dict(key="touring_plans", display_name="Touring Plans", base_url="https://touringplans.com", priority_rank=3, enabled=False, crawl_delay_sec=5),
