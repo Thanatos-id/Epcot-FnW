@@ -1,0 +1,29 @@
+{
+  "snapshots": [
+    {
+      "recorded_at": "2026-08-09T13:21:01.574703+00:00",
+      "label": "2026-08-08T17:11:11.721070-04:00",
+      "data": {
+        "booths": 32,
+        "menu_items": 180,
+        "items_priced": 0,
+        "items_tagged": 73,
+        "booths_with_menu": 27,
+        "booths_with_image": 24,
+        "booths_rated": 14,
+        "reviews": 40,
+        "sources_enabled": 3,
+        "open_conflicts": 10
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "7fdc87e",
+        "measured_at": "2026-08-09T13:12:53.027384+00:00",
+        "tests": 148,
+        "coverage_pct": 92.8,
+        "covered_lines": 1564,
+        "num_statements": 1686
+      }
+    }
+  ]
+}
