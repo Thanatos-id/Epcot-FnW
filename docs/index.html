@@ -6,6 +6,29 @@
 <meta name="color-scheme" content="light dark" />
 <meta name="description" content="Data quality ledger for the crawled Epcot International Food &amp; Wine Festival database: booths, menus, sources, conflicts, and snapshot-over-snapshot change tracking." />
 <title>Epcot Food &amp; Wine — Data Ledger</title>
+
+<!-- Icons. Paths are relative on purpose: docs/ is published at a project
+     subpath (…github.io/Epcot-FnW/), so root-absolute "/icons/…" would 404.
+     Relative also keeps the page working opened straight off disk.
+     These are real files rather than inlined data: URIs because iOS ignores
+     data: URIs for apple-touch-icon, which is the one that matters for
+     "Add to Home Screen". -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<!-- Required (in addition to the manifest) for iOS to use this on the home
+     screen. 180x180 and fully opaque - iOS fills transparent pixels black. -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Epcot F&amp;W" />
+<meta name="application-name" content="Epcot F&amp;W" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<!-- Browser/OS chrome is tinted to match the page rather than the icon's
+     navy, so an installed window doesn't sit under a mismatched bar. The
+     manifest keeps the brand navy for the launch splash. -->
+<meta name="theme-color" content="#efe8d8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1b1510" media="(prefers-color-scheme: dark)" />
 <style>
 :root {
   --bg: #efe8d8;

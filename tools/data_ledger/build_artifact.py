@@ -14,6 +14,7 @@ import datetime
 import html
 import json
 import pathlib
+import shutil
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
@@ -21,6 +22,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import metrics  # noqa: E402
 
 TOOL_DIR = pathlib.Path(__file__).parent
+ASSETS_DIR = TOOL_DIR / "assets"
 DOCS_DIR = TOOL_DIR.parent.parent / "docs"
 
 data = json.loads((TOOL_DIR / "epcot_db_snapshot.json").read_text())
@@ -46,6 +48,29 @@ TEMPLATE = r"""<!doctype html>
 <meta name="color-scheme" content="light dark" />
 <meta name="description" content="Data quality ledger for the crawled Epcot International Food &amp; Wine Festival database: booths, menus, sources, conflicts, and snapshot-over-snapshot change tracking." />
 <title>Epcot Food &amp; Wine — Data Ledger</title>
+
+<!-- Icons. Paths are relative on purpose: docs/ is published at a project
+     subpath (…github.io/Epcot-FnW/), so root-absolute "/icons/…" would 404.
+     Relative also keeps the page working opened straight off disk.
+     These are real files rather than inlined data: URIs because iOS ignores
+     data: URIs for apple-touch-icon, which is the one that matters for
+     "Add to Home Screen". -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<!-- Required (in addition to the manifest) for iOS to use this on the home
+     screen. 180x180 and fully opaque - iOS fills transparent pixels black. -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Epcot F&amp;W" />
+<meta name="application-name" content="Epcot F&amp;W" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<!-- Browser/OS chrome is tinted to match the page rather than the icon's
+     navy, so an installed window doesn't sit under a mismatched bar. The
+     manifest keeps the brand navy for the launch splash. -->
+<meta name="theme-color" content="#efe8d8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1b1510" media="(prefers-color-scheme: dark)" />
 <style>
 :root {
   --bg: #efe8d8;
@@ -940,3 +965,23 @@ out_path = DOCS_DIR / "index.html"
 out_path.write_text(html_out)
 print(f"wrote {out_path} ({len(html_out)} bytes)")
 print(f"history: {len(history)} snapshot(s), previous={'yes' if previous_entry else 'none (baseline)'}")
+
+# Icons and the manifest are copied rather than inlined: iOS ignores data:
+# URIs for apple-touch-icon, so "Add to Home Screen" needs real files sitting
+# next to index.html. Copying on every build keeps docs/ a pure build output.
+copied = 0
+if ASSETS_DIR.is_dir():
+    shutil.copytree(ASSETS_DIR / "icons", DOCS_DIR / "icons", dirs_exist_ok=True)
+    copied = len(list((DOCS_DIR / "icons").iterdir()))
+    shutil.copy2(ASSETS_DIR / "manifest.json", DOCS_DIR / "manifest.json")
+    print(f"copied {copied} icon file(s) + manifest.json into {DOCS_DIR}")
+
+# A missing icon silently degrades to a blank home-screen tile, so fail loudly
+# instead of shipping a build whose <link> targets aren't there.
+missing = [
+    ref
+    for ref in ("icons/favicon.ico", "icons/icon.svg", "icons/apple-touch-icon.png", "manifest.json")
+    if not (DOCS_DIR / ref).exists()
+]
+if missing:
+    raise SystemExit(f"referenced asset(s) missing from {DOCS_DIR}: {', '.join(missing)}")
