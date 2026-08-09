@@ -4,6 +4,7 @@ import logging
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from epcot_fw.agents.conflict_triage import run_conflict_triage
 from epcot_fw.db.models import CrawlRun
 from epcot_fw.pipeline.crawl import (
     EMPTY_STATS,
@@ -20,10 +21,24 @@ logger = logging.getLogger(__name__)
 DEFAULT_LOOKBACK_DAYS = 30
 
 
-def run_refresh(session: Session, *, source_keys: list[str] | None = None, triggered_by: str = "cli") -> dict:
+def run_refresh(
+    session: Session,
+    *,
+    source_keys: list[str] | None = None,
+    triggered_by: str = "cli",
+    run_triage: bool = True,
+) -> dict:
     """Weekly incremental refresh: re-fetch known seed URLs (cheap - conditional
     GET/hash diff means unchanged pages don't get reparsed) plus discover any
-    new posts published since the last successful run, then re-resolve."""
+    new posts published since the last successful run, then re-resolve.
+
+    `run_triage` additionally runs the conflict-triage agent
+    (agents/conflict_triage.py) over whatever merge_conflicts this pass
+    opened - safe to leave on unattended since it only auto-applies
+    high-confidence field-value picks and otherwise just leaves a
+    human-reviewable suggestion, never silently merging/creating entities on
+    its own.
+    """
     festival = _current_festival(session)
     sources = _enabled_sources(session, source_keys)
     if not sources:
@@ -69,6 +84,11 @@ def run_refresh(session: Session, *, source_keys: list[str] | None = None, trigg
 
     resolve_stats = run_resolve(session, festival_id=festival.id)
     totals.update(resolve_stats)
+
+    if run_triage:
+        triage_stats = run_conflict_triage(session)
+        totals["triage_auto_resolved"] = triage_stats.auto_resolved
+        totals["triage_suggested"] = triage_stats.suggested
 
     run.status = "success"
     run.finished_at = datetime.datetime.now(datetime.UTC)

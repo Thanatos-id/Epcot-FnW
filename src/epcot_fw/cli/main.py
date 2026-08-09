@@ -4,6 +4,11 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from epcot_fw.agents.conflict_triage import (
+    accept_suggestion,
+    reject_suggestion,
+    run_conflict_triage,
+)
 from epcot_fw.db.base import SessionLocal
 from epcot_fw.db.models import MergeConflict, Source
 from epcot_fw.pipeline.crawl import _current_festival, run_full_crawl
@@ -15,8 +20,10 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(messag
 app = typer.Typer(help="Epcot Food & Wine Festival crawler/API CLI")
 sources_app = typer.Typer(help="Manage crawl sources")
 db_app = typer.Typer(help="Database maintenance")
+review_app = typer.Typer(help="Review and triage merge_conflicts", invoke_without_command=True)
 app.add_typer(sources_app, name="sources")
 app.add_typer(db_app, name="db")
+app.add_typer(review_app, name="review")
 
 console = Console()
 
@@ -41,10 +48,11 @@ def crawl(
 @app.command()
 def refresh(
     sources: str = typer.Option(None, "--sources", help="Comma-separated source keys (default: all enabled)"),
+    triage: bool = typer.Option(True, "--triage/--no-triage", help="Run the conflict-triage agent afterward"),
 ) -> None:
     """Weekly incremental refresh: re-check known pages + discover new posts, then resolve."""
     with SessionLocal() as session:
-        stats = run_refresh(session, source_keys=_parse_keys(sources))
+        stats = run_refresh(session, source_keys=_parse_keys(sources), run_triage=triage)
     console.print(stats)
 
 
@@ -70,28 +78,90 @@ def serve(
     uvicorn.run("epcot_fw.api.main:app", host=host, port=port, reload=reload)
 
 
-@app.command()
-def review(limit: int = typer.Option(50, "--limit")) -> None:
-    """List open merge_conflicts for manual review."""
+@review_app.callback(invoke_without_command=True)
+def review_list(
+    ctx: typer.Context,
+    limit: int = typer.Option(50, "--limit"),
+    status: str = typer.Option(
+        "open,suggested", "--status", help="Comma-separated statuses to show"
+    ),
+) -> None:
+    """List merge_conflicts (default: open + agent-suggested) for review.
+
+    Run bare (`epcot-fw review`) for this listing; use the `triage`,
+    `accept`, and `reject` subcommands to act on what it shows.
+    """
+    if ctx.invoked_subcommand is not None:
+        return
+
+    statuses = [s.strip() for s in status.split(",") if s.strip()]
     with SessionLocal() as session:
         conflicts = (
             session.query(MergeConflict)
-            .filter_by(status="open")
+            .filter(MergeConflict.status.in_(statuses))
             .order_by(MergeConflict.opened_at.desc())
             .limit(limit)
             .all()
         )
-        table = Table("ID", "Entity", "Canonical ID", "Field", "Candidates")
+        table = Table("ID", "Status", "Entity", "Canonical ID", "Field", "Candidates", "Agent suggestion")
         for c in conflicts:
+            suggestion = ""
+            if c.resolution_value and c.resolution_value.get("decided_by") == "agent":
+                suggestion = (
+                    f"{c.resolution_value.get('decision')} "
+                    f"(conf {c.resolution_value.get('confidence', 0):.2f}): "
+                    f"{c.resolution_value.get('rationale', '')}"
+                )
             table.add_row(
                 str(c.id),
+                c.status,
                 c.entity_type,
                 str(c.canonical_id) if c.canonical_id else "-",
                 c.field_name or "(match)",
-                str(c.candidate_values)[:80],
+                str(c.candidate_values)[:60],
+                suggestion[:80],
             )
         console.print(table)
-        console.print(f"{len(conflicts)} open conflict(s) shown")
+        console.print(f"{len(conflicts)} conflict(s) shown ({', '.join(statuses)})")
+
+
+@review_app.command("triage")
+def review_triage(limit: int = typer.Option(None, "--limit", help="Cap how many open conflicts to examine")) -> None:
+    """Run the conflict-triage agent over every open merge_conflicts row.
+
+    High-confidence field-value disagreements are resolved automatically;
+    everything else the agent has an opinion on is left as status=suggested
+    with a rationale, for `epcot-fw review accept/reject` to act on.
+    """
+    with SessionLocal() as session:
+        stats = run_conflict_triage(session, limit=limit)
+        session.commit()
+    console.print(stats)
+
+
+@review_app.command("accept")
+def review_accept(conflict_id: int) -> None:
+    """Apply a status=suggested conflict's agent recommendation for real."""
+    with SessionLocal() as session:
+        conflict = session.get(MergeConflict, conflict_id)
+        if conflict is None:
+            raise typer.BadParameter(f"no such conflict: {conflict_id}")
+        festival = _current_festival(session)
+        accept_suggestion(session, conflict, festival_id=festival.id)
+        session.commit()
+    console.print(f"accepted conflict {conflict_id}")
+
+
+@review_app.command("reject")
+def review_reject(conflict_id: int) -> None:
+    """Dismiss a status=suggested conflict's agent recommendation."""
+    with SessionLocal() as session:
+        conflict = session.get(MergeConflict, conflict_id)
+        if conflict is None:
+            raise typer.BadParameter(f"no such conflict: {conflict_id}")
+        reject_suggestion(conflict)
+        session.commit()
+    console.print(f"dismissed conflict {conflict_id}")
 
 
 @db_app.command("upgrade")
