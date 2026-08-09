@@ -80,6 +80,7 @@ class MenuItemOut(BaseModel):
     description: str | None
     category: str
     price_usd: Decimal | None
+    image_url: str | None = None
     is_active: bool
     dietary_tags: list[DietaryTagOut] = []
 

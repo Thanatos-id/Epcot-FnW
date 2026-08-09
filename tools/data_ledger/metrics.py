@@ -30,6 +30,7 @@ METRIC_SPECS: list[dict[str, Any]] = [
     {"key": "booths", "label": "Booths", "direction": "up"},
     {"key": "menu_items", "label": "Menu items", "direction": "up"},
     {"key": "items_priced", "label": "Items priced", "direction": "up", "ratio_of": "menu_items"},
+    {"key": "items_with_image", "label": "Dishes photographed", "direction": "up", "ratio_of": "menu_items"},
     {"key": "items_tagged", "label": "Items with dietary tags", "direction": "up", "ratio_of": "menu_items"},
     {"key": "booths_with_menu", "label": "Booths with a menu", "direction": "up", "ratio_of": "booths"},
     {"key": "booths_with_image", "label": "Booths with a photo", "direction": "up", "ratio_of": "booths"},
@@ -51,6 +52,7 @@ def data_metrics(snapshot: dict[str, Any]) -> dict[str, int]:
         "booths": len(booths),
         "menu_items": len(items),
         "items_priced": sum(1 for it in items if it.get("price") is not None),
+        "items_with_image": sum(1 for it in items if it.get("image_url")),
         "items_tagged": sum(1 for it in items if it.get("tags")),
         "booths_with_menu": sum(1 for b in booths if b.get("items")),
         "booths_with_image": sum(1 for b in booths if b.get("image_url")),
@@ -124,6 +126,20 @@ def save_history(snapshots: list[dict[str, Any]], path: Path = HISTORY_PATH) -> 
     path.write_text(json.dumps({"snapshots": snapshots}, indent=2) + "\n")
 
 
+def _same_data(previous: dict[str, int], current: dict[str, int]) -> bool:
+    """True when nothing measurable changed between two metric rows.
+
+    Compared only on the metrics the two rows have in common, so that adding a
+    newly tracked metric cannot masquerade as a data change - the older row
+    simply never measured it, which is not the same as it having moved. Any
+    shared metric changing value, or a metric disappearing, is a real
+    difference.
+    """
+    if not set(previous) <= set(current):
+        return False
+    return all(previous[key] == current[key] for key in previous)
+
+
 def record_snapshot(
     snapshot: dict[str, Any],
     *,
@@ -149,7 +165,7 @@ def record_snapshot(
     if pipeline is not None:
         entry["pipeline"] = pipeline
 
-    if history and history[-1].get("data") == entry["data"]:
+    if history and _same_data(history[-1].get("data", {}), entry["data"]):
         history[-1] = {**history[-1], **entry}
         previous = history[-2] if len(history) > 1 else None
     else:

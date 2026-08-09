@@ -38,6 +38,7 @@ def test_data_metrics_on_an_empty_snapshot_is_all_zero():
         "booths": 0,
         "menu_items": 0,
         "items_priced": 0,
+        "items_with_image": 0,
         "items_tagged": 0,
         "booths_with_menu": 0,
         "booths_with_image": 0,
@@ -79,6 +80,37 @@ def test_data_metrics_counts_images_ratings_sources_and_conflicts():
     assert m["reviews"] == 3
     assert m["sources_enabled"] == 2
     assert m["open_conflicts"] == 2
+
+
+def test_data_metrics_counts_dishes_that_have_a_photo():
+    snap = _snapshot(
+        booths=[
+            _booth(
+                "A",
+                items=[
+                    {"image_url": "https://ex.test/dish.jpg"},
+                    {"image_url": None},
+                    {},
+                ],
+            )
+        ]
+    )
+    m = metrics.data_metrics(snap)
+    assert m["menu_items"] == 3
+    assert m["items_with_image"] == 1
+
+
+def test_newly_photographed_dishes_register_as_a_gain():
+    rows = {
+        r["key"]: r
+        for r in metrics.diff_metrics(
+            {"menu_items": 180, "items_with_image": 0},
+            {"menu_items": 180, "items_with_image": 46},
+        )
+    }
+    assert rows["items_with_image"]["verdict"] == "gain"
+    assert rows["items_with_image"]["delta"] == 46
+    assert rows["items_with_image"]["current_pct"] == 25.6
 
 
 def test_data_metrics_tolerates_missing_keys():
@@ -201,6 +233,36 @@ def test_rebuilding_without_new_data_does_not_append_a_duplicate_row(history_pat
 
     assert len(history) == 1, "identical metrics must collapse instead of faking a no-change diff"
     assert previous is None
+
+
+def test_newly_tracked_metric_does_not_masquerade_as_a_data_change(history_path):
+    """Adding a metric to METRIC_SPECS must not append a history row: the
+    older row simply never measured it, which is not the same as the data
+    having moved."""
+    snap = _snapshot(booths=[_booth("A")])
+    metrics.record_snapshot(snap, path=history_path)
+
+    stored = json.loads(history_path.read_text())
+    stored["snapshots"][0]["data"].pop("items_with_image")
+    history_path.write_text(json.dumps(stored))
+
+    history, _, previous = metrics.record_snapshot(snap, path=history_path)
+    assert len(history) == 1
+    assert previous is None
+
+
+def test_a_real_change_alongside_a_new_metric_still_appends(history_path):
+    metrics.record_snapshot(_snapshot(booths=[_booth("A")]), path=history_path)
+
+    stored = json.loads(history_path.read_text())
+    stored["snapshots"][0]["data"].pop("items_with_image")
+    history_path.write_text(json.dumps(stored))
+
+    history, _, previous = metrics.record_snapshot(
+        _snapshot(booths=[_booth("A"), _booth("B")]), path=history_path
+    )
+    assert len(history) == 2
+    assert previous is not None
 
 
 def test_duplicate_rebuild_refreshes_the_timestamp_of_the_existing_row(history_path):
