@@ -235,6 +235,9 @@ class MenuItem(Base):
     description: Mapped[str | None] = mapped_column(Text)
     category: Mapped[str] = mapped_column(Text, nullable=False)
     price_usd: Mapped[Decimal | None] = mapped_column(Numeric(6, 2))
+    # Photo of this specific dish/drink, sourced from per-booth photo posts
+    # (see sources/disney_food_blog.py). Booth-level photos live on Booth.
+    image_url: Mapped[str | None] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

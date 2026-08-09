@@ -61,7 +61,7 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "description": "description",
         "image_url": "image_url",
     },
-    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd"},
+    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},
     "seminar": {
         "title": "title",

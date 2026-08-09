@@ -408,6 +408,16 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .item-price { font-family: ui-monospace, monospace; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 .item-price.unknown { color: var(--ink-muted); font-style: italic; font-family: inherit; font-size: 12px; }
 
+/* Dish photo floats beside the name so a row without one keeps its
+   existing compact height. */
+.dish-thumb {
+  float: left; width: 64px; height: 64px; object-fit: cover; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface-2);
+  margin: 0 10px 6px 0;
+}
+.item-row.has-photo .item-main::after { content: ""; display: block; clear: both; }
+@media (max-width: 460px) { .dish-thumb { width: 52px; height: 52px; } }
+
 /* ---------- conflicts ---------- */
 .conflict-list { display: flex; flex-direction: column; gap: 8px; }
 .conflict {
@@ -669,11 +679,16 @@ footer {
     var priceHtml = (it.price !== null && it.price !== undefined)
       ? '<span class="item-price">$' + Number(it.price).toFixed(2) + '</span>'
       : '<span class="item-price unknown">not yet priced</span>';
+    var dishHtml = it.image_data_uri
+      ? '<img class="dish-thumb" src="' + it.image_data_uri + '" alt="Photo of ' + escapeHtml(it.name) + '" loading="lazy" />'
+      : '';
     return (
-      '<div class="item-row">' +
+      '<div class="item-row' + (dishHtml ? ' has-photo' : '') + '">' +
         '<span class="cat-dot ' + it.category + '" title="' + (CATEGORY_LABEL[it.category] || it.category) + '"></span>' +
-        '<div class="item-main"><div class="item-name">' + escapeHtml(it.name) + '</div>' +
-        (tagsHtml ? '<div class="item-tags">' + tagsHtml + '</div>' : '') +
+        '<div class="item-main">' +
+          dishHtml +
+          '<div class="item-name">' + escapeHtml(it.name) + '</div>' +
+          (tagsHtml ? '<div class="item-tags">' + tagsHtml + '</div>' : '') +
         '</div>' +
         priceHtml +
       '</div>'

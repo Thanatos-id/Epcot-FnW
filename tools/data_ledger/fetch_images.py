@@ -15,8 +15,15 @@ SNAPSHOT_PATH = Path(__file__).parent / "epcot_db_snapshot.json"
 with open(SNAPSHOT_PATH) as f:
     data = json.load(f)
 
-urls = sorted({b["image_url"] for b in data["booths"] if b.get("image_url")})
-print(f"fetching {len(urls)} images...")
+booth_urls = {b["image_url"] for b in data["booths"] if b.get("image_url")}
+item_urls = {
+    it["image_url"]
+    for b in data["booths"]
+    for it in b.get("items", [])
+    if it.get("image_url")
+}
+urls = sorted(booth_urls | item_urls)
+print(f"fetching {len(urls)} images ({len(booth_urls)} booth, {len(item_urls)} dish)...")
 
 cache: dict[str, str] = {}
 total_bytes = 0
@@ -40,10 +47,9 @@ with httpx.Client(headers={"User-Agent": settings.user_agent}, timeout=20, follo
 print(f"total encoded size: {total_bytes/1024:.0f}KB")
 
 for booth in data["booths"]:
-    if booth.get("image_url") in cache:
-        booth["image_data_uri"] = cache[booth["image_url"]]
-    else:
-        booth["image_data_uri"] = None
+    booth["image_data_uri"] = cache.get(booth.get("image_url"))
+    for item in booth.get("items", []):
+        item["image_data_uri"] = cache.get(item.get("image_url"))
 
 with open(SNAPSHOT_PATH, "w") as f:
     json.dump(data, f)

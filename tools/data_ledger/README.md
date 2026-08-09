@@ -31,6 +31,15 @@ shows a fabricated "no change" comparison against itself.
 The first entry is a **baseline**: with nothing to compare against, the page
 says so instead of rendering zero-deltas.
 
+## Dish photos
+
+`fetch_images.py` inlines two kinds of image: the booth-level photo on
+`booth.image_url`, and the per-dish photo on each item's `image_url`. Dish
+photos come from Disney Food Blog's per-booth "photos of menu items" posts,
+which `refresh` discovers and crawls (see
+`sources/disney_food_blog.py`). The **Dishes photographed** row in *What
+changed* tracks how that coverage moves between crawls.
+
 ## Pipeline confidence
 
 `pipeline_metrics.json` holds the test-coverage readings shown in the

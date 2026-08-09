@@ -76,6 +76,7 @@ def export() -> None:
                             "name": it.canonical_name,
                             "category": it.category,
                             "price": it.price_usd,
+                            "image_url": it.image_url,
                             "tags": [t.code for t in it.dietary_tags],
                         }
                         for it in items

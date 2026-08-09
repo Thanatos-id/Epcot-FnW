@@ -1,12 +1,13 @@
 {
   "snapshots": [
     {
-      "recorded_at": "2026-08-09T13:41:15.949207+00:00",
+      "recorded_at": "2026-08-09T14:21:57.751154+00:00",
       "label": "2026-08-08T17:11:11.721070-04:00",
       "data": {
         "booths": 32,
         "menu_items": 180,
         "items_priced": 0,
+        "items_with_image": 0,
         "items_tagged": 73,
         "booths_with_menu": 27,
         "booths_with_image": 24,
