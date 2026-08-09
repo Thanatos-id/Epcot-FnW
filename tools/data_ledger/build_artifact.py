@@ -1,11 +1,76 @@
+"""Renders docs/index.html from the exported snapshot.
+
+    python tools/data_ledger/export_snapshot.py
+    python tools/data_ledger/fetch_images.py
+    python tools/data_ledger/build_artifact.py
+
+Beyond rendering the snapshot, this records the snapshot's aggregate metrics
+into ledger_history.json (see metrics.py) so the page can show what was
+gained and lost since the previous build, and reads pipeline_metrics.json for
+the test-coverage confidence panel.
+"""
+
+import datetime
+import html
 import json
 import pathlib
+import shutil
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+
+import metrics  # noqa: E402
 
 TOOL_DIR = pathlib.Path(__file__).parent
+ASSETS_DIR = TOOL_DIR / "assets"
 DOCS_DIR = TOOL_DIR.parent.parent / "docs"
+
 data = json.loads((TOOL_DIR / "epcot_db_snapshot.json").read_text())
 
-TEMPLATE = r"""<title>Epcot Food & Wine — Data Ledger</title>
+PIPELINE_PATH = TOOL_DIR / "pipeline_metrics.json"
+pipeline = json.loads(PIPELINE_PATH.read_text()) if PIPELINE_PATH.exists() else {}
+
+_last_run = (data.get("runs") or [{}])[0]
+history, current_entry, previous_entry = metrics.record_snapshot(
+    data,
+    pipeline=pipeline.get("current"),
+    label=_last_run.get("started_at") or "snapshot",
+)
+diff_rows = metrics.diff_metrics(
+    previous_entry["data"] if previous_entry else None, current_entry["data"]
+)
+
+TEMPLATE = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Data quality ledger for the crawled Epcot International Food &amp; Wine Festival database: booths, menus, sources, conflicts, and snapshot-over-snapshot change tracking." />
+<title>Epcot Food &amp; Wine — Data Ledger</title>
+
+<!-- Icons. Paths are relative on purpose: docs/ is published at a project
+     subpath (…github.io/Epcot-FnW/), so root-absolute "/icons/…" would 404.
+     Relative also keeps the page working opened straight off disk.
+     These are real files rather than inlined data: URIs because iOS ignores
+     data: URIs for apple-touch-icon, which is the one that matters for
+     "Add to Home Screen". -->
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<!-- Required (in addition to the manifest) for iOS to use this on the home
+     screen. 180x180 and fully opaque - iOS fills transparent pixels black. -->
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Epcot F&amp;W" />
+<meta name="application-name" content="Epcot F&amp;W" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<!-- Browser/OS chrome is tinted to match the page rather than the icon's
+     navy, so an installed window doesn't sit under a mismatched bar. The
+     manifest keeps the brand navy for the launch splash. -->
+<meta name="theme-color" content="#efe8d8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1b1510" media="(prefers-color-scheme: dark)" />
 <style>
 :root {
   --bg: #efe8d8;
@@ -25,7 +90,7 @@ TEMPLATE = r"""<title>Epcot Food & Wine — Data Ledger</title>
   --shadow: 0 1px 2px rgba(36,28,22,0.06), 0 8px 24px rgba(36,28,22,0.06);
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1b1510;
     --surface: #241d16;
     --surface-2: #2c231a;
@@ -60,6 +125,7 @@ TEMPLATE = r"""<title>Epcot Food & Wine — Data Ledger</title>
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -67,18 +133,23 @@ body {
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+img { max-width: 100%; }
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: clamp(20px, 5vw, 40px) clamp(14px, 4vw, 24px) 72px;
+}
 
 .display { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif; }
 .mono { font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
 
 /* ---------- header ---------- */
-header.top { margin-bottom: 32px; }
+header.top { margin-bottom: 28px; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -88,47 +159,122 @@ header.top { margin-bottom: 32px; }
   content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
 }
 h1.display {
-  font-size: 34px; margin: 0 0 8px; text-wrap: balance; font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: clamp(24px, 6vw, 34px); margin: 0 0 8px; text-wrap: balance; font-weight: 600;
+  letter-spacing: -0.01em; overflow-wrap: break-word;
 }
-.subtitle { color: var(--ink-muted); font-size: 15px; max-width: 62ch; }
+.subtitle { color: var(--ink-muted); font-size: clamp(14px, 3.4vw, 15px); max-width: 62ch; }
 .subtitle b { color: var(--ink); font-weight: 600; }
 
 /* ---------- stat strip ---------- */
 .stats {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
-  margin: 28px 0 32px;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px;
+  margin: 24px 0 32px;
 }
-@media (max-width: 800px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 460px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
 .stat {
   background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  padding: 16px; box-shadow: var(--shadow);
+  padding: clamp(11px, 3vw, 16px); box-shadow: var(--shadow); min-width: 0;
 }
-.stat .num { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; color: var(--ink); }
-.stat .label { font-size: 12px; color: var(--ink-muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+.stat .num {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums;
+  font-size: clamp(18px, 5vw, 26px); font-weight: 600; color: var(--ink);
+  overflow-wrap: break-word;
+}
+.stat .label {
+  font-size: clamp(10px, 2.6vw, 12px); color: var(--ink-muted); margin-top: 2px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
 .stat.accent .num { color: var(--accent); }
 .stat.warn .num { color: var(--warn); }
 
 /* ---------- section shell ---------- */
-section { margin-bottom: 36px; }
+section { margin-bottom: 34px; }
 .section-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
   margin-bottom: 14px; flex-wrap: wrap;
 }
-h2.display { font-size: 20px; margin: 0; font-weight: 600; }
-.section-note { font-size: 13px; color: var(--ink-muted); }
+h2.display { font-size: clamp(17px, 4.4vw, 20px); margin: 0; font-weight: 600; }
+.section-note { font-size: clamp(12px, 3vw, 13px); color: var(--ink-muted); }
+
+/* ---------- change ledger ---------- */
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.panel-banner {
+  padding: 11px 14px; font-size: 12.5px; color: var(--ink-muted);
+  background: var(--surface-2); border-bottom: 1px solid var(--border);
+}
+.panel-banner b { color: var(--ink); font-weight: 600; }
+.delta-row {
+  display: grid; grid-template-columns: minmax(0,1fr) auto auto;
+  gap: 8px 12px; align-items: center;
+  padding: 11px 14px; border-bottom: 1px solid var(--border);
+}
+.delta-row:last-child { border-bottom: none; }
+.delta-row:nth-child(even) { background: var(--surface-2); }
+.delta-label { font-size: 13.5px; min-width: 0; overflow-wrap: break-word; }
+.delta-sub { display: block; font-size: 11.5px; color: var(--ink-muted); margin-top: 1px; }
+.delta-value {
+  font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums;
+  font-size: 14px; font-weight: 600; white-space: nowrap;
+}
+.delta-chip {
+  font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums;
+  font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+  white-space: nowrap; min-width: 52px; text-align: center;
+}
+.delta-chip.gain { background: var(--good-soft); color: var(--good); }
+.delta-chip.loss { background: var(--warn-soft); color: var(--warn); }
+.delta-chip.same { background: var(--surface-2); color: var(--ink-muted); }
+.delta-chip.none { background: transparent; color: var(--ink-muted); }
+@media (max-width: 460px) {
+  .delta-row { grid-template-columns: minmax(0,1fr) auto; row-gap: 4px; }
+  .delta-chip { grid-column: 2; }
+  .delta-value { grid-column: 1; grid-row: 2; font-size: 13px; }
+}
+
+/* ---------- pipeline confidence ---------- */
+.confidence-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 14px;
+}
+@media (max-width: 560px) { .confidence-grid { grid-template-columns: minmax(0, 1fr); } }
+.confidence-metric {
+  border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--surface-2);
+  min-width: 0;
+}
+.confidence-metric h4 {
+  margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--ink-muted); font-weight: 600;
+}
+.confidence-nums { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.confidence-before {
+  font-family: ui-monospace, monospace; font-size: 14px; color: var(--ink-muted);
+  text-decoration: line-through;
+}
+.confidence-arrow { color: var(--ink-muted); font-size: 12px; }
+.confidence-after {
+  font-family: ui-monospace, monospace; font-size: clamp(20px, 5vw, 24px); font-weight: 700; color: var(--good);
+}
+.meter {
+  margin-top: 10px; height: 7px; border-radius: 20px; background: var(--border); overflow: hidden;
+}
+.meter > span { display: block; height: 100%; border-radius: 20px; background: var(--good); }
+.confidence-foot { padding: 0 14px 14px; font-size: 12px; color: var(--ink-muted); }
 
 /* ---------- sources ---------- */
 .sources-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px;
 }
+@media (max-width: 420px) { .sources-grid { grid-template-columns: minmax(0, 1fr); } }
 .source-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0;
 }
 .source-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.source-name { font-weight: 600; font-size: 13.5px; }
-.source-url { font-size: 12px; color: var(--ink-muted); word-break: break-all; }
+.source-name { font-weight: 600; font-size: 13.5px; min-width: 0; overflow-wrap: break-word; }
+.source-url { font-size: 12px; color: var(--ink-muted); overflow-wrap: anywhere; }
 .pill {
   font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
   padding: 3px 8px; border-radius: 20px; white-space: nowrap;
@@ -139,24 +285,29 @@ h2.display { font-size: 20px; margin: 0; font-weight: 600; }
 
 /* ---------- filter bar ---------- */
 .filter-bar {
-  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
   background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  padding: 12px 14px; margin-bottom: 18px; position: sticky; top: 12px; z-index: 5;
+  padding: 10px 12px; margin-bottom: 16px; position: sticky; top: 12px; z-index: 5;
   box-shadow: var(--shadow);
 }
+/* On a phone a sticky filter bar with wrapped chip rows can eat half the
+   viewport, so it scrolls away with the page instead. */
+@media (max-width: 700px) { .filter-bar { position: static; } }
 #search {
-  flex: 1 1 220px; min-width: 160px; background: var(--bg); color: var(--ink);
-  border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 14px;
+  flex: 1 1 220px; min-width: 0; background: var(--bg); color: var(--ink);
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 16px;
   font-family: inherit;
 }
+@media (max-width: 700px) { #search { flex-basis: 100%; } }
 #search:focus-visible, .chip:focus-visible, summary:focus-visible, a:focus-visible {
   outline: 2px solid var(--accent); outline-offset: 2px;
 }
-.chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
 .chip {
   border: 1px solid var(--border); background: var(--surface); color: var(--ink-muted);
-  border-radius: 20px; padding: 6px 12px; font-size: 12.5px; cursor: pointer;
+  border-radius: 20px; padding: 8px 13px; font-size: 12.5px; cursor: pointer;
   font-family: inherit; transition: background 0.12s, color 0.12s, border-color 0.12s;
+  min-height: 36px;
 }
 .chip:hover { border-color: var(--accent); color: var(--ink); }
 .chip.active { background: var(--accent); border-color: var(--accent); color: var(--surface); }
@@ -170,15 +321,25 @@ details.booth {
 }
 details.booth[open] { box-shadow: var(--shadow); }
 summary.booth-head {
-  list-style: none; cursor: pointer; padding: 13px 16px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  list-style: none; cursor: pointer; padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  min-height: 44px; flex-wrap: wrap;
 }
 summary.booth-head::-webkit-details-marker { display: none; }
-.booth-title { display: flex; align-items: center; gap: 10px; }
-.booth-caret { color: var(--ink-muted); font-size: 11px; transition: transform 0.15s; }
+.booth-title { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 auto; }
+.booth-caret { color: var(--ink-muted); font-size: 11px; transition: transform 0.15s; flex: none; }
 details[open] .booth-caret { transform: rotate(90deg); }
-.booth-name { font-family: Georgia, "Iowan Old Style", serif; font-weight: 600; font-size: 16px; }
-.booth-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-muted); }
+.booth-name {
+  font-family: Georgia, "Iowan Old Style", serif; font-weight: 600;
+  font-size: clamp(14.5px, 3.8vw, 16px); min-width: 0; overflow-wrap: break-word;
+}
+.booth-meta {
+  display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-muted);
+  flex-wrap: wrap;
+}
+@media (max-width: 460px) {
+  .booth-meta { width: 100%; padding-left: 50px; }
+}
 .item-count { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--ink-muted); }
 
 .booth-thumb {
@@ -199,11 +360,11 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .rating.unrated { color: var(--ink-muted); font-size: 12px; font-style: italic; }
 
 .booth-photo {
-  width: 100%; max-height: 240px; object-fit: cover; display: block;
+  width: 100%; max-height: clamp(160px, 40vw, 240px); object-fit: cover; display: block;
   border-bottom: 1px solid var(--border);
 }
 
-.reviews-section { border-top: 1px solid var(--border); padding: 14px 16px; background: var(--surface-2); }
+.reviews-section { border-top: 1px solid var(--border); padding: 13px 14px; background: var(--surface-2); }
 .reviews-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .reviews-head h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; }
 .review-list { display: flex; flex-direction: column; gap: 8px; }
@@ -212,9 +373,9 @@ details[open] .booth-caret { transform: rotate(90deg); }
   padding: 10px 12px; font-size: 13px;
 }
 .review-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-.review-who { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.review-who { display: flex; align-items: center; gap: 8px; font-weight: 600; flex-wrap: wrap; min-width: 0; }
 .review-date { color: var(--ink-muted); font-size: 11.5px; font-family: ui-monospace, monospace; }
-.review-text { color: var(--ink); line-height: 1.5; }
+.review-text { color: var(--ink); line-height: 1.5; overflow-wrap: break-word; }
 .review-rec {
   font-size: 10px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
   padding: 2px 7px; border-radius: 20px;
@@ -228,8 +389,8 @@ details[open] .booth-caret { transform: rotate(90deg); }
 
 .item-table { border-top: 1px solid var(--border); }
 .item-row {
-  display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: baseline;
-  padding: 9px 16px; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: baseline;
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
 }
 .item-row:last-child { border-bottom: none; }
 .item-row:nth-child(even) { background: var(--surface-2); }
@@ -238,7 +399,7 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .cat-dot.alcoholic_beverage { background: var(--accent); }
 .cat-dot.non_alcoholic_beverage { background: var(--ink-muted); }
 .item-main { min-width: 0; }
-.item-name { font-size: 13.5px; }
+.item-name { font-size: 13.5px; overflow-wrap: break-word; }
 .item-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
 .tag {
   font-size: 10px; padding: 2px 7px; border-radius: 20px; background: var(--gold-soft);
@@ -251,20 +412,20 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .conflict-list { display: flex; flex-direction: column; gap: 8px; }
 .conflict {
   background: var(--warn-soft); border: 1px solid var(--warn); border-radius: 8px;
-  padding: 10px 14px; font-size: 13px; display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 13px; font-size: 13px; display: flex; gap: 10px; align-items: flex-start;
+  flex-wrap: wrap;
 }
 .conflict-badge {
   flex: none; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
   color: var(--warn); background: var(--surface); border: 1px solid var(--warn);
   padding: 2px 7px; border-radius: 20px; margin-top: 1px;
 }
-.conflict-text { color: var(--ink); }
+.conflict-text { color: var(--ink); overflow-wrap: break-word; }
 .conflict-text b { font-weight: 600; }
-.conflict-sub { color: var(--ink-muted); font-size: 12px; margin-top: 2px; }
 
 /* ---------- runs / footer ---------- */
 .run-row {
-  display: flex; justify-content: space-between; gap: 12px; padding: 9px 14px;
+  display: flex; justify-content: space-between; gap: 10px; padding: 10px 13px;
   border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap;
 }
 .run-row:last-child { border-bottom: none; }
@@ -274,36 +435,59 @@ details[open] .booth-caret { transform: rotate(90deg); }
 }
 
 footer {
-  margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--border);
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);
   font-size: 12.5px; color: var(--ink-muted); display: flex; justify-content: space-between;
-  gap: 12px; flex-wrap: wrap;
+  gap: 10px; flex-wrap: wrap;
 }
-.empty-state { padding: 28px; text-align: center; color: var(--ink-muted); font-size: 13.5px; }
+.empty-state { padding: 26px; text-align: center; color: var(--ink-muted); font-size: 13.5px; }
 
-.overflow-x { overflow-x: auto; }
+.overflow-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+</head>
+<body>
 
 <div class="wrap">
-  <h2 class="sr-only">Interactive browser of the crawled Epcot Food &amp; Wine Festival database: booths, menu items, data sources, and open review conflicts.</h2>
+  <h2 class="sr-only">Interactive browser of the crawled Epcot Food &amp; Wine Festival database: booths, menu items, data sources, open review conflicts, and data-quality change tracking.</h2>
 
   <header class="top">
     <div class="eyebrow">Live database snapshot</div>
     <h1 class="display">Epcot Food &amp; Wine — Data Ledger</h1>
     <p class="subtitle">
       <b>__FESTIVAL_NAME__</b> · __FESTIVAL_DATES__ · __FESTIVAL_STATUS__.
-      Crawled from __ENABLED_COUNT__ of 7 sources, last run __LAST_RUN__.
+      Crawled from __ENABLED_COUNT__ of __SOURCE_TOTAL__ sources, last run __LAST_RUN__.
     </p>
   </header>
 
   <div class="stats">
     <div class="stat accent"><div class="num mono">__BOOTH_COUNT__</div><div class="label">Booths</div></div>
     <div class="stat accent"><div class="num mono">__ITEM_COUNT__</div><div class="label">Menu items</div></div>
-    <div class="stat"><div class="num mono">__ENABLED_COUNT__/7</div><div class="label">Sources enabled</div></div>
+    <div class="stat"><div class="num mono">__ENABLED_COUNT__/__SOURCE_TOTAL__</div><div class="label">Sources enabled</div></div>
     <div class="stat warn"><div class="num mono">__CONFLICT_COUNT__</div><div class="label">Open for review</div></div>
     <div class="stat"><div class="num mono">__PRICED_COUNT__</div><div class="label">Items priced</div></div>
     <div class="stat accent"><div class="num mono">__REVIEW_COUNT__</div><div class="label">Reviews mined</div></div>
   </div>
+
+  <section id="change-section">
+    <div class="section-head">
+      <h2 class="display">What changed</h2>
+      <span class="section-note">__CHANGE_NOTE__</span>
+    </div>
+    <div class="panel">
+      __CHANGE_BANNER__
+      __CHANGE_ROWS__
+    </div>
+  </section>
+
+  <section id="confidence-section">
+    <div class="section-head">
+      <h2 class="display">Pipeline confidence</h2>
+      <span class="section-note">How much of the code producing these numbers is covered by tests</span>
+    </div>
+    <div class="panel">
+      __CONFIDENCE_BODY__
+    </div>
+  </section>
 
   <section id="sources-section">
     <div class="section-head">
@@ -347,7 +531,7 @@ footer {
 
   <footer>
     <span>epcot_fw · PostgreSQL + FastAPI · <code class="mono">epcot-fw refresh</code> runs weekly</span>
-    <span id="generated-at"></span>
+    <span id="generated-at">Built __GENERATED_AT__</span>
   </footer>
 </div>
 
@@ -396,28 +580,6 @@ footer {
     b.items.forEach(function (it) { allItems.push(it); });
   });
   var pricedCount = allItems.filter(function (it) { return it.price !== null && it.price !== undefined; }).length;
-  var enabledCount = DATA.sources.filter(function (s) { return s.enabled; }).length;
-  var lastRun = DATA.runs && DATA.runs[0];
-
-  document.getElementById('generated-at').textContent = 'Snapshot rendered ' + new Date().toLocaleString();
-
-  // ---- header stat fill-ins ----
-  document.title = 'Epcot Food & Wine — Data Ledger';
-  document.querySelector('.subtitle').innerHTML =
-    '<b>' + escapeHtml(DATA.festival.name) + '</b> · ' +
-    fmtDate(DATA.festival.start) + '–' + fmtDate(DATA.festival.end) + ' · ' +
-    escapeHtml(DATA.festival.status) + '. Crawled from ' + enabledCount + ' of 7 sources' +
-    (lastRun ? ', last run ' + fmtDateTime(lastRun.started_at) + '.' : '.');
-
-  var totalReviews = DATA.booths.reduce(function (sum, b) { return sum + (b.review_count || 0); }, 0);
-
-  var stats = document.querySelectorAll('.stat .num');
-  stats[0].textContent = DATA.booths.length;
-  stats[1].textContent = allItems.length;
-  stats[2].textContent = enabledCount + '/7';
-  stats[3].textContent = DATA.conflicts.length;
-  stats[4].textContent = pricedCount + ' / ' + allItems.length;
-  stats[5].textContent = totalReviews;
 
   document.getElementById('preseason-note').textContent =
     pricedCount === 0
@@ -443,6 +605,16 @@ footer {
   var tagChips = document.getElementById('tag-chips');
   var extraChips = document.getElementById('extra-chips');
 
+  function makeChip(container, label, onClick) {
+    var chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.textContent = label;
+    chip.addEventListener('click', onClick);
+    container.appendChild(chip);
+    return chip;
+  }
+
   var ratedChip = makeChip(extraChips, '★ Rated', function () {
     state.ratedOnly = !state.ratedOnly;
     ratedChip.classList.toggle('active', state.ratedOnly);
@@ -453,16 +625,6 @@ footer {
     photoChip.classList.toggle('active', state.photoOnly);
     render();
   });
-
-  function makeChip(container, label, onClick) {
-    var chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'chip';
-    chip.textContent = label;
-    chip.addEventListener('click', onClick);
-    container.appendChild(chip);
-    return chip;
-  }
 
   var catChipEls = {};
   ['food', 'alcoholic_beverage', 'non_alcoholic_beverage'].forEach(function (cat) {
@@ -649,21 +811,177 @@ footer {
   }
 })();
 </script>
+</body>
+</html>
 """
 
-html = TEMPLATE
-html = html.replace("__FESTIVAL_NAME__", data["festival"]["name"])
-html = html.replace("__FESTIVAL_DATES__", "placeholder")
-html = html.replace("__FESTIVAL_STATUS__", "placeholder")
-html = html.replace("__ENABLED_COUNT__", "placeholder")
-html = html.replace("__LAST_RUN__", "placeholder")
-html = html.replace("__BOOTH_COUNT__", "placeholder")
-html = html.replace("__ITEM_COUNT__", "placeholder")
-html = html.replace("__CONFLICT_COUNT__", "placeholder")
-html = html.replace("__PRICED_COUNT__", "placeholder")
-html = html.replace("__DATA_JSON__", json.dumps(data))
+
+def esc(value) -> str:
+    return html.escape(str(value), quote=True)
+
+
+def fmt_date(iso: str | None) -> str:
+    if not iso:
+        return "date TBC"
+    try:
+        return datetime.date.fromisoformat(iso[:10]).strftime("%b %-d, %Y")
+    except ValueError:
+        return iso
+
+
+def fmt_datetime(iso: str | None) -> str:
+    if not iso:
+        return "never"
+    try:
+        return datetime.datetime.fromisoformat(iso).strftime("%b %-d, %Y")
+    except ValueError:
+        return iso
+
+
+def render_change_rows(rows: list[dict]) -> str:
+    out = []
+    for row in rows:
+        if row["delta"] is None:
+            chip = '<span class="delta-chip none">—</span>'
+        elif row["delta"] == 0:
+            chip = '<span class="delta-chip same">no change</span>'
+        else:
+            sign = "+" if row["delta"] > 0 else "−"
+            chip = (
+                f'<span class="delta-chip {row["verdict"]}">{sign}{abs(row["delta"])}</span>'
+            )
+
+        sub = ""
+        if row["current_pct"] is not None:
+            sub = f'<span class="delta-sub">{row["current_pct"]}% coverage'
+            if row["previous_pct"] is not None and row["previous_pct"] != row["current_pct"]:
+                sub += f' (was {row["previous_pct"]}%)'
+            sub += "</span>"
+
+        out.append(
+            '<div class="delta-row">'
+            f'<span class="delta-label">{esc(row["label"])}{sub}</span>'
+            f'<span class="delta-value">{row["current"]}</span>'
+            f"{chip}"
+            "</div>"
+        )
+    return "".join(out)
+
+
+def render_confidence(pipe: dict) -> str:
+    baseline, current = pipe.get("baseline"), pipe.get("current")
+    if not current:
+        return '<div class="empty-state">No coverage measurement recorded yet.</div>'
+
+    def block(title: str, key: str, suffix: str = "") -> str:
+        after = current.get(key)
+        before = baseline.get(key) if baseline else None
+        before_html = (
+            f'<span class="confidence-before">{before}{suffix}</span>'
+            f'<span class="confidence-arrow">→</span>'
+            if before is not None
+            else ""
+        )
+        meter = ""
+        if key == "coverage_pct" and isinstance(after, (int, float)):
+            meter = f'<div class="meter"><span style="width:{min(after, 100)}%"></span></div>'
+        return (
+            '<div class="confidence-metric">'
+            f"<h4>{esc(title)}</h4>"
+            f'<div class="confidence-nums">{before_html}'
+            f'<span class="confidence-after">{after}{suffix}</span></div>'
+            f"{meter}"
+            "</div>"
+        )
+
+    covered = current.get("covered_lines")
+    statements = current.get("num_statements")
+    foot = (
+        f'<div class="confidence-foot">{covered} of {statements} statements in '
+        f"<code>epcot_fw</code> executed by the suite"
+    )
+    if baseline:
+        foot += (
+            f' · baseline measured at commit <code>{esc(baseline.get("commit", "?"))}</code>'
+        )
+    if current.get("commit"):
+        foot += f' · current at <code>{esc(current["commit"])}</code>'
+    foot += "</div>"
+
+    return (
+        '<div class="confidence-grid">'
+        + block("Line coverage", "coverage_pct", "%")
+        + block("Tests", "tests")
+        + "</div>"
+        + foot
+    )
+
+
+festival = data.get("festival") or {}
+counts = current_entry["data"]
+source_total = len(data.get("sources") or [])
+last_run_at = (data.get("runs") or [{}])[0].get("started_at")
+
+if previous_entry:
+    change_note = f"Compared with the snapshot recorded {fmt_datetime(previous_entry.get('recorded_at'))}"
+    change_banner = ""
+else:
+    change_note = "Baseline snapshot"
+    change_banner = (
+        '<div class="panel-banner">'
+        "<b>This is the first tracked snapshot.</b> Its metrics are now the baseline — "
+        "gains and losses will appear here from the next crawl onward."
+        "</div>"
+    )
+
+html_out = TEMPLATE
+replacements = {
+    "__FESTIVAL_NAME__": esc(festival.get("name", "Festival")),
+    "__FESTIVAL_DATES__": f"{fmt_date(festival.get('start'))} – {fmt_date(festival.get('end'))}",
+    "__FESTIVAL_STATUS__": esc(festival.get("status", "unknown")),
+    "__ENABLED_COUNT__": str(counts["sources_enabled"]),
+    "__SOURCE_TOTAL__": str(source_total),
+    "__LAST_RUN__": fmt_datetime(last_run_at),
+    "__BOOTH_COUNT__": str(counts["booths"]),
+    "__ITEM_COUNT__": str(counts["menu_items"]),
+    "__CONFLICT_COUNT__": str(counts["open_conflicts"]),
+    "__PRICED_COUNT__": f"{counts['items_priced']} / {counts['menu_items']}",
+    "__REVIEW_COUNT__": str(counts["reviews"]),
+    "__CHANGE_NOTE__": esc(change_note),
+    "__CHANGE_BANNER__": change_banner,
+    "__CHANGE_ROWS__": render_change_rows(diff_rows),
+    "__CONFIDENCE_BODY__": render_confidence(pipeline),
+    "__GENERATED_AT__": datetime.datetime.now(datetime.UTC).strftime("%b %-d, %Y"),
+}
+for token, value in replacements.items():
+    html_out = html_out.replace(token, value)
+
+# Substituted last: the snapshot blob can itself contain "__"-style tokens in
+# scraped text, and replacing it first would let those be rewritten.
+html_out = html_out.replace("__DATA_JSON__", json.dumps(data))
 
 DOCS_DIR.mkdir(exist_ok=True)
 out_path = DOCS_DIR / "index.html"
-out_path.write_text(html)
-print("wrote", out_path, len(html), "bytes")
+out_path.write_text(html_out)
+print(f"wrote {out_path} ({len(html_out)} bytes)")
+print(f"history: {len(history)} snapshot(s), previous={'yes' if previous_entry else 'none (baseline)'}")
+
+# Icons and the manifest are copied rather than inlined: iOS ignores data:
+# URIs for apple-touch-icon, so "Add to Home Screen" needs real files sitting
+# next to index.html. Copying on every build keeps docs/ a pure build output.
+copied = 0
+if ASSETS_DIR.is_dir():
+    shutil.copytree(ASSETS_DIR / "icons", DOCS_DIR / "icons", dirs_exist_ok=True)
+    copied = len(list((DOCS_DIR / "icons").iterdir()))
+    shutil.copy2(ASSETS_DIR / "manifest.json", DOCS_DIR / "manifest.json")
+    print(f"copied {copied} icon file(s) + manifest.json into {DOCS_DIR}")
+
+# A missing icon silently degrades to a blank home-screen tile, so fail loudly
+# instead of shipping a build whose <link> targets aren't there.
+missing = [
+    ref
+    for ref in ("icons/favicon.ico", "icons/icon.svg", "icons/apple-touch-icon.png", "manifest.json")
+    if not (DOCS_DIR / ref).exists()
+]
+if missing:
+    raise SystemExit(f"referenced asset(s) missing from {DOCS_DIR}: {', '.join(missing)}")
