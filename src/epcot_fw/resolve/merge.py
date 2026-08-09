@@ -1,7 +1,7 @@
 import datetime
 import re
 from decimal import Decimal
-from typing import Any
+from typing import Any, Literal
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -258,6 +258,93 @@ def _write_and_resolve_field(
     return resolution
 
 
+def apply_match_outcome(
+    session: Session,
+    extracted_record: ExtractedRecord,
+    source: Source,
+    *,
+    entity_type: str,
+    outcome: Literal["auto_merge", "new_entity"],
+    canonical_id: int | None,
+    booth_id: int | None,
+    match_score: float | None,
+    match_method: str,
+    festival_id: int,
+) -> int:
+    """Finish resolving one extracted_record given an *already-decided*
+    match outcome: create its CanonicalLink, then copy every mapped payload
+    field into the canonical entity through the normal per-field
+    provenance/resolution path (so a later disagreement on one of these
+    fields is tracked exactly like any other).
+
+    `outcome="new_entity"` ignores `canonical_id` and creates a fresh
+    canonical row instead. Returns the canonical_id that ended up linked
+    (existing or newly created).
+
+    This is the shared tail of `resolve_extracted_record()` below (called
+    once the automatic fuzzy matcher is confident enough to decide on its
+    own) and of `agents.conflict_triage.accept_suggestion()` (called once a
+    human or the triage agent has decided on a record the matcher couldn't
+    call confidently by itself).
+    """
+    payload = extracted_record.payload
+    name = payload.get(NAME_PAYLOAD_KEY[entity_type])
+
+    if outcome == "new_entity":
+        model_obj = _create_new(entity_type, festival_id=festival_id, booth_id=booth_id, name=name)
+        session.add(model_obj)
+        session.flush()
+        canonical_id = model_obj.id
+    else:
+        model_obj = session.get(ENTITY_MODEL[entity_type], canonical_id)
+
+    session.add(
+        CanonicalLink(
+            entity_type=entity_type,
+            canonical_id=canonical_id,
+            extracted_record_id=extracted_record.id,
+            source_id=source.id,
+            match_confidence=match_score,
+            match_method=match_method,
+            matched_at=datetime.datetime.now(datetime.UTC),
+        )
+    )
+
+    observed_at = extracted_record.extracted_at
+    for payload_key, field_name in FIELD_MAP[entity_type].items():
+        raw_value = payload.get(payload_key)
+        if raw_value is None:
+            continue
+        resolution = _write_and_resolve_field(
+            session,
+            entity_type=entity_type,
+            canonical_id=canonical_id,
+            field_name=field_name,
+            source=source,
+            extracted_record=extracted_record,
+            raw_value=raw_value,
+            observed_at=observed_at,
+        )
+        if resolution.value is not None:
+            setattr(model_obj, field_name, _coerce(type(model_obj), field_name, resolution.value))
+
+    if entity_type == "menu_item" and payload.get("dietary_tags"):
+        resolution = _write_and_resolve_field(
+            session,
+            entity_type=entity_type,
+            canonical_id=canonical_id,
+            field_name="dietary_tags",
+            source=source,
+            extracted_record=extracted_record,
+            raw_value=payload.get("dietary_tags") or [],
+            observed_at=observed_at,
+        )
+        _sync_dietary_tags(session, model_obj, resolution.value or [])
+
+    session.flush()
+    return canonical_id
+
+
 def resolve_extracted_record(
     session: Session,
     extracted_record: ExtractedRecord,
@@ -325,61 +412,19 @@ def resolve_extracted_record(
             )
         return
 
-    if match.outcome == "new_entity":
-        model_obj = _create_new(entity_type, festival_id=festival_id, booth_id=booth_id, name=name)
-        session.add(model_obj)
-        session.flush()
-        canonical_id = model_obj.id
-        match_method = "new"
-    else:
-        canonical_id = match.canonical_id
-        model_obj = session.get(ENTITY_MODEL[entity_type], canonical_id)
-        match_method = "fuzzy_name"
-
-    session.add(
-        CanonicalLink(
-            entity_type=entity_type,
-            canonical_id=canonical_id,
-            extracted_record_id=extracted_record.id,
-            source_id=source.id,
-            match_confidence=match.score,
-            match_method=match_method,
-            matched_at=datetime.datetime.now(datetime.UTC),
-        )
+    match_method = "new" if match.outcome == "new_entity" else "fuzzy_name"
+    apply_match_outcome(
+        session,
+        extracted_record,
+        source,
+        entity_type=entity_type,
+        outcome=match.outcome,
+        canonical_id=match.canonical_id,
+        booth_id=booth_id,
+        match_score=match.score,
+        match_method=match_method,
+        festival_id=festival_id,
     )
-
-    observed_at = extracted_record.extracted_at
-    for payload_key, field_name in FIELD_MAP[entity_type].items():
-        raw_value = payload.get(payload_key)
-        if raw_value is None:
-            continue
-        resolution = _write_and_resolve_field(
-            session,
-            entity_type=entity_type,
-            canonical_id=canonical_id,
-            field_name=field_name,
-            source=source,
-            extracted_record=extracted_record,
-            raw_value=raw_value,
-            observed_at=observed_at,
-        )
-        if resolution.value is not None:
-            setattr(model_obj, field_name, _coerce(type(model_obj), field_name, resolution.value))
-
-    if entity_type == "menu_item" and payload.get("dietary_tags"):
-        resolution = _write_and_resolve_field(
-            session,
-            entity_type=entity_type,
-            canonical_id=canonical_id,
-            field_name="dietary_tags",
-            source=source,
-            extracted_record=extracted_record,
-            raw_value=payload.get("dietary_tags") or [],
-            observed_at=observed_at,
-        )
-        _sync_dietary_tags(session, model_obj, resolution.value or [])
-
-    session.flush()
 
 
 def _sync_dietary_tags(session: Session, menu_item: MenuItem, codes: list[str]) -> None:
