@@ -31,7 +31,7 @@ class WdwMagicAdapter(SourceAdapter):
             SeedUrl(url=f"{BASE_URL}{NEWS_INDEX_PATH}", page_kind="blog_post"),
         ]
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         from epcot_fw.fetch.http_client import fetch
 
         result = fetch(f"{BASE_URL}{NEWS_INDEX_PATH}", crawl_delay_sec=5)

@@ -20,7 +20,7 @@ class WdwPrepSchoolAdapter(SourceAdapter):
         # individual festival-related posts as they're published.
         return []
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         return rss_discover(FEED_URL, since, crawl_delay_sec=5)
 
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:

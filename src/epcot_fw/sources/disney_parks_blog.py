@@ -18,7 +18,7 @@ class DisneyParksBlogAdapter(SourceAdapter):
     def seed_urls(self, festival_year: int) -> list[SeedUrl]:
         return []
 
-    def discover_new_urls(self, since: datetime.datetime) -> list[SeedUrl]:
+    def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         return rss_discover(FEED_URL, since, crawl_delay_sec=8)
 
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:

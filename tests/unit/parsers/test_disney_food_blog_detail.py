@@ -123,7 +123,9 @@ def test_hub_page_still_parses_as_before_and_yields_no_images():
 
 
 def test_detail_seeds_are_discovered_from_the_real_hub_fixture():
-    seeds = DisneyFoodBlogAdapter()._detail_seeds(HUB_FIXTURE.read_text())
+    # The captured hub links to the 2025 posts, so 2025 is the year that
+    # actually has seeds in this fixture.
+    seeds = DisneyFoodBlogAdapter()._detail_seeds(HUB_FIXTURE.read_text(), 2025)
 
     assert len(seeds) > 25
     assert all(s.page_kind == "booth_detail" for s in seeds)
@@ -136,7 +138,7 @@ def test_discovered_seeds_round_trip_back_to_their_booth_names():
     """Every discovered URL must yield a booth name, otherwise its photos
     would be silently dropped by _parse_booth_detail."""
     adapter = DisneyFoodBlogAdapter()
-    seeds = adapter._detail_seeds(HUB_FIXTURE.read_text())
+    seeds = adapter._detail_seeds(HUB_FIXTURE.read_text(), 2025)
 
     unnamed = [
         s.url
@@ -144,3 +146,37 @@ def test_discovered_seeds_round_trip_back_to_their_booth_names():
         if not adapter.parse(DETAIL_HTML, s.url, "booth_detail")
     ]
     assert unnamed == []
+
+
+def test_prior_years_photo_posts_are_not_discovered():
+    """The undated hub keeps serving last season's line-up until the new one
+    is published. Booth and dish names repeat year to year, so ingesting those
+    posts would quietly attach last year's plates to this year's dishes and
+    read as success rather than as no-data-yet."""
+    seeds = DisneyFoodBlogAdapter()._detail_seeds(HUB_FIXTURE.read_text(), 2026)
+    assert seeds == []
+
+
+def test_only_the_requested_year_is_kept_when_years_are_mixed():
+    html = (
+        "<article>"
+        '<p><a href="https://www.disneyfoodblog.com/the-alps-2025-epcot-food-and-wine-festival/">'
+        "The Alps</a> <— CLICK TO SEE PHOTOS OF MENU ITEMS!</p>"
+        '<p><a href="https://www.disneyfoodblog.com/belgium-2026-epcot-food-and-wine-festival/">'
+        "Belgium</a> <— CLICK TO SEE PHOTOS OF MENU ITEMS!</p>"
+        "</article>"
+    )
+    seeds = DisneyFoodBlogAdapter()._detail_seeds(html, 2026)
+    assert [s.url for s in seeds] == [
+        "https://www.disneyfoodblog.com/belgium-2026-epcot-food-and-wine-festival/"
+    ]
+
+
+def test_links_that_are_not_photo_posts_are_ignored():
+    html = (
+        "<article>"
+        '<p><a href="https://www.disneyfoodblog.com/some-unrelated-post/">Thing</a>'
+        " <— CLICK TO SEE PHOTOS OF MENU ITEMS!</p>"
+        "</article>"
+    )
+    assert DisneyFoodBlogAdapter()._detail_seeds(html, 2026) == []

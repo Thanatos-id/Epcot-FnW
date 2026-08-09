@@ -74,7 +74,7 @@ def run_refresh(
 
         seeds = list(adapter.seed_urls(festival.year))
         try:
-            seeds.extend(adapter.discover_new_urls(since))
+            seeds.extend(adapter.discover_new_urls(since, festival.year))
         except Exception:
             logger.exception("discover_new_urls failed for %s", source.key)
 
