@@ -121,13 +121,15 @@ def test_review_lists_open_conflicts(cli_session_factory):
 
     result = runner.invoke(cli_main.app, ["review"])
     assert result.exit_code == 0
-    assert "1 open conflict(s) shown" in result.stdout
+    # The trailing "(open, suggested)" echoes the --status filter, so match on
+    # the count alone rather than pinning this to the default status set.
+    assert "1 conflict(s) shown" in result.stdout
 
 
 def test_review_with_no_open_conflicts(cli_session_factory):
     result = runner.invoke(cli_main.app, ["review"])
     assert result.exit_code == 0
-    assert "0 open conflict(s) shown" in result.stdout
+    assert "0 conflict(s) shown" in result.stdout
 
 
 def test_db_seed_command_invokes_seed(cli_session_factory, monkeypatch):
