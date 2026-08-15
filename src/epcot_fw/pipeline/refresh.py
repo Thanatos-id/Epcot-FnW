@@ -14,6 +14,7 @@ from epcot_fw.pipeline.crawl import (
     _sum_stats,
 )
 from epcot_fw.pipeline.manual import stage_manual_overrides
+from epcot_fw.pipeline.reconcile import run_reconciliation
 from epcot_fw.pipeline.resolve_pipeline import run_resolve
 from epcot_fw.sources.registry import SOURCE_REGISTRY
 
@@ -86,6 +87,7 @@ def run_refresh(
     totals["manual_overrides"] = stage_manual_overrides(session)
     resolve_stats = run_resolve(session, festival_id=festival.id)
     totals.update(resolve_stats)
+    totals.update(run_reconciliation(session, festival_id=festival.id).as_dict())
 
     if run_triage:
         triage_stats = run_conflict_triage(session)

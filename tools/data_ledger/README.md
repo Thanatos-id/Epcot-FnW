@@ -46,6 +46,15 @@ whose slug names a different year — the undated hub keeps serving last
 season's line-up until the new one is published, and ingesting it would
 attach last year's plates to this year's dishes.
 
+## Retired entities
+
+The export counts only `is_active` booths and dishes, matching what
+`/api/v1/snapshot` serves. When a new season's lineup lands, anything the
+sources have stopped listing is retired by `pipeline/reconcile.py`, so the
+booth and menu-item rows in *What changed* can legitimately go **down** at a
+season boundary. That is a correction, not data loss — the rows are still in
+the database, just no longer part of the running festival.
+
 ## Pipeline confidence
 
 `pipeline_metrics.json` holds the test-coverage readings shown in the
