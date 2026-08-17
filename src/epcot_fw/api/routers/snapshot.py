@@ -53,8 +53,13 @@ def _rating_index(db: Session, booth_ids: list[int]) -> dict[int, tuple[float, i
 
 
 def build_snapshot(db: Session, festival: Festival) -> dict:
+    # Retired entities are excluded: this payload is what a client shows a
+    # guest standing in the park, and a booth that stopped running would
+    # send them somewhere that isn't there. See pipeline/reconcile.py.
     booths = db.scalars(
-        select(Booth).where(Booth.festival_id == festival.id).order_by(Booth.canonical_name)
+        select(Booth)
+        .where(Booth.festival_id == festival.id, Booth.is_active.is_(True))
+        .order_by(Booth.canonical_name)
     ).all()
     booth_ids = [b.id for b in booths]
     ratings = _rating_index(db, booth_ids)
@@ -70,7 +75,7 @@ def build_snapshot(db: Session, festival: Festival) -> dict:
     items = (
         db.scalars(
             select(MenuItem)
-            .where(MenuItem.booth_id.in_(booth_ids))
+            .where(MenuItem.booth_id.in_(booth_ids), MenuItem.is_active.is_(True))
             .options(selectinload(MenuItem.dietary_tags))
             .order_by(MenuItem.canonical_name)
         ).all()

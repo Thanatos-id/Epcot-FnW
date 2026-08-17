@@ -34,7 +34,14 @@ def _default(o):
 def export() -> None:
     with SessionLocal() as session:
         festival = session.query(Festival).first()
-        booths = session.query(Booth).order_by(Booth.canonical_name).all()
+        # Mirror what the API serves - retired booths/dishes are no longer
+        # part of this festival, so the ledger should not count them.
+        booths = (
+            session.query(Booth)
+            .filter_by(is_active=True)
+            .order_by(Booth.canonical_name)
+            .all()
+        )
 
         rating_rows = session.execute(
             select(Review.entity_id, func.avg(Review.rating), func.count(Review.id))
@@ -45,7 +52,7 @@ def export() -> None:
 
         booth_data = []
         for b in booths:
-            items = session.query(MenuItem).filter_by(booth_id=b.id).all()
+            items = session.query(MenuItem).filter_by(booth_id=b.id, is_active=True).all()
             avg, count = rating_by_booth.get(b.id, (None, 0))
             reviews = (
                 session.query(Review)
