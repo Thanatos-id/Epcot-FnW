@@ -10,3 +10,7 @@ data/html_fixtures_export/
 .DS_Store
 .claude/
 tools/data_ledger/epcot_db_snapshot.json
+
+# A nested git repo picked up as a broken gitlink (no .gitmodules, commit not in
+# this repo). Keep it out until it is either a real submodule or its own project.
+Epcot Events/
