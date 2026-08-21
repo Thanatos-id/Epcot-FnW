@@ -8,17 +8,79 @@
     "`epcot-fw manual apply`, and automatically at the start of crawl/refresh.",
     "",
     "`name` is matched fuzzily against booths for the current festival, exactly the",
-    "way a crawled record is, so it does not have to be byte-identical to the",
-    "canonical name. A name that matches nothing confidently is reported rather than",
-    "guessed at.",
+    "way a crawled record is, so it does not have to be byte-identical.",
     "",
-    "Every field except `name` is optional - omit what you have not surveyed rather",
-    "than writing a placeholder, because a null is never merged but a wrong number",
-    "is. Coordinates are decimal degrees (WGS84); ~5 decimal places is about a",
-    "metre, which is far more than enough to sort booths by distance.",
+    "location_precision says what the coordinate is worth:",
+    "  surveyed - a GPS fix taken standing at the booth. Metres.",
+    "  anchored - the published coordinate of the pavilion the booth is named",
+    "             after, standing in until someone surveys it. 30-50m, which is",
+    "             enough to place a booth on the right side of World Showcase and",
+    "             not enough to order two booths near each other.",
     "",
-    "Booth positions are stable season to season, so this file is worth surveying",
-    "once and keeping."
+    "The anchored entries below come from the Wikipedia/Wikidata coordinates for",
+    "each World Showcase pavilion (CC BY-SA). They are a floor, not an answer:",
+    "replace one with a surveyed fix and it wins on recency. Use docs/survey.html",
+    "on a phone in the park to capture them - it emits entries in this shape.",
+    "",
+    "Everything not named here has no coordinate at all yet, including Refreshment",
+    "Outpost, Brew-Wing Lab and every themed kiosk. Nothing publishes those."
   ],
-  "booths": []
+  "booths": [
+    {
+      "name": "Canada",
+      "latitude": 28.371483,
+      "longitude": -81.551311,
+      "location_precision": "anchored",
+      "location_description": "Canada pavilion, north end of World Showcase next to the United Kingdom"
+    },
+    {
+      "name": "China",
+      "latitude": 28.370000,
+      "longitude": -81.546110,
+      "location_precision": "anchored",
+      "location_description": "China pavilion, east side of World Showcase between Norway and Germany"
+    },
+    {
+      "name": "France",
+      "latitude": 28.368936,
+      "longitude": -81.552774,
+      "location_precision": "anchored",
+      "location_description": "France pavilion, west side of World Showcase between Morocco and the United Kingdom"
+    },
+    {
+      "name": "Germany",
+      "latitude": 28.368060,
+      "longitude": -81.546940,
+      "location_precision": "anchored",
+      "location_description": "Germany pavilion, east side of World Showcase between China and Italy"
+    },
+    {
+      "name": "Italy",
+      "latitude": 28.367500,
+      "longitude": -81.548330,
+      "location_precision": "anchored",
+      "location_description": "Italy pavilion, south-east side of World Showcase between Germany and The American Adventure"
+    },
+    {
+      "name": "Japan",
+      "latitude": 28.367443,
+      "longitude": -81.550527,
+      "location_precision": "anchored",
+      "location_description": "Japan pavilion, south-west side of World Showcase between The American Adventure and Morocco"
+    },
+    {
+      "name": "Mexico",
+      "latitude": 28.371436,
+      "longitude": -81.547448,
+      "location_precision": "anchored",
+      "location_description": "Mexico pavilion, north-east end of World Showcase"
+    },
+    {
+      "name": "Tangierine Cafe: Flavors of the Medina",
+      "latitude": 28.368060,
+      "longitude": -81.551670,
+      "location_precision": "anchored",
+      "location_description": "Morocco pavilion, west side of World Showcase between Japan and France"
+    }
+  ]
 }

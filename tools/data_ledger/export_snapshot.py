@@ -49,6 +49,12 @@ def export() -> None:
                     "name": b.canonical_name,
                     "category": b.category,
                     "image_url": b.image_url,
+                    # Carried so build_survey.py can show what is already
+                    # placed and what still needs walking to.
+                    "latitude": b.latitude,
+                    "longitude": b.longitude,
+                    "location_precision": b.location_precision,
+                    "location_description": b.location_description,
                     "items": [
                         {
                             "name": it.canonical_name,

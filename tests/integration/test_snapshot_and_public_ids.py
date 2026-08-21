@@ -33,6 +33,7 @@ def _seed(db_session):
         longitude=-81.549472,
         location_description="World Showcase, near Germany",
     )
+    booth.location_precision = "surveyed"
     other = Booth(festival_id=festival_id, canonical_name="Australia", slug="australia")
     db_session.add_all([booth, other])
     db_session.flush()
@@ -145,9 +146,13 @@ def test_snapshot_carries_coordinates_for_the_map_and_the_nearest_sort(db_sessio
         assert float(alps["longitude"]) == -81.549472
         assert alps["location_description"] == "World Showcase, near Germany"
 
+        assert alps["location_precision"] == "surveyed"
+
         australia = next(b for b in body["booths"] if b["canonical_name"] == "Australia")
         assert australia["latitude"] is None
         assert australia["longitude"] is None
+        # No coordinate means no grade to report - not a default of "surveyed".
+        assert australia["location_precision"] is None
     finally:
         app.dependency_overrides.clear()
 

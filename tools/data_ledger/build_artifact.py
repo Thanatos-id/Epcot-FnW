@@ -19,6 +19,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
+import build_survey  # noqa: E402
 import metrics  # noqa: E402
 
 TOOL_DIR = pathlib.Path(__file__).parent
@@ -422,6 +423,13 @@ footer {
 }
 .empty-state { padding: 26px; text-align: center; color: var(--ink-muted); font-size: 13.5px; }
 
+.survey-link {
+  display: inline-block; font-weight: 600; color: var(--accent); text-decoration: none;
+  border: 1px solid var(--accent); border-radius: 8px; padding: 9px 14px; margin-right: 10px;
+  min-height: 44px; line-height: 24px;
+}
+.survey-link:hover, .survey-link:focus { background: var(--accent-soft); }
+
 .overflow-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -476,6 +484,24 @@ footer {
       <span class="section-note">Ranked by trust — used to break ties when sources disagree</span>
     </div>
     <div class="sources-grid" id="sources-grid"></div>
+  </section>
+
+  <section id="map-section">
+    <div class="section-head">
+      <h2 class="display">Putting booths on a map</h2>
+      <span class="section-note">Nobody publishes coordinates — these get surveyed on foot</span>
+    </div>
+    <div class="panel">
+      <p style="margin: 0 0 12px;">
+        Eight booths named for a World Showcase pavilion borrow that pavilion's published
+        coordinate, good to roughly 30–50&nbsp;m. <b>__UNPLACED_COUNT__</b> have no position at
+        all — no source publishes one, and seasonal kiosks never make it into OpenStreetMap.
+      </p>
+      <p style="margin: 0;">
+        <a class="survey-link" href="survey.html">Open the survey tool →</a>
+        <span class="section-note">One tap per booth while you're standing there.</span>
+      </p>
+    </div>
   </section>
 
   <section id="booths-section">
@@ -885,6 +911,12 @@ replacements = {
     "__CHANGE_ROWS__": render_change_rows(diff_rows),
     "__CONFIDENCE_BODY__": render_confidence(pipeline),
     "__GENERATED_AT__": datetime.datetime.now(datetime.UTC).strftime("%b %-d, %Y"),
+    # Counted off the survey page's own list rather than the raw snapshot, so
+    # the two pages cannot disagree about how much is left to walk. It drops
+    # the "Additional Festival Locations" heading, which is not a place.
+    "__UNPLACED_COUNT__": str(
+        sum(1 for b in build_survey.survey_booths(data) if b["latitude"] is None)
+    ),
 }
 for token, value in replacements.items():
     html_out = html_out.replace(token, value)
@@ -897,6 +929,14 @@ DOCS_DIR.mkdir(exist_ok=True)
 out_path = DOCS_DIR / "index.html"
 out_path.write_text(html_out)
 print(f"wrote {out_path} ({len(html_out)} bytes)")
+
+# Built here rather than as its own command so the two pages can never
+# disagree about which booths exist - a survey page listing last season's
+# lineup would send someone to a booth that isn't there.
+survey_path = DOCS_DIR / "survey.html"
+survey_html = build_survey.render(data)
+survey_path.write_text(survey_html)
+print(f"wrote {survey_path} ({len(survey_html)} bytes)")
 print(f"history: {len(history)} snapshot(s), previous={'yes' if previous_entry else 'none (baseline)'}")
 
 # Icons and the manifest are copied rather than inlined: iOS ignores data:
