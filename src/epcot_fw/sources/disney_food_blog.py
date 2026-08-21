@@ -30,6 +30,18 @@ _OPENING_SUFFIX_RE = re.compile(r"\s*[—–-]\s*[^—–]*\bopen(?:s|ing)?\b.*$
 # The category markers that separate a booth's food list from its drinks list.
 _CATEGORY_LABELS = {"food": "food", "beverages": "beverage", "beverage": "beverage"}
 
+# Roughly a third of the 2026 lines wrap the price inside the same <strong> as
+# the dish, in one of two shapes:
+#   "Fowles Farm to Table Shiraz, Upton Hills - $7.50"
+#   "Piraat 7 Strong Ale (New) - 6 oz $6.00 / 12 oz $9.75"
+# The price is already parsed into its own field and kept verbatim in the
+# description, so leaving it in the name only duplicates it - and worse, makes
+# the name (and the natural key derived from it) change whenever the price
+# does, which would stop the dish matching itself year to year or across
+# sources.
+_PRICE_SEPARATOR_RE = re.compile(r"\s+[—–-]\s+|,\s+")
+_TRAILING_PRICE_RE = re.compile(r"\s*\$\s?\d+(?:\.\d{1,2})?\s*$")
+
 # /the-alps-2025-epcot-food-and-wine-festival/     -> "the alps"
 # /australia-2025-epcot-food-and-wine-festival-2/  -> "australia"  (WordPress
 # appends -2 when a slug collides with a previous year's post)
@@ -100,6 +112,28 @@ def _h3_sections(article: Tag) -> list[tuple[str, list[Tag]]]:
     return sections
 
 
+def _strip_price_clause(name: str) -> str:
+    """Cut a trailing pricing clause off a dish name, leaving the dish.
+
+    Cuts at the last separator whose remainder mentions a price, so a name
+    that legitimately contains commas keeps them ("Loimer Lois Gruner
+    Veltliner, Niederosterreich, Austria" loses only ", $6.50"). A name that
+    is nothing but a price is left alone - there is no dish left in it, and an
+    empty name is worse than a noisy one.
+    """
+    cut = None
+    for match in _PRICE_SEPARATOR_RE.finditer(name):
+        if "$" in name[match.end() :]:
+            cut = match.start()
+    stripped = name[:cut] if cut is not None else name
+    stripped = _TRAILING_PRICE_RE.sub("", stripped)
+    # A line can separate the price with a lone dash the split above doesn't
+    # consume ("Harken Barrel Fermented Chardonnay -- $6.50"), which would
+    # otherwise leave the name ending in dangling punctuation.
+    stripped = stripped.strip().rstrip(",-–— ").strip()
+    return stripped or name
+
+
 def _inline_menu_item(li: Tag, booth_name: str, category: str) -> ExtractedRecordDTO | None:
     """One <li> from a 2026 booth list -> a menu_item record."""
     text = clean_text(li.get_text())
@@ -110,6 +144,7 @@ def _inline_menu_item(li: Tag, booth_name: str, category: str) -> ExtractedRecor
     name = clean_text(name_tag.get_text()) if name_tag else text
     if not name:
         return None
+    name = _strip_price_clause(name)
 
     prices = all_prices(text)
     tags = extract_dietary_tags(text)

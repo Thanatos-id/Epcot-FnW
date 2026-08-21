@@ -13,7 +13,11 @@ from pathlib import Path
 
 import pytest
 
-from epcot_fw.sources.disney_food_blog import BASE_URL, DisneyFoodBlogAdapter
+from epcot_fw.sources.disney_food_blog import (
+    BASE_URL,
+    DisneyFoodBlogAdapter,
+    _strip_price_clause,
+)
 
 FIXTURES = Path(__file__).parent.parent.parent / "fixtures/html_snapshots/disney_food_blog"
 HUB_2026 = FIXTURES / "booth_menus_hub_2026.html"
@@ -101,6 +105,45 @@ def test_a_drink_priced_by_glass_and_flight_records_the_smaller(records_2026):
     for item in multi:
         prices = [float(p) for p in _PRICE_RE.findall(item.payload["description"])]
         assert float(item.payload["price_usd"]) == min(prices)
+
+
+def test_no_dish_name_carries_its_price(records_2026):
+    """A third of the 2026 lines put the price inside the same <strong> as the
+    dish. Left there it duplicates a field we already parse, and it makes the
+    name - and the natural key built from it - change whenever the price does,
+    which would stop a dish matching itself across sources or seasons."""
+    for item in _items(records_2026):
+        assert "$" not in item.payload["name"]
+        assert not item.payload["name"].rstrip().endswith(("-", "–", "—", ","))
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Beer Flight – $12.75", "Beer Flight"),
+        ("Chilled Belgian Coffee (non-alcoholic) – $5.29", "Chilled Belgian Coffee (non-alcoholic)"),
+        ("Piraat 7 Strong Ale (New) – 6 oz $6.00 / 12 oz $9.75", "Piraat 7 Strong Ale (New)"),
+        # a name that legitimately contains commas keeps them
+        ("Loimer Lois Gruner Veltliner, Niederosterreich, Austria, $6.50",
+         "Loimer Lois Gruner Veltliner, Niederosterreich, Austria"),
+        # a hyphen inside a real name is not a separator
+        ("Apple-Mustard Relish Baguette", "Apple-Mustard Relish Baguette"),
+        # nothing but a price: a noisy name beats an empty one
+        ("$8.50", "$8.50"),
+    ],
+)
+def test_price_clauses_are_cut_without_taking_the_dish_with_them(raw, expected):
+    assert _strip_price_clause(raw) == expected
+
+
+def test_the_price_is_still_captured_after_the_name_is_cleaned(records_2026):
+    """The clause is removed from the name, not discarded - the number it
+    carried has to survive in price_usd, and the raw line in description."""
+    flights = [i for i in _items(records_2026) if i.payload["name"] == "Beer Flight"]
+    assert flights, "expected the Belgium beer flight in the real page"
+    for flight in flights:
+        assert flight.payload["price_usd"]
+        assert "$" in flight.payload["description"]
 
 
 def test_natural_keys_are_normalized_so_the_resolver_can_match(records_2026):
