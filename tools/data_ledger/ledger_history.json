@@ -27,8 +27,8 @@
       }
     },
     {
-      "recorded_at": "2026-08-21T22:47:24.687372+00:00",
-      "label": "2026-08-21T22:44:52.625496+00:00",
+      "recorded_at": "2026-08-21T23:10:42.995922+00:00",
+      "label": "2026-08-21T23:03:19.521615+00:00",
       "data": {
         "booths": 33,
         "menu_items": 228,
@@ -42,12 +42,12 @@
       },
       "pipeline": {
         "label": "Current",
-        "commit": "3828718",
-        "measured_at": "2026-08-21T22:47:24.647393+00:00",
-        "tests": 293,
-        "coverage_pct": 92.8,
-        "covered_lines": 2011,
-        "num_statements": 2167
+        "commit": "0c7a5a8",
+        "measured_at": "2026-08-21T23:10:18.881967+00:00",
+        "tests": 306,
+        "coverage_pct": 92.9,
+        "covered_lines": 2016,
+        "num_statements": 2169
       }
     }
   ]
