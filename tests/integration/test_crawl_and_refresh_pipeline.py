@@ -19,7 +19,8 @@ import pytest
 import respx
 from sqlalchemy.orm import Session
 
-from epcot_fw.db.models import Booth, CrawlRun, Festival, Source
+from epcot_fw.db.models import Booth, CrawlRun, Festival, RawPage, Source
+from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.schemas import ExtractedRecordDTO
 from epcot_fw.pipeline.crawl import run_full_crawl
 from epcot_fw.pipeline.refresh import run_refresh
@@ -35,7 +36,7 @@ class StubOkAdapter(SourceAdapter):
 
     def parse(self, raw_html, url, page_kind):
         return [
-            ExtractedRecordDTO(entity_type="booth", natural_key_hint="stub booth", payload={"name": "Stub Booth"})
+            ExtractedRecordDTO(entity_type="booth", natural_key_hint=normalize_name("Stub Booth"), payload={"name": "Stub Booth"})
         ]
 
 
@@ -54,7 +55,7 @@ class StubFlakyAdapter(SourceAdapter):
 
     def parse(self, raw_html, url, page_kind):
         return [
-            ExtractedRecordDTO(entity_type="booth", natural_key_hint="flaky booth", payload={"name": "Flaky Booth"})
+            ExtractedRecordDTO(entity_type="booth", natural_key_hint=normalize_name("Flaky Booth"), payload={"name": "Flaky Booth"})
         ]
 
 
@@ -191,3 +192,97 @@ def test_run_refresh_after_crawl_is_a_no_op_on_unchanged_pages(savepoint_session
         savepoint_session.query(CrawlRun).filter_by(run_type="refresh").one()
     )
     assert refresh_run.status == "success"
+
+
+# ---------------------------------------------------------------------------
+# Error responses must not be cached as content
+#
+# A live crawl hit this: AllEars started returning 403 on every page. Each
+# error body hashed as a change, superseded the last good copy, and parsed to
+# nothing - so every booth lost its supporting page at once and only the
+# reconciliation guard stopped the whole festival being retired.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("status", [403, 404, 429, 500, 503])
+def test_an_error_response_is_not_cached_as_content(savepoint_session, stub_registry, status):
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(return_value=httpx.Response(200, text="<html>good</html>"))
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        run_full_crawl(savepoint_session, confirm_tos=True)
+
+    good_pages = savepoint_session.query(RawPage).filter_by(url="https://stub-ok.test/booths").all()
+    assert len(good_pages) == 1
+    original_id, original_hash = good_pages[0].id, good_pages[0].content_hash
+
+    # The source now refuses us.
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(
+            return_value=httpx.Response(status, text="<html>Forbidden</html>")
+        )
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        totals = run_refresh(savepoint_session)
+
+    pages = savepoint_session.query(RawPage).filter_by(url="https://stub-ok.test/booths").all()
+    assert len(pages) == 1, "an error response must not create a raw_page"
+    assert pages[0].id == original_id
+    assert pages[0].content_hash == original_hash, "the good copy must be untouched"
+    assert pages[0].superseded_by_id is None, "an error page must never supersede a good one"
+    assert totals["errors"] >= 1
+
+
+def test_an_error_response_is_counted_as_an_error_not_a_fetch(savepoint_session, stub_registry):
+    """`pages_fetched: 10, errors: 0` while nothing parsed is exactly the
+    signal that misled us on the live run."""
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(return_value=httpx.Response(403, text="nope"))
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        totals = run_full_crawl(savepoint_session, confirm_tos=True)
+
+    assert totals["pages_fetched"] == 1, "only the successful page counts as fetched"
+    assert totals["errors"] == 2, "the 403 plus the robots-disallowed URL"
+    assert totals["pages_changed"] == 1
+
+
+def test_a_successful_response_still_supersedes_a_stale_page(savepoint_session, stub_registry):
+    """Guard against over-correcting: real content must still replace old."""
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(return_value=httpx.Response(200, text="<html>v1</html>"))
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        run_full_crawl(savepoint_session, confirm_tos=True)
+
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(return_value=httpx.Response(200, text="<html>v2 changed</html>"))
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        run_refresh(savepoint_session)
+
+    pages = savepoint_session.query(RawPage).filter_by(url="https://stub-ok.test/booths").order_by(RawPage.id).all()
+    assert len(pages) == 2
+    assert pages[0].superseded_by_id == pages[1].id
+
+
+def test_a_304_is_still_treated_as_unchanged_not_as_an_error(savepoint_session, stub_registry):
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(
+            return_value=httpx.Response(200, text="<html>v1</html>", headers={"ETag": '"abc"'})
+        )
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        run_full_crawl(savepoint_session, confirm_tos=True)
+
+    with respx.mock(assert_all_called=False) as mock:
+        _mock_common_routes(mock)
+        mock.get("https://stub-ok.test/booths").mock(return_value=httpx.Response(304))
+        mock.get("https://stub-flaky.test/ok").mock(return_value=httpx.Response(200, text="<html>ok</html>"))
+        totals = run_refresh(savepoint_session)
+
+    pages = savepoint_session.query(RawPage).filter_by(url="https://stub-ok.test/booths").all()
+    assert len(pages) == 1
+    assert pages[0].superseded_by_id is None
+    assert pages[0].last_seen_unchanged_at is not None
+    assert totals["pages_fetched"] >= 1, "a 304 is a successful conditional GET, not an error"

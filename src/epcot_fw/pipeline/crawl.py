@@ -48,6 +48,24 @@ def _fetch_and_stage(
         stats["errors"] += 1
         return stats
 
+    # An error response carries a body - a "403 Forbidden" page, a themed 404 -
+    # and that body is not content. Recording it would hash as a change,
+    # supersede the last good copy of the page, and then parse to nothing,
+    # which is how a source deciding to block us turns into every entity it
+    # vouched for losing its supporting page at once. Count it as an error and
+    # leave the cached copy standing.
+    #
+    # 304 is exempt: it is the conditional-GET hit, and record_fetch reads it
+    # as "unchanged" rather than as a body.
+    if not result.not_modified and not (200 <= result.status_code < 300):
+        logger.warning(
+            "HTTP %s for %s - keeping the last good copy instead of caching the error page",
+            result.status_code,
+            seed.url,
+        )
+        stats["errors"] += 1
+        return stats
+
     stats["pages_fetched"] += 1
 
     cache_result = cache.record_fetch(

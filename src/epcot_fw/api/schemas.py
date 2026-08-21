@@ -53,28 +53,6 @@ class BoothOut(BaseModel):
     longitude: Decimal | None = None
     image_url: str | None
     is_active: bool
-    average_rating: float | None = None
-    review_count: int = 0
-
-
-class ReviewOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    id: int
-    reviewer_name: str | None
-    rating: Decimal
-    rating_raw: Decimal | None
-    recommended: bool | None
-    review_text: str | None
-    review_url: str | None
-    reviewed_at: datetime.date | None
-    match_method: str
-    is_user_submitted: bool
-
-
-class ReviewCreate(BaseModel):
-    reviewer_name: str | None = None
-    rating: Decimal
-    review_text: str | None = None
 
 
 class MenuItemOut(BaseModel):

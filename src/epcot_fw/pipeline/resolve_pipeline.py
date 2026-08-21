@@ -3,12 +3,9 @@ from sqlalchemy.orm import Session
 
 from epcot_fw.db.models import CanonicalLink, ExtractedRecord, MergeConflict, Source
 from epcot_fw.resolve.merge import resolve_extracted_record
-from epcot_fw.resolve.reviews import attach_review
 
-# Parents must be resolved before children reference them (menu_item needs its
-# booth to already exist as a canonical row; reviews are matched against
-# booth names, so booths must exist first too - handled by running the
-# review pass after this loop, not inside ENTITY_TYPE_ORDER).
+# Parents must be resolved before children reference them - a menu_item needs
+# its booth to already exist as a canonical row.
 ENTITY_TYPE_ORDER = ("festival", "booth", "menu_item", "event", "seminar")
 
 
@@ -48,18 +45,6 @@ def run_resolve(session: Session, *, festival_id: int) -> dict:
 
         session.flush()
 
-    reviews_matched = 0
-    review_records = session.scalars(
-        select(ExtractedRecord).where(ExtractedRecord.entity_type == "review").order_by(ExtractedRecord.id)
-    ).all()
-    for record in review_records:
-        source = sources_cache.get(record.source_id)
-        if source is None:
-            source = session.get(Source, record.source_id)
-            sources_cache[record.source_id] = source
-        reviews_matched += attach_review(session, record, source, festival_id=festival_id)
-    session.flush()
-
     open_conflict_count = len(
         session.scalars(select(MergeConflict).where(MergeConflict.status == "open")).all()
     )
@@ -67,5 +52,4 @@ def run_resolve(session: Session, *, festival_id: int) -> dict:
     return {
         "canonical_upserts": canonical_upserts,
         "open_conflicts": open_conflict_count,
-        "reviews_matched": reviews_matched,
     }

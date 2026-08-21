@@ -9,7 +9,7 @@ from sqlalchemy import select
 
 from epcot_fw.api.deps import get_db
 from epcot_fw.api.main import app
-from epcot_fw.db.models import Booth, ConcertEvent, MenuItem, Review, Seminar
+from epcot_fw.db.models import Booth, ConcertEvent, MenuItem, Seminar
 
 SNAPSHOT = "/api/v1/snapshot"
 
@@ -42,15 +42,6 @@ def _seed(db_session):
             MenuItem(booth_id=booth.id, canonical_name="Kirschwasser Torte", category="food", price_usd=7),
             MenuItem(booth_id=other.id, canonical_name="Lamington", category="food", price_usd=6),
         ]
-    )
-    db_session.add(
-        Review(
-            entity_type="booth",
-            entity_id=booth.id,
-            rating=5,
-            match_method="fuzzy_name",
-            reviewed_at=datetime.date(2026, 9, 1),
-        )
     )
     db_session.add(
         ConcertEvent(
@@ -141,7 +132,9 @@ def test_snapshot_returns_the_whole_festival_in_one_response(db_session):
         app.dependency_overrides.clear()
 
 
-def test_snapshot_carries_coordinates_and_ratings_for_the_map_and_sort(db_session):
+def test_snapshot_carries_coordinates_for_the_map_and_the_nearest_sort(db_session):
+    """A client sorts by distance from the guest, so the snapshot has to be
+    enough on its own - no second call to find out where a booth is."""
     _seed(db_session)
     client = _client_for(db_session)
     try:
@@ -151,12 +144,10 @@ def test_snapshot_carries_coordinates_and_ratings_for_the_map_and_sort(db_sessio
         assert float(alps["latitude"]) == 28.370536
         assert float(alps["longitude"]) == -81.549472
         assert alps["location_description"] == "World Showcase, near Germany"
-        assert alps["average_rating"] == 5.0
-        assert alps["review_count"] == 1
 
         australia = next(b for b in body["booths"] if b["canonical_name"] == "Australia")
         assert australia["latitude"] is None
-        assert australia["review_count"] == 0
+        assert australia["longitude"] is None
     finally:
         app.dependency_overrides.clear()
 

@@ -57,7 +57,14 @@ def record_fetch(
     last_modified: str | None,
     not_modified: bool,
 ) -> CacheResult:
-    """Upsert a raw_pages row for this fetch, detecting whether content actually changed."""
+    """Upsert a raw_pages row for this fetch, detecting whether content actually changed.
+
+    Callers must not pass an error response here. `body_text` is taken to be
+    the page's content, so a 4xx/5xx body would be hashed as a change and
+    would supersede the last good copy - see the status check in
+    pipeline/crawl.py::_fetch_and_stage. `not_modified` (304) is the one
+    non-2xx case this handles, and it is handled as "unchanged", not as a body.
+    """
     now = datetime.now(UTC)
     prior = latest_raw_page(session, url)
 

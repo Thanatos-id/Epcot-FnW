@@ -19,11 +19,10 @@ def _snapshot(booths=None, sources=None, conflicts=None):
     }
 
 
-def _booth(name="Booth", items=None, image_url=None, review_count=0):
+def _booth(name="Booth", items=None, image_url=None):
     return {
         "name": name,
         "image_url": image_url,
-        "review_count": review_count,
         "items": items if items is not None else [],
     }
 
@@ -42,8 +41,6 @@ def test_data_metrics_on_an_empty_snapshot_is_all_zero():
         "items_tagged": 0,
         "booths_with_menu": 0,
         "booths_with_image": 0,
-        "booths_rated": 0,
-        "reviews": 0,
         "sources_enabled": 0,
         "open_conflicts": 0,
     }
@@ -65,19 +62,17 @@ def test_data_metrics_counts_items_across_booths():
     assert m["booths_with_menu"] == 2
 
 
-def test_data_metrics_counts_images_ratings_sources_and_conflicts():
+def test_data_metrics_counts_images_sources_and_conflicts():
     snap = _snapshot(
         booths=[
-            _booth("A", image_url="https://example.test/a.jpg", review_count=3),
-            _booth("B", image_url=None, review_count=0),
+            _booth("A", image_url="https://example.test/a.jpg"),
+            _booth("B", image_url=None),
         ],
         sources=[{"enabled": True}, {"enabled": False}, {"enabled": True}],
         conflicts=[{"entity_type": "booth"}, {"entity_type": "menu_item"}],
     )
     m = metrics.data_metrics(snap)
     assert m["booths_with_image"] == 1
-    assert m["booths_rated"] == 1
-    assert m["reviews"] == 3
     assert m["sources_enabled"] == 2
     assert m["open_conflicts"] == 2
 

@@ -1,6 +1,4 @@
 import copy
-import datetime
-import re
 
 from bs4 import Tag
 
@@ -12,16 +10,6 @@ from epcot_fw.sources.base import SeedUrl, SourceAdapter
 
 BASE_URL = "https://allears.net"
 BOOTH_HUB_PATH = "/epcot-international-food-and-wine-festival-menus-and-food-photos/"
-# Reader reviews of "the festival's food booths" as a whole (not one page per
-# booth - see _attach reviews via booth-name mention in resolve/reviews.py).
-# Paginated at ~10/page; 4 pages exist as of this writing (37 reviews) - a
-# small buffer beyond that is harmless, an empty page just yields 0 records.
-BOOTH_REVIEWS_PATH = "/reviews/impressions-food-booths/"
-REVIEW_PAGE_COUNT = 6
-
-_REVIEW_CARD_ID_RE = re.compile(r"^reviewCardDetail__(\d+)$")
-_RATING_RE = re.compile(r"Rating:\s*\((\d+)\)")
-_REVIEW_DATE_RE = re.compile(r"Review Date:\s*(\d{2}/\d{2}/\d{4})")
 
 
 def _is_booth_boundary(p: Tag) -> bool:
@@ -77,73 +65,10 @@ class AllEarsAdapter(SourceAdapter):
     priority_rank = 4
 
     def seed_urls(self, festival_year: int) -> list[SeedUrl]:
-        seeds = [SeedUrl(url=f"{BASE_URL}{BOOTH_HUB_PATH}", page_kind="booth_list")]
-        seeds.append(SeedUrl(url=f"{BASE_URL}{BOOTH_REVIEWS_PATH}", page_kind="booth_reviews"))
-        for page in range(2, REVIEW_PAGE_COUNT + 1):
-            seeds.append(
-                SeedUrl(url=f"{BASE_URL}{BOOTH_REVIEWS_PATH}page/{page}/", page_kind="booth_reviews")
-            )
-        return seeds
+        return [SeedUrl(url=f"{BASE_URL}{BOOTH_HUB_PATH}", page_kind="booth_list")]
 
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:
-        if page_kind == "booth_reviews":
-            return self._parse_reviews(raw_html, url)
         return self._parse_booth_list(raw_html)
-
-    def _parse_reviews(self, raw_html: str, url: str) -> list[ExtractedRecordDTO]:
-        soup = soupify(raw_html)
-        records: list[ExtractedRecordDTO] = []
-
-        for card in soup.find_all("div", id=_REVIEW_CARD_ID_RE):
-            match = _REVIEW_CARD_ID_RE.match(card["id"])
-            external_review_id = match.group(1)
-
-            h2 = card.find("h2")
-            h3 = card.find("h3")
-            body = card.find("p")
-            if h3 is None or body is None:
-                continue
-
-            reviewer_link = h2.find("a") if h2 else None
-            reviewer_name = clean_text(reviewer_link.get_text()) if reviewer_link else None
-
-            date_match = _REVIEW_DATE_RE.search(h2.get_text(" ")) if h2 else None
-            reviewed_at = None
-            if date_match:
-                try:
-                    reviewed_at = datetime.datetime.strptime(date_match.group(1), "%m/%d/%Y").date()
-                except ValueError:
-                    reviewed_at = None
-
-            h3_text = h3.get_text(" ")
-            rating_match = _RATING_RE.search(h3_text)
-            if not rating_match:
-                continue  # no numeric rating on this card - nothing usable to extract
-            rating_raw = int(rating_match.group(1))
-            recommended = "not recommended" not in h3_text.lower()
-
-            review_text = clean_text(body.get_text())
-            if not review_text:
-                continue
-
-            records.append(
-                ExtractedRecordDTO(
-                    entity_type="review",
-                    natural_key_hint=f"allears-review-{external_review_id}",
-                    payload={
-                        "external_review_id": external_review_id,
-                        "reviewer_name": reviewer_name,
-                        "reviewed_at": reviewed_at.isoformat() if reviewed_at else None,
-                        "rating_raw": rating_raw,
-                        "rating_scale": 10,
-                        "recommended": recommended,
-                        "review_text": review_text,
-                        "review_url": f"{BASE_URL}{BOOTH_REVIEWS_PATH}",
-                    },
-                )
-            )
-
-        return records
 
     def _parse_booth_list(self, raw_html: str) -> list[ExtractedRecordDTO]:
         soup = soupify(raw_html)
