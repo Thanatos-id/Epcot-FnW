@@ -17,6 +17,19 @@ BOOTH_HUB_PATH = "/epcot-food-and-wine-festival-booths-menus-and-food-photos/"
 
 _CLICK_TO_SEE_RE = re.compile(r"click to see photos", re.IGNORECASE)
 
+# Booth headings carry the staggered run dates some marketplaces have:
+#   "The Alps - Opening October 2nd"
+#   "Coastal Eats - Opens October 2nd"
+#   "The Wedge - NEW! Open September 18th through November 8th"
+# That is scheduling, not identity, and left in it would stop the booth
+# matching the same booth as named anywhere else. The clause is only stripped
+# when it actually mentions opening, so a hyphen inside a real name
+# ("Brew-Wing Lab") is untouched.
+_OPENING_SUFFIX_RE = re.compile(r"\s*[—–-]\s*[^—–]*\bopen(?:s|ing)?\b.*$", re.IGNORECASE)
+
+# The category markers that separate a booth's food list from its drinks list.
+_CATEGORY_LABELS = {"food": "food", "beverages": "beverage", "beverage": "beverage"}
+
 # /the-alps-2025-epcot-food-and-wine-festival/     -> "the alps"
 # /australia-2025-epcot-food-and-wine-festival-2/  -> "australia"  (WordPress
 # appends -2 when a slug collides with a previous year's post)
@@ -62,6 +75,62 @@ def _booth_name_from_detail(soup: Tag, url: str) -> str | None:
 
 def _is_booth_boundary(p: Tag) -> bool:
     return p.name == "p" and bool(_CLICK_TO_SEE_RE.search(p.get_text()))
+
+
+def _h3_sections(article: Tag) -> list[tuple[str, list[Tag]]]:
+    """Split the article into (heading text, following elements) per <h3>.
+
+    Walks in document order rather than by sibling, because the 2026 page
+    nests some booths' lists inside wrapper divs while leaving others as
+    direct siblings - a next_sibling walk silently drops the nested ones.
+    Nested <ul>s are skipped so a list inside a list is not counted twice.
+    """
+    sections: list[tuple[str, list[Tag]]] = []
+    current: tuple[str, list[Tag]] | None = None
+
+    for element in article.find_all(["h3", "p", "ul", "ol"]):
+        if element.name == "h3":
+            current = (clean_text(element.get_text()), [])
+            sections.append(current)
+        elif current is not None:
+            if element.name in ("ul", "ol") and element.find_parent(["ul", "ol"]) is not None:
+                continue
+            current[1].append(element)
+
+    return sections
+
+
+def _inline_menu_item(li: Tag, booth_name: str, category: str) -> ExtractedRecordDTO | None:
+    """One <li> from a 2026 booth list -> a menu_item record."""
+    text = clean_text(li.get_text())
+    if not text:
+        return None
+
+    name_tag = li.find("strong")
+    name = clean_text(name_tag.get_text()) if name_tag else text
+    if not name:
+        return None
+
+    prices = all_prices(text)
+    tags = extract_dietary_tags(text)
+    resolved = category
+    if category == "beverage":
+        resolved = "alcoholic_beverage" if "contains_alcohol" in tags else "non_alcoholic_beverage"
+
+    return ExtractedRecordDTO(
+        entity_type="menu_item",
+        natural_key_hint=normalize_name(name[:80]),
+        payload={
+            "booth_name": booth_name,
+            "name": name,
+            "description": text,
+            "category": resolved,
+            # min(): a drink priced by the glass and the flight lists both, and
+            # the single-serving price is the comparable one.
+            "price_usd": str(min(prices)) if prices else None,
+            "dietary_tags": tags,
+        },
+    )
 
 
 class DisneyFoodBlogAdapter(SourceAdapter):
@@ -168,8 +237,72 @@ class DisneyFoodBlogAdapter(SourceAdapter):
         return records
 
     def _parse_booth_list(self, raw_html: str) -> list[ExtractedRecordDTO]:
+        """Dispatch on the hub layout, which DFB rebuilt for 2026.
+
+        Through 2025 each booth was introduced by a paragraph linking to its
+        photo post ("Belgium <- CLICK TO SEE PHOTOS OF MENU ITEMS!"), with the
+        menu following as sibling lists. For 2026 the menus were brought onto
+        the hub itself: booths are <h3> headings and the photo links are gone.
+        Both are kept because the shape of the page is the only reliable way to
+        tell them apart, and an archived page or a mid-season revert should
+        still parse rather than silently yield nothing - which is exactly what
+        happened on the first 2026 crawl.
+        """
         soup = soupify(raw_html)
         article = soup.find("article") or soup
+
+        if any(_is_booth_boundary(p) for p in article.find_all("p")):
+            return self._parse_booth_list_linked(article)
+        return self._parse_booth_list_inline(article)
+
+    def _parse_booth_list_inline(self, article: Tag) -> list[ExtractedRecordDTO]:
+        """2026 layout: <h3> booth, then "Food:"/"Beverages:" paragraphs each
+        followed by a <ul> of dishes.
+
+        A heading only counts as a booth if its section actually carries one of
+        those category labels. That is a structural test rather than a list of
+        headings to ignore, so unrelated <h3>s on the page ("Click here for
+        information on the EPCOT Food and Wine Festival!") are excluded without
+        having to enumerate them.
+        """
+        records: list[ExtractedRecordDTO] = []
+
+        for heading, elements in _h3_sections(article):
+            booth_name = _OPENING_SUFFIX_RE.sub("", heading).strip()
+            if not booth_name or len(booth_name) > 80:
+                continue
+
+            parsed_items: list[ExtractedRecordDTO] = []
+            category: str | None = None
+            for element in elements:
+                if element.name == "p":
+                    label = clean_text(element.get_text()).rstrip(":").lower()
+                    if label in _CATEGORY_LABELS:
+                        category = _CATEGORY_LABELS[label]
+                    continue
+                if category is None:
+                    continue
+                for li in element.find_all("li"):
+                    item = _inline_menu_item(li, booth_name, category)
+                    if item is not None:
+                        parsed_items.append(item)
+
+            # No category label anywhere in the section -> not a booth.
+            if category is None:
+                continue
+
+            records.append(
+                ExtractedRecordDTO(
+                    entity_type="booth",
+                    natural_key_hint=normalize_name(booth_name),
+                    payload={"name": booth_name, "category": "global_marketplace"},
+                )
+            )
+            records.extend(parsed_items)
+
+        return records
+
+    def _parse_booth_list_linked(self, article: Tag) -> list[ExtractedRecordDTO]:
         records: list[ExtractedRecordDTO] = []
 
         boundary_ps = [p for p in article.find_all("p") if _is_booth_boundary(p)]
