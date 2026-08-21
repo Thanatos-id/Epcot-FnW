@@ -2,7 +2,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel
 
-EntityType = Literal["festival", "booth", "menu_item", "event", "seminar", "review"]
+EntityType = Literal["festival", "booth", "menu_item", "event", "seminar"]
 
 
 class ExtractedRecordDTO(BaseModel):

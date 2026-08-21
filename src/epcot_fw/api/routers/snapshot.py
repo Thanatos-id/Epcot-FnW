@@ -14,7 +14,7 @@ import hashlib
 import json
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from epcot_fw.api.deps import get_db
@@ -26,7 +26,7 @@ from epcot_fw.api.schemas import (
     SeminarOut,
     SnapshotOut,
 )
-from epcot_fw.db.models import Booth, ConcertEvent, Festival, MenuItem, Review, Seminar
+from epcot_fw.db.models import Booth, ConcertEvent, Festival, MenuItem, Seminar
 
 router = APIRouter(tags=["snapshot"])
 
@@ -41,17 +41,6 @@ def _etag(payload: dict) -> str:
     return '"' + hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:32] + '"'
 
 
-def _rating_index(db: Session, booth_ids: list[int]) -> dict[int, tuple[float, int]]:
-    if not booth_ids:
-        return {}
-    rows = db.execute(
-        select(Review.entity_id, func.avg(Review.rating), func.count(Review.id))
-        .where(Review.entity_type == "booth", Review.entity_id.in_(booth_ids))
-        .group_by(Review.entity_id)
-    ).all()
-    return {entity_id: (float(avg), count) for entity_id, avg, count in rows}
-
-
 def build_snapshot(db: Session, festival: Festival) -> dict:
     # Retired entities are excluded: this payload is what a client shows a
     # guest standing in the park, and a booth that stopped running would
@@ -62,15 +51,7 @@ def build_snapshot(db: Session, festival: Festival) -> dict:
         .order_by(Booth.canonical_name)
     ).all()
     booth_ids = [b.id for b in booths]
-    ratings = _rating_index(db, booth_ids)
-
-    booth_out = []
-    for booth in booths:
-        out = BoothOut.model_validate(booth)
-        average, count = ratings.get(booth.id, (None, 0))
-        out.average_rating = round(average, 2) if average is not None else None
-        out.review_count = count
-        booth_out.append(out)
+    booth_out = [BoothOut.model_validate(b) for b in booths]
 
     items = (
         db.scalars(

@@ -353,38 +353,9 @@ details[open] .booth-caret { transform: rotate(90deg); }
   color: var(--ink-muted); font-size: 15px;
 }
 
-.rating { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
-.stars .empty { color: var(--border); }
-.rating-num { font-family: ui-monospace, monospace; font-size: 12px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
-.rating.unrated { color: var(--ink-muted); font-size: 12px; font-style: italic; }
-
 .booth-photo {
   width: 100%; max-height: clamp(160px, 40vw, 240px); object-fit: cover; display: block;
   border-bottom: 1px solid var(--border);
-}
-
-.reviews-section { border-top: 1px solid var(--border); padding: 13px 14px; background: var(--surface-2); }
-.reviews-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.reviews-head h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; }
-.review-list { display: flex; flex-direction: column; gap: 8px; }
-.review-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px 12px; font-size: 13px;
-}
-.review-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-.review-who { display: flex; align-items: center; gap: 8px; font-weight: 600; flex-wrap: wrap; min-width: 0; }
-.review-date { color: var(--ink-muted); font-size: 11.5px; font-family: ui-monospace, monospace; }
-.review-text { color: var(--ink); line-height: 1.5; overflow-wrap: break-word; }
-.review-rec {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 20px;
-}
-.review-rec.yes { background: var(--good-soft); color: var(--good); }
-.review-rec.no { background: var(--warn-soft); color: var(--warn); }
-.review-user-badge {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 20px; background: var(--accent-soft); color: var(--accent);
 }
 
 .item-table { border-top: 1px solid var(--border); }
@@ -458,7 +429,7 @@ footer {
 <body>
 
 <div class="wrap">
-  <h2 class="sr-only">Interactive browser of the crawled Epcot Food &amp; Wine Festival database: booths, menu items, data sources, open review conflicts, and data-quality change tracking.</h2>
+  <h2 class="sr-only">Interactive browser of the crawled Epcot Food &amp; Wine Festival database: booths, menu items, data sources, unresolved merge conflicts, and data-quality change tracking.</h2>
 
   <header class="top">
     <div class="eyebrow">Live database snapshot</div>
@@ -473,9 +444,9 @@ footer {
     <div class="stat accent"><div class="num mono">__BOOTH_COUNT__</div><div class="label">Booths</div></div>
     <div class="stat accent"><div class="num mono">__ITEM_COUNT__</div><div class="label">Menu items</div></div>
     <div class="stat"><div class="num mono">__ENABLED_COUNT__/__SOURCE_TOTAL__</div><div class="label">Sources enabled</div></div>
-    <div class="stat warn"><div class="num mono">__CONFLICT_COUNT__</div><div class="label">Open for review</div></div>
+    <div class="stat warn"><div class="num mono">__CONFLICT_COUNT__</div><div class="label">Unresolved conflicts</div></div>
     <div class="stat"><div class="num mono">__PRICED_COUNT__</div><div class="label">Items priced</div></div>
-    <div class="stat accent"><div class="num mono">__REVIEW_COUNT__</div><div class="label">Reviews mined</div></div>
+    <div class="stat accent"><div class="num mono">__TAGGED_COUNT__</div><div class="label">Items with dietary tags</div></div>
   </div>
 
   <section id="change-section">
@@ -550,11 +521,6 @@ footer {
 (function () {
   var DATA = JSON.parse(document.getElementById('epcot-data').textContent);
 
-  function fmtDate(iso) {
-    if (!iso) return '';
-    var d = new Date(iso + 'T00:00:00');
-    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-  }
   function fmtDateTime(iso) {
     if (!iso) return '';
     var d = new Date(iso);
@@ -570,20 +536,6 @@ footer {
     vegetarian: 'Vegetarian', vegan: 'Vegan', gluten_free: 'Gluten-Free', plant_based: 'Plant-Based',
     contains_alcohol: 'Contains Alcohol', spicy: 'Spicy', contains_nuts: 'Contains Nuts'
   };
-
-  function renderStars(rating) {
-    var full = Math.round(rating);
-    var out = '';
-    for (var i = 1; i <= 5; i++) out += i <= full ? '★' : '<span class="empty">★</span>';
-    return out;
-  }
-  function renderRating(booth) {
-    if (!booth.average_rating || !booth.review_count) {
-      return '<span class="rating unrated">Not yet reviewed</span>';
-    }
-    return '<span class="rating"><span class="stars">' + renderStars(booth.average_rating) + '</span>' +
-      '<span class="rating-num">' + booth.average_rating.toFixed(2) + ' (' + booth.review_count + ')</span></span>';
-  }
 
   var allItems = [];
   DATA.booths.forEach(function (b) {
@@ -610,7 +562,7 @@ footer {
   });
 
   // ---- filter chips ----
-  var state = { q: '', category: null, tag: null, ratedOnly: false, photoOnly: false };
+  var state = { q: '', category: null, tag: null, photoOnly: false };
   var categoryChips = document.getElementById('category-chips');
   var tagChips = document.getElementById('tag-chips');
   var extraChips = document.getElementById('extra-chips');
@@ -625,11 +577,6 @@ footer {
     return chip;
   }
 
-  var ratedChip = makeChip(extraChips, '★ Rated', function () {
-    state.ratedOnly = !state.ratedOnly;
-    ratedChip.classList.toggle('active', state.ratedOnly);
-    render();
-  });
   var photoChip = makeChip(extraChips, '📷 Has photo', function () {
     state.photoOnly = !state.photoOnly;
     photoChip.classList.toggle('active', state.photoOnly);
@@ -695,30 +642,11 @@ footer {
     );
   }
 
-  function renderReviewCard(r) {
-    var recHtml = r.recommended === true ? '<span class="review-rec yes">Recommended</span>'
-      : r.recommended === false ? '<span class="review-rec no">Not recommended</span>' : '';
-    var userHtml = r.is_user ? '<span class="review-user-badge">You</span>' : '';
-    return (
-      '<div class="review-card">' +
-        '<div class="review-top">' +
-          '<span class="review-who">' +
-            '<span class="stars">' + renderStars(r.rating) + '</span>' +
-            escapeHtml(r.reviewer_name || 'Anonymous') + userHtml + recHtml +
-          '</span>' +
-          '<span class="review-date">' + fmtDate(r.reviewed_at) + '</span>' +
-        '</div>' +
-        '<div class="review-text">' + escapeHtml(r.text || '') + '</div>' +
-      '</div>'
-    );
-  }
-
   function render() {
     boothList.innerHTML = '';
     var shownBooths = 0, shownItems = 0;
 
     DATA.booths.forEach(function (b, idx) {
-      if (state.ratedOnly && !b.review_count) return;
       if (state.photoOnly && !b.image_data_uri) return;
 
       var matchedItems = b.items.filter(itemMatches);
@@ -735,7 +663,7 @@ footer {
 
       var det = document.createElement('details');
       det.className = 'booth';
-      if (idx < 3 && !hasFilter && !state.ratedOnly && !state.photoOnly) det.open = true;
+      if (idx < 3 && !hasFilter && !state.photoOnly) det.open = true;
 
       var rowsHtml = itemsToShow.length
         ? itemsToShow.map(renderItemRow).join('')
@@ -749,26 +677,16 @@ footer {
         ? '<img class="booth-photo" src="' + b.image_data_uri + '" alt="Menu board photo of ' + escapeHtml(b.name) + '" loading="lazy" />'
         : '';
 
-      var reviewsHtml = '';
-      if (b.reviews && b.reviews.length) {
-        reviewsHtml =
-          '<div class="reviews-section">' +
-            '<div class="reviews-head"><h4>Reviews (' + b.reviews.length + ')</h4></div>' +
-            '<div class="review-list">' + b.reviews.map(renderReviewCard).join('') + '</div>' +
-          '</div>';
-      }
-
       det.innerHTML =
         '<summary class="booth-head"><span class="booth-title">' +
           '<span class="booth-caret">&#9654;</span>' +
           thumbHtml +
           '<span class="booth-name">' + escapeHtml(b.name) + '</span></span>' +
-          '<span class="booth-meta">' + renderRating(b) +
+          '<span class="booth-meta">' +
             '<span class="item-count">' + b.items.length + ' item' + (b.items.length === 1 ? '' : 's') + '</span></span>' +
         '</summary>' +
         photoHtml +
-        '<div class="item-table">' + rowsHtml + '</div>' +
-        reviewsHtml;
+        '<div class="item-table">' + rowsHtml + '</div>';
 
       boothList.appendChild(det);
     });
@@ -785,7 +703,7 @@ footer {
   // ---- conflicts ----
   var conflictList = document.getElementById('conflict-list');
   if (DATA.conflicts.length === 0) {
-    conflictList.innerHTML = '<div class="empty-state">Nothing queued for review.</div>';
+    conflictList.innerHTML = '<div class="empty-state">Nothing queued for a human look.</div>';
   } else {
     DATA.conflicts.forEach(function (c) {
       var row = document.createElement('div');
@@ -961,7 +879,7 @@ replacements = {
     "__ITEM_COUNT__": str(counts["menu_items"]),
     "__CONFLICT_COUNT__": str(counts["open_conflicts"]),
     "__PRICED_COUNT__": f"{counts['items_priced']} / {counts['menu_items']}",
-    "__REVIEW_COUNT__": str(counts["reviews"]),
+    "__TAGGED_COUNT__": f"{counts['items_tagged']} / {counts['menu_items']}",
     "__CHANGE_NOTE__": esc(change_note),
     "__CHANGE_BANNER__": change_banner,
     "__CHANGE_ROWS__": render_change_rows(diff_rows),

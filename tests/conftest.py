@@ -1,7 +1,7 @@
 import datetime
 
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker
 
 from epcot_fw.config import settings
@@ -35,10 +35,26 @@ DIETARY_TAG_ROWS = [
 @pytest.fixture(scope="session")
 def engine():
     eng = create_engine(TEST_DB_URL, future=True)
-    Base.metadata.drop_all(eng)
+    _drop_everything(eng)
     Base.metadata.create_all(eng)
     yield eng
     eng.dispose()
+
+
+def _drop_everything(eng) -> None:
+    """Drop what is actually in the test database, not what the models
+    currently describe.
+
+    `Base.metadata.drop_all` only knows today's tables, so a table removed
+    from the models (`reviews`, when mined ratings were retired) survives in
+    any test database created before the change - and then blocks the drop of
+    everything it still has a foreign key into. Reflecting first means the
+    schema is genuinely rebuilt from the models on every run, whatever it
+    used to look like.
+    """
+    existing = MetaData()
+    existing.reflect(bind=eng)
+    existing.drop_all(bind=eng)
 
 
 @pytest.fixture()

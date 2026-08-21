@@ -307,43 +307,6 @@ class ConcertShowtime(Base):
     concert_event: Mapped["ConcertEvent"] = relationship(back_populates="showtimes")
 
 
-class Review(Base):
-    __tablename__ = "reviews"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    entity_type: Mapped[str] = mapped_column(Text, nullable=False)  # 'booth' for now, extensible
-    entity_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    # NULL source_id = submitted directly by an app user, not crawled.
-    source_id: Mapped[int | None] = mapped_column(ForeignKey("sources.id"))
-    # Stable id from the source (e.g. AllEars' own review card id) so a
-    # re-crawl of a page with new reviews added doesn't duplicate old ones.
-    # NULL for user-submitted reviews, which have no source review to key on.
-    external_review_id: Mapped[str | None] = mapped_column(Text)
-    reviewer_name: Mapped[str | None] = mapped_column(Text)
-    rating: Mapped[Decimal] = mapped_column(Numeric(2, 1), nullable=False)  # normalized to 1.0-5.0
-    rating_raw: Mapped[Decimal | None] = mapped_column(Numeric(4, 1))  # original scale, for transparency
-    recommended: Mapped[bool | None] = mapped_column(Boolean)
-    review_text: Mapped[str | None] = mapped_column(Text)
-    review_url: Mapped[str | None] = mapped_column(Text)
-    reviewed_at: Mapped[datetime.date | None] = mapped_column(Date)
-    # How this review got attached to entity_id: 'booth_name_mention' (mined
-    # from festival-wide review text), 'user_submitted', etc.
-    match_method: Mapped[str] = mapped_column(Text, nullable=False)
-    created_at: Mapped[datetime.datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), nullable=False
-    )
-
-    source: Mapped["Source | None"] = relationship()
-
-    __table_args__ = (
-        Index("ix_reviews_entity", "entity_type", "entity_id"),
-        UniqueConstraint(
-            "entity_type", "entity_id", "source_id", "external_review_id",
-            name="uq_reviews_entity_source_external",
-        ),
-    )
-
-
 class Seminar(Base):
     __tablename__ = "seminars"
 

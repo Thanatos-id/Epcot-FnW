@@ -10,7 +10,6 @@ from epcot_fw.db.models import (
     ConcertShowtime,
     EntityFieldProvenance,
     MenuItem,
-    Review,
     Seminar,
     Source,
 )
@@ -102,94 +101,36 @@ def test_get_booth_with_include_menu_items(db_session):
         app.dependency_overrides.clear()
 
 
-def test_list_booth_reviews_returns_reviews_ordered_most_recent_first(db_session):
+def test_the_review_routes_are_gone(db_session):
+    """Mined ratings were retired - see migration c3e6a91b8d52. A client that
+    still calls these should get a clean 404 rather than an empty list it
+    would render as "no reviews yet"."""
     festival_id = db_session.info["festival_id"]
-    booth = Booth(festival_id=festival_id, canonical_name="Reviewed Booth", slug="reviewed-booth")
-    db_session.add(booth)
-    db_session.flush()
-    source = db_session.query(Source).filter_by(key="allears").one()
-    db_session.add_all(
-        [
-            Review(
-                entity_type="booth",
-                entity_id=booth.id,
-                source_id=source.id,
-                rating=4,
-                reviewed_at=datetime.date(2026, 1, 1),
-                match_method="fuzzy_name",
-            ),
-            Review(
-                entity_type="booth",
-                entity_id=booth.id,
-                source_id=source.id,
-                rating=5,
-                reviewed_at=datetime.date(2026, 6, 1),
-                match_method="fuzzy_name",
-            ),
-        ]
-    )
-    db_session.flush()
-
-    client = _client_for(db_session)
-    try:
-        resp = client.get(f"/api/v1/booths/{booth.id}/reviews")
-        assert resp.status_code == 200
-        body = resp.json()
-        assert len(body) == 2
-        assert body[0]["reviewed_at"] == "2026-06-01"
-        assert body[0]["is_user_submitted"] is False
-
-        resp = client.get("/api/v1/booths/999999/reviews")
-        assert resp.status_code == 404
-    finally:
-        app.dependency_overrides.clear()
-
-
-def test_create_booth_review_succeeds_and_is_marked_user_submitted(db_session):
-    festival_id = db_session.info["festival_id"]
-    booth = Booth(festival_id=festival_id, canonical_name="Review Target", slug="review-target")
+    booth = Booth(festival_id=festival_id, canonical_name="Norway", slug="norway")
     db_session.add(booth)
     db_session.flush()
 
     client = _client_for(db_session)
     try:
-        resp = client.post(
-            f"/api/v1/booths/{booth.id}/reviews",
-            json={"reviewer_name": "Test User", "rating": 4.5, "review_text": "Pretty good!"},
-        )
-        assert resp.status_code == 201
-        body = resp.json()
-        assert body["is_user_submitted"] is True
-        assert body["reviewer_name"] == "Test User"
-
-        resp = client.get(f"/api/v1/booths/{booth.id}/reviews")
-        assert len(resp.json()) == 1
+        assert client.get(f"/api/v1/booths/{booth.id}/reviews").status_code == 404
+        assert client.post(f"/api/v1/booths/{booth.id}/reviews", json={"rating": 4}).status_code == 404
     finally:
         app.dependency_overrides.clear()
 
 
-def test_create_booth_review_404_for_unknown_booth(db_session):
-    client = _client_for(db_session)
-    try:
-        resp = client.post("/api/v1/booths/999999/reviews", json={"rating": 3})
-        assert resp.status_code == 404
-    finally:
-        app.dependency_overrides.clear()
-
-
-def test_create_booth_review_422_for_out_of_range_rating(db_session):
+def test_booth_payloads_no_longer_carry_rating_fields(db_session):
     festival_id = db_session.info["festival_id"]
-    booth = Booth(festival_id=festival_id, canonical_name="Rating Range Booth", slug="rating-range-booth")
+    booth = Booth(festival_id=festival_id, canonical_name="Hops & Barley", slug="hops-barley")
     db_session.add(booth)
     db_session.flush()
 
     client = _client_for(db_session)
     try:
-        resp = client.post(f"/api/v1/booths/{booth.id}/reviews", json={"rating": 6})
-        assert resp.status_code == 422
-
-        resp = client.post(f"/api/v1/booths/{booth.id}/reviews", json={"rating": 0})
-        assert resp.status_code == 422
+        listed = client.get(f"/api/v1/festivals/{festival_id}/booths").json()["data"][0]
+        detail = client.get(f"/api/v1/booths/{booth.id}").json()
+        for payload in (listed, detail):
+            assert "average_rating" not in payload
+            assert "review_count" not in payload
     finally:
         app.dependency_overrides.clear()
 

@@ -34,8 +34,6 @@ METRIC_SPECS: list[dict[str, Any]] = [
     {"key": "items_tagged", "label": "Items with dietary tags", "direction": "up", "ratio_of": "menu_items"},
     {"key": "booths_with_menu", "label": "Booths with a menu", "direction": "up", "ratio_of": "booths"},
     {"key": "booths_with_image", "label": "Booths with a photo", "direction": "up", "ratio_of": "booths"},
-    {"key": "booths_rated", "label": "Booths reviewed", "direction": "up", "ratio_of": "booths"},
-    {"key": "reviews", "label": "Reviews mined", "direction": "up"},
     {"key": "sources_enabled", "label": "Sources enabled", "direction": "up"},
     {"key": "open_conflicts", "label": "Open conflicts", "direction": "down"},
 ]
@@ -56,8 +54,6 @@ def data_metrics(snapshot: dict[str, Any]) -> dict[str, int]:
         "items_tagged": sum(1 for it in items if it.get("tags")),
         "booths_with_menu": sum(1 for b in booths if b.get("items")),
         "booths_with_image": sum(1 for b in booths if b.get("image_url")),
-        "booths_rated": sum(1 for b in booths if b.get("review_count")),
-        "reviews": sum(int(b.get("review_count") or 0) for b in booths),
         "sources_enabled": sum(1 for s in (snapshot.get("sources") or []) if s.get("enabled")),
         "open_conflicts": len(snapshot.get("conflicts") or []),
     }

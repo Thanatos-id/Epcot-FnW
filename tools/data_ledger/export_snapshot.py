@@ -15,10 +15,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from sqlalchemy import func, select  # noqa: E402
-
 from epcot_fw.db.base import SessionLocal  # noqa: E402
-from epcot_fw.db.models import Booth, CrawlRun, Festival, MenuItem, MergeConflict, Review, Source  # noqa: E402
+from epcot_fw.db.models import Booth, CrawlRun, Festival, MenuItem, MergeConflict, Source  # noqa: E402
 
 OUT_PATH = Path(__file__).parent / "epcot_db_snapshot.json"
 
@@ -43,41 +41,14 @@ def export() -> None:
             .all()
         )
 
-        rating_rows = session.execute(
-            select(Review.entity_id, func.avg(Review.rating), func.count(Review.id))
-            .where(Review.entity_type == "booth")
-            .group_by(Review.entity_id)
-        ).all()
-        rating_by_booth = {entity_id: (float(avg), count) for entity_id, avg, count in rating_rows}
-
         booth_data = []
         for b in booths:
             items = session.query(MenuItem).filter_by(booth_id=b.id, is_active=True).all()
-            avg, count = rating_by_booth.get(b.id, (None, 0))
-            reviews = (
-                session.query(Review)
-                .filter_by(entity_type="booth", entity_id=b.id)
-                .order_by(Review.reviewed_at.desc())
-                .all()
-            )
             booth_data.append(
                 {
                     "name": b.canonical_name,
                     "category": b.category,
                     "image_url": b.image_url,
-                    "average_rating": round(avg, 2) if avg is not None else None,
-                    "review_count": count,
-                    "reviews": [
-                        {
-                            "reviewer_name": r.reviewer_name,
-                            "rating": float(r.rating),
-                            "recommended": r.recommended,
-                            "text": r.review_text,
-                            "reviewed_at": r.reviewed_at,
-                            "is_user": r.source_id is None,
-                        }
-                        for r in reviews
-                    ],
                     "items": [
                         {
                             "name": it.canonical_name,
