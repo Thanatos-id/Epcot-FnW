@@ -51,6 +51,9 @@ class BoothOut(BaseModel):
     location_description: str | None
     latitude: Decimal | None = None
     longitude: Decimal | None = None
+    # 'surveyed' | 'anchored' | None - see Booth.location_precision. A client
+    # showing a distance has to qualify an anchored one.
+    location_precision: str | None = None
     image_url: str | None
     is_active: bool
 

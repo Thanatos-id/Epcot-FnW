@@ -66,6 +66,7 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "latitude": "latitude",
         "longitude": "longitude",
         "location_description": "location_description",
+        "location_precision": "location_precision",
     },
     "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},

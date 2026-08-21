@@ -50,11 +50,36 @@ def _seed_booth(db_session, festival_id, name="The Alps"):
 # ---------------------------------------------------------------------------
 
 
+SHIPPED = Path(__file__).parent.parent.parent / "data/manual/booth_locations.json"
+
+# World Showcase, generously. Anything outside this is a transposed pair or a
+# dropped minus sign - the classic coordinate bug, and one that looks entirely
+# plausible in a diff.
+EPCOT_BOX = {"lat": (28.36, 28.38), "lon": (-81.56, -81.54)}
+
+
 def test_readme_block_in_the_shipped_file_is_not_mistaken_for_data():
-    shipped = Path(__file__).parent.parent.parent / "data/manual/booth_locations.json"
-    payload = json.loads(shipped.read_text())
+    payload = json.loads(SHIPPED.read_text())
     assert "_README" in payload, "keep the in-file usage notes"
-    assert load_booth_overrides(shipped) == []
+    assert all(entry["name"] != "_README" for entry in load_booth_overrides(SHIPPED))
+
+
+def test_every_shipped_anchor_is_a_complete_and_labelled_coordinate():
+    entries = load_booth_overrides(SHIPPED)
+    assert entries, "the pavilion anchors should ship with the repo"
+    for entry in entries:
+        assert entry["latitude"] is not None and entry["longitude"] is not None
+        assert entry["location_precision"] == "anchored", (
+            f"{entry['name']}: a shipped coordinate is a pavilion stand-in, not a survey"
+        )
+
+
+def test_no_shipped_anchor_has_landed_outside_the_park():
+    for entry in load_booth_overrides(SHIPPED):
+        low, high = EPCOT_BOX["lat"]
+        assert low < entry["latitude"] < high, f"{entry['name']} latitude"
+        low, high = EPCOT_BOX["lon"]
+        assert low < entry["longitude"] < high, f"{entry['name']} longitude"
 
 
 def test_entries_without_a_name_are_skipped(overrides_file):
@@ -106,6 +131,47 @@ def test_curated_coordinates_land_on_the_matching_booth(db_session, overrides_fi
     assert refreshed.latitude == pytest.approx(Decimal(str(ALPS_LAT)))
     assert refreshed.longitude == pytest.approx(Decimal(str(ALPS_LON)))
     assert refreshed.location_description == "World Showcase, near Germany"
+
+
+def test_precision_travels_with_the_coordinate(db_session, overrides_file):
+    """A coordinate without its grade is worse than useless: the client can't
+    tell a metre-accurate survey from a pavilion standing in for a kiosk 40 m
+    away, so it either overstates every distance or distrusts all of them."""
+    festival_id = db_session.info["festival_id"]
+    booth = _seed_booth(db_session, festival_id)
+
+    path = overrides_file(
+        [{"name": "The Alps", "latitude": ALPS_LAT, "longitude": ALPS_LON,
+          "location_precision": "anchored"}]
+    )
+    stage_manual_overrides(db_session, path=path)
+    run_resolve(db_session, festival_id=festival_id)
+    assert db_session.get(Booth, booth.id).location_precision == "anchored"
+
+
+def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file):
+    """The anchors ship as a floor. Walking up to the booth has to be able to
+    overwrite one, precision included, or the survey is pointless."""
+    festival_id = db_session.info["festival_id"]
+    booth = _seed_booth(db_session, festival_id)
+
+    anchored = overrides_file(
+        [{"name": "The Alps", "latitude": 28.368060, "longitude": -81.546940,
+          "location_precision": "anchored"}]
+    )
+    stage_manual_overrides(db_session, path=anchored)
+    run_resolve(db_session, festival_id=festival_id)
+
+    surveyed = overrides_file(
+        [{"name": "The Alps", "latitude": ALPS_LAT, "longitude": ALPS_LON,
+          "location_precision": "surveyed"}]
+    )
+    stage_manual_overrides(db_session, path=surveyed)
+    run_resolve(db_session, festival_id=festival_id)
+
+    refreshed = db_session.get(Booth, booth.id)
+    assert refreshed.location_precision == "surveyed"
+    assert refreshed.latitude == pytest.approx(Decimal(str(ALPS_LAT)))
 
 
 def test_a_name_that_is_close_but_not_exact_still_matches(db_session, overrides_file):

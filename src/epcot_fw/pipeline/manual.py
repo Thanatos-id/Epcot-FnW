@@ -38,7 +38,14 @@ DEFAULT_PATH = Path(__file__).resolve().parents[3] / "data" / "manual" / "booth_
 
 # Curated keys that map onto booth payload fields the resolver understands.
 # Anything else in the file (notably the "_README" block) is ignored.
-BOOTH_FIELDS = ("latitude", "longitude", "location_description", "region_theme", "category")
+BOOTH_FIELDS = (
+    "latitude",
+    "longitude",
+    "location_precision",
+    "location_description",
+    "region_theme",
+    "category",
+)
 
 
 def load_booth_overrides(path: Path = DEFAULT_PATH) -> list[dict[str, Any]]:
