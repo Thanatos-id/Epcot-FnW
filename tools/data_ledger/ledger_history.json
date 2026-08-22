@@ -49,6 +49,31 @@
         "covered_lines": 2016,
         "num_statements": 2169
       }
+    },
+    {
+      "recorded_at": "2026-08-22T21:58:49.087748+00:00",
+      "label": "2026-08-22T21:56:32.572121+00:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 229,
+        "items_priced": 218,
+        "items_described": 128,
+        "items_with_image": 0,
+        "items_tagged": 153,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 10
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "d506216",
+        "measured_at": "2026-08-22T21:58:29.314349+00:00",
+        "tests": 349,
+        "coverage_pct": 93.0,
+        "covered_lines": 2054,
+        "num_statements": 2208
+      }
     }
   ]
 }
