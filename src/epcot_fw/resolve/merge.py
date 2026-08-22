@@ -335,7 +335,11 @@ def apply_match_outcome(
         if resolution.value is not None:
             setattr(model_obj, field_name, _coerce(type(model_obj), field_name, resolution.value))
 
-    if entity_type == "menu_item" and payload.get("dietary_tags"):
+    # `in` rather than truthiness: an empty list is a real assertion - a
+    # curated record saying "none of these tags apply" is exactly how a wrong
+    # tag gets taken off. Under union an empty crawled list contributes
+    # nothing, so this costs the crawled path nothing either.
+    if entity_type == "menu_item" and "dietary_tags" in payload:
         resolution = _write_and_resolve_field(
             session,
             entity_type=entity_type,
@@ -435,9 +439,18 @@ def resolve_extracted_record(
 
 
 def _sync_dietary_tags(session: Session, menu_item: MenuItem, codes: list[str]) -> None:
+    """Set the dish's tags to exactly `codes`, empty included.
+
+    An empty list used to return early, which made a tag impossible to take
+    off: the curated record said "none of these apply", resolution agreed and
+    selected it, and then this dropped the answer on the floor. Reached only
+    when resolution produced a value at all, so an empty list here means no
+    source asserts a tag - which is the same thing as having none.
+    """
     from epcot_fw.db.models import DietaryTag
 
     if not codes:
+        menu_item.dietary_tags = []
         return
     tags = session.scalars(select(DietaryTag).where(DietaryTag.code.in_(codes))).all()
     menu_item.dietary_tags = list(tags)
