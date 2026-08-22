@@ -19,6 +19,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
+import build_editor  # noqa: E402
 import build_survey  # noqa: E402
 import metrics  # noqa: E402
 
@@ -510,6 +511,7 @@ footer {
       </p>
       <p style="margin: 0;">
         <a class="survey-link" href="survey.html">Open the survey tool →</a>
+        <a class="survey-link" href="editor.html">Edit the database →</a>
         <span class="section-note">One tap per booth while you're standing there.</span>
       </p>
     </div>
@@ -959,6 +961,11 @@ survey_path = DOCS_DIR / "survey.html"
 survey_html = build_survey.render(data)
 survey_path.write_text(survey_html)
 print(f"wrote {survey_path} ({len(survey_html)} bytes)")
+
+editor_path = DOCS_DIR / "editor.html"
+editor_html = build_editor.render(data, generated_at=replacements["__GENERATED_AT__"])
+editor_path.write_text(editor_html)
+print(f"wrote {editor_path} ({len(editor_html)} bytes)")
 print(f"history: {len(history)} snapshot(s), previous={'yes' if previous_entry else 'none (baseline)'}")
 
 # Icons and the manifest are copied rather than inlined: iOS ignores data:

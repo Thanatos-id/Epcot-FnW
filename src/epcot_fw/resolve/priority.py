@@ -13,6 +13,11 @@ FIELD_STRATEGIES: dict[str, Strategy] = {
 }
 DEFAULT_STRATEGY: Strategy = "priority"
 
+# The `manual` source's rank (see db/seed.py). Values entered by hand are
+# corrections, not another opinion, so they beat every crawled source - under
+# "priority" by sorting first, and under "union" by replacing it outright.
+CURATED_PRIORITY_RANK = 0
+
 # If numeric candidate values disagree by more than this fraction even after
 # a winner is picked, still log a merge_conflicts row for visibility.
 NUMERIC_DISAGREEMENT_THRESHOLD = 0.20
@@ -41,6 +46,18 @@ def resolve_field(field_name: str, candidates: list[FieldCandidate]) -> FieldRes
     strategy = FIELD_STRATEGIES.get(field_name, DEFAULT_STRATEGY)
 
     if strategy == "union":
+        # A hand-curated list replaces the union rather than joining it.
+        # Union is right for combining what several crawlers each happened to
+        # notice - more information, no real conflict. It is wrong for a
+        # correction: someone who deletes a wrong "contains nuts" needs it
+        # gone, and a strategy that can only add is not a correction at all.
+        curated = [c for c in candidates if c.priority_rank == CURATED_PRIORITY_RANK]
+        if curated:
+            winner = max(curated, key=lambda c: c.observed_at)
+            return FieldResolution(
+                value=list(winner.value or []), has_disagreement=False, winner_refs=[winner.ref]
+            )
+
         merged: list[Any] = []
         refs: list[Any] = []
         for c in candidates:
