@@ -58,6 +58,7 @@ def export() -> None:
                     "items": [
                         {
                             "name": it.canonical_name,
+                            "description": it.description,
                             "category": it.category,
                             "price": it.price_usd,
                             "image_url": it.image_url,

@@ -372,6 +372,10 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .cat-dot.non_alcoholic_beverage { background: var(--ink-muted); }
 .item-main { min-width: 0; }
 .item-name { font-size: 13.5px; overflow-wrap: break-word; }
+.item-desc {
+  font-size: 12.5px; color: var(--ink-muted); line-height: 1.45; margin-top: 3px;
+  overflow-wrap: break-word;
+}
 .item-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
 .tag {
   font-size: 10px; padding: 2px 7px; border-radius: 20px; background: var(--gold-soft);
@@ -422,6 +426,13 @@ footer {
   gap: 10px; flex-wrap: wrap;
 }
 .empty-state { padding: 26px; text-align: center; color: var(--ink-muted); font-size: 13.5px; }
+
+.tag-caveat {
+  background: var(--warn-soft); color: var(--warn); border: 1px solid var(--warn);
+  border-radius: 8px; padding: 11px 13px; font-size: 13px; line-height: 1.5;
+  margin: 0 0 14px;
+}
+.tag-caveat b { display: block; margin-bottom: 2px; }
 
 .survey-link {
   display: inline-block; font-weight: 600; color: var(--accent); text-decoration: none;
@@ -511,12 +522,19 @@ footer {
     </div>
 
     <div class="filter-bar">
-      <input id="search" type="text" placeholder="Search booths or dishes…" autocomplete="off" />
+      <input id="search" type="text" placeholder="Search booths, dishes or ingredients…" autocomplete="off" />
       <div class="chip-row" id="category-chips"></div>
       <div class="chip-row" id="tag-chips"></div>
       <div class="chip-row" id="extra-chips"></div>
       <span id="result-count"></span>
     </div>
+
+    <p class="tag-caveat">
+      <b>Dietary tags are inferred from menu wording, not from Disney's allergen data.</b>
+      A description names what a dish is sold on, not everything in it — "Carrot Cake" says
+      nothing about the walnuts. Treat these as a way to browse, never as an allergen check,
+      and ask at the booth.
+    </p>
 
     <div class="booth-list" id="booth-list"></div>
   </section>
@@ -641,7 +659,10 @@ footer {
   function itemMatches(it) {
     if (state.category && it.category !== state.category) return false;
     if (state.tag && (it.tags || []).indexOf(state.tag) === -1) return false;
-    if (state.q && it.name.toLowerCase().indexOf(state.q) === -1) return false;
+    if (state.q) {
+      var haystack = (it.name + ' ' + (it.description || '')).toLowerCase();
+      if (haystack.indexOf(state.q) === -1) return false;
+    }
     return true;
   }
 
@@ -661,6 +682,7 @@ footer {
         '<div class="item-main">' +
           dishHtml +
           '<div class="item-name">' + escapeHtml(it.name) + '</div>' +
+          (it.description ? '<div class="item-desc">' + escapeHtml(it.description) + '</div>' : '') +
           (tagsHtml ? '<div class="item-tags">' + tagsHtml + '</div>' : '') +
         '</div>' +
         priceHtml +
