@@ -1,5 +1,6 @@
 import datetime
 import re
+from collections import Counter
 
 from bs4 import Tag
 
@@ -29,6 +30,37 @@ _OPENING_SUFFIX_RE = re.compile(r"\s*[—–-]\s*[^—–]*\bopen(?:s|ing)?\b.*$
 
 # The category markers that separate a booth's food list from its drinks list.
 _CATEGORY_LABELS = {"food": "food", "beverages": "beverage", "beverage": "beverage"}
+
+# Words that name a drink rather than describe one. Matched only at the END of
+# an item's name, because English puts the head noun of a drink name last:
+# "Peroni Pilsner" and "Samuel Adams Boston Brick Red Irish Red Ale" are
+# drinks, while "Cider-brined Pork Tenderloin" and "Red Wine-braised Beef
+# Short Rib" are dishes that merely mention one. That distinction is what
+# rescues Hops & Barley, whose beer list on the 2026 page sits under the
+# booth's "Food:" label with no "Beverages:" heading of its own.
+_BEVERAGE_FORM_RE = re.compile(
+    r"\b(lager|ale|ipa|stout|porter|pilsner|hefeweizen|weisse|witbier|saison|bock|"
+    r"festbier|gose|radler|shandy|cider|wine|champagne|prosecco|cava|riesling|"
+    r"chardonnay|sauvignon|cabernet|merlot|pinot|shiraz|syrah|zinfandel|malbec|"
+    r"viognier|godello|veltliner|moscato|(?:red|white) blend|cocktail|margarita|mojito|martini|"
+    r"spritz|mule|sangria|mimosa|bellini|coffee|cold brew|tea|latte|cappuccino|"
+    r"espresso|lemonade|soda|cola|slushy|shake|smoothie|juice|lassi|boba|float|"
+    r"flight)\s*[*.!]?$",
+    re.IGNORECASE,
+)
+
+
+def _resolve_category(section_category: str, name: str, tags: list[str]) -> str:
+    """Turn a section label into the category actually stored.
+
+    A "Beverages:" list splits on whether the drink is alcoholic. A "Food:"
+    list is taken at its word unless the item's own name says it is a drink -
+    see _BEVERAGE_FORM_RE for why that check is anchored to the end.
+    """
+    if section_category != "beverage" and not _BEVERAGE_FORM_RE.search(name):
+        return section_category
+    return "alcoholic_beverage" if "contains_alcohol" in tags else "non_alcoholic_beverage"
+
 
 # Roughly a third of the 2026 lines wrap the price inside the same <strong> as
 # the dish, in one of two shapes:
@@ -134,31 +166,76 @@ def _strip_price_clause(name: str) -> str:
     return stripped or name
 
 
-def _inline_menu_item(li: Tag, booth_name: str, category: str) -> ExtractedRecordDTO | None:
-    """One <li> from a 2026 booth list -> a menu_item record."""
+# DFB bolds most dish names, but not all. On an unbolded line the name and
+# its description run together, separated by a spaced dash or a colon:
+#   "Mango-Peach Bubble Tea - Green Tea, Mango and Peach Syrups, and White Boba"
+# Spacing is what makes this safe: a hyphen inside a name is never spaced
+# ("Mango-Peach", "Cider-brined").
+_NAME_TAIL_RE = re.compile(r"\s+[—–]\s+|:\s+")
+
+
+def _description_from(text: str, name: str) -> str | None:
+    """What the line says beyond the dish's own name.
+
+    DFB writes one run-on line per dish - "Seafood Pot Pie with Shrimp,
+    Scallops, and Lobster Bisque topped with Puff Pastry - $7.49" - of which
+    the name is the head and the price is the tail. Storing the whole line as
+    the description means every surface that shows both renders the name
+    twice and the price twice. What is left in the middle is the actual
+    description, and there is genuinely nothing left for a line like "Beer
+    Flight - $12.75", which gets None rather than an echo of its own name.
+    """
+    remainder = text
+    if remainder.lower().startswith(name.lower()):
+        remainder = remainder[len(name) :]
+    remainder = _strip_price_clause(remainder)
+    # Whatever joined the name to its description - a dash, a colon, a comma.
+    remainder = remainder.strip().lstrip(":,-–—").strip()
+    # _strip_price_clause returns its input unchanged rather than empty, so a
+    # line that was only ever a name and a price comes back as the price - and
+    # a multi-serving line comes back as "6 oz $6.00 / 12 oz $9.75", which has
+    # letters in it but is still pricing. Any surviving "$" means there was no
+    # description here to find.
+    if not remainder or remainder == text or "$" in remainder:
+        return None
+    if not re.search(r"[A-Za-z]", remainder):
+        return None
+    return remainder
+
+
+def _inline_menu_item(
+    li: Tag, booth_name: str, category: str
+) -> tuple[ExtractedRecordDTO, str] | None:
+    """One <li> from a 2026 booth list -> a menu_item record.
+
+    Returns the record and the name to fall back on if the short one turns out
+    to collide inside this booth - see _restore_colliding_names.
+    """
     text = clean_text(li.get_text())
     if not text:
         return None
 
     name_tag = li.find("strong")
-    name = clean_text(name_tag.get_text()) if name_tag else text
+    if name_tag is not None:
+        name = clean_text(name_tag.get_text())
+    else:
+        name = _NAME_TAIL_RE.split(text, 1)[0]
     if not name:
         return None
     name = _strip_price_clause(name)
+    fallback = _strip_price_clause(text)
 
     prices = all_prices(text)
     tags = extract_dietary_tags(text)
-    resolved = category
-    if category == "beverage":
-        resolved = "alcoholic_beverage" if "contains_alcohol" in tags else "non_alcoholic_beverage"
+    resolved = _resolve_category(category, name, tags)
 
-    return ExtractedRecordDTO(
+    record = ExtractedRecordDTO(
         entity_type="menu_item",
         natural_key_hint=normalize_name(name[:80]),
         payload={
             "booth_name": booth_name,
             "name": name,
-            "description": text,
+            "description": _description_from(text, name),
             "category": resolved,
             # min(): a drink priced by the glass and the flight lists both, and
             # the single-serving price is the comparable one.
@@ -166,6 +243,31 @@ def _inline_menu_item(li: Tag, booth_name: str, category: str) -> ExtractedRecor
             "dietary_tags": tags,
         },
     )
+    return record, fallback
+
+
+def _restore_colliding_names(
+    parsed: list[tuple[ExtractedRecordDTO, str]],
+) -> list[ExtractedRecordDTO]:
+    """Undo the name/description split where it would merge two dishes.
+
+    Joffrey's sells three cold brews in a plain and a spiked version, listed
+    as two lines that agree word for word up to the spirit at the end. Cutting
+    each at the dash leaves two items called "Dolce Affogato Cold Brew" in the
+    same booth, which resolution then merges - quietly dropping the one with
+    the Baileys in it. Where that would happen, both lines keep their full
+    text as the name: a long name is a much smaller problem than a missing
+    drink.
+    """
+    counts = Counter(record.payload["name"] for record, _ in parsed)
+    records = []
+    for record, fallback in parsed:
+        if counts[record.payload["name"]] > 1 and fallback != record.payload["name"]:
+            record.payload["name"] = fallback
+            record.payload["description"] = None
+            record.natural_key_hint = normalize_name(fallback[:80])
+        records.append(record)
+    return records
 
 
 class DisneyFoodBlogAdapter(SourceAdapter):
@@ -307,7 +409,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             if not booth_name or len(booth_name) > 80:
                 continue
 
-            parsed_items: list[ExtractedRecordDTO] = []
+            parsed_items: list[tuple[ExtractedRecordDTO, str]] = []
             category: str | None = None
             for element in elements:
                 if element.name == "p":
@@ -333,7 +435,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
                     payload={"name": booth_name, "category": "global_marketplace"},
                 )
             )
-            records.extend(parsed_items)
+            records.extend(_restore_colliding_names(parsed_items))
 
         return records
 

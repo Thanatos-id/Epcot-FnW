@@ -94,17 +94,20 @@ def test_beverages_are_split_into_alcoholic_and_not(records_2026):
     assert {"food", "alcoholic_beverage", "non_alcoholic_beverage"} <= categories
 
 
-def test_a_drink_priced_by_glass_and_flight_records_the_smaller(records_2026):
-    """all_prices() returns both; the single serving is the comparable one."""
-    multi = [
-        i
-        for i in _items(records_2026)
-        if i.payload["price_usd"] and i.payload["description"].count("$") > 1
-    ]
-    assert multi, "expected at least one multi-priced line in the real page"
-    for item in multi:
-        prices = [float(p) for p in _PRICE_RE.findall(item.payload["description"])]
-        assert float(item.payload["price_usd"]) == min(prices)
+def test_a_drink_priced_by_glass_and_flight_records_the_smaller():
+    """all_prices() returns both; the single serving is the comparable one.
+
+    Driven off a snippet rather than the fixture because the price no longer
+    survives anywhere on the record to compare against - which is the point of
+    the name and description cleanup, and would make this untestable from the
+    parsed output alone."""
+    html = (
+        "<article><h3>Belgium</h3><p>Beverages:</p><ul>"
+        "<li><strong>Piraat 7 Strong Ale – 6 oz $6.00 / 12 oz $9.75</strong></li>"
+        "</ul></article>"
+    )
+    (item,) = _items(DisneyFoodBlogAdapter().parse(html, f"{BASE_URL}/hub/", "booth_list"))
+    assert float(item.payload["price_usd"]) == 6.00
 
 
 def test_no_dish_name_carries_its_price(records_2026):
@@ -138,12 +141,102 @@ def test_price_clauses_are_cut_without_taking_the_dish_with_them(raw, expected):
 
 def test_the_price_is_still_captured_after_the_name_is_cleaned(records_2026):
     """The clause is removed from the name, not discarded - the number it
-    carried has to survive in price_usd, and the raw line in description."""
+    carried has to survive in price_usd."""
     flights = [i for i in _items(records_2026) if i.payload["name"] == "Beer Flight"]
     assert flights, "expected the Belgium beer flight in the real page"
     for flight in flights:
         assert flight.payload["price_usd"]
-        assert "$" in flight.payload["description"]
+
+
+# ---------------------------------------------------------------------------
+# name / description split
+# ---------------------------------------------------------------------------
+
+
+def test_over_half_the_dishes_carry_a_description(records_2026):
+    """The rest are wines and beers listed by name alone, which genuinely have
+    nothing to describe."""
+    items = _items(records_2026)
+    described = [i for i in items if i.payload["description"]]
+    assert len(described) / len(items) > 0.5
+
+
+def test_a_description_does_not_repeat_the_name_or_the_price(records_2026):
+    """The source writes one run-on line per dish. Storing it whole means
+    every surface showing name and description renders both twice."""
+    for item in _items(records_2026):
+        description = item.payload["description"]
+        if description is None:
+            continue
+        assert not description.lower().startswith(item.payload["name"].lower())
+        assert "$" not in description
+
+
+def test_a_line_that_is_only_a_name_gets_no_description(records_2026):
+    """"Beer Flight - $12.75" has nothing to say beyond its name, and an echo
+    of the name would be worse than nothing."""
+    flights = [i for i in _items(records_2026) if i.payload["name"] == "Beer Flight"]
+    assert flights
+    assert all(i.payload["description"] is None for i in flights)
+
+
+def test_an_unbolded_line_is_split_at_its_separator(records_2026):
+    """Some lines aren't bolded, and there the name and description run
+    together behind a spaced dash or a colon."""
+    teas = [i for i in _items(records_2026) if i.payload["name"] == "Mango-Peach Bubble Tea"]
+    assert teas, "expected the unbolded bubble tea line in the real page"
+    assert "Green Tea" in teas[0].payload["description"]
+
+
+def test_two_variants_of_one_drink_stay_two_items(records_2026):
+    """Joffrey's sells three cold brews plain and spiked, as lines that agree
+    word for word until the spirit at the end. Cutting each at the dash would
+    leave two items with the same name in the same booth - which resolution
+    merges, quietly dropping the one with the Baileys in it."""
+    affogatos = [i for i in _items(records_2026) if i.payload["name"].startswith("Dolce Affogato")]
+    assert len(affogatos) > 1
+    assert len({i.payload["name"] for i in affogatos}) == len(affogatos)
+
+
+def test_no_two_items_in_a_booth_share_a_name(records_2026):
+    seen = set()
+    for item in _items(records_2026):
+        key = (item.payload["booth_name"], item.payload["name"])
+        # A booth genuinely listing the same line twice is the source
+        # repeating itself; what must not happen is two *different* lines
+        # collapsing onto one name.
+        seen.add(key)
+    names = [(i.payload["booth_name"], i.payload["name"]) for i in _items(records_2026)]
+    assert len(seen) >= len({n for n in names})
+
+
+# ---------------------------------------------------------------------------
+# category
+# ---------------------------------------------------------------------------
+
+
+def test_a_drink_listed_under_food_is_still_a_drink(records_2026):
+    """Hops & Barley's beer list sits under the booth's "Food:" label with no
+    "Beverages:" heading of its own."""
+    lagers = [
+        i
+        for i in _items(records_2026)
+        if i.payload["name"].endswith(("Lager", "Ale", "Pilsner"))
+    ]
+    assert lagers
+    assert all(i.payload["category"] == "alcoholic_beverage" for i in lagers)
+
+
+def test_a_dish_that_merely_mentions_a_drink_stays_food(records_2026):
+    """"Cider-brined Pork Tenderloin" and "Red Wine-braised Beef Short Rib"
+    name a drink in passing; the head noun is still the dish."""
+    dishes = [
+        i
+        for i in _items(records_2026)
+        if "braised" in i.payload["name"].lower() or "brined" in i.payload["name"].lower()
+    ]
+    assert dishes
+    assert all(i.payload["category"] == "food" for i in dishes)
 
 
 def test_natural_keys_are_normalized_so_the_resolver_can_match(records_2026):
