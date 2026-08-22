@@ -37,6 +37,7 @@ def test_data_metrics_on_an_empty_snapshot_is_all_zero():
         "booths": 0,
         "menu_items": 0,
         "items_priced": 0,
+        "items_described": 0,
         "items_with_image": 0,
         "items_tagged": 0,
         "booths_with_menu": 0,
