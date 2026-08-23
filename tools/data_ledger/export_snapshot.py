@@ -1,10 +1,20 @@
-"""Exports the current database into epcot_db_snapshot.json, the input for
-fetch_images.py and build_artifact.py. Run from anywhere; paths below are
-resolved relative to this file, and epcot_fw is imported from ../../src.
+"""Exports the current database, twice, for two different readers.
 
     python tools/data_ledger/export_snapshot.py
     python tools/data_ledger/fetch_images.py
     python tools/data_ledger/build_artifact.py
+
+`epcot_db_snapshot.json` is the ledger's input - nested, local, gitignored,
+and shaped for rendering pages.
+
+`docs/v1/snapshot.json` is the client contract: what a phone downloads. It is
+built by the API's own `build_snapshot`, so the published file and a live
+`/api/v1/snapshot` response are the same bytes for the same data and an app
+can move between them without touching its decoder.
+
+Both come out of one session, so the ledger and the app can never disagree
+about what is in the database. Run from anywhere; paths resolve relative to
+this file, and epcot_fw is imported from ../../src.
 """
 
 import datetime
@@ -15,10 +25,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
+from epcot_fw.api.routers.snapshot import build_snapshot  # noqa: E402
 from epcot_fw.db.base import SessionLocal  # noqa: E402
 from epcot_fw.db.models import Booth, CrawlRun, Festival, MenuItem, MergeConflict, Source  # noqa: E402
 
 OUT_PATH = Path(__file__).parent / "epcot_db_snapshot.json"
+
+# Versioned in the path, not in a query string: a v2 with an incompatible
+# shape gets published beside this one rather than replacing it, so builds
+# already on people's phones keep reading something they understand.
+CLIENT_DIR = Path(__file__).parent.parent.parent / "docs" / "v1"
+CLIENT_PATH = CLIENT_DIR / "snapshot.json"
 
 
 def _default(o):
@@ -97,6 +114,22 @@ def export() -> None:
 
         OUT_PATH.write_text(json.dumps(out, default=_default))
         print(f"wrote {OUT_PATH} ({len(booth_data)} booths, {sum(len(b['items']) for b in booth_data)} items)")
+
+        # Compact separators, sorted keys: the file is machine-read, and a
+        # stable key order means an unchanged database produces an identical
+        # file - so git sees no diff and GitHub Pages keeps serving the same
+        # ETag, which is what lets a returning phone download nothing.
+        client = build_snapshot(session, festival)
+        CLIENT_DIR.mkdir(parents=True, exist_ok=True)
+        CLIENT_PATH.write_text(
+            json.dumps(client, default=_default, sort_keys=True, separators=(",", ":")) + "\n"
+        )
+        size_kb = CLIENT_PATH.stat().st_size / 1024
+        print(
+            f"wrote {CLIENT_PATH} ({len(client['booths'])} booths, "
+            f"{len(client['menu_items'])} items, {size_kb:.0f} KB, "
+            f"schema v{client['schema_version']})"
+        )
 
 
 if __name__ == "__main__":

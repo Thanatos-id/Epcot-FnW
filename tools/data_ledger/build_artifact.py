@@ -517,6 +517,24 @@ footer {
     </div>
   </section>
 
+  <section id="feed-section">
+    <div class="section-head">
+      <h2 class="display">Data feed</h2>
+      <span class="section-note">What a client app downloads</span>
+    </div>
+    <div class="panel">
+      <p style="margin: 0 0 12px;">
+        The whole festival in one versioned file — <b>__ITEM_COUNT__</b> dishes across
+        <b>__BOOTH_COUNT__</b> booths, about 18&nbsp;KB gzipped. Re-checking it costs nothing:
+        unchanged data produces an identical file, so a returning client gets a 304 and no body.
+      </p>
+      <p style="margin: 0;">
+        <a class="survey-link mono" href="v1/snapshot.json">v1/snapshot.json</a>
+        <a class="survey-link" href="CLIENT_API.md">Integration notes →</a>
+      </p>
+    </div>
+  </section>
+
   <section id="booths-section">
     <div class="section-head">
       <h2 class="display">Booths &amp; menus</h2>
