@@ -138,7 +138,26 @@ class SnapshotOut(BaseModel):
     Menu items are a flat list keyed back to booths by `booth_id` rather than
     nested inside each booth, so a client can index them however it likes
     (by booth, by dietary tag, by price) without re-walking a tree.
+
+    Served two ways from the same builder: live from /api/v1/snapshot, and as
+    a static file published at /v1/snapshot.json. A client can move between
+    them without changing a line of its decoder, which is the point - the
+    static file needs no server, and the API is there if one is ever wanted.
     """
+
+    # Bumped only for a breaking change. Shipped apps cannot be made to
+    # understand a new shape, so a v2 gets its own published path and this
+    # tells a client which contract it is holding.
+    schema_version: int = 1
+    # When the data last changed, not when this response was built. Derived
+    # from the rows themselves so it stays put between identical requests -
+    # a build timestamp here would change the payload on every call and
+    # destroy the ETag that makes re-checking free.
+    data_updated_at: datetime.datetime | None = None
+    # Set this to strand builds older than the named version on a "please
+    # update" screen. Reserved now because a field cannot be added later
+    # without breaking the apps that never knew about it.
+    min_app_version: str | None = None
 
     festival: FestivalOut
     booths: list[BoothOut] = []

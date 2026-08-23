@@ -442,7 +442,7 @@ footer {
       <span class="section-note">How much of the code producing these numbers is covered by tests</span>
     </div>
     <div class="panel">
-      <div class="confidence-grid"><div class="confidence-metric"><h4>Line coverage</h4><div class="confidence-nums"><span class="confidence-before">59.4%</span><span class="confidence-arrow">→</span><span class="confidence-after">93.1%</span></div><div class="meter"><span style="width:93.1%"></span></div></div><div class="confidence-metric"><h4>Tests</h4><div class="confidence-nums"><span class="confidence-before">26</span><span class="confidence-arrow">→</span><span class="confidence-after">365</span></div></div></div><div class="confidence-foot">2093 of 2247 statements in <code>epcot_fw</code> executed by the suite · baseline measured at commit <code>e78fc00</code> · current at <code>4545dfa</code></div>
+      <div class="confidence-grid"><div class="confidence-metric"><h4>Line coverage</h4><div class="confidence-nums"><span class="confidence-before">59.4%</span><span class="confidence-arrow">→</span><span class="confidence-after">93.2%</span></div><div class="meter"><span style="width:93.2%"></span></div></div><div class="confidence-metric"><h4>Tests</h4><div class="confidence-nums"><span class="confidence-before">26</span><span class="confidence-arrow">→</span><span class="confidence-after">375</span></div></div></div><div class="confidence-foot">2099 of 2253 statements in <code>epcot_fw</code> executed by the suite · baseline measured at commit <code>e78fc00</code> · current at <code>16ad5c5</code></div>
     </div>
   </section>
 
@@ -469,6 +469,24 @@ footer {
         <a class="survey-link" href="survey.html">Open the survey tool →</a>
         <a class="survey-link" href="editor.html">Edit the database →</a>
         <span class="section-note">One tap per booth while you're standing there.</span>
+      </p>
+    </div>
+  </section>
+
+  <section id="feed-section">
+    <div class="section-head">
+      <h2 class="display">Data feed</h2>
+      <span class="section-note">What a client app downloads</span>
+    </div>
+    <div class="panel">
+      <p style="margin: 0 0 12px;">
+        The whole festival in one versioned file — <b>229</b> dishes across
+        <b>33</b> booths, about 18&nbsp;KB gzipped. Re-checking it costs nothing:
+        unchanged data produces an identical file, so a returning client gets a 304 and no body.
+      </p>
+      <p style="margin: 0;">
+        <a class="survey-link mono" href="v1/snapshot.json">v1/snapshot.json</a>
+        <a class="survey-link" href="CLIENT_API.md">Integration notes →</a>
       </p>
     </div>
   </section>
@@ -514,7 +532,7 @@ footer {
 
   <footer>
     <span>epcot_fw · PostgreSQL + FastAPI · <code class="mono">epcot-fw refresh</code> runs weekly</span>
-    <span id="generated-at">Built Aug 22, 2026</span>
+    <span id="generated-at">Built Aug 23, 2026</span>
   </footer>
 </div>
 

@@ -260,3 +260,55 @@ def test_unknown_festival_is_404(db_session):
         assert client.get(SNAPSHOT, params={"festival_id": 999999}).status_code == 404
     finally:
         app.dependency_overrides.clear()
+
+
+# ---------------------------------------------------------------------------
+# the client envelope
+# ---------------------------------------------------------------------------
+
+
+def test_the_snapshot_says_which_contract_it_is(db_session):
+    _seed(db_session)
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert body["schema_version"] == 1
+        assert body["min_app_version"] is None
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_data_updated_at_comes_from_the_rows_not_the_clock(db_session):
+    """If it were a build timestamp, every response would be a different
+    payload and the ETag would never match twice - which would cost a
+    returning client the entire snapshot on every launch, the exact thing
+    this endpoint exists to avoid."""
+    booth, _ = _seed(db_session)
+    client = _client_for(db_session)
+    try:
+        first = client.get(SNAPSHOT)
+        second = client.get(SNAPSHOT)
+        assert first.json()["data_updated_at"] == second.json()["data_updated_at"]
+        assert first.headers["ETag"] == second.headers["ETag"]
+
+        # ...and it does move when the data does.
+        booth.canonical_name = "The Alps (revised)"
+        db_session.flush()
+        third = client.get(SNAPSHOT)
+        assert third.json()["data_updated_at"] >= first.json()["data_updated_at"]
+        assert third.headers["ETag"] != first.headers["ETag"]
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_an_empty_festival_still_produces_a_readable_snapshot(db_session):
+    """Pre-season, before any crawl. A client must get a valid payload it can
+    decode and show an empty state for, not a 500."""
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert body["schema_version"] == 1
+        assert body["data_updated_at"] is None
+        assert body["booths"] == []
+    finally:
+        app.dependency_overrides.clear()
