@@ -35,6 +35,14 @@ router = APIRouter(tags=["snapshot"])
 # almost always gets a cheap 304.
 CACHE_CONTROL = "public, max-age=300, must-revalidate"
 
+# Bump only for a change a shipped client cannot read. See SnapshotOut.
+SCHEMA_VERSION = 1
+
+# None until there is ever a reason to strand old builds. Setting it is how a
+# breaking change gets rolled out: publish /v2/, then set this on /v1/ so old
+# apps show "please update" instead of quietly misreading the data.
+MIN_APP_VERSION: str | None = None
+
 
 def _etag(payload: dict) -> str:
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
@@ -75,7 +83,15 @@ def build_snapshot(db: Session, festival: Festival) -> dict:
         select(Seminar).where(Seminar.festival_id == festival.id).order_by(Seminar.event_date)
     ).all()
 
+    # Taken from the rows rather than the clock. A build timestamp would make
+    # every response a different payload, and the ETag - the whole reason a
+    # returning client costs nothing - would never match twice.
+    timestamps = [row.updated_at for row in (*booths, *items) if row.updated_at is not None]
+
     return SnapshotOut(
+        schema_version=SCHEMA_VERSION,
+        data_updated_at=max(timestamps) if timestamps else None,
+        min_app_version=MIN_APP_VERSION,
         festival=FestivalOut.model_validate(festival),
         booths=booth_out,
         menu_items=[MenuItemOut.model_validate(i) for i in items],
