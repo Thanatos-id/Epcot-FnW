@@ -10,14 +10,17 @@ match, and import is a deliberate overwrite (unlike the backfill tool).
 import csv
 import json
 
+import httpx
 import pytest
+import respx
 from sqlalchemy import select
 
 from epcot_fw.db.models import Booth, MenuItem
+from epcot_fw.fetch import rate_limiter, robots
 from epcot_fw.parse.schemas import ExtractedRecordDTO
 from epcot_fw.pipeline import photo_workflow as workflow_mod
 from epcot_fw.pipeline.manual import merge_menu_item_overrides
-from epcot_fw.pipeline.photo_workflow import export_dish_photos, import_dish_photos
+from epcot_fw.pipeline.photo_workflow import _download_bytes, export_dish_photos, import_dish_photos
 
 from ._helpers import ingest
 
@@ -149,6 +152,67 @@ def test_export_never_reads_or_writes_a_booth_image(db_session, tmp_path, monkey
 
     booth = db_session.scalars(select(Booth).where(Booth.canonical_name == "Germany")).one()
     assert booth.image_url is None
+
+
+# ---------------------------------------------------------------------------
+# _download_bytes: the actual network layer, mocked out everywhere else above
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture(autouse=True)
+def _reset_robots_cache(monkeypatch):
+    # robots.is_allowed() caches per domain at module scope - each test below
+    # uses its own domain, but reset anyway so ordering can never matter.
+    monkeypatch.setattr(robots, "_robots_cache", {})
+
+
+def test_download_bytes_returns_the_body_on_success(monkeypatch):
+    monkeypatch.setattr(rate_limiter, "wait_for_domain", lambda url, min_delay_sec: None)
+    url = "https://cdn-ok.test/dish.jpg"
+
+    with respx.mock(assert_all_called=False) as mock:
+        mock.get("https://cdn-ok.test/robots.txt").mock(return_value=httpx.Response(404))
+        mock.get(url).mock(return_value=httpx.Response(200, content=b"real-image-bytes"))
+        result = _download_bytes(url)
+
+    assert result == b"real-image-bytes"
+
+
+def test_download_bytes_returns_none_on_http_error(monkeypatch):
+    monkeypatch.setattr(rate_limiter, "wait_for_domain", lambda url, min_delay_sec: None)
+    url = "https://cdn-404.test/missing.jpg"
+
+    with respx.mock(assert_all_called=False) as mock:
+        mock.get("https://cdn-404.test/robots.txt").mock(return_value=httpx.Response(404))
+        mock.get(url).mock(return_value=httpx.Response(404))
+        result = _download_bytes(url)
+
+    assert result is None
+
+
+def test_download_bytes_returns_none_on_connection_error(monkeypatch):
+    monkeypatch.setattr(rate_limiter, "wait_for_domain", lambda url, min_delay_sec: None)
+    url = "https://cdn-unreachable.test/dish.jpg"
+
+    with respx.mock(assert_all_called=False) as mock:
+        mock.get("https://cdn-unreachable.test/robots.txt").mock(return_value=httpx.Response(404))
+        mock.get(url).mock(side_effect=httpx.ConnectError("refused"))
+        result = _download_bytes(url)
+
+    assert result is None
+
+
+def test_download_bytes_respects_robots_disallow(monkeypatch):
+    monkeypatch.setattr(rate_limiter, "wait_for_domain", lambda url, min_delay_sec: None)
+    url = "https://cdn-blocked.test/blocked/dish.jpg"
+
+    with respx.mock(assert_all_called=False) as mock:
+        mock.get("https://cdn-blocked.test/robots.txt").mock(
+            return_value=httpx.Response(200, text="User-agent: *\nDisallow: /blocked/")
+        )
+        result = _download_bytes(url)
+
+    assert result is None
 
 
 # ---------------------------------------------------------------------------
