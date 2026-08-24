@@ -1,8 +1,47 @@
 # Curated data
 
-Hand-surveyed facts that no crawled source publishes.
+Hand-surveyed facts that no crawled source publishes, plus corrections and
+photo backfills for `docs/editor.html` and `epcot-fw backfill-images` to
+write into.
 
-## Why this exists
+## Dish photos
+
+`data/manual/menu_items.json` holds curated fields for individual dishes -
+most often `image_url`. Two ways it gets filled:
+
+- **The editor** (`docs/editor.html`) exports a block here when you correct
+  a dish by hand.
+- **`epcot-fw backfill-images --confirm-tos`** searches prior seasons of
+  Disney Food Blog's per-booth photo posts for photos of dishes still on the
+  current menu, and stages confident matches here. `--years N` sets how far
+  back to look (default 5); `--dry-run` reports what it would find without
+  writing anything. It only ever attaches a photo to a dish already active
+  on the current menu - a caption for a dish that hasn't returned this
+  season is reported and dropped, never used to invent one - and it never
+  touches a booth's photo, only a dish's.
+
+Either way, apply what's staged with:
+
+```bash
+epcot-fw manual        # stage + re-resolve
+```
+
+An entry looks like this:
+
+```json
+{
+  "menu_items": [
+    { "booth_name": "Germany", "name": "Kirschwasser Torte",
+      "image_url": "https://example.com/photo.jpg" }
+  ]
+}
+```
+
+Like the booth fields below, an `image_url` already sitting here - typed by
+hand or staged by an earlier backfill run - is never overwritten by a later
+one. Clear it in the editor first if you want a fresh run to replace it.
+
+## Why the booth fields exist
 
 Sorting booths by distance needs coordinates, and not one of the seven
 crawled sources emits a latitude. Booth positions are stable season to
