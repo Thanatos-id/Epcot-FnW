@@ -314,6 +314,29 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             return []
         return self._detail_seeds(result.text, festival_year)
 
+    def historical_detail_seeds(self, year: int) -> list[SeedUrl]:
+        """Per-booth photo-post links for a *past* festival year.
+
+        discover_new_urls() always reads the undated hub, because for the
+        current season that is the page that gets edited as new posts appear.
+        A past season's undated hub was long since overwritten by whatever
+        came after it, so this reads that year's own dated hub instead
+        (`/{year}-epcot-food-and-wine-festival-booths-menus-and-food-
+        photos/`) - the same URL this adapter's own seed_urls() fetches for
+        the current year, just pointed at an earlier one.
+
+        Returns [] rather than raising on a 404 or an unexpected shape: not
+        every year necessarily used this URL pattern or this page layout, and
+        one missing season should not stop a backfill run across several.
+        """
+        from epcot_fw.fetch.http_client import fetch
+
+        url = f"{BASE_URL}/{year}-epcot-food-and-wine-festival-booths-menus-and-food-photos/"
+        result = fetch(url, crawl_delay_sec=5)
+        if not (200 <= result.status_code < 300) or not result.text:
+            return []
+        return self._detail_seeds(result.text, year)
+
     def _detail_seeds(self, raw_html: str, festival_year: int) -> list[SeedUrl]:
         soup = soupify(raw_html)
         article = soup.find("article") or soup

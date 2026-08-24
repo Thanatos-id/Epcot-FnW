@@ -164,6 +164,58 @@ def review_reject(conflict_id: int) -> None:
     console.print(f"dismissed conflict {conflict_id}")
 
 
+@app.command("backfill-images")
+def backfill_images(
+    years: int = typer.Option(
+        5, "--years", help="How many prior seasons to search, counting back from the current festival"
+    ),
+    confirm_tos: bool = typer.Option(
+        False, "--confirm-tos", help="Confirm you've reviewed disneyfoodblog.com's ToS/robots.txt"
+    ),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Report matches without writing data/manual/menu_items.json"
+    ),
+) -> None:
+    """Find photos of this year's dishes in prior seasons of Disney Food
+    Blog's per-booth photo posts.
+
+    Menu-item photos only - never a booth or location photo - and only ever
+    attached to a dish that is already on this year's active menu. A caption
+    whose booth or dish doesn't confidently match something on the current
+    menu is reported, not guessed at. Fetches up to ~33 booths' worth of
+    pages per season searched, so --dry-run first is worth it before running
+    across all 5.
+    """
+    if not confirm_tos:
+        raise typer.BadParameter(
+            "Pass --confirm-tos once you've reviewed disneyfoodblog.com's terms of service / "
+            "robots.txt - this fetches several seasons' worth of its pages in one run."
+        )
+
+    from epcot_fw.pipeline.image_backfill import backfill_dish_images
+
+    with SessionLocal() as session:
+        report = backfill_dish_images(session, years=years, dry_run=dry_run)
+
+    console.print(f"scanned {len(report.years_scanned)} season(s): {report.years_scanned}")
+    console.print(
+        f"fetched {report.photo_posts_fetched} photo post(s), "
+        f"found {report.captions_found} captioned photo(s)"
+    )
+    outcome = f"{len(report.matched)} confident match(es)"
+    outcome += " (dry run - nothing written)" if dry_run else " written to data/manual/menu_items.json"
+    console.print(outcome)
+    if report.skipped_already_pictured:
+        console.print(f"{len(report.skipped_already_pictured)} skipped - dish already has a photo")
+    if report.skipped_no_item_match:
+        console.print(f"{len(report.skipped_no_item_match)} caption(s) matched no current dish")
+    if report.skipped_no_booth_match:
+        console.print(f"{len(report.skipped_no_booth_match)} caption(s) came from a booth not on this year's menu")
+
+    if not dry_run and report.matched:
+        console.print("Run [bold]epcot-fw manual[/bold] to apply these to the database.")
+
+
 @app.command("manual")
 def manual_apply() -> None:
     """Apply hand-curated booth facts (coordinates, location notes) from
