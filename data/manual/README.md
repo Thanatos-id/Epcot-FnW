@@ -20,6 +20,20 @@ most often `image_url`. Two ways it gets filled:
   season is reported and dropped, never used to invent one - and it never
   touches a booth's photo, only a dish's.
 
+A third way covers photos that need to be reworked, not just found:
+
+- **`epcot-fw images export ./dish-photos`** downloads every active dish's
+  current photo into a folder, named by its stable `public_id`, plus a
+  `manifest.json`. Run the whole folder through whatever external tool you
+  like - an AI pass for a consistent look, a manual crop - and bring the
+  results back with **`epcot-fw images import ./dish-photos`**, which
+  publishes the processed files into `docs/dish-photos/` (so a normal commit
+  + push serves them from GitHub Pages, same as the rest of the ledger) and
+  stages their URLs here. Matching is by `public_id` alone, so a rename or a
+  changed file extension during processing doesn't break the round trip.
+  Unlike the backfill above, this **does** overwrite an existing `image_url`
+  - running it is a decision to publish exactly what's in that folder.
+
 Either way, apply what's staged with:
 
 ```bash
