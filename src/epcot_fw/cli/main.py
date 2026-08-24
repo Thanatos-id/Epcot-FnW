@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 import typer
 from rich.console import Console
@@ -21,9 +22,17 @@ app = typer.Typer(help="Epcot Food & Wine Festival crawler/API CLI")
 sources_app = typer.Typer(help="Manage crawl sources")
 db_app = typer.Typer(help="Database maintenance")
 review_app = typer.Typer(help="Review and triage merge_conflicts", invoke_without_command=True)
+images_app = typer.Typer(help="Round-trip dish photos for external (e.g. AI) processing")
 app.add_typer(sources_app, name="sources")
 app.add_typer(db_app, name="db")
 app.add_typer(review_app, name="review")
+app.add_typer(images_app, name="images")
+
+# The site this project's own docs/ is published at. Used only as the
+# default publish target for `epcot-fw images import` - override with
+# --base-url for a fork, a different Pages project, or once these move to a
+# dedicated image host.
+DEFAULT_PAGES_BASE_URL = "https://thanatos-id.github.io/Epcot-FnW"
 
 console = Console()
 
@@ -214,6 +223,69 @@ def backfill_images(
 
     if not dry_run and report.matched:
         console.print("Run [bold]epcot-fw manual[/bold] to apply these to the database.")
+
+
+@images_app.command("export")
+def images_export(
+    out_dir: Path = typer.Argument(Path("dish-photos"), help="Directory to write photos + a manifest into"),
+) -> None:
+    """Download every active dish's current photo into out_dir, named by its
+    stable public_id, plus a manifest.json for `images import` to read back.
+
+    Meant for running the whole folder through an external processing step
+    (an AI pass for a consistent look, a manual crop, whatever) and bringing
+    the results back with `images import` - nothing here cares what happens
+    to the files in between, only that the filenames keep their public_id.
+    """
+    from epcot_fw.pipeline.photo_workflow import export_dish_photos
+
+    with SessionLocal() as session:
+        report = export_dish_photos(session, out_dir)
+
+    console.print(f"exported {report.downloaded} of {report.total} photo(s) to {out_dir}/")
+    if report.failed:
+        console.print(f"[yellow]{len(report.failed)} failed to download[/yellow] - see manifest.json")
+    if report.total == 0:
+        console.print(
+            "No active dish has a photo yet - run `epcot-fw backfill-images` "
+            "or add one through the editor first."
+        )
+
+
+@images_app.command("import")
+def images_import(
+    in_dir: Path = typer.Argument(..., help="Directory of processed photos + the manifest.json from `images export`"),
+    base_url: str = typer.Option(
+        DEFAULT_PAGES_BASE_URL, "--base-url", help="Public base URL the published photos will be served from"
+    ),
+    publish_dir: Path = typer.Option(
+        Path("docs/dish-photos"), "--publish-dir", help="Where to copy processed photos for Pages to serve"
+    ),
+) -> None:
+    """Publish processed photos from in_dir and stage their URLs as curated
+    overrides, matching each file to a dish by the public_id in its name.
+
+    Overwrites whatever image_url a dish currently has, staged or applied -
+    unlike `backfill-images`, running this command is a deliberate decision
+    to set these specific dishes' photos to what's in this folder. Copies
+    files into publish_dir (docs/ by default, so a normal commit + push
+    publishes them via GitHub Pages); nothing here uploads anywhere on its
+    own.
+    """
+    from epcot_fw.pipeline.photo_workflow import import_dish_photos
+
+    report = import_dish_photos(in_dir, publish_dir=publish_dir, base_url=base_url)
+
+    console.print(f"published {len(report.published)} photo(s) to {publish_dir}/")
+    if report.missing:
+        console.print(
+            f"[yellow]{len(report.missing)} listed in the manifest have no processed file in {in_dir}[/yellow]"
+        )
+    if report.published:
+        console.print(
+            "Run [bold]epcot-fw manual[/bold] to apply these, then commit + push "
+            f"{publish_dir}/ and data/manual/menu_items.json to publish them."
+        )
 
 
 @app.command("manual")

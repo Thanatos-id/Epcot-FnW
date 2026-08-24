@@ -23,13 +23,15 @@ overlay the editor exports to - rather than to the database directly, so a
 backfill run is reviewable and reversible exactly like a hand-typed
 correction, and only ever takes effect through `epcot-fw manual`. An
 existing image_url, in the database or already pending in that file, is
-never overwritten: a human's answer (or a fresher backfill run's) always
-outranks a historical guess.
+never overwritten by this: a human's answer, or something already staged,
+always outranks a historical guess. (Compare pipeline/photo_workflow.py's
+import step, which is a deliberate publish rather than a background search
+and overwrites on purpose - see merge_menu_item_overrides in
+pipeline/manual.py for both sides of that.)
 """
 
 from __future__ import annotations
 
-import json
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -41,7 +43,7 @@ from sqlalchemy.orm import Session
 from epcot_fw.db.models import Booth, Festival, MenuItem, Source
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.schemas import ExtractedRecordDTO
-from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH
+from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH, merge_menu_item_overrides
 from epcot_fw.resolve.matcher import Candidate, find_best_match
 from epcot_fw.sources.disney_food_blog import DisneyFoodBlogAdapter
 
@@ -228,7 +230,14 @@ def backfill_dish_images(
         matched[key] = candidate
 
     if not dry_run and matched:
-        _write_overrides(path, matched.values())
+        merge_menu_item_overrides(
+            path,
+            [
+                {"booth_name": m.booth_name, "name": m.item_name, "image_url": m.image_url}
+                for m in matched.values()
+            ],
+            overwrite=False,
+        )
 
     return BackfillReport(
         years_scanned=year_list,
@@ -241,32 +250,3 @@ def backfill_dish_images(
     )
 
 
-def _write_overrides(path: Path, new_matches: list[BackfillMatch]) -> None:
-    """Merge matches into the curated file, preserving everything already
-    there - including `_README` and any fields set by an editor export this
-    function doesn't otherwise know about.
-
-    `setdefault`-equivalent on purpose: an `image_url` already sitting in
-    this file, pending or applied, is left alone. Re-running the backfill
-    should not silently swap out a value someone typed in by hand or that a
-    previous run already staged.
-    """
-    payload: dict[str, Any] = json.loads(path.read_text()) if path.exists() else {}
-    entries: list[dict[str, Any]] = list(payload.get("menu_items") or [])
-    by_key = {
-        (e.get("booth_name"), e.get("name")): e for e in entries if e.get("booth_name") and e.get("name")
-    }
-
-    for m in new_matches:
-        key = (m.booth_name, m.item_name)
-        entry = by_key.get(key)
-        if entry is None:
-            entry = {"booth_name": m.booth_name, "name": m.item_name}
-            entries.append(entry)
-            by_key[key] = entry
-        if not entry.get("image_url"):
-            entry["image_url"] = m.image_url
-
-    payload["menu_items"] = entries
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")

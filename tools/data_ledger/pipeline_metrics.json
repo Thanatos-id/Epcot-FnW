@@ -11,11 +11,11 @@
   },
   "current": {
     "label": "Current",
-    "commit": "dc28e76",
-    "measured_at": "2026-08-24T21:06:36.463540+00:00",
-    "tests": 395,
-    "coverage_pct": 92.8,
-    "covered_lines": 2244,
-    "num_statements": 2417
+    "commit": "4102a04",
+    "measured_at": "2026-08-24T21:28:14.558250+00:00",
+    "tests": 413,
+    "coverage_pct": 92.6,
+    "covered_lines": 2358,
+    "num_statements": 2546
   }
 }
