@@ -119,6 +119,48 @@ def load_menu_item_overrides(path: Path = DEFAULT_ITEMS_PATH) -> list[dict[str, 
     return entries
 
 
+def merge_menu_item_overrides(
+    path: Path, entries: list[dict[str, Any]], *, overwrite: bool
+) -> None:
+    """Merge `entries` (each at least `{"booth_name", "name", ...fields}`)
+    into the curated menu-item file, preserving everything already there -
+    including `_README` and any fields the caller doesn't set.
+
+    Two very different callers share this, hence the explicit `overwrite`:
+
+    - `pipeline/image_backfill.py` is a best-effort automated search and
+      passes `overwrite=False` - a field already set, by a human or an
+      earlier run, is left alone. Re-running a search should not silently
+      swap out a value someone chose on purpose.
+    - `pipeline/photo_workflow.py`'s import step is a deliberate,
+      human-directed publish - "make these dishes' photos exactly what's in
+      this folder" - and passes `overwrite=True`, since replacing whatever
+      was there is the entire point of running it.
+    """
+    payload: dict[str, Any] = json.loads(path.read_text()) if path.exists() else {}
+    existing: list[dict[str, Any]] = list(payload.get("menu_items") or [])
+    by_key = {
+        (e.get("booth_name"), e.get("name")): e for e in existing if e.get("booth_name") and e.get("name")
+    }
+
+    for new_entry in entries:
+        key = (new_entry["booth_name"], new_entry["name"])
+        entry = by_key.get(key)
+        if entry is None:
+            entry = {"booth_name": new_entry["booth_name"], "name": new_entry["name"]}
+            existing.append(entry)
+            by_key[key] = entry
+        for field, value in new_entry.items():
+            if field in ("booth_name", "name"):
+                continue
+            if overwrite or not entry.get(field):
+                entry[field] = value
+
+    payload["menu_items"] = existing
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+
+
 def _content_hash(entries: list[dict[str, Any]]) -> str:
     canonical = json.dumps(entries, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
