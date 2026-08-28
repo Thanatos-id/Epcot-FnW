@@ -20,6 +20,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 import build_editor  # noqa: E402
+import build_map  # noqa: E402
 import build_survey  # noqa: E402
 import metrics  # noqa: E402
 
@@ -511,8 +512,9 @@ footer {
       </p>
       <p style="margin: 0;">
         <a class="survey-link" href="survey.html">Open the survey tool →</a>
+        <a class="survey-link" href="map.html">Open the map tool →</a>
         <a class="survey-link" href="editor.html">Edit the database →</a>
-        <span class="section-note">One tap per booth while you're standing there.</span>
+        <span class="section-note">One tap per booth while you're standing there, or drop a pin from a desk.</span>
       </p>
     </div>
   </section>
@@ -979,6 +981,11 @@ survey_path = DOCS_DIR / "survey.html"
 survey_html = build_survey.render(data)
 survey_path.write_text(survey_html)
 print(f"wrote {survey_path} ({len(survey_html)} bytes)")
+
+map_path = DOCS_DIR / "map.html"
+map_html = build_map.render(data)
+map_path.write_text(map_html)
+print(f"wrote {map_path} ({len(map_html)} bytes)")
 
 editor_path = DOCS_DIR / "editor.html"
 editor_html = build_editor.render(data, generated_at=replacements["__GENERATED_AT__"])

@@ -35,7 +35,7 @@ def survey_booths(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
     person can stand, so asking anyone to capture it would be asking for a
     wrong coordinate.
     """
-    rank = {None: 0, "anchored": 1, "surveyed": 2}
+    rank = {None: 0, "anchored": 1, "mapped": 2, "surveyed": 3}
     booths = [
         {
             "name": b.get("name"),
@@ -413,7 +413,7 @@ footer a { color: var(--accent); }
       card.className = 'booth' + (cap ? ' captured' : '');
 
       var pillClass = cap ? 'new' : pos ? (pos.precision === 'surveyed' ? 'surveyed' : 'anchored') : 'unplaced';
-      var pillText = cap ? 'Captured' : pos ? (pos.precision === 'surveyed' ? 'Surveyed' : 'Anchored') : 'Not placed';
+      var pillText = cap ? 'Captured' : pos ? (pos.precision === 'surveyed' ? 'Surveyed' : pos.precision === 'mapped' ? 'Mapped' : 'Anchored') : 'Not placed';
 
       var distance = (state.fix && pos) ? metresBetween(state.fix, pos) : null;
 

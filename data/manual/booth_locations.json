@@ -12,75 +12,167 @@
     "",
     "location_precision says what the coordinate is worth:",
     "  surveyed - a GPS fix taken standing at the booth. Metres.",
+    "  mapped   - a pin dropped by eye on a real map (docs/map.html), matched",
+    "             against Disney's festival map or satellite imagery. Better",
+    "             than an anchor, not as good as a GPS fix.",
     "  anchored - the published coordinate of the pavilion the booth is named",
-    "             after, standing in until someone surveys it. 30-50m, which is",
-    "             enough to place a booth on the right side of World Showcase and",
-    "             not enough to order two booths near each other.",
+    "             after, standing in until someone places or surveys it. 30-50m,",
+    "             which is enough to place a booth on the right side of World",
+    "             Showcase and not enough to order two booths near each other.",
     "",
     "The anchored entries below come from the Wikipedia/Wikidata coordinates for",
     "each World Showcase pavilion (CC BY-SA). They are a floor, not an answer:",
-    "replace one with a surveyed fix and it wins on recency. Use docs/survey.html",
-    "on a phone in the park to capture them - it emits entries in this shape.",
+    "replace one with a mapped or surveyed fix and it wins on recency. Use",
+    "docs/map.html at a desk, or docs/survey.html on a phone in the park, to",
+    "capture them - both emit entries in this shape.",
     "",
     "Everything not named here has no coordinate at all yet, including Refreshment",
     "Outpost, Brew-Wing Lab and every themed kiosk. Nothing publishes those."
   ],
   "booths": [
     {
+      "name": "Australia",
+      "latitude": 28.371741,
+      "longitude": -81.548559,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Belgium",
+      "latitude": 28.368717,
+      "longitude": -81.552352,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Brazil",
+      "latitude": 28.368773,
+      "longitude": -81.552397,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Brew-Wing",
+      "latitude": 28.372385,
+      "longitude": -81.547957,
+      "location_precision": "mapped"
+    },
+    {
       "name": "Canada",
-      "latitude": 28.371483,
-      "longitude": -81.551311,
-      "location_precision": "anchored",
-      "location_description": "Canada pavilion, north end of World Showcase next to the United Kingdom"
+      "latitude": 28.371722,
+      "longitude": -81.550789,
+      "location_precision": "mapped"
     },
     {
       "name": "China",
-      "latitude": 28.370000,
-      "longitude": -81.546110,
-      "location_precision": "anchored",
-      "location_description": "China pavilion, east side of World Showcase between Norway and Germany"
+      "latitude": 28.370057,
+      "longitude": -81.547004,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Coastal Eats",
+      "latitude": 28.373514,
+      "longitude": -81.548414,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Flavors from Fire",
+      "latitude": 28.373088,
+      "longitude": -81.548522,
+      "location_precision": "mapped"
     },
     {
       "name": "France",
-      "latitude": 28.368936,
-      "longitude": -81.552774,
-      "location_precision": "anchored",
-      "location_description": "France pavilion, west side of World Showcase between Morocco and the United Kingdom"
+      "latitude": 28.369212,
+      "longitude": -81.55253,
+      "location_precision": "mapped"
     },
     {
       "name": "Germany",
-      "latitude": 28.368060,
-      "longitude": -81.546940,
-      "location_precision": "anchored",
-      "location_description": "Germany pavilion, east side of World Showcase between China and Italy"
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Greece",
+      "latitude": 28.368147,
+      "longitude": -81.55126,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Hawai’i",
+      "latitude": 28.371961,
+      "longitude": -81.549572,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "India",
+      "latitude": 28.369573,
+      "longitude": -81.546569,
+      "location_precision": "mapped"
     },
     {
       "name": "Italy",
-      "latitude": 28.367500,
-      "longitude": -81.548330,
-      "location_precision": "anchored",
-      "location_description": "Italy pavilion, south-east side of World Showcase between Germany and The American Adventure"
+      "latitude": 28.368229,
+      "longitude": -81.547906,
+      "location_precision": "mapped"
     },
     {
       "name": "Japan",
-      "latitude": 28.367443,
-      "longitude": -81.550527,
-      "location_precision": "anchored",
-      "location_description": "Japan pavilion, south-west side of World Showcase between The American Adventure and Morocco"
+      "latitude": 28.368136,
+      "longitude": -81.550748,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Joffrey’s Coffee",
+      "latitude": 28.371025,
+      "longitude": -81.551463,
+      "location_precision": "mapped"
     },
     {
       "name": "Mexico",
-      "latitude": 28.371436,
-      "longitude": -81.547448,
-      "location_precision": "anchored",
-      "location_description": "Mexico pavilion, north-east end of World Showcase"
+      "latitude": 28.37152,
+      "longitude": -81.548231,
+      "location_precision": "mapped"
     },
     {
-      "name": "Tangierine Cafe: Flavors of the Medina",
-      "latitude": 28.368060,
-      "longitude": -81.551670,
-      "location_precision": "anchored",
-      "location_description": "Morocco pavilion, west side of World Showcase between Japan and France"
+      "name": "Refreshment Outpost",
+      "latitude": 28.369267,
+      "longitude": -81.546379,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Shimmering Sips hosted by CORKCICLE®",
+      "latitude": 28.371783,
+      "longitude": -81.55002,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Spain",
+      "latitude": 28.368294,
+      "longitude": -81.547527,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Tangierine Café: Flavors of the Medina",
+      "latitude": 28.368349,
+      "longitude": -81.551827,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "The Alps",
+      "latitude": 28.368565,
+      "longitude": -81.546684,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "The Fry Basket",
+      "latitude": 28.373217,
+      "longitude": -81.548134,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "The Wedge",
+      "latitude": 28.373954,
+      "longitude": -81.550073,
+      "location_precision": "mapped"
     }
   ]
 }

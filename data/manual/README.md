@@ -70,6 +70,16 @@ capture in local storage, so closing the tab or losing signal mid-lap doesn't
 lose the morning's work, and Copy JSON at the end gives you exactly the block
 below to paste in.
 
+## How to place from a map
+
+No trip to the park needed: open **`docs/map.html`**, pick a booth from the
+list, hit **Drop pin**, then click its spot on a real satellite/street map —
+lined up against Disney's own released festival map, or just memory of the
+layout. Drag a dropped pin any time to nudge it, and Copy JSON at the end
+gives you the same block below to paste in. Useful the moment Disney
+publishes a new festival map, well before anyone can walk the park to survey
+it for real.
+
 By hand, an entry looks like this:
 
 ```json
@@ -92,23 +102,27 @@ Then apply it:
 epcot-fw manual        # stage + re-resolve
 ```
 
-## Two grades of coordinate
+## Three grades of coordinate
 
-`location_precision` records what a number is worth, because two very
-different things end up in the same column:
+`location_precision` records what a number is worth, because very different
+things end up in the same column:
 
 - **`surveyed`** — a GPS fix taken standing at the booth. Good to a few
   metres. This is the real thing.
+- **`mapped`** — a pin dropped by eye on a real map (`docs/map.html`),
+  matched against Disney's own festival map or satellite imagery. Better
+  than an anchor — it's actually placed at the booth, not a pavilion
+  standing in for it — but still an eyeballed estimate, not a fix.
 - **`anchored`** — the published coordinate of the pavilion a booth is named
-  after, standing in until someone surveys it. Good to 30–50 m: enough to put
-  a booth on the right side of World Showcase, not enough to order two booths
-  you can see at the same time.
+  after, standing in until someone places or surveys it. Good to 30–50 m:
+  enough to put a booth on the right side of World Showcase, not enough to
+  order two booths you can see at the same time.
 
 Eight booths ship anchored, from the Wikipedia/Wikidata pavilion coordinates.
 Everything else — Refreshment Outpost, Brew-Wing Lab, and every themed kiosk
 like Swirled Showcase or Bramblewood Bites — has no coordinate at all,
-because nobody publishes one. A surveyed fix always supersedes an anchor: it
-lands in the same file, and later wins on recency.
+because nobody publishes one. A better grade always supersedes a worse one:
+they all land in the same file, and the more precise value wins on recency.
 
 A client that shows a distance is expected to qualify an anchored one
 ("about 200 ft, approximate") rather than presenting it as measured.

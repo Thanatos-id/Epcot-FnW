@@ -212,12 +212,15 @@ class Booth(Base):
     latitude: Mapped[Decimal | None] = mapped_column(Numeric(9, 6))
     longitude: Mapped[Decimal | None] = mapped_column(Numeric(9, 6))
     # How much the coordinate above is worth. 'surveyed' is a GPS fix taken
-    # standing at the booth, good to a few metres. 'anchored' is the
-    # pavilion's published coordinate standing in for a booth named after it,
-    # good to roughly 30-50m - fine for "which end of World Showcase", not
-    # fine for ordering booths that sit within sight of each other. NULL when
-    # there is no coordinate at all. A client that shows a distance needs to
-    # know which of the three it is holding rather than treating them alike.
+    # standing at the booth, good to a few metres. 'mapped' is a pin dropped
+    # by eye on a real satellite/street map (docs/map.html), cross-referenced
+    # against Disney's own festival map - better than an anchor, not GPS.
+    # 'anchored' is the pavilion's published coordinate standing in for a
+    # booth named after it, good to roughly 30-50m - fine for "which end of
+    # World Showcase", not fine for ordering booths that sit within sight of
+    # each other. NULL when there is no coordinate at all. A client that shows
+    # a distance needs to know which of the four it is holding rather than
+    # treating them alike.
     location_precision: Mapped[str | None] = mapped_column(Text)
     image_url: Mapped[str | None] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
