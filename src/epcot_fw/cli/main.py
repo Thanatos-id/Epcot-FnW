@@ -357,5 +357,37 @@ def sources_disable(key: str) -> None:
     console.print(f"disabled {key}")
 
 
+@sources_app.command("reparse")
+def sources_reparse(
+    sources: str = typer.Option(
+        None, "--sources", help="Comma-separated source keys to reparse (default: every enabled source)"
+    ),
+) -> None:
+    """Reparse already-cached pages with today's parser code, without
+    refetching anything.
+
+    Fixes the case where a parser bug got fixed in code but the pages it
+    misparsed haven't changed since, so a normal crawl/refresh's change
+    detection skips them and the bad data just sits there. No network
+    access happens here, so no --confirm-tos is needed.
+    """
+    from epcot_fw.pipeline.reparse import run_reparse
+
+    with SessionLocal() as session:
+        totals = run_reparse(session, source_keys=_parse_keys(sources))
+
+    console.print(
+        f"reparsed {totals['pages_reparsed']} page(s), {totals['records_extracted']} record(s) extracted"
+    )
+    console.print(
+        f"{totals['records_relinked']} reconnected directly to their existing dish/booth; "
+        f"{totals['canonical_upserts']} more resolved fresh"
+    )
+    if totals["errors"]:
+        console.print(f"[yellow]{totals['errors']} page(s) failed to reparse[/yellow]")
+    if totals["open_conflicts"]:
+        console.print(f"{totals['open_conflicts']} open conflict(s) - run `epcot-fw review`")
+
+
 if __name__ == "__main__":
     app()
