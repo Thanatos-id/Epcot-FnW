@@ -59,7 +59,14 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "category": "category",
         "region_theme": "region_theme",
         "description": "description",
-        "image_url": "image_url",
+        # Deliberately no "image_url" here. AllEars is the only source that
+        # ever puts a photo on a booth payload, and the app has no use for
+        # it - only a dish's own photo is ever shown. Leaving image_url out
+        # of this map means a booth payload's image_url is silently ignored
+        # at resolution time, not merely unused by convention: no crawled
+        # source can populate Booth.image_url, now or in the future,
+        # without this map being edited on purpose.
+        #
         # No crawled source publishes coordinates; these arrive from the
         # curated `manual` source (priority_rank 0), which therefore wins
         # field resolution against anything a crawl might later contribute.
