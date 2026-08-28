@@ -212,3 +212,28 @@ def test_photos_are_scoped_to_their_own_booth(db_session):
     ingest(db_session, dtos, "disney_food_blog", festival_id, url=f"{BASE_URL}/australia/")
 
     assert db_session.get(MenuItem, torte_id).image_url != "https://ex.test/wrong-booth.jpg"
+
+
+def test_a_booth_payloads_image_url_is_never_resolved_onto_the_booth(db_session):
+    """AllEars is the only adapter that puts a photo on a *booth* payload
+    (the header image on its listing page) - the app has no use for a booth
+    photo, only a dish's own. FIELD_MAP["booth"] deliberately has no
+    "image_url" entry, so this can never reach Booth.image_url, from AllEars
+    or any future source that starts doing the same thing."""
+    festival_id = db_session.info["festival_id"]
+    dtos = [
+        ExtractedRecordDTO(
+            entity_type="booth",
+            natural_key_hint="germany",
+            payload={
+                "name": "Germany",
+                "category": "global_marketplace",
+                "image_url": "https://ex.test/germany-booth-header.jpg",
+            },
+        )
+    ]
+    ingest(db_session, dtos, "allears", festival_id, url="https://allears.test/germany/")
+
+    booth = _booth(db_session, "%germany%")
+    assert booth is not None
+    assert booth.image_url is None

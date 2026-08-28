@@ -280,7 +280,12 @@ def test_curated_data_alone_does_not_keep_a_defunct_booth_alive(db_session, tmp_
 
     path = tmp_path / "manual.json"
     path.write_text('{"booths": [{"name": "The Alps", "latitude": 28.37, "longitude": -81.55}]}')
-    stage_manual_overrides(db_session, path=path)
+    # items_path points at a file that doesn't exist, isolating this from the
+    # repo's real data/manual/menu_items.json - without it, staging that
+    # file's real curated dishes here (which have no supporting raw_page,
+    # same as anything curated) trips reconciliation's "every active item
+    # lost support" parse-failure guard and the run is skipped wholesale.
+    stage_manual_overrides(db_session, path=path, items_path=tmp_path / "no-menu-items.json")
     run_resolve(db_session, festival_id=festival_id)
 
     _publish(db_session, festival_id, "allears", HUB, [_booth_dto("Anchor")])
