@@ -38,6 +38,16 @@ def overrides_file(tmp_path):
     return _write
 
 
+@pytest.fixture()
+def no_curated_items(tmp_path):
+    """A menu-item overrides path that doesn't exist, so stage_manual_overrides
+    stages nothing from it - these tests exercise the *booth* file only, and
+    without this they'd fall through to DEFAULT_ITEMS_PATH, i.e. the repo's
+    real data/manual/menu_items.json, which has real curated entries of its
+    own that have nothing to do with what any given test here is asserting."""
+    return tmp_path / "no-menu-items.json"
+
+
 def _seed_booth(db_session, festival_id, name="The Alps"):
     ingest(
         db_session,
@@ -125,7 +135,7 @@ def test_missing_file_is_not_an_error(tmp_path):
 # ---------------------------------------------------------------------------
 
 
-def test_curated_coordinates_land_on_the_matching_booth(db_session, overrides_file):
+def test_curated_coordinates_land_on_the_matching_booth(db_session, overrides_file, no_curated_items):
     festival_id = db_session.info["festival_id"]
     booth = _seed_booth(db_session, festival_id)
     assert booth.latitude is None
@@ -134,7 +144,7 @@ def test_curated_coordinates_land_on_the_matching_booth(db_session, overrides_fi
         [{"name": "The Alps", "latitude": ALPS_LAT, "longitude": ALPS_LON,
           "location_description": "World Showcase, near Germany"}]
     )
-    assert stage_manual_overrides(db_session, path=path) == 1
+    assert stage_manual_overrides(db_session, path=path, items_path=no_curated_items) == 1
     run_resolve(db_session, festival_id=festival_id)
 
     refreshed = db_session.get(Booth, booth.id)
@@ -143,7 +153,7 @@ def test_curated_coordinates_land_on_the_matching_booth(db_session, overrides_fi
     assert refreshed.location_description == "World Showcase, near Germany"
 
 
-def test_precision_travels_with_the_coordinate(db_session, overrides_file):
+def test_precision_travels_with_the_coordinate(db_session, overrides_file, no_curated_items):
     """A coordinate without its grade is worse than useless: the client can't
     tell a metre-accurate survey from a pavilion standing in for a kiosk 40 m
     away, so it either overstates every distance or distrusts all of them."""
@@ -154,12 +164,12 @@ def test_precision_travels_with_the_coordinate(db_session, overrides_file):
         [{"name": "The Alps", "latitude": ALPS_LAT, "longitude": ALPS_LON,
           "location_precision": "anchored"}]
     )
-    stage_manual_overrides(db_session, path=path)
+    stage_manual_overrides(db_session, path=path, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
     assert db_session.get(Booth, booth.id).location_precision == "anchored"
 
 
-def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file):
+def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file, no_curated_items):
     """The anchors ship as a floor. Walking up to the booth has to be able to
     overwrite one, precision included, or the survey is pointless."""
     festival_id = db_session.info["festival_id"]
@@ -169,14 +179,14 @@ def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file):
         [{"name": "The Alps", "latitude": 28.368060, "longitude": -81.546940,
           "location_precision": "anchored"}]
     )
-    stage_manual_overrides(db_session, path=anchored)
+    stage_manual_overrides(db_session, path=anchored, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
 
     surveyed = overrides_file(
         [{"name": "The Alps", "latitude": ALPS_LAT, "longitude": ALPS_LON,
           "location_precision": "surveyed"}]
     )
-    stage_manual_overrides(db_session, path=surveyed)
+    stage_manual_overrides(db_session, path=surveyed, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
 
     refreshed = db_session.get(Booth, booth.id)
@@ -184,25 +194,25 @@ def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file):
     assert refreshed.latitude == pytest.approx(Decimal(str(ALPS_LAT)))
 
 
-def test_a_name_that_is_close_but_not_exact_still_matches(db_session, overrides_file):
+def test_a_name_that_is_close_but_not_exact_still_matches(db_session, overrides_file, no_curated_items):
     festival_id = db_session.info["festival_id"]
     booth = _seed_booth(db_session, festival_id, name="Refreshment Port")
 
     path = overrides_file([{"name": "Refreshment Port (NEW)", "latitude": ALPS_LAT}])
-    stage_manual_overrides(db_session, path=path)
+    stage_manual_overrides(db_session, path=path, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
 
     assert db_session.get(Booth, booth.id).latitude is not None
 
 
-def test_curated_value_outranks_a_crawled_one(db_session, overrides_file):
+def test_curated_value_outranks_a_crawled_one(db_session, overrides_file, no_curated_items):
     """A crawled source supplying the same field must not win against
     curation, whichever order they arrive in."""
     festival_id = db_session.info["festival_id"]
     booth = _seed_booth(db_session, festival_id)
 
     path = overrides_file([{"name": "The Alps", "location_description": "Curated position"}])
-    stage_manual_overrides(db_session, path=path)
+    stage_manual_overrides(db_session, path=path, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
     assert db_session.get(Booth, booth.id).location_description == "Curated position"
 
@@ -223,11 +233,11 @@ def test_curated_value_outranks_a_crawled_one(db_session, overrides_file):
     assert db_session.get(Booth, booth.id).location_description == "Curated position"
 
 
-def test_curation_is_recorded_as_provenance(db_session, overrides_file):
+def test_curation_is_recorded_as_provenance(db_session, overrides_file, no_curated_items):
     festival_id = db_session.info["festival_id"]
     booth = _seed_booth(db_session, festival_id)
     path = overrides_file([{"name": "The Alps", "latitude": ALPS_LAT}])
-    stage_manual_overrides(db_session, path=path)
+    stage_manual_overrides(db_session, path=path, items_path=no_curated_items)
     run_resolve(db_session, festival_id=festival_id)
 
     manual_source = db_session.scalars(select(Source).where(Source.key == "manual")).one()
@@ -242,14 +252,14 @@ def test_curation_is_recorded_as_provenance(db_session, overrides_file):
     assert rows[0].is_selected is True
 
 
-def test_restaging_an_unchanged_file_is_a_no_op(db_session, overrides_file):
+def test_restaging_an_unchanged_file_is_a_no_op(db_session, overrides_file, no_curated_items):
     festival_id = db_session.info["festival_id"]
     _seed_booth(db_session, festival_id)
     path = overrides_file([{"name": "The Alps", "latitude": ALPS_LAT}])
 
-    assert stage_manual_overrides(db_session, path=path) == 1
-    assert stage_manual_overrides(db_session, path=path) == 0
-    assert stage_manual_overrides(db_session, path=path) == 0
+    assert stage_manual_overrides(db_session, path=path, items_path=no_curated_items) == 1
+    assert stage_manual_overrides(db_session, path=path, items_path=no_curated_items) == 0
+    assert stage_manual_overrides(db_session, path=path, items_path=no_curated_items) == 0
 
     staged = db_session.scalars(
         select(ExtractedRecord).where(ExtractedRecord.extractor_version == "manual-1")
@@ -259,23 +269,25 @@ def test_restaging_an_unchanged_file_is_a_no_op(db_session, overrides_file):
     run_resolve(db_session, festival_id=festival_id)
 
 
-def test_editing_the_file_stages_the_correction(db_session, overrides_file):
+def test_editing_the_file_stages_the_correction(db_session, overrides_file, no_curated_items):
     festival_id = db_session.info["festival_id"]
     booth = _seed_booth(db_session, festival_id)
 
-    stage_manual_overrides(db_session, path=overrides_file([{"name": "The Alps", "latitude": 1.0}]))
+    stage_manual_overrides(
+        db_session, path=overrides_file([{"name": "The Alps", "latitude": 1.0}]), items_path=no_curated_items
+    )
     run_resolve(db_session, festival_id=festival_id)
     assert db_session.get(Booth, booth.id).latitude == pytest.approx(Decimal("1.0"))
 
     assert stage_manual_overrides(
-        db_session, path=overrides_file([{"name": "The Alps", "latitude": 2.0}])
+        db_session, path=overrides_file([{"name": "The Alps", "latitude": 2.0}]), items_path=no_curated_items
     ) == 1
     run_resolve(db_session, festival_id=festival_id)
     assert db_session.get(Booth, booth.id).latitude == pytest.approx(Decimal("2.0"))
 
 
-def test_an_empty_file_stages_nothing(db_session, overrides_file):
-    assert stage_manual_overrides(db_session, path=overrides_file([])) == 0
+def test_an_empty_file_stages_nothing(db_session, overrides_file, no_curated_items):
+    assert stage_manual_overrides(db_session, path=overrides_file([]), items_path=no_curated_items) == 0
 
 
 # ---------------------------------------------------------------------------
