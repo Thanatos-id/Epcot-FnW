@@ -522,6 +522,291 @@
       "booth_name": "Italy",
       "name": "Peroni Pilsner",
       "price_usd": 6.0
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Kirschwasser Torte",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Kirschwasser-Torte-The-Alps-Germany-Food-World-Showcase-Food-and-Wine-Festival-EPCOT-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Australia",
+      "name": "Roasted Lamb Chop*",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Roasted-Lamb-Chop-Australia-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-03-36-PM-5712-x-4284-700x525.jpg"
+    },
+    {
+      "booth_name": "Australia",
+      "name": "Grilled Bushberry-spiced Shrimp Skewer",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-australia-food-booth-Grilled-Bushberry-Spiced-Shrimp-Skewer-01-700x525.jpg"
+    },
+    {
+      "booth_name": "Australia",
+      "name": "Mixed Berry Pavlova",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Mixed-Berry-Pavlova-Australia-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-12-59-33-PM-5712-x-4284-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Belgium",
+      "name": "Chilled Belgian Coffee (non-alcoholic)",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-Belgian-Coffee-non-alcoholic-Belgium-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x526.jpg"
+    },
+    {
+      "booth_name": "Bramblewood Bites",
+      "name": "Grilled Cider-brined Pork Tenderloin*",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Atmosphere-Bramblewood-Bites-Booth-2025-Food-and-Wine-Festival-EPCOT-Festivals-EPCOT-Disney-World-grilled-cider-brined-pork-tenderloin-1-700x465.jpg"
+    },
+    {
+      "booth_name": "Bramblewood Bites",
+      "name": "Cast Iron-seared River Trout",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Atmosphere-Bramblewood-Bites-Booth-2025-Food-and-Wine-Festival-EPCOT-Festivals-EPCOT-Disney-World-cast-iron-seared-river-trout-2-700x446.jpg"
+    },
+    {
+      "booth_name": "Brazil",
+      "name": "Pão de Queijo",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Pao-de-Queijo-Brazil-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Beijing Zhajiang Noodles",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Beijing-Zhajiang-Noodles-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-1-700x571.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Smoked Duck Bao Bun",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Smoked-Duck-Bao-Bun-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-1-700x508.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Baijiu Punch",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2023/07/2023-epcot-food-and-wine-festival-bye-joe-cocktail-byejoe-punch-2-700x592.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Hainan Prosperity",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Hainan-Prosperity-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x568.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Frozen Strawberry-Jasmine Cocktail",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Frozen-Strawberry-Jasmine-Cocktail-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x498.jpg"
+    },
+    {
+      "booth_name": "Coastal Eats",
+      "name": "Boyd & Blair Pomegranate Codder",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Boyd-and-Blair-Pomegranate-Codder-Coastal-Eats-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-5-700x525.jpg"
+    },
+    {
+      "booth_name": "Coastal Eats",
+      "name": "Rileys Lookout Sauvignon Blanc",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Rileys-Lookout-Sauvignon-Blanc-Coastal-Eats-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Earth Eats",
+      "name": "Red Wine-braised Beef Short Rib",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Red-Wine-braised-Beef-Short-Rib-Earth-Eats-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Festival Favorites",
+      "name": "Potato Pierogi",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/wdw-2025-epcot-food-and-wine-festival-festival-favorites-booth-potato-pierogi-2-700x439.jpg"
+    },
+    {
+      "booth_name": "Festival Favorites",
+      "name": "Frozen S’mores",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/wdw-2025-epcot-food-and-wine-festival-festival-favorites-frozen-smore-3-700x490.jpg"
+    },
+    {
+      "booth_name": "Flavors from Fire",
+      "name": "Smoked Corned Beef",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Smoked-Corned-Beef-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Flavors from Fire",
+      "name": "Rodizio-style Grilled Beef Skewer",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Rodizio-style-grilled-beef-skewer-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-4-700x525.jpg"
+    },
+    {
+      "booth_name": "Flavors from Fire",
+      "name": "Swine Brine",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Swine-Brine-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Forest and Field",
+      "name": "Pumpkin-Mascarpone Ravioli",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Pumpkin-Mascarpone-Ravioli-Forest-Field-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-3-700x525.jpg"
+    },
+    {
+      "booth_name": "Forest and Field",
+      "name": "Schiacciata Sandwich",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Schiacciata-Sandwich-Forest-Field-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Forest and Field",
+      "name": "Brewery Ommegang All Hallows Treat Imperial Chocolate Peanut Butter Stout",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-forest-field-Chocolate-Peanut-Butter-Imperial-Stout-03-700x525.jpg"
+    },
+    {
+      "booth_name": "Forest and Field",
+      "name": "Daou Vineyards Chardonnay",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Daou-Vineyards-Chardonnay-Forest-Field-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-11-30-14-AM-4032-x-3024-700x525.jpg"
+    },
+    {
+      "booth_name": "Forest and Field",
+      "name": "Famille Hugel Classic Pinot Noir",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Famille-Hugel-Classic-Pinot-Noir-Forest-Field-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-700x525.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Brioche aux Epices Avec Une Garniture Mornay de Trois Fromages",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Brioche-aux-Epices-France-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-1-700x527.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Chilled French Cosmo:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-French-Cosmo-France-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-3-700x527.jpg"
+    },
+    {
+      "booth_name": "The Fry Basket",
+      "name": "Boyd & Blair Grapefruit Mule",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-fry-basket-Boyd-Blair-Grapefruit-Mule-700x525.jpg"
+    },
+    {
+      "booth_name": "Germany",
+      "name": "Schinkennudeln",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Schinkennudeln-Germany-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Greece",
+      "name": "Greek Melon Limeade:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Greek-Melon-Limeade-Greece-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x563.jpg"
+    },
+    {
+      "booth_name": "Gyozas of the Galaxy",
+      "name": "Street Corn-style Dumplings",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Street-Corn-style-Dumplings-Gyozas-of-the-Galaxy-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Gyozas of the Galaxy",
+      "name": "Willamette Valley Vineyards Pinot Gris",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Willamette-Valley-Vineyards-Pinot-Gris-Gyozas-of-the-Galaxy-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Hawai’i",
+      "name": "Hawaiian Rice Bowl",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Hawaiian-Rice-Bowl-Hawaii-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Hawai’i",
+      "name": "Pineapple Cheesecake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Pineapple-Cheesecake-Hawaii-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-679x600.jpg"
+    },
+    {
+      "booth_name": "Hawai’i",
+      "name": "O’ahu Sunrise",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Oahu-Sunrise-Hawaii-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+    },
+    {
+      "booth_name": "Italy",
+      "name": "Italian-inspired Blood Orange Margarita",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Italian-inspired-Blood-Orange-Margarita-Italy-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-1-700x502.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Teriyaki Chicken Bun",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Teriyaki-Chicken-Bun-Japan-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-47-12-PM-5712-x-4284-700x525.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "Butternut Squash and Ginger Bisque",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Butternut-Squash-and-Ginger-Bisque-Milled-and-Mulled-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x571.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "Apple-Cinnamon and Caramel Mini Churros Sundae",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Mini-Churros-Sundae-Milled-and-Mulled-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-3-04-15-PM-4032-x-3024-700x502.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "Fall Fruit Cheesecake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Fall-Fruit-Cheesecake-Milled-and-Mulled-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-3-700x499.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "Freshly Baked Carrot Cake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Freshly-Baked-Carrot-Cake-Milled-and-Mulled-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x508.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "Keel Farms Maple Harvest Hard Cider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Keel-Farms-Maple-Harvest-Hard-Cider-Milled-and-Mulled-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x524.jpg"
+    },
+    {
+      "booth_name": "Milled and Mulled",
+      "name": "3 Daughters Brewing Apple Strudel Hard Cider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/3-Daughters-Brewing-Apple-Strudel-Hard-Cider-Milled-and-Mulled-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-700x516.jpg"
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Berbere-spiced Beef Stew",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Berbere-spiced-Beef-Stew-Refreshment-Outpost-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-3-700x525.jpg"
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "South African Cream Liqueur Chocolate Mousse",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chocolate-Mousse-Refreshment-Outpost-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-5-700x525.jpg"
+    },
+    {
+      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
+      "name": "Strawberry Champagne Trifle",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-10-700x559.jpg"
+    },
+    {
+      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
+      "name": "Berry Mimosa",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-mimosa-flight-berry-mimosa-700x537.jpg"
+    },
+    {
+      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
+      "name": "Blood Orange Mimosa",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-mimosa-flight-blood-orange-mimosa-700x558.jpg"
+    },
+    {
+      "booth_name": "Spain",
+      "name": "Paella Caldoso:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Summer-in-Spain-Spain-Booth-Paella-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Spain",
+      "name": "Basque Cheesecake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Basque-Cheesecake-Spain-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x501.jpg"
+    },
+    {
+      "booth_name": "Spain",
+      "name": "Summer in Spain",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Summer-in-Spain-Spain-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-55-54-PM-4032-x-3024-700x543.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase (NEW)",
+      "name": "Strawberry Beer Float:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Strawberry-Beer-Float-Swirled-Showcase-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-11-42-49-AM-4032-x-3024-700x525.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Moroccan Wrap",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Moroccan-Wrap-lamb-and-falafel-Tangierine-Cafe-2025-EPCOT-Food-and-Wine-Festival-Disney-World-9-700x370.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Fig Cocktail",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Fig-Cocktail-Tangierine-Cafe-2025-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-1-700x525.jpg"
+    },
+    {
+      "booth_name": "Hawai’i",
+      "name": "Slow-roasted Pork Slider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-hawaii-food-booth-Slow-roasted-Pork-Slider-700x525.jpg"
+    },
+    {
+      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
+      "name": "Tropical Mimosa",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2022/07/2022-epcot-food-and-wine-festival-shimmering-sips-tropical-mimosa-1-450x600.jpg"
     }
   ]
 }
