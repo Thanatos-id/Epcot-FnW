@@ -432,6 +432,54 @@ def ingest(
     console.print(stats)
 
 
+@app.command("backfill-reviews")
+def backfill_reviews_cmd(
+    max_pages: int = typer.Option(
+        1, "--max-pages", help="How many archive pages to walk (page 1 reaches back before opening day)"
+    ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="List what would be fetched, fetch nothing"),
+) -> None:
+    """Sweep this season's Disney Food Blog reviews for dish photos.
+
+    The daily refresh reads the festival tag's feed, which holds about ten
+    entries - four days at festival pace. That keeps a running crawl current
+    and cannot reach backwards, so reviews published before the crawler
+    learned to read that shape are simply missing. This walks the tag's HTML
+    archive instead, which carries thirty-odd posts a page.
+
+    Pages already held are not refetched, and the sweep stops early once
+    fetches start failing: DFB answers a burst with 429, and the right
+    response to being asked to slow down is to stop.
+    """
+    from epcot_fw.pipeline.review_backfill import backfill_reviews
+
+    with SessionLocal() as session:
+        report = backfill_reviews(session, max_pages=max_pages, dry_run=dry_run)
+        if not dry_run:
+            session.commit()
+
+    console.print(
+        f"found {report.discovered} review post(s) for this season; "
+        f"{report.already_cached} already held"
+    )
+    if dry_run:
+        for url in report.ingested:
+            console.print(f"  would fetch {url}")
+        console.print("Nothing was fetched. Drop --dry-run to run it.")
+        return
+
+    console.print(f"fetched {report.fetched}, extracted {report.records} record(s)")
+    if report.errors:
+        console.print(f"[yellow]{report.errors} fetch(es) failed[/yellow]")
+    if report.stopped_early:
+        console.print("[yellow]stopped early - the site was returning errors[/yellow]")
+    if report.records:
+        console.print(
+            "Run [bold]epcot-fw images promote[/bold] to let this season's photos "
+            "beat any historical stand-ins."
+        )
+
+
 @app.command("manual")
 def manual_apply() -> None:
     """Apply hand-curated booth facts (coordinates, location notes) from

@@ -108,6 +108,23 @@ def test_hub_links_resolve_to_a_host_that_exists(href, expected):
     assert _absolute_url(href) == expected
 
 
+@pytest.mark.parametrize(
+    "href",
+    [
+        "/2026/08/27/review-a-booth/#respond",
+        "/2026/08/27/review-a-booth/#more-1161087",
+        "/2026/08/27/review-a-booth/?replytocom=42",
+    ],
+)
+def test_a_fragment_or_query_does_not_make_a_second_page(href):
+    """WordPress links every post from its own archive three times - bare,
+    #respond and #more-NNNN. Kept, one post looks like three and each gets
+    fetched and cached separately."""
+    from epcot_fw.sources.disney_food_blog import _absolute_url
+
+    assert _absolute_url(href) == f"{BASE_URL}/2026/08/27/review-a-booth/"
+
+
 def test_a_scheme_is_never_doubled_onto_the_host():
     from urllib.parse import urlparse
 

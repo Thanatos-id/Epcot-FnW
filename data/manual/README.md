@@ -26,6 +26,12 @@ most often `image_url`. Two ways it gets filled:
 
 Two commands exist because of how the 2026 season actually went:
 
+- **`epcot-fw backfill-reviews`** sweeps the season's reviews off the
+  festival tag's HTML archive, which carries thirty-odd links a page against
+  the feed's ten entries. Pages already held are not refetched, and the
+  sweep stops the moment fetches start failing - DFB answers a burst with
+  429, and pressing on is how a source that rate-limits you becomes one that
+  blocks you. `--max-pages` walks further back; `--dry-run` lists first.
 - **`epcot-fw ingest <url>`** fetches one page you found yourself and takes
   it through the same parse-and-resolve path a crawled page takes. Disney
   Food Blog moved this season's dish photos into dated review permalinks and

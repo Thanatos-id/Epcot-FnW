@@ -1,7 +1,8 @@
 import datetime
+import logging
 import re
 from collections import Counter
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from bs4 import Tag
 
@@ -11,6 +12,8 @@ from epcot_fw.parse.html_utils import all_prices, clean_text, soupify
 from epcot_fw.parse.images import extract_captioned_images
 from epcot_fw.parse.schemas import ExtractedRecordDTO
 from epcot_fw.sources.base import SeedUrl, SourceAdapter
+
+logger = logging.getLogger(__name__)
 
 BASE_URL = "https://www.disneyfoodblog.com"
 
@@ -36,6 +39,13 @@ BOOTH_HUB_PATH = "/epcot-food-and-wine-festival-booths-menus-and-food-photos/"
 # scrolled off before this shipped is not reachable this way; ingest it by
 # URL or attach its photo in docs/studio.html.
 REVIEW_FEED_PATH = "/tag/epcot-food-and-wine-festival/feed/"
+
+# The same tag as an HTML archive. Thirty-odd posts a page against the feed's
+# ten, and it paginates, so it is the only way to reach a season's worth
+# rather than the last four days of it. Heavier per request (a third of a
+# megabyte against about fifty kilobytes), which is why the daily refresh
+# still reads the feed and this is reserved for a deliberate catch-up.
+REVIEW_ARCHIVE_PATH = "/tag/epcot-food-and-wine-festival"
 
 # /2026/08/27/review-.../ -> 2026. These are dated permalinks, so the year is
 # in the path rather than the slug.
@@ -124,6 +134,12 @@ def _absolute_url(href: str) -> str:
     photos looked like five seasons with nothing in them.
     """
     href = href.strip()
+    # A fragment addresses a place on a page, not a page. WordPress links
+    # every post from its own archive three times - bare, #respond and
+    # #more-NNNN - so keeping them makes one post look like three, and each
+    # would be fetched and cached separately. Query strings go for the same
+    # reason (?replytocom=... is the same article).
+    href = href.split("#", 1)[0].split("?", 1)[0]
     if href.startswith("//"):
         return f"https:{href}"
     if href.startswith(("http://", "https://")):
@@ -449,6 +465,57 @@ class DisneyFoodBlogAdapter(SourceAdapter):
                 page_kind="booth_list",
             ),
         ]
+
+    def review_archive_seeds(self, festival_year: int, *, max_pages: int = 1) -> list[SeedUrl]:
+        """This season's review posts, off the festival tag's HTML archive.
+
+        The feed discovery in _review_seeds keeps a daily crawl current. This
+        is for the backlog it cannot reach: a post that scrolled out of a
+        ten-entry feed is not recoverable by re-running anything, and the
+        first archive page alone goes back well before opening day.
+
+        Stops early when a page carries no posts for this festival year -
+        that is the end of the season's archive and everything past it is
+        last year's. Also stops on a page that fails to fetch, rather than
+        walking on: DFB answers a burst of archive requests with 429, and the
+        right response to being asked to slow down is to stop.
+        """
+        from epcot_fw.fetch.http_client import fetch
+
+        seeds: list[SeedUrl] = []
+        seen: set[str] = set()
+
+        for page in range(1, max_pages + 1):
+            suffix = "/" if page == 1 else f"/page/{page}/"
+            try:
+                result = fetch(f"{BASE_URL}{REVIEW_ARCHIVE_PATH}{suffix}", crawl_delay_sec=5)
+            except Exception:
+                logger.warning("archive page %d could not be fetched - stopping the walk", page, exc_info=True)
+                break
+            if not (200 <= result.status_code < 300) or not result.text:
+                logger.warning(
+                    "archive page %d returned HTTP %s - stopping the walk",
+                    page,
+                    result.status_code,
+                )
+                break
+
+            found = 0
+            for link in soupify(result.text).find_all("a", href=True):
+                url = _absolute_url(link["href"])
+                match = _PERMALINK_YEAR_RE.match(urlparse(url).path)
+                if not match or int(match.group("year")) != festival_year:
+                    continue
+                found += 1
+                if url in seen:
+                    continue
+                seen.add(url)
+                seeds.append(SeedUrl(url=url, page_kind="booth_review"))
+
+            if not found:
+                break
+
+        return seeds
 
     def page_kind_for(self, url: str) -> str | None:
         """DFB's three shapes are all readable from the URL: a per-booth photo
