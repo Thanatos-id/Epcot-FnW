@@ -5,12 +5,14 @@ site. Everything here runs from the repo root with the project's venv
 active:
 
 ```bash
-cd /path/to/Epcot
+cd /Users/robluke/Documents/Code/Epcot
 source .venv/bin/activate
 ```
 
-Without the venv, `epcot-fw` is not on your PATH and none of the commands
-below resolve.
+That is this machine's checkout; anywhere else, substitute it. The prompt is
+how you know it took — it reads `(.venv) … Epcot %` afterwards. Without the
+venv, `epcot-fw` is not on your PATH and none of the commands below resolve,
+and a `cd` that failed leaves the rest of them running somewhere else.
 
 ## 1. Work in the studio
 
@@ -28,14 +30,25 @@ means clearing site data for the page loses anything not yet exported.
 Finish with **Export changeset** → **Download changeset**. The file lands in
 `~/Downloads` as `epcot-changeset-<timestamp>.json`.
 
+An export is the whole of what the browser is holding, not the part added
+since the last one. Exporting twice and applying only the newer is
+therefore safe — it already contains everything the earlier one did — and
+there is no need to apply them in order or to apply every file. What ends
+the edits is **Discard all**, or applying them and clearing the page's
+storage; a download on its own leaves them exactly where they were.
+
 ## 2. Look before applying
 
 ```bash
 epcot-fw studio apply --dry-run "$(ls -t ~/Downloads/epcot-changeset-*.json | head -1)"
 ```
 
-Picks the newest changeset and writes nothing. Worth reading for the
-`skipped` lines — see [When something doesn't land](#when-something-doesnt-land).
+Picks the newest changeset and writes nothing. Two things to read it for:
+the `skipped` lines (see [When something doesn't land](#when-something-doesnt-land)),
+and whether the file it chose is the one you meant. `ls -t` takes the newest
+in `~/Downloads`, which is only the right file if nothing else landed there
+after your export — an old changeset from a previous round would apply
+cleanly and quietly undo whatever has changed since.
 
 ## 3. Apply it
 
