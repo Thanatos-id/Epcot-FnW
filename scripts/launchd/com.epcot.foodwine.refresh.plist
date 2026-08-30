@@ -10,10 +10,15 @@
         <string>/Users/robluke/Documents/Code/Epcot/scripts/launchd/run_refresh.sh</string>
     </array>
 
+    <!-- Daily, not weekly. Disney Food Blog publishes its per-booth photo
+         posts a few booths at a time across the season rather than all at
+         once, and each refresh attaches whatever has appeared since the last
+         one. On a Sunday-only schedule a dish sits without its photo for up
+         to six days after that photo is published. Omitting Weekday is what
+         makes StartCalendarInterval fire every day. A quiet day costs two
+         page fetches. -->
     <key>StartCalendarInterval</key>
     <dict>
-        <key>Weekday</key>
-        <integer>0</integer>
         <key>Hour</key>
         <integer>3</integer>
         <key>Minute</key>
