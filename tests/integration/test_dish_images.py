@@ -128,6 +128,115 @@ def test_caption_for_an_unlisted_dish_becomes_a_new_item_with_its_photo(db_sessi
     assert created.image_url == photo
 
 
+# ---------------------------------------------------------------------------
+# review posts: attach only, never create
+# ---------------------------------------------------------------------------
+
+
+def _review_html(*captioned: tuple[str, str]) -> str:
+    """A 2026-shape review post: no booth in the slug, a newsletter <h1>, and
+    the booth recoverable only from the image filenames."""
+    figures = "".join(
+        f'<figure><img src="{url}" /><figcaption>{caption}</figcaption></figure>'
+        for caption, url in captioned
+    )
+    return f"<html><body><article><h1>Get the DFB Newsletter</h1>{figures}</article></body></html>"
+
+
+def _alps_photo(slug: str) -> str:
+    return (
+        "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/"
+        f"2026-Disney-World-WDW-EPCOT-Food-and-Wine-Festival-The-Alps-Booth-{slug}-700x525.jpg"
+    )
+
+
+def _ingest_review(db_session, festival_id, html):
+    url = f"{BASE_URL}/2026/08/27/review-a-booth-that-keeps-it-simple/"
+    dtos = DisneyFoodBlogAdapter().parse(html, url, "booth_review")
+    ingest(db_session, dtos, "disney_food_blog", festival_id, url=url)
+
+
+def test_a_review_posts_photo_attaches_to_the_dish_the_hub_created(db_session):
+    festival_id = db_session.info["festival_id"]
+    _ingest_hub(db_session, festival_id)
+    alps = _booth(db_session, "%alps%")
+    assert _item(db_session, alps.id, TORTE).image_url is None
+
+    _ingest_review(db_session, festival_id, _review_html(
+        (TORTE, _alps_photo("Kirschwasser-Torte")),
+        ("Full Spread", _alps_photo("spread")),
+    ))
+
+    assert _item(db_session, alps.id, TORTE).image_url == _alps_photo("Kirschwasser-Torte")
+
+
+def test_a_reviews_chatty_caption_does_not_become_a_dish(db_session):
+    """The whole reason these records are attach_only. A review captions the
+    booth sign and the writer's asides in the same markup as the food, and
+    those match no dish - which the matcher would otherwise read as a menu of
+    brand-new items, once per post, all season."""
+    festival_id = db_session.info["festival_id"]
+    _ingest_hub(db_session, festival_id)
+    alps = _booth(db_session, "%alps%")
+    before = len(db_session.scalars(select(MenuItem).where(MenuItem.booth_id == alps.id)).all())
+
+    _ingest_review(db_session, festival_id, _review_html(
+        ("A closer look", _alps_photo("closer")),
+        ("Full Spread", _alps_photo("spread")),
+        ("Is it still reliably good?", _alps_photo("good")),
+        ("The Alps Booth", _alps_photo("atmo")),
+    ))
+
+    after = db_session.scalars(select(MenuItem).where(MenuItem.booth_id == alps.id)).all()
+    assert len(after) == before, [i.canonical_name for i in after]
+    for junk in ("A closer look", "Full Spread", "Is it still reliably good?"):
+        assert _item(db_session, alps.id, junk) is None
+
+
+def test_an_unmatched_review_caption_does_not_pile_up_conflicts(db_session):
+    """A caption that turned out to be a photo of the queue is not something
+    a human should be asked to adjudicate."""
+    festival_id = db_session.info["festival_id"]
+    _ingest_hub(db_session, festival_id)
+    before = len(db_session.scalars(select(MergeConflict)).all())
+
+    _ingest_review(db_session, festival_id, _review_html(
+        ("Full Spread", _alps_photo("spread")),
+        ("A closer look", _alps_photo("closer")),
+    ))
+
+    assert len(db_session.scalars(select(MergeConflict)).all()) == before
+
+
+def test_a_review_of_somewhere_that_is_not_a_festival_booth_is_dropped_quietly(db_session):
+    """The festival tag's feed carries reviews of permanent kiosks - Block &
+    Hans, Funnel Cakes - which are not booths on this menu. That is a post
+    about somewhere else, not an unresolved dish for a human to look at."""
+    festival_id = db_session.info["festival_id"]
+    _ingest_hub(db_session, festival_id)
+    before = len(db_session.scalars(select(MergeConflict)).all())
+
+    photo = (
+        "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/"
+        "2026-Disney-World-WDW-EPCOT-Food-and-Wine-Festival-Block-and-Hans-Booth-Beer-700x525.jpg"
+    )
+    _ingest_review(db_session, festival_id, _review_html(("Spicy Strawberry-Mango Smoothie", photo)))
+
+    assert len(db_session.scalars(select(MergeConflict)).all()) == before
+
+
+def test_a_review_whose_photos_name_no_booth_ingests_nothing(db_session):
+    festival_id = db_session.info["festival_id"]
+    _ingest_hub(db_session, festival_id)
+    before = len(db_session.scalars(select(MenuItem)).all())
+
+    _ingest_review(db_session, festival_id, _review_html(
+        (TORTE, "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/mystery-photo.jpg"),
+    ))
+
+    assert len(db_session.scalars(select(MenuItem)).all()) == before
+
+
 def test_a_photo_never_overwrites_an_existing_dish_name_or_price(db_session):
     festival_id = db_session.info["festival_id"]
     _ingest_hub(db_session, festival_id)

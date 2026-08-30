@@ -437,6 +437,14 @@ def resolve_extracted_record(
     if entity_type == "menu_item":
         booth_id = resolve_booth_id(session, festival_id, payload.get("booth_name"))
         if booth_id is None:
+            # An attach_only record names a booth the way a photo caption
+            # does, and the festival tag's feed carries reviews of permanent
+            # kiosks - Block & Hans, Funnel Cakes, Refreshment Port - that
+            # are not festival booths at all. There is no unresolved dish
+            # here for anyone to adjudicate, only a post about somewhere
+            # else, so it is dropped rather than queued for a human.
+            if payload.get("attach_only"):
+                return
             if not _match_conflict_already_flagged(session, "menu_item", extracted_record.id):
                 session.add(
                     MergeConflict(
@@ -456,6 +464,18 @@ def resolve_extracted_record(
 
     candidates = _load_scoped_candidates(session, entity_type, festival_id=festival_id, booth_id=booth_id)
     match = find_best_match(extracted_record.natural_key_hint or normalize_name(name), candidates)
+
+    # A photo caption can attach a photo to a dish. It cannot invent one.
+    # Review posts caption their atmosphere shots and their asides exactly the
+    # way they caption dishes - "Full Spread", "A closer look", "Is it still
+    # reliably good?" - and those match nothing on the menu, which the matcher
+    # reads as a brand-new dish. Left alone that fills a booth with dishes
+    # nobody sells, once per post, for a whole season. A record that says
+    # attach_only is dropped unless it lands on a known dish confidently;
+    # there is nothing for a human to adjudicate in a caption that turned out
+    # to be a photo of the queue.
+    if payload.get("attach_only") and match.outcome != "auto_merge":
+        return
 
     # A curated record saying `new` has already been through the only review
     # that matters: a person looked at the existing list in docs/studio.html

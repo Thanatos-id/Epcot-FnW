@@ -1,6 +1,7 @@
 import datetime
 import re
 from collections import Counter
+from urllib.parse import urljoin
 
 from bs4 import Tag
 
@@ -12,9 +13,33 @@ from epcot_fw.parse.schemas import ExtractedRecordDTO
 from epcot_fw.sources.base import SeedUrl, SourceAdapter
 
 BASE_URL = "https://www.disneyfoodblog.com"
+
+# rss_discover() drops entries published before its `since`. This adapter
+# wants the whole feed every run, so it passes a floor rather than a cutoff.
+_EPOCH = datetime.datetime(1970, 1, 1, tzinfo=datetime.UTC)
 # DFB republishes a fresh dated hub page each year; the undated slug is kept as
 # a stable redirect/landing entry point alongside it.
 BOOTH_HUB_PATH = "/epcot-food-and-wine-festival-booths-menus-and-food-photos/"
+
+# The festival tag's feed. It is the only route to the 2026 review posts:
+# the hub links none of them and their slugs can't be enumerated. It carries
+# about ten entries, roughly four days of posting at festival pace, which is
+# only full coverage because the refresh runs daily (see
+# scripts/launchd/com.epcot.foodwine.refresh.plist). On a weekly schedule
+# most of a season's posts would scroll off the feed unseen.
+#
+# Deliberately only the first page. WordPress will serve ?paged=2 and beyond,
+# but DFB starts returning 429 after a couple of those in quick succession,
+# and a crawler that has to be rate-limited into behaving is one page away
+# from being blocked outright the way allears.net now blocks everyone. The
+# daily cadence is what buys coverage here, not depth per run. A post that
+# scrolled off before this shipped is not reachable this way; ingest it by
+# URL or attach its photo in docs/studio.html.
+REVIEW_FEED_PATH = "/tag/epcot-food-and-wine-festival/feed/"
+
+# /2026/08/27/review-.../ -> 2026. These are dated permalinks, so the year is
+# in the path rather than the slug.
+_PERMALINK_YEAR_RE = re.compile(r"^/(?P<year>\d{4})/\d{2}/\d{2}/")
 
 _CLICK_TO_SEE_RE = re.compile(r"click to see photos", re.IGNORECASE)
 
@@ -82,6 +107,34 @@ _DETAIL_SLUG_RE = re.compile(
 )
 
 
+# A bare host with no scheme - "www.disneyfoodblog.com/spain-2018-..." - which
+# is how the older hubs write some of their links.
+_SCHEMELESS_HOST_RE = re.compile(r"^[a-z0-9-]+(?:\.[a-z0-9-]+)+/", re.IGNORECASE)
+
+
+def _absolute_url(href: str) -> str:
+    """Resolve a hub link against the site root.
+
+    Concatenating BASE_URL with anything that does not start with "http" is
+    the obvious thing and it is wrong: the 2018 hub writes some links as a
+    bare host, so that rule produced
+    "https://www.disneyfoodblog.comwww.disneyfoodblog.com/spain-2018-..." -
+    a hostname that does not resolve. Every 2018 booth post failed DNS, which
+    a backfill reports as a fetch failure and shrugs off, so five seasons of
+    photos looked like five seasons with nothing in them.
+    """
+    href = href.strip()
+    if href.startswith("//"):
+        return f"https:{href}"
+    if href.startswith(("http://", "https://")):
+        return href
+    if href.startswith("/"):
+        return f"{BASE_URL}{href}"
+    if _SCHEMELESS_HOST_RE.match(href):
+        return f"https://{href}"
+    return urljoin(f"{BASE_URL}/", href)
+
+
 def _slug_year(url: str) -> int | None:
     """Festival year named by a per-booth photo post's slug, or None if the
     URL isn't one of those posts."""
@@ -115,6 +168,100 @@ def _booth_name_from_detail(soup: Tag, url: str) -> str | None:
         if text and len(text) <= 80:
             return text
     return None
+
+
+# ---------------------------------------------------------------------------
+# Review posts (the 2026 shape)
+# ---------------------------------------------------------------------------
+#
+# Through 2025 the dish photos lived in per-booth posts whose slug named the
+# booth and the year. For 2026 DFB is publishing them as dated review
+# permalinks instead - /2026/08/27/review-this-epcot-food-wine-festival-booth-
+# proves-sometimes-keeping-it-simple-is-the-way-to-go/ - which carry the same
+# captioned dish photos and none of the same handles: the slug names no booth,
+# the hub links to none of them, and the page <h1> is a newsletter signup.
+#
+# The booth is recovered from the image filenames, which do name it, in the
+# two shapes DFB's photo desk produces:
+#
+#   2026-...-Wine-Festival-Belgium-Booth-Belgian-Waffle-700x525.jpg
+#   DFB-_-Beer-Flight_-Belgium-_-2026-EPCOT-Food-Wine-Festival-_-...jpg
+#
+# Every image votes and the majority wins, so one oddly-named file cannot
+# decide the booth for a whole post. Below the threshold the post is skipped
+# outright: a photo on the wrong booth's dish is worse than no photo, and it
+# is the kind of wrong that looks like data.
+
+_IMAGE_SIZE_SUFFIX_RE = re.compile(r"-\d+x\d+$")
+_IMAGE_EXTENSION_RE = re.compile(r"\.(?:jpe?g|png|webp|gif)$", re.IGNORECASE)
+_YEAR_RE = re.compile(r"^\d{4}$")
+
+# Words that sit next to a booth name in these filenames but are never part
+# of one, so walking back from the "Booth" marker knows where to stop.
+_FILENAME_NOISE = frozenset(
+    {"dfb", "epcot", "wdw", "disney", "world", "food", "and", "wine", "festival", "photo", "photos"}
+)
+
+# At least this share of the images that produced a candidate must agree
+# before the winner is trusted. A tie, or a post whose photos are named
+# inconsistently, resolves to no booth rather than to a guess.
+_BOOTH_VOTE_THRESHOLD = 0.5
+_MIN_BOOTH_VOTES = 2
+
+
+def _filename_stem(image_url: str) -> str:
+    stem = image_url.rsplit("/", 1)[-1]
+    stem = _IMAGE_EXTENSION_RE.sub("", stem)
+    return _IMAGE_SIZE_SUFFIX_RE.sub("", stem)  # WordPress's -700x525 rendition
+
+
+def _walk_back(tokens: list[str], end: int, limit: int = 3) -> str | None:
+    """The up-to-`limit` tokens before `end`, stopping at the first noise word
+    or year - which is where the booth name starts."""
+    out: list[str] = []
+    for token in reversed(tokens[:end]):
+        if len(out) >= limit or token.lower() in _FILENAME_NOISE or _YEAR_RE.match(token):
+            break
+        out.append(token)
+    return " ".join(reversed(out)) or None
+
+
+def _booth_from_filename(image_url: str) -> str | None:
+    """The booth this photo's filename names, or None."""
+    stem = _filename_stem(image_url)
+
+    # Underscore-delimited shape: fields separated by "_", the booth in the
+    # field just before the one that opens with the festival year.
+    if "_" in stem:
+        fields = [f.strip("-") for f in stem.split("_")]
+        for i, field in enumerate(fields):
+            head = field.split("-", 1)[0]
+            if _YEAR_RE.match(head) and i > 0 and fields[i - 1]:
+                return fields[i - 1].replace("-", " ").strip() or None
+
+    tokens = [t for t in re.split(r"[-_]+", stem) if t]
+    lowered = [t.lower() for t in tokens]
+    if "booth" in lowered:
+        return _walk_back(tokens, lowered.index("booth"))
+    return None
+
+
+def _booth_name_from_photos(image_urls: list[str]) -> str | None:
+    """The booth a review post is about, by majority vote of its photos."""
+    votes = Counter()
+    for url in image_urls:
+        name = _booth_from_filename(url)
+        if name:
+            votes[normalize_name(name)] += 1
+    if not votes:
+        return None
+    winner, count = votes.most_common(1)[0]
+    if count < _MIN_BOOTH_VOTES or count / sum(votes.values()) <= _BOOTH_VOTE_THRESHOLD:
+        return None
+    # Title-cased rather than the normalized key: this string is matched
+    # through normalize_name() downstream anyway, and a readable value is
+    # what shows up in a merge_conflicts row someone has to look at.
+    return winner.title()
 
 
 def _is_booth_boundary(p: Tag) -> bool:
@@ -329,10 +476,39 @@ class DisneyFoodBlogAdapter(SourceAdapter):
         """
         from epcot_fw.fetch.http_client import fetch
 
+        seeds: list[SeedUrl] = []
         result = fetch(f"{BASE_URL}{BOOTH_HUB_PATH}", crawl_delay_sec=5)
-        if result.not_modified or not result.text:
-            return []
-        return self._detail_seeds(result.text, festival_year)
+        if not result.not_modified and result.text:
+            seeds.extend(self._detail_seeds(result.text, festival_year))
+        seeds.extend(self._review_seeds(festival_year))
+        return seeds
+
+    def _review_seeds(self, festival_year: int) -> list[SeedUrl]:
+        """This season's review posts, off the festival tag's feed.
+
+        `since` is not passed through, for the same reason discover_new_urls
+        ignores it: the point is to hold every current-season post, not the
+        ones published since the last run. The feed is ten entries, so the
+        cost of re-listing is bounded, and fetch/cache.py turns an unchanged
+        post into a 304 that is never reparsed.
+
+        Filtered to permalinks whose date names the festival year. Last
+        season's reviews carry last season's plates, and booth and dish names
+        repeat enough that they would fuzzy-match onto this year's rows and
+        quietly fill the ledger with 2025 photos.
+        """
+        from urllib.parse import urlparse
+
+        from epcot_fw.sources.common import rss_discover
+
+        seeds = []
+        for seed in rss_discover(
+            f"{BASE_URL}{REVIEW_FEED_PATH}", _EPOCH, page_kind="booth_review"
+        ):
+            match = _PERMALINK_YEAR_RE.match(urlparse(seed.url).path)
+            if match and int(match.group("year")) == festival_year:
+                seeds.append(seed)
+        return seeds
 
     def historical_detail_seeds(self, year: int) -> list[SeedUrl]:
         """Per-booth photo-post links for a *past* festival year.
@@ -367,9 +543,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             link = boundary_p.find("a", href=True)
             if link is None:
                 continue
-            href = link["href"]
-            if not href.startswith("http"):
-                href = f"{BASE_URL}{href}"
+            href = _absolute_url(link["href"])
             if href in seen:
                 continue
             if _slug_year(href) != festival_year:
@@ -382,7 +556,46 @@ class DisneyFoodBlogAdapter(SourceAdapter):
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:
         if page_kind == "booth_detail":
             return self._parse_booth_detail(raw_html, url)
+        if page_kind == "booth_review":
+            return self._parse_booth_review(raw_html)
         return self._parse_booth_list(raw_html)
+
+    def _parse_booth_review(self, raw_html: str) -> list[ExtractedRecordDTO]:
+        """A dated review post -> a menu_item record per captioned dish photo.
+
+        Same output as _parse_booth_detail and for the same reasons; the only
+        difference is where the booth comes from. A per-booth post names it in
+        the slug, and this shape does not name it anywhere reliable - the <h1>
+        on these pages is a newsletter signup - so it is recovered from the
+        image filenames by majority vote. No booth, no records: these posts
+        are about one booth, and guessing which would attach a photo to
+        another booth's dish.
+        """
+        soup = soupify(raw_html)
+        article = soup.find("article") or soup
+        images = extract_captioned_images(article)
+
+        booth_name = _booth_name_from_photos([image.url for image in images])
+        if not booth_name:
+            return []
+
+        return [
+            ExtractedRecordDTO(
+                entity_type="menu_item",
+                natural_key_hint=normalize_name(image.caption[:80]),
+                payload={
+                    "booth_name": booth_name,
+                    "name": image.caption,
+                    "image_url": image.url,
+                    # These posts caption the booth sign, the menu board and
+                    # the writer's asides in the same markup as the dishes,
+                    # so a caption here is only ever evidence about a dish
+                    # that already exists - never grounds to create one.
+                    "attach_only": True,
+                },
+            )
+            for image in images
+        ]
 
     def _parse_booth_detail(self, raw_html: str, url: str) -> list[ExtractedRecordDTO]:
         """One booth's photo post -> a menu_item record per captioned dish photo.

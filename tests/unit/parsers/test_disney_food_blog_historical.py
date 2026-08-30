@@ -75,3 +75,48 @@ def test_only_that_years_links_are_returned():
     urls = {s.url for s in seeds}
     assert any("italy-2025" in u for u in urls)
     assert not any("italy-2024" in u for u in urls)
+
+
+# ---------------------------------------------------------------------------
+# resolving the hub's links
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "href,expected",
+    [
+        # The 2018 hub writes some links as a bare host. Concatenating
+        # BASE_URL onto anything not starting with "http" turned these into
+        # "https://www.disneyfoodblog.comwww.disneyfoodblog.com/..." - a
+        # hostname that does not resolve, so every 2018 booth post failed DNS
+        # and eight seasons of backfill looked like eight empty ones.
+        ("www.disneyfoodblog.com/spain-2018-epcot-food-and-wine-festival/",
+         f"{BASE_URL}/spain-2018-epcot-food-and-wine-festival/"),
+        ("/the-alps-2025-epcot-food-and-wine-festival/",
+         f"{BASE_URL}/the-alps-2025-epcot-food-and-wine-festival/"),
+        (f"{BASE_URL}/belgium-2025-epcot-food-and-wine-festival/",
+         f"{BASE_URL}/belgium-2025-epcot-food-and-wine-festival/"),
+        ("//www.disneyfoodblog.com/japan-2025-epcot-food-and-wine-festival/",
+         f"{BASE_URL}/japan-2025-epcot-food-and-wine-festival/"),
+        ("italy-2025-epcot-food-and-wine-festival/",
+         f"{BASE_URL}/italy-2025-epcot-food-and-wine-festival/"),
+    ],
+)
+def test_hub_links_resolve_to_a_host_that_exists(href, expected):
+    from epcot_fw.sources.disney_food_blog import _absolute_url
+
+    assert _absolute_url(href) == expected
+
+
+def test_a_scheme_is_never_doubled_onto_the_host():
+    from urllib.parse import urlparse
+
+    from epcot_fw.sources.disney_food_blog import _absolute_url
+
+    for href in (
+        "www.disneyfoodblog.com/x/",
+        "/x/",
+        f"{BASE_URL}/x/",
+        "//www.disneyfoodblog.com/x/",
+    ):
+        assert urlparse(_absolute_url(href)).netloc == "www.disneyfoodblog.com"
