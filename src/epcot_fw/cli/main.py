@@ -227,6 +227,43 @@ def backfill_images(
         console.print("Run [bold]epcot-fw manual[/bold] to apply these to the database.")
 
 
+@images_app.command("promote")
+def images_promote(
+    dry_run: bool = typer.Option(False, "--dry-run", help="Report what would change and write nothing"),
+) -> None:
+    """Let this season's photo of a dish beat last season's stand-in.
+
+    `backfill-images` stages historical photos into the curated file at
+    priority_rank 0, which outranks every later observation permanently.
+    That is free while the current season has no photos of its own, and
+    stops being free the moment it does: a dish shows a 2025 plate while an
+    actual photo of what is being served today sits underneath it.
+
+    Only clears a curated photo when a crawled current-season one is
+    available to replace it. A photo published from docs/studio.html is left
+    alone whatever the crawl finds - that is an answer, not a stand-in.
+    """
+    from epcot_fw.pipeline.photo_promotion import promote_current_season_photos
+
+    with SessionLocal() as session:
+        report = promote_current_season_photos(session, dry_run=dry_run)
+        if not dry_run:
+            session.commit()
+
+    verb = "would promote" if dry_run else "promoted"
+    console.print(f"{verb} {report.total} dish photo(s) to this season's")
+    for p in report.promotions:
+        console.print(f"  [bold]{p.booth_name}[/bold] / {p.dish_name}")
+        console.print(f"    was {p.was.rsplit('/', 1)[-1][:72]}")
+        console.print(f"    now {p.now.rsplit('/', 1)[-1][:72]}")
+    if report.kept_hand_attached:
+        console.print(
+            f"{len(report.kept_hand_attached)} hand-attached photo(s) left alone"
+        )
+    if dry_run and report.total:
+        console.print("Nothing was written. Drop --dry-run to apply.")
+
+
 @images_app.command("export")
 def images_export(
     out_dir: Path = typer.Argument(Path("dish-photos"), help="Directory to write photos + a manifest into"),
@@ -355,6 +392,44 @@ def studio_apply(
         console.print(
             f"Commit + push {publish_dir}/ and data/manual/ to publish the new photos."
         )
+
+
+@app.command("ingest")
+def ingest(
+    url: str = typer.Argument(..., help="One page to fetch and read, e.g. a DFB review permalink"),
+    page_kind: str = typer.Option(
+        None, "--page-kind", help="Override what kind of page it is (booth_review, booth_detail, booth_list)"
+    ),
+) -> None:
+    """Fetch and ingest a single page you found yourself.
+
+    The crawl keeps up with a site; it does not reach backwards. Disney Food
+    Blog's festival feed holds about ten entries, so a review published
+    before the crawler learned to read that shape cannot be reached by
+    re-running anything. This takes one URL through exactly the same
+    fetch/cache/parse/resolve path a crawled page takes.
+
+    The page kind is inferred from the URL where the source can tell.
+    """
+    from epcot_fw.pipeline.ingest_url import IngestError, ingest_one_url
+
+    try:
+        with SessionLocal() as session:
+            stats = ingest_one_url(session, url, page_kind=page_kind)
+            session.commit()
+    except IngestError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"read as [bold]{stats['page_kind']}[/bold] from {stats['source']}")
+    if not stats["pages_fetched"]:
+        console.print("[yellow]nothing fetched[/yellow] - see the log above")
+        return
+    if not stats["pages_changed"]:
+        console.print("already had this page, unchanged - nothing reparsed")
+        return
+    console.print(f"extracted {stats['records_extracted']} record(s)")
+    console.print(stats)
 
 
 @app.command("manual")

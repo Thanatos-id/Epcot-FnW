@@ -450,6 +450,21 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             ),
         ]
 
+    def page_kind_for(self, url: str) -> str | None:
+        """DFB's three shapes are all readable from the URL: a per-booth photo
+        post names its booth and year in the slug, a review is a dated
+        permalink, and the hub is the booths-menus-and-food-photos page."""
+        from urllib.parse import urlparse
+
+        path = urlparse(url).path
+        if _slug_year(url) is not None:
+            return "booth_detail"
+        if _PERMALINK_YEAR_RE.match(path):
+            return "booth_review"
+        if "booths-menus-and-food-photos" in path:
+            return "booth_list"
+        return None
+
     def discover_new_urls(self, since: datetime.datetime, festival_year: int) -> list[SeedUrl]:
         """The per-booth "CLICK TO SEE PHOTOS OF MENU ITEMS" posts, one per
         booth, scraped off the hub page.

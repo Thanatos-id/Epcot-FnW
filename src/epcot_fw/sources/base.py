@@ -31,6 +31,17 @@ class SourceAdapter(ABC):
         """
         return []
 
+    def page_kind_for(self, url: str) -> str | None:
+        """What kind of page this URL is, judged from the URL alone, or None
+        when the source cannot tell.
+
+        Only used by one-off ingestion (`epcot-fw ingest`), where there is no
+        seed or discovery step to have decided already. A source whose page
+        kinds are not readable from the URL should leave this alone and let
+        the caller say.
+        """
+        return None
+
     @abstractmethod
     def parse(self, raw_html: str, url: str, page_kind: str) -> list[ExtractedRecordDTO]:
         """Extract structured records from one fetched page."""

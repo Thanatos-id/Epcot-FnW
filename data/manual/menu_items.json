@@ -67,7 +67,6 @@
     {
       "booth_name": "Belgium",
       "name": "Beer Flight",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-EPCOT-food-and-wine-festival-Belgium-booth-Brouwerij-St-Bernardus-Dragon-Wit-Brouwerij-Verhaeghe-Vichte-Duchesse-Red-Sweet-Tart-Cherry-Ale-1-700x525.jpg",
       "price_usd": 12.75
     },
     {
@@ -99,7 +98,6 @@
     {
       "booth_name": "Shimmering Sips hosted by CORKCICLE®",
       "name": "Mimosa Flight",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-mimosa-flight-2-700x472.jpg",
       "price_usd": 15.0
     },
     {
@@ -762,21 +760,6 @@
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chocolate-Mousse-Refreshment-Outpost-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-5-700x525.jpg"
     },
     {
-      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
-      "name": "Strawberry Champagne Trifle",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-10-700x559.jpg"
-    },
-    {
-      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
-      "name": "Berry Mimosa",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-mimosa-flight-berry-mimosa-700x537.jpg"
-    },
-    {
-      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
-      "name": "Blood Orange Mimosa",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Strawberry-Champagne-Trifle-Shimmering-Sips-2025-EPCOT-Food-and-Wine-Festival-Disney-World-mimosa-flight-blood-orange-mimosa-700x558.jpg"
-    },
-    {
       "booth_name": "Spain",
       "name": "Paella Caldoso:",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Summer-in-Spain-Spain-Booth-Paella-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-1-700x525.jpg"
@@ -810,11 +793,6 @@
       "booth_name": "Hawai’i",
       "name": "Slow-roasted Pork Slider",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-hawaii-food-booth-Slow-roasted-Pork-Slider-700x525.jpg"
-    },
-    {
-      "booth_name": "Shimmering Sips hosted by CORKCICLE®",
-      "name": "Tropical Mimosa",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2022/07/2022-epcot-food-and-wine-festival-shimmering-sips-tropical-mimosa-1-450x600.jpg"
     }
   ]
 }

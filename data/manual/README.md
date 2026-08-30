@@ -24,6 +24,22 @@ most often `image_url`. Two ways it gets filled:
   season is reported and dropped, never used to invent one - and it never
   touches a booth's photo, only a dish's.
 
+Two commands exist because of how the 2026 season actually went:
+
+- **`epcot-fw ingest <url>`** fetches one page you found yourself and takes
+  it through the same parse-and-resolve path a crawled page takes. Disney
+  Food Blog moved this season's dish photos into dated review permalinks and
+  publishes them through a tag feed that holds about ten entries, so a post
+  from earlier in the season cannot be reached by re-running anything.
+- **`epcot-fw images promote`** lets a current-season photo beat a
+  historical one. `backfill-images` stages its finds here at priority_rank
+  0, which outranks every later observation permanently - free while the
+  season has no photos of its own, and not free once it does, because the
+  dish then shows last year's plate with this year's selected against
+  underneath it. Only clears a staged photo when a crawled current-season
+  one is ready to replace it, and never touches one published from the
+  studio: that is an answer, not a stand-in. `--dry-run` reports first.
+
 A third way covers photos that need to be reworked, not just found:
 
 - **`epcot-fw images export ./dish-photos`** downloads every active dish's
