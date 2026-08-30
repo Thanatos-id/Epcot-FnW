@@ -11,9 +11,13 @@ in local storage so a dropped signal or a closed tab does not lose the
 morning, and hands back the exact block to paste into
 `data/manual/booth_locations.json`.
 
-Rendered by build_artifact.py alongside the ledger, so the two can never
-disagree about which booths exist. `render()` is pure - snapshot in, HTML out
-- so it can be tested without a browser or a database.
+docs/studio.html can place the same booths from a map at a desk, which is
+the better plan before the festival opens and the worse one once you are
+standing in it. The two share `survey_booths` so they can never disagree
+about which booths exist.
+
+Rendered by build_artifact.py alongside the ledger. `render()` is pure -
+snapshot in, HTML out - so it can be tested without a browser or a database.
 """
 
 from __future__ import annotations
@@ -21,34 +25,10 @@ from __future__ import annotations
 import json
 from typing import Any
 
-
-def survey_booths(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
-    """The booth list the page works from, in capture order.
-
-    Unplaced booths sort first: they are the ones the walk exists for, and a
-    surveyor scrolling a phone one-handed should not have to hunt for them.
-    Within a group, name order - it is the only order that stays stable
-    between builds, which matters when someone is halfway down the list.
-
-    "Additional Festival Locations" is dropped. It is a heading on the source
-    page covering dishes sold in several places at once, not somewhere a
-    person can stand, so asking anyone to capture it would be asking for a
-    wrong coordinate.
-    """
-    rank = {None: 0, "anchored": 1, "mapped": 2, "surveyed": 3}
-    booths = [
-        {
-            "name": b.get("name"),
-            "latitude": b.get("latitude"),
-            "longitude": b.get("longitude"),
-            "precision": b.get("location_precision"),
-            "location_description": b.get("location_description"),
-        }
-        for b in (snapshot.get("booths") or [])
-        if b.get("name") and b["name"] != "Additional Festival Locations"
-    ]
-    return sorted(booths, key=lambda b: (rank.get(b["precision"], 3), b["name"].lower()))
-
+# Shared with docs/studio.html rather than duplicated, so the two pages can
+# never disagree about which booths exist. Re-exported: the tests import it
+# from here, where it lived before the studio needed it too.
+from snapshot_rows import survey_booths
 
 TEMPLATE = r"""<!doctype html>
 <html lang="en">

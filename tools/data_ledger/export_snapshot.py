@@ -64,8 +64,13 @@ def export() -> None:
             booth_data.append(
                 {
                     "name": b.canonical_name,
+                    # The one identifier stable across a rename and a full
+                    # re-resolution. docs/studio.html names an attached photo
+                    # file by it, the same way `epcot-fw images export` does.
+                    "public_id": str(b.public_id),
                     "category": b.category,
                     "image_url": b.image_url,
+                    "origin": b.origin,
                     # Carried so build_survey.py can show what is already
                     # placed and what still needs walking to.
                     "latitude": b.latitude,
@@ -75,6 +80,8 @@ def export() -> None:
                     "items": [
                         {
                             "name": it.canonical_name,
+                            "public_id": str(it.public_id),
+                            "origin": it.origin,
                             "description": it.description,
                             "category": it.category,
                             "price": it.price_usd,

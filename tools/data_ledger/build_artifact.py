@@ -19,10 +19,10 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
-import build_editor  # noqa: E402
-import build_map  # noqa: E402
+import build_studio  # noqa: E402
 import build_survey  # noqa: E402
 import metrics  # noqa: E402
+import snapshot_rows  # noqa: E402
 
 TOOL_DIR = pathlib.Path(__file__).parent
 ASSETS_DIR = TOOL_DIR / "assets"
@@ -511,10 +511,9 @@ footer {
         all — no source publishes one, and seasonal kiosks never make it into OpenStreetMap.
       </p>
       <p style="margin: 0;">
+        <a class="survey-link" href="studio.html">Open the studio →</a>
         <a class="survey-link" href="survey.html">Open the survey tool →</a>
-        <a class="survey-link" href="map.html">Open the map tool →</a>
-        <a class="survey-link" href="editor.html">Edit the database →</a>
-        <span class="section-note">One tap per booth while you're standing there, or drop a pin from a desk.</span>
+        <span class="section-note">Drop a pin from a desk, or one tap per booth while you're standing there.</span>
       </p>
     </div>
   </section>
@@ -959,7 +958,7 @@ replacements = {
     # the two pages cannot disagree about how much is left to walk. It drops
     # the "Additional Festival Locations" heading, which is not a place.
     "__UNPLACED_COUNT__": str(
-        sum(1 for b in build_survey.survey_booths(data) if b["latitude"] is None)
+        sum(1 for b in snapshot_rows.survey_booths(data) if b["latitude"] is None)
     ),
 }
 for token, value in replacements.items():
@@ -982,15 +981,19 @@ survey_html = build_survey.render(data)
 survey_path.write_text(survey_html)
 print(f"wrote {survey_path} ({len(survey_html)} bytes)")
 
-map_path = DOCS_DIR / "map.html"
-map_html = build_map.render(data)
-map_path.write_text(map_html)
-print(f"wrote {map_path} ({len(map_html)} bytes)")
+studio_path = DOCS_DIR / "studio.html"
+studio_html = build_studio.render(data, generated_at=replacements["__GENERATED_AT__"])
+studio_path.write_text(studio_html)
+print(f"wrote {studio_path} ({len(studio_html)} bytes)")
 
-editor_path = DOCS_DIR / "editor.html"
-editor_html = build_editor.render(data, generated_at=replacements["__GENERATED_AT__"])
-editor_path.write_text(editor_html)
-print(f"wrote {editor_path} ({len(editor_html)} bytes)")
+# editor.html and map.html were folded into studio.html. Left behind, they
+# would keep being served by Pages and keep writing to the same curated
+# files from a stale snapshot, which is exactly the drift the merge was for.
+for stale in ("editor.html", "map.html"):
+    old_page = DOCS_DIR / stale
+    if old_page.exists():
+        old_page.unlink()
+        print(f"removed {old_page} (folded into studio.html)")
 print(f"history: {len(history)} snapshot(s), previous={'yes' if previous_entry else 'none (baseline)'}")
 
 # Icons and the manifest are copied rather than inlined: iOS ignores data:

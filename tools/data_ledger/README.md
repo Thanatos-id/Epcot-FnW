@@ -1,15 +1,26 @@
 # Data ledger
 
-Builds `docs/index.html` — a self-contained page showing the current state of
-the crawled festival database, what changed since the previous snapshot, and
-how well tested the pipeline producing those numbers is.
+Builds the three pages in `docs/`, all from one snapshot so none of them can
+disagree about what is in the database:
+
+| Page | Built by | For |
+|---|---|---|
+| `index.html` | `build_artifact.py` | Reading: what the crawl found, what changed, how well tested the pipeline is |
+| `studio.html` | `build_studio.py` | Correcting: pick a booth, then edit any dish on its menu, attach a photo, place the booth, add what the crawl missed |
+| `survey.html` | `build_survey.py` | Walking: one-tap GPS capture per booth, in the park |
+
+`studio.html` replaced `editor.html` and `map.html`, which split one job in
+half — correcting a dish meant opening two pages and hand-merging two paste
+blocks into two curated files, and neither could attach a photo or add a dish
+the crawl never found. `build_artifact.py` deletes both if it finds them, so
+a stale copy cannot keep being served by Pages.
 
 ## Building
 
 ```bash
 python tools/data_ledger/export_snapshot.py   # DB  -> epcot_db_snapshot.json
-python tools/data_ledger/fetch_images.py      # adds inlined booth photos
-python tools/data_ledger/build_artifact.py    # -> docs/index.html
+python tools/data_ledger/fetch_images.py      # adds inlined booth + dish photos
+python tools/data_ledger/build_artifact.py    # -> docs/index.html, studio.html, survey.html
 ```
 
 `epcot_db_snapshot.json` is gitignored — it is a build input, regenerated from
@@ -45,6 +56,46 @@ photographed once the booths are serving, and discovery ignores any post
 whose slug names a different year — the undated hub keeps serving last
 season's line-up until the new one is published, and ingesting it would
 attach last year's plates to this year's dishes.
+
+## The studio's shape
+
+Master/detail: a 450px booth rail on the left, one booth's whole menu on the
+right, and an empty state until something is picked. A booth is the unit
+someone actually works in — 209 dishes in one flat column was a list nobody
+could hold in their head, and a dish is only ever judged against the others
+on the same menu. It also puts the booth's coordinate at the top of its own
+menu instead of repeating it on every dish that inherits it.
+
+Above 900px each pane is pinned and scrolls on its own: 32 booths against a
+menu that runs to 21 dishes, and on one page scroll the rail runs out long
+before the menu does, so working down a long menu meant losing the booth you
+were in. Two consequences worth remembering when editing that block — cards
+need `flex: none` or a bounded flex column shrinks them to slivers instead of
+overflowing, and `.wrap`'s bottom reserve has to come off, or the page gets
+more scroll range than the header can absorb and both panes drag off the top.
+
+Each pane carries its own filters, because one search box over both lists
+reads as a single search and behaves as two. The rail's chips are about a
+booth as a whole (*not placed*) or about work done anywhere inside it
+(*edited*, *added by hand*) — a booth whose only change is one corrected dish
+still has to be findable, or the filter cannot answer the question it exists
+to answer. Below 900px the two panes take turns rather than shrinking.
+
+## The studio's changeset
+
+The studio's edits leave as one downloaded file rather than a paste block,
+because a photo is bytes and base64 in a textarea is not something anyone can
+paste into JSON by hand. `epcot-fw studio apply <file>` reads it back: photos
+land in `docs/dish-photos/`, everything else merges into the curated files at
+`priority_rank 0`, and the result is staged and re-resolved in one command.
+`--dry-run` reports on a file without touching anything.
+
+Rows added by hand come back with `origin = "curated"`. That column exists
+for one reason: `pipeline/reconcile.py` retires anything no live crawled page
+vouches for, and no crawled page will ever vouch for a dish the sources have
+not noticed. Curated rows are skipped by that pass entirely — their
+`is_active` comes from the curated file instead, which is how deleting one
+works.
 
 ## Retired entities
 
@@ -98,6 +149,8 @@ desktop. Two things to preserve when editing the template:
   out at ~980px and scale it down, which is what made the ledger unreadable on
   a phone before;
 - no element may exceed the viewport width. `tools/data_ledger` has no browser
-  test harness, so check by loading `docs/index.html` at 320px, 390px, 768px
-  and 1440px and confirming `document.documentElement.scrollWidth` never
-  exceeds `clientWidth`.
+  test harness, so check by loading `docs/index.html` and `docs/studio.html`
+  at 320px, 390px, 768px and 1440px and confirming
+  `document.documentElement.scrollWidth` never exceeds `clientWidth`. A
+  `<select>` is the usual culprit: it is sized by its widest option unless
+  told otherwise, and the booth list holds "Additional Festival Locations".

@@ -1,7 +1,7 @@
 # Curated data
 
 Hand-surveyed facts that no crawled source publishes, plus corrections and
-photo backfills for `docs/editor.html` and `epcot-fw backfill-images` to
+photo backfills for `docs/studio.html` and `epcot-fw backfill-images` to
 write into.
 
 ## Dish photos
@@ -9,8 +9,12 @@ write into.
 `data/manual/menu_items.json` holds curated fields for individual dishes -
 most often `image_url`. Two ways it gets filled:
 
-- **The editor** (`docs/editor.html`) exports a block here when you correct
-  a dish by hand.
+- **The studio** (`docs/studio.html`) writes here when you correct a dish by
+  hand. It exports a changeset file rather than a paste block - a photo you
+  attached is bytes, not something anyone can paste into JSON - and
+  **`epcot-fw studio apply <file>`** publishes those photos into
+  `docs/dish-photos/`, writes their URLs here, merges everything else, and
+  re-resolves in one go. `--dry-run` reports what it would do first.
 - **`epcot-fw backfill-images --confirm-tos`** searches prior seasons of
   Disney Food Blog's per-booth photo posts for photos of dishes still on the
   current menu, and stages confident matches here. `--years N` sets how far
@@ -72,13 +76,15 @@ below to paste in.
 
 ## How to place from a map
 
-No trip to the park needed: open **`docs/map.html`**, pick a booth from the
-list, hit **Drop pin**, then click its spot on a real satellite/street map —
+No trip to the park needed: open **`docs/studio.html`**, find a booth, hit
+**Place on map**, then click its spot on a real satellite/street map —
 lined up against Disney's own released festival map, or just memory of the
-layout. Drag a dropped pin any time to nudge it, and Copy JSON at the end
-gives you the same block below to paste in. Useful the moment Disney
+layout. Drag a dropped pin any time to nudge it. Useful the moment Disney
 publishes a new festival map, well before anyone can walk the park to survey
 it for real.
+
+A dish shows the coordinate it inherits from its booth, so **Place on map**
+is offered from a dish row too — one pin fixes every dish sold there.
 
 By hand, an entry looks like this:
 
@@ -109,7 +115,7 @@ things end up in the same column:
 
 - **`surveyed`** — a GPS fix taken standing at the booth. Good to a few
   metres. This is the real thing.
-- **`mapped`** — a pin dropped by eye on a real map (`docs/map.html`),
+- **`mapped`** — a pin dropped by eye on a real map (`docs/studio.html`),
   matched against Disney's own festival map or satellite imagery. Better
   than an anchor — it's actually placed at the booth, not a pavilion
   standing in for it — but still an eyeballed estimate, not a fix.
@@ -118,11 +124,13 @@ things end up in the same column:
   enough to put a booth on the right side of World Showcase, not enough to
   order two booths you can see at the same time.
 
-Eight booths ship anchored, from the Wikipedia/Wikidata pavilion coordinates.
-Everything else — Refreshment Outpost, Brew-Wing Lab, and every themed kiosk
-like Swirled Showcase or Bramblewood Bites — has no coordinate at all,
-because nobody publishes one. A better grade always supersedes a worse one:
-they all land in the same file, and the more precise value wins on recency.
+Twenty-four booths ship `mapped`, placed by eye in `docs/studio.html`. They
+started as eight Wikipedia/Wikidata pavilion anchors; a better grade always
+supersedes a worse one, so as pins were dropped they replaced the anchors in
+the same file, and the more precise value won on recency. Everything still
+missing — Refreshment Outpost, Brew-Wing Lab, and themed kiosks like Swirled
+Showcase — has no coordinate at all, because nobody publishes one and nobody
+has placed one yet.
 
 A client that shows a distance is expected to qualify an anchored one
 ("about 200 ft, approximate") rather than presenting it as measured.
@@ -144,5 +152,16 @@ edit is picked up on the next scheduled run either way.
   came from curation.
 - **Editing a value supersedes it.** Re-applying an unchanged file is a
   no-op; changing one stages a correction that wins on recency.
+- **An explicit `null` erases, an absent field does not.** For
+  `description`, `image_url` and `location_description`, writing `null` is
+  how a wrong value comes off - the studio's **Clear** does exactly this.
+  Every other field drops a null, so a missing one stays open for a source
+  to fill later.
+- **`new: true` means the crawl never found this.** The studio sets it on a
+  dish or booth you added by hand. It makes the resolver create the row
+  rather than park a near-miss name as a merge conflict, and the row comes
+  back with `origin = "curated"`, which is what stops the next crawl
+  retiring it for having no source behind it. Delete one with
+  `is_active: false`.
 - Coordinates are decimal degrees (WGS84). Five decimal places is roughly a
   metre, far more precision than distance-sorting needs.
