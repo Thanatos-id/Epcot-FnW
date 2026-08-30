@@ -173,6 +173,23 @@ def _strip_price_clause(name: str) -> str:
 # ("Mango-Peach", "Cider-brined").
 _NAME_TAIL_RE = re.compile(r"\s+[—–]\s+|:\s+")
 
+# The 2026 page flags a chunk of the lineup - new dishes and, seemingly by
+# mistake, plenty of returning ones (Belgian Waffle, Wiener Schnitzel) - with
+# a "NEW!" or "NEW" badge bolded onto the front of the name. Sometimes it
+# shares the <strong> with the dish name ("NEW! Belgian Waffle"), sometimes
+# it's its own <strong> with the name as plain sibling text ("NEW" / "Affogato
+# ... Cold Brew"). Either way it is not part of the dish's identity, and
+# leaving it in shifts the name just far enough that entity resolution treats
+# a returning dish as a new one instead of matching it to itself. Matched
+# case-sensitively so a real title-case name ("New England...") is never
+# touched, and only at the very start with nothing but a space/colon/end
+# after it, so "Newcastle" is never mistaken for the badge.
+_NEW_BADGE_RE = re.compile(r"^NEW!?(?=\s|:|$)\s*[:\-–—]?\s*")
+
+
+def _strip_new_badge(s: str) -> str:
+    return _NEW_BADGE_RE.sub("", s, count=1)
+
 
 def _description_from(text: str, name: str) -> str | None:
     """What the line says beyond the dish's own name.
@@ -214,11 +231,14 @@ def _inline_menu_item(
     text = clean_text(li.get_text())
     if not text:
         return None
+    text = _strip_new_badge(text)
 
     name_tag = li.find("strong")
-    if name_tag is not None:
-        name = clean_text(name_tag.get_text())
-    else:
+    name = _strip_new_badge(clean_text(name_tag.get_text())) if name_tag is not None else ""
+    if not name:
+        # Either there was no <strong> at all, or it turned out to be nothing
+        # but the badge (name text is a plain sibling, not inside it) - both
+        # fall back to splitting the (already badge-stripped) full line.
         name = _NAME_TAIL_RE.split(text, 1)[0]
     if not name:
         return None
