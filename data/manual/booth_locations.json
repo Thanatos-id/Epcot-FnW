@@ -177,6 +177,12 @@
       "latitude": 28.373954,
       "longitude": -81.550073,
       "location_precision": "mapped"
+    },
+    {
+      "name": "Bramblewood Bites",
+      "latitude": 28.372684,
+      "longitude": -81.550376,
+      "location_precision": "mapped"
     }
   ]
 }
