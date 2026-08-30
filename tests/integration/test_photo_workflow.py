@@ -449,3 +449,38 @@ def test_merge_menu_item_overrides_preserves_readme_and_adds_new_entries(tmp_pat
     assert written["menu_items"] == [
         {"booth_name": "Norway", "name": "Kringle", "image_url": "kringle.jpg"}
     ]
+
+
+# ---------------------------------------------------------------------------
+# where published photos go
+# ---------------------------------------------------------------------------
+
+
+def test_the_publish_directory_does_not_depend_on_where_the_command_was_typed(monkeypatch, tmp_path):
+    """A cwd-relative default is silent when it is wrong: run from anywhere
+    but the repo root and the photos land under that directory while the
+    image_url recorded against the dish still points at the published Pages
+    path. The dish claims a photo, the site 404s, nothing reports it."""
+    from epcot_fw.pipeline.photo_workflow import DEFAULT_PUBLISH_DIR
+
+    monkeypatch.chdir(tmp_path)
+    assert DEFAULT_PUBLISH_DIR.is_absolute()
+    assert DEFAULT_PUBLISH_DIR.parts[-2:] == ("docs", "dish-photos")
+    # Inside the repo, next to the curated files it is published alongside.
+    from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH
+
+    repo_root = DEFAULT_ITEMS_PATH.parents[2]
+    assert DEFAULT_PUBLISH_DIR.parents[1] == repo_root
+
+
+def test_the_cli_uses_that_default_rather_than_a_relative_path():
+    """Both commands that publish photos have to agree, or one of them
+    quietly writes somewhere else."""
+    import inspect
+
+    from epcot_fw.cli import main as cli
+    from epcot_fw.pipeline.photo_workflow import DEFAULT_PUBLISH_DIR
+
+    for command in (cli.images_import, cli.studio_apply):
+        default = inspect.signature(command).parameters["publish_dir"].default
+        assert default.default == DEFAULT_PUBLISH_DIR, command.__name__

@@ -124,6 +124,13 @@ staging area for external photo processing and not something to commit.
 
 ## When something doesn't land
 
+**`zsh: command not found: epcot-fw`** — the venv is not active. The shell
+prompt says so: it reads `(.venv) … Epcot %` when it is. Run the two
+commands at the top of this file and try again. Photo destinations are
+anchored to the repo, so a command run from the wrong directory cannot
+scatter files — but `epcot-fw` itself only exists on the PATH the venv sets,
+and the `python tools/…` lines are relative to the repo root.
+
 **`skipped … missing booth_name or name`** — a dish is only identified by
 the pair, so one without both cannot be matched to anything. Usually a
 hand-added dish saved without picking a booth.

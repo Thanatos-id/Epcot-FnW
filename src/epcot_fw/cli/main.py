@@ -13,6 +13,7 @@ from epcot_fw.agents.conflict_triage import (
 from epcot_fw.db.base import SessionLocal
 from epcot_fw.db.models import MergeConflict, Source
 from epcot_fw.pipeline.crawl import _current_festival, run_full_crawl
+from epcot_fw.pipeline.photo_workflow import DEFAULT_PUBLISH_DIR
 from epcot_fw.pipeline.refresh import run_refresh
 from epcot_fw.pipeline.resolve_pipeline import run_resolve
 
@@ -298,7 +299,7 @@ def images_import(
         DEFAULT_PAGES_BASE_URL, "--base-url", help="Public base URL the published photos will be served from"
     ),
     publish_dir: Path = typer.Option(
-        Path("docs/dish-photos"), "--publish-dir", help="Where to copy processed photos for Pages to serve"
+        DEFAULT_PUBLISH_DIR, "--publish-dir", help="Where to copy processed photos for Pages to serve"
     ),
 ) -> None:
     """Publish processed photos from in_dir and stage their URLs as curated
@@ -334,7 +335,7 @@ def studio_apply(
         DEFAULT_PAGES_BASE_URL, "--base-url", help="Public base URL the published photos will be served from"
     ),
     publish_dir: Path = typer.Option(
-        Path("docs/dish-photos"), "--publish-dir", help="Where to write attached photos for Pages to serve"
+        DEFAULT_PUBLISH_DIR, "--publish-dir", help="Where to write attached photos for Pages to serve"
     ),
     dry_run: bool = typer.Option(False, "--dry-run", help="Report what would change and write nothing"),
 ) -> None:

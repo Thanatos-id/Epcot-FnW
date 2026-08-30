@@ -45,6 +45,18 @@ logger = logging.getLogger(__name__)
 MANIFEST_NAME = "manifest.json"
 _DEFAULT_EXTENSION = ".jpg"
 
+# Where published dish photos go, anchored to the repo rather than to
+# whatever directory the command was typed in.
+#
+# A cwd-relative default is silent when it is wrong: run from anywhere but
+# the repo root and the photos are written to ./docs/dish-photos under that
+# directory, while the image_url recorded against the dish still points at
+# the published Pages path. The curated file gets its correction, the
+# database says the dish has a photo, the site 404s, and nothing anywhere
+# reports a problem. The curated files themselves have always resolved this
+# way (see pipeline/manual.py); this brings the photos in line with them.
+DEFAULT_PUBLISH_DIR = Path(__file__).resolve().parents[3] / "docs" / "dish-photos"
+
 
 @dataclass(frozen=True)
 class PhotoRecord:
