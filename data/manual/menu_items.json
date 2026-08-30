@@ -823,6 +823,41 @@
       "booth_name": "Bramblewood Bites",
       "name": "Spiced Apple Rum Old Fashioned with Boyd & Blair Rum",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Spiced-Apple-Rum-Old-Fashioned-_-Bramblewood-Bites-_-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Canada",
+      "name": "Collective Arts Brewing Festbier",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Collective-Arts-Brewing-Festbier-_-Canada-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-1.jpg"
+    },
+    {
+      "booth_name": "Canada",
+      "name": "Cheddar and Bacon Soup",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [],
+      "description": "served with a Pretzel Roll (A 30th Anniversary Legacy Item)",
+      "price_usd": 6.29,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Cheddar-and-Bacon-Soup-_-Canada-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-4.jpg"
+    },
+    {
+      "booth_name": "Canada",
+      "name": "Filet Mignon with Mushrooms and Mashed Potatoes",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [],
+      "description": "(A 30th Anniversary Legacy Item)",
+      "price_usd": 10.49,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Filet-Mignon-_-Canada-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-4.jpg"
+    },
+    {
+      "booth_name": "Canada",
+      "name": "Château des Charmes Pétales Rouge",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [],
+      "description": "Niagara-on-the-Lake, ON",
+      "price_usd": 9.5,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chateau-des-Charmes-Petales-Rouge-Canada-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-2.jpg"
     }
   ]
 }
