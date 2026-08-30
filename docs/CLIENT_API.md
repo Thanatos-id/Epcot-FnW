@@ -47,7 +47,8 @@ a tree.
 |---|---|
 | `public_id` | **Save this, never `id`.** A UUID that survives rebuilds; `id` is an autoincrement that renumbers, so a favourite keyed on it comes back pointing at a different dish. |
 | `latitude` / `longitude` | Null for most booths. Only 8 are placed today. |
-| `location_precision` | `surveyed` (GPS at the booth, metres), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for an anchored booth** — "about 200 ft" — rather than presenting it as measured. |
+| `location_precision` | `surveyed` (GPS at the booth, metres), `mapped` (a pin dropped by eye against satellite imagery), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for anything short of `surveyed`** — "about 200 ft" — rather than presenting it as measured. |
+| `origin` | `crawled` (a source listed it) or `curated` (somebody added it by hand in the studio, because no source did). Optional to use: badge or filter on it if that's useful, ignore it otherwise. Added after the first release, so treat a missing value as `crawled`. |
 | `dietary_tags` | Keyword matches against a food blog's copy, **not Disney allergen data**. Fine for filtering a menu, never an allergen check. Say so in the UI. |
 | `is_active` | Always true here; retired rows are filtered out before publishing. |
 | `data_updated_at` | When the data last changed, not when the file was built — so an unchanged database produces an identical file and a stable ETag. |

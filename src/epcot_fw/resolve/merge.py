@@ -23,7 +23,7 @@ from epcot_fw.normalize.dietary_tags import (
     extract_dietary_tags,  # noqa: F401 (re-export convenience)
 )
 from epcot_fw.normalize.text import normalize_name
-from epcot_fw.resolve.matcher import Candidate, find_best_match
+from epcot_fw.resolve.matcher import Candidate, MatchResult, find_best_match
 from epcot_fw.resolve.priority import FieldCandidate, resolve_field
 
 ENTITY_MODEL: dict[str, type] = {
@@ -74,8 +74,14 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "longitude": "longitude",
         "location_description": "location_description",
         "location_precision": "location_precision",
+        # Only the curated source ever sets this: it is how docs/studio.html
+        # deletes a booth it added by hand. Unlisted in priority.py's
+        # FIELD_STRATEGIES, so it resolves by priority, and `manual` at rank 0
+        # beats anything a crawl could contribute.
+        "is_active": "is_active",
     },
-    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url"},
+    # is_active: see the booth map above - curated deletion, nothing else.
+    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url", "is_active": "is_active"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},
     "seminar": {
         "title": "title",
@@ -87,6 +93,11 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "price_usd": "price_usd",
     },
 }
+
+# The curated source (db/seed.py, priority_rank 0). A canonical row this
+# source creates is one somebody typed rather than one a crawl found, which
+# is what `origin` records - see _create_new and pipeline/reconcile.py.
+CURATED_SOURCE_KEY = "manual"
 
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
 
@@ -130,14 +141,30 @@ def resolve_booth_id(session: Session, festival_id: int, booth_name_hint: str | 
     return None
 
 
-def _create_new(entity_type: str, *, festival_id: int, booth_id: int | None, name: str) -> Any:
+def _create_new(
+    entity_type: str,
+    *,
+    festival_id: int,
+    booth_id: int | None,
+    name: str,
+    origin: str = "crawled",
+) -> Any:
+    """Build the canonical row for a record that matched nothing.
+
+    `origin` only reaches the two entities that carry the column. It is what
+    lets pipeline/reconcile.py keep a hand-added booth or dish alive: those
+    rows have no crawled page vouching for them and would otherwise be
+    retired by the first crawl after they land.
+    """
     if entity_type == "festival":
         year = datetime.date.today().year
         return Festival(year=year, name=name, slug=f"{slugify(name)}-{year}", status="upcoming")
     if entity_type == "booth":
-        return Booth(festival_id=festival_id, canonical_name=name, slug=slugify(name))
+        return Booth(
+            festival_id=festival_id, canonical_name=name, slug=slugify(name), origin=origin
+        )
     if entity_type == "menu_item":
-        return MenuItem(booth_id=booth_id, canonical_name=name, category="food")
+        return MenuItem(booth_id=booth_id, canonical_name=name, category="food", origin=origin)
     if entity_type == "event":
         return ConcertEvent(
             festival_id=festival_id, artist_name=name, performance_date=datetime.date.today()
@@ -305,7 +332,13 @@ def apply_match_outcome(
     name = payload.get(NAME_PAYLOAD_KEY[entity_type])
 
     if outcome == "new_entity":
-        model_obj = _create_new(entity_type, festival_id=festival_id, booth_id=booth_id, name=name)
+        model_obj = _create_new(
+            entity_type,
+            festival_id=festival_id,
+            booth_id=booth_id,
+            name=name,
+            origin="curated" if source.key == CURATED_SOURCE_KEY else "crawled",
+        )
         session.add(model_obj)
         session.flush()
         canonical_id = model_obj.id
@@ -325,9 +358,18 @@ def apply_match_outcome(
     )
 
     observed_at = extracted_record.extracted_at
+    curated = source.key == CURATED_SOURCE_KEY
     for payload_key, field_name in FIELD_MAP[entity_type].items():
         raw_value = payload.get(payload_key)
-        if raw_value is None:
+        # A null from a crawled source means the parser found nothing there,
+        # which is not an observation and must not compete with one. A null
+        # from curation is the opposite: somebody looked at a wrong photo or
+        # a wrong description and said to take it off. pipeline/manual.py
+        # only lets a null through for the handful of fields where that
+        # reading is the intended one; this is the same distinction
+        # dietary_tags already draws for an empty list, one field down.
+        erasure = curated and raw_value is None and payload_key in payload
+        if raw_value is None and not erasure:
             continue
         resolution = _write_and_resolve_field(
             session,
@@ -339,7 +381,10 @@ def apply_match_outcome(
             raw_value=raw_value,
             observed_at=observed_at,
         )
-        if resolution.value is not None:
+        # `is not None` alone would drop exactly the case above: an erasure
+        # resolves to None, and None is also what "nothing resolved" looks
+        # like, so the two have to be told apart before writing.
+        if resolution.value is not None or erasure:
             setattr(model_obj, field_name, _coerce(type(model_obj), field_name, resolution.value))
 
     # `in` rather than truthiness: an empty list is a real assertion - a
@@ -411,6 +456,15 @@ def resolve_extracted_record(
 
     candidates = _load_scoped_candidates(session, entity_type, festival_id=festival_id, booth_id=booth_id)
     match = find_best_match(extracted_record.natural_key_hint or normalize_name(name), candidates)
+
+    # A curated record saying `new` has already been through the only review
+    # that matters: a person looked at the existing list in docs/studio.html
+    # and decided this dish is not on it. Left to the matcher, a name scoring
+    # in the 70-90 review band against something already there ("Beer Flight"
+    # beside "Beer Flight - Large") would be parked as a merge conflict, and
+    # the dish they meant to add would simply never appear.
+    if payload.get("new") and match.outcome != "auto_merge":
+        match = MatchResult(outcome="new_entity", canonical_id=None, score=match.score)
 
     if match.outcome == "review":
         if not _match_conflict_already_flagged(session, entity_type, extracted_record.id):

@@ -109,6 +109,53 @@ def test_api_exposes_public_id_for_booths_and_items(db_session):
 
 
 # ---------------------------------------------------------------------------
+# origin
+# ---------------------------------------------------------------------------
+
+
+def test_rows_are_crawled_unless_something_says_otherwise(db_session):
+    booth, _ = _seed(db_session)
+    assert booth.origin == "crawled"
+    item = db_session.scalars(select(MenuItem).where(MenuItem.booth_id == booth.id)).first()
+    assert item.origin == "crawled"
+
+
+def test_the_snapshot_says_where_each_row_came_from(db_session):
+    """A client that wants to badge or filter hand-added rows needs to be
+    able to tell them apart; one that doesn't can ignore the field."""
+    booth, other = _seed(db_session)
+    other.origin = "curated"
+    curated = db_session.scalars(select(MenuItem).where(MenuItem.booth_id == other.id)).one()
+    curated.origin = "curated"
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert {b["canonical_name"]: b["origin"] for b in body["booths"]} == {
+            "The Alps": "crawled", "Australia": "curated",
+        }
+        assert {i["canonical_name"]: i["origin"] for i in body["menu_items"]} == {
+            "Kirschwasser Torte": "crawled", "Lamington": "curated",
+        }
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_adding_origin_did_not_break_the_contract(db_session):
+    """It is an added field with a default, so a client built before it
+    existed still decodes the payload - which is why v1 stays v1."""
+    _seed(db_session)
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert body["schema_version"] == 1
+        assert body["min_app_version"] is None
+    finally:
+        app.dependency_overrides.clear()
+
+
+# ---------------------------------------------------------------------------
 # snapshot
 # ---------------------------------------------------------------------------
 

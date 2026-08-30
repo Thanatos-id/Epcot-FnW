@@ -23,10 +23,12 @@ sources_app = typer.Typer(help="Manage crawl sources")
 db_app = typer.Typer(help="Database maintenance")
 review_app = typer.Typer(help="Review and triage merge_conflicts", invoke_without_command=True)
 images_app = typer.Typer(help="Round-trip dish photos for external (e.g. AI) processing")
+studio_app = typer.Typer(help="Apply changesets exported by docs/studio.html")
 app.add_typer(sources_app, name="sources")
 app.add_typer(db_app, name="db")
 app.add_typer(review_app, name="review")
 app.add_typer(images_app, name="images")
+app.add_typer(studio_app, name="studio")
 
 # The site this project's own docs/ is published at. Used only as the
 # default publish target for `epcot-fw images import` - override with
@@ -285,6 +287,73 @@ def images_import(
         console.print(
             "Run [bold]epcot-fw manual[/bold] to apply these, then commit + push "
             f"{publish_dir}/ and data/manual/menu_items.json to publish them."
+        )
+
+
+@studio_app.command("apply")
+def studio_apply(
+    changeset: Path = typer.Argument(..., help="The .json file docs/studio.html downloaded"),
+    base_url: str = typer.Option(
+        DEFAULT_PAGES_BASE_URL, "--base-url", help="Public base URL the published photos will be served from"
+    ),
+    publish_dir: Path = typer.Option(
+        Path("docs/dish-photos"), "--publish-dir", help="Where to write attached photos for Pages to serve"
+    ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Report what would change and write nothing"),
+) -> None:
+    """Apply a changeset exported by the studio: publish its photos, merge
+    its corrections into the curated files, and re-resolve.
+
+    Everything in the file lands under the `manual` source at priority_rank
+    0, so it beats every crawled source and survives the next refresh.
+    Dishes and booths marked as added by hand come back with
+    `origin = 'curated'`, which is what stops reconciliation retiring them
+    for having no crawled page behind them.
+
+    Copies photos into publish_dir (docs/ by default, so a normal commit +
+    push publishes them via GitHub Pages); nothing here uploads anywhere on
+    its own.
+    """
+    from epcot_fw.pipeline.manual import stage_manual_overrides
+    from epcot_fw.pipeline.studio import ChangesetError, apply_changeset
+
+    try:
+        report = apply_changeset(
+            changeset, publish_dir=publish_dir, base_url=base_url, dry_run=dry_run
+        )
+    except ChangesetError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    verb = "would change" if dry_run else "changed"
+    console.print(
+        f"{verb} {len(report.menu_items)} dish(es) and {len(report.booths)} booth(s); "
+        f"{len(report.photos)} photo(s) {'would go' if dry_run else 'published'} to {publish_dir}/"
+    )
+    if report.added:
+        console.print(f"added by hand: {len(report.added)} — {', '.join(report.added[:5])}")
+    if report.deleted:
+        console.print(f"marked deleted: {len(report.deleted)} — {', '.join(report.deleted[:5])}")
+    for note in report.skipped:
+        console.print(f"[yellow]skipped[/yellow] {note}")
+
+    if dry_run:
+        console.print("Nothing was written. Drop --dry-run to apply.")
+        return
+    if not report.total:
+        console.print("Nothing to apply.")
+        return
+
+    with SessionLocal() as session:
+        staged = stage_manual_overrides(session)
+        festival = _current_festival(session)
+        stats = run_resolve(session, festival_id=festival.id)
+        session.commit()
+    console.print(f"staged {staged} curated override(s)")
+    console.print(stats)
+    if report.photos:
+        console.print(
+            f"Commit + push {publish_dir}/ and data/manual/ to publish the new photos."
         )
 
 

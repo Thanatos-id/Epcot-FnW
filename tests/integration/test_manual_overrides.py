@@ -84,17 +84,27 @@ def test_readme_block_in_the_shipped_file_is_not_mistaken_for_data():
     assert all(entry["name"] != "_README" for entry in load_booth_overrides(SHIPPED))
 
 
-def test_every_shipped_anchor_is_a_complete_and_labelled_coordinate():
+# What a coordinate can honestly claim without anyone having stood at the
+# booth: a pavilion stand-in, or a pin dropped by eye on satellite imagery.
+# `surveyed` is a GPS fix taken in the park and cannot be produced at a desk,
+# so nothing arrives in this file carrying it - and a value that overclaims
+# its own precision is worse than no value, because a client is expected to
+# stop qualifying the distance it shows.
+DESK_GRADES = {"anchored", "mapped"}
+
+
+def test_every_shipped_coordinate_is_complete_and_honestly_graded():
     entries = load_booth_overrides(SHIPPED)
-    assert entries, "the pavilion anchors should ship with the repo"
+    assert entries, "the curated coordinates should ship with the repo"
     for entry in entries:
         assert entry["latitude"] is not None and entry["longitude"] is not None
-        assert entry["location_precision"] == "anchored", (
-            f"{entry['name']}: a shipped coordinate is a pavilion stand-in, not a survey"
+        assert entry["location_precision"] in DESK_GRADES, (
+            f"{entry['name']}: {entry['location_precision']!r} is not a grade anyone "
+            f"can produce without walking the park"
         )
 
 
-def test_no_shipped_anchor_has_landed_outside_the_park():
+def test_no_shipped_coordinate_has_landed_outside_the_park():
     for entry in load_booth_overrides(SHIPPED):
         low, high = EPCOT_BOX["lat"]
         assert low < entry["latitude"] < high, f"{entry['name']} latitude"
@@ -382,6 +392,77 @@ def test_a_curated_correction_reaches_the_dish(db_session, empty_booths, items_f
     assert refreshed.description == "Italian lager"
     assert refreshed.category == "alcoholic_beverage"
     assert refreshed.price_usd == pytest.approx(Decimal("7.25"))
+
+
+def test_a_wrong_photo_can_be_cleared(db_session, empty_booths, items_file):
+    """The studio's Clear button, end to end.
+
+    A null is normally dropped so a missing field stays open for a source to
+    fill later. For a photo that reading is wrong: somebody looked at the
+    wrong plate and said to take it off, and dropping the null is what made
+    the old editor's Clear silently do nothing."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id)
+
+    path = items_file(
+        [{"booth_name": "Italy", "name": "Peroni Pilsner",
+          "image_url": "https://example.test/wrong-plate.jpg"}]
+    )
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+    assert db_session.get(MenuItem, dish.id).image_url == "https://example.test/wrong-plate.jpg"
+
+    path = items_file([{"booth_name": "Italy", "name": "Peroni Pilsner", "image_url": None}])
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).image_url is None
+
+
+def test_a_crawled_null_still_does_not_erase_anything(db_session, empty_booths, items_file):
+    """The other half of the rule. A parser that found no description is not
+    asserting there is none, so it must not beat a source that found one."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id)
+
+    path = items_file(
+        [{"booth_name": "Italy", "name": "Peroni Pilsner", "description": "Italian lager"}]
+    )
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+    assert db_session.get(MenuItem, dish.id).description == "Italian lager"
+
+    ingest(
+        db_session,
+        [
+            ExtractedRecordDTO(
+                entity_type="menu_item",
+                natural_key_hint="peroni pilsner",
+                payload={"booth_name": "Italy", "name": "Peroni Pilsner", "description": None},
+            )
+        ],
+        "allears",
+        festival_id,
+        url="https://example.test/allears",
+    )
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).description == "Italian lager"
+
+
+def test_a_field_simply_absent_is_still_left_alone(db_session, empty_booths, items_file):
+    """Only an explicit null erases. Omitting a field is how a correction to
+    one thing avoids freezing everything else about the dish."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id)
+    dish.image_url = "https://example.test/plate.jpg"
+    db_session.flush()
+
+    path = items_file([{"booth_name": "Italy", "name": "Peroni Pilsner", "price_usd": "7.25"}])
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).image_url == "https://example.test/plate.jpg"
 
 
 def test_a_rename_finds_the_dish_by_its_old_name(db_session, empty_booths, items_file):

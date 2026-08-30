@@ -12,7 +12,7 @@
     "",
     "location_precision says what the coordinate is worth:",
     "  surveyed - a GPS fix taken standing at the booth. Metres.",
-    "  mapped   - a pin dropped by eye on a real map (docs/map.html), matched",
+    "  mapped   - a pin dropped by eye on a real map (docs/studio.html), matched",
     "             against Disney's festival map or satellite imagery. Better",
     "             than an anchor, not as good as a GPS fix.",
     "  anchored - the published coordinate of the pavilion the booth is named",
@@ -20,14 +20,18 @@
     "             which is enough to place a booth on the right side of World",
     "             Showcase and not enough to order two booths near each other.",
     "",
-    "The anchored entries below come from the Wikipedia/Wikidata coordinates for",
-    "each World Showcase pavilion (CC BY-SA). They are a floor, not an answer:",
-    "replace one with a mapped or surveyed fix and it wins on recency. Use",
-    "docs/map.html at a desk, or docs/survey.html on a phone in the park, to",
-    "capture them - both emit entries in this shape.",
+    "The entries below are pins dropped by eye in docs/studio.html. They started as",
+    "Wikipedia/Wikidata pavilion coordinates (CC BY-SA) and were superseded as each",
+    "booth was placed: a better grade always wins, in this same file, on recency. A",
+    "GPS fix taken in the park with docs/survey.html supersedes these in turn. Both",
+    "pages emit entries in this shape.",
     "",
     "Everything not named here has no coordinate at all yet, including Refreshment",
-    "Outpost, Brew-Wing Lab and every themed kiosk. Nothing publishes those."
+    "Outpost, Brew-Wing Lab and every themed kiosk. Nothing publishes those.",
+    "",
+    "A booth added by hand in the studio carries `new: true` and comes back with",
+    "origin = 'curated', which is what keeps reconciliation from retiring it for",
+    "having no crawled page behind it. `is_active: false` deletes one."
   ],
   "booths": [
     {

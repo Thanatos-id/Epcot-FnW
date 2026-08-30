@@ -223,6 +223,10 @@ class Booth(Base):
     # treating them alike.
     location_precision: Mapped[str | None] = mapped_column(Text)
     image_url: Mapped[str | None] = mapped_column(Text)
+    # 'crawled' | 'curated'. A curated row exists because a person added it in
+    # docs/studio.html, not because a source listed it, so pipeline/reconcile.py
+    # must never retire it for lack of crawled support - see that module.
+    origin: Mapped[str] = mapped_column(Text, nullable=False, server_default="crawled")
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
@@ -262,6 +266,9 @@ class MenuItem(Base):
     # Photo of this specific dish/drink, sourced from per-booth photo posts
     # (see sources/disney_food_blog.py). Booth-level photos live on Booth.
     image_url: Mapped[str | None] = mapped_column(Text)
+    # See Booth.origin - a dish added by hand survives the next crawl only
+    # because reconcile.py can tell it apart from a crawled one.
+    origin: Mapped[str] = mapped_column(Text, nullable=False, server_default="crawled")
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

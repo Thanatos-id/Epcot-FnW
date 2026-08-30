@@ -24,6 +24,14 @@ The `manual` source is deliberately excluded from the support calculation.
 Curated data says *where a booth is*, not *that it is running this year* - a
 coordinate surveyed last season must not be what keeps a defunct booth alive.
 
+That exclusion is right for a curated *correction* to a crawled row and
+wrong for a row that only ever existed because somebody typed it into
+docs/studio.html. Those carry `origin = 'curated'` and are skipped entirely:
+no crawled page will ever vouch for a dish the sources have not noticed, so
+letting this pass judge them would retire every one of them on the next
+crawl. Their `is_active` comes from the curated file instead, which is how
+deleting a hand-added dish works.
+
 Reactivation is handled by the same pass: support is recomputed from scratch
 each run, so a booth that returns next season comes back on its own.
 """
@@ -39,6 +47,9 @@ from epcot_fw.db.models import Booth, CanonicalLink, ExtractedRecord, MenuItem, 
 logger = logging.getLogger(__name__)
 
 MANUAL_SOURCE_KEY = "manual"
+
+# Rows a person added by hand rather than any source listing them.
+CURATED_ORIGIN = "curated"
 
 # Booths are pavilion-anchored and largely stable season to season, so losing
 # most of them at once means a broken selector rather than a real lineup
@@ -125,20 +136,29 @@ def run_reconciliation(
         s.id for s in session.scalars(select(Source).where(Source.key == MANUAL_SOURCE_KEY)).all()
     ]
 
-    booths = session.scalars(select(Booth).where(Booth.festival_id == festival_id)).all()
-    if not booths:
+    all_booths = session.scalars(select(Booth).where(Booth.festival_id == festival_id)).all()
+    if not all_booths:
         return stats
-    booth_ids = {b.id for b in booths}
+    all_booth_ids = {b.id for b in all_booths}
+    all_items = session.scalars(select(MenuItem).where(MenuItem.booth_id.in_(all_booth_ids))).all()
 
-    items = session.scalars(select(MenuItem).where(MenuItem.booth_id.in_(booth_ids))).all()
+    # Hand-added rows are not up for judgement here - not for retirement, and
+    # not as part of the totals the guards below are measured against, where
+    # they would only dilute the ratio that is meant to catch a broken parse.
+    booths = [b for b in all_booths if b.origin != CURATED_ORIGIN]
+    items = [i for i in all_items if i.origin != CURATED_ORIGIN]
+    booth_ids = {b.id for b in booths}
 
     supported_booths = _supported_ids(session, "booth", manual_source_ids) & booth_ids
     supported_items = _supported_ids(session, "menu_item", manual_source_ids) & {i.id for i in items}
 
     # A dish cannot outlive the booth that serves it, even if some page still
     # mentions it in isolation.
+    curated_booth_ids = {b.id for b in all_booths if b.origin == CURATED_ORIGIN and b.is_active}
     supported_items = {
-        i.id for i in items if i.id in supported_items and i.booth_id in supported_booths
+        i.id
+        for i in items
+        if i.id in supported_items and i.booth_id in (supported_booths | curated_booth_ids)
     }
 
     booth_reason = _guard(

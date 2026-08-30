@@ -55,6 +55,9 @@ class BoothOut(BaseModel):
     # A client showing a distance has to qualify anything short of surveyed.
     location_precision: str | None = None
     image_url: str | None
+    # 'crawled' | 'curated' - see Booth.origin. Additive with a default, so a
+    # client built against schema v1 before this existed still decodes.
+    origin: str = "crawled"
     is_active: bool
 
 
@@ -69,6 +72,8 @@ class MenuItemOut(BaseModel):
     category: str
     price_usd: Decimal | None
     image_url: str | None = None
+    # See BoothOut.origin.
+    origin: str = "crawled"
     is_active: bool
     dietary_tags: list[DietaryTagOut] = []
 

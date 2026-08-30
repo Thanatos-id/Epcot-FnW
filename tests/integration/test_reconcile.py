@@ -7,6 +7,7 @@ festival the first time a selector breaks.
 """
 
 import datetime
+import json
 
 from sqlalchemy import select
 
@@ -292,6 +293,100 @@ def test_curated_data_alone_does_not_keep_a_defunct_booth_alive(db_session, tmp_
     run_reconciliation(db_session, festival_id=festival_id)
 
     assert "The Alps" in _names(db_session, False), "manual support must not preserve it"
+
+
+def _curate(db_session, festival_id, tmp_path, payload):
+    """Stage `payload` as the curated file and resolve it, the way
+    `epcot-fw studio apply` does at the end of a studio session."""
+    from epcot_fw.pipeline.manual import stage_manual_overrides
+    from epcot_fw.pipeline.resolve_pipeline import run_resolve
+
+    items_path = tmp_path / "menu_items.json"
+    booths_path = tmp_path / "booth_locations.json"
+    items_path.write_text(json.dumps({"menu_items": payload.get("menu_items", [])}))
+    booths_path.write_text(json.dumps({"booths": payload.get("booths", [])}))
+    stage_manual_overrides(db_session, path=booths_path, items_path=items_path)
+    run_resolve(db_session, festival_id=festival_id)
+
+
+def test_a_hand_added_dish_survives_the_crawl_that_never_mentions_it(db_session, tmp_path):
+    """The whole reason `origin` exists.
+
+    No crawled page will ever vouch for a dish the sources have not noticed,
+    so the ordinary support calculation retires it on the first crawl after
+    it lands - which would make adding one in the studio pointless."""
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("The Alps"), _item_dto("The Alps", "Frozen Rose")])
+    _curate(db_session, festival_id, tmp_path, {
+        "menu_items": [{"booth_name": "The Alps", "name": "Kirschwasser Torte", "new": True}]
+    })
+
+    added = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Kirschwasser Torte")
+    ).one()
+    assert added.origin == "curated"
+
+    # A later crawl of the same booth that still does not list it.
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("The Alps"), _item_dto("The Alps", "Frozen Rose")])
+    run_reconciliation(db_session, festival_id=festival_id)
+
+    db_session.refresh(added)
+    assert added.is_active, "a hand-added dish must not be retired for having no crawled page"
+
+
+def test_a_hand_added_booth_and_its_dishes_survive(db_session, tmp_path):
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("The Alps")])
+    _curate(db_session, festival_id, tmp_path, {
+        "booths": [{"name": "Brew-Wing Lab", "new": True, "latitude": 28.37, "longitude": -81.55}],
+    })
+    booth = db_session.scalars(select(Booth).where(Booth.canonical_name == "Brew-Wing Lab")).one()
+    assert booth.origin == "curated"
+
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("The Alps")])
+    run_reconciliation(db_session, festival_id=festival_id)
+
+    db_session.refresh(booth)
+    assert booth.is_active
+
+
+def test_curated_rows_do_not_count_toward_the_deactivation_guard(db_session, tmp_path):
+    """A pile of hand-added booths would dilute the ratio the guard measures,
+    so a genuinely broken parse could slip under it."""
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto(name) for name in COUNTRIES])
+    _curate(db_session, festival_id, tmp_path, {
+        "booths": [{"name": "Hand Added " + str(i), "new": True} for i in range(20)],
+    })
+
+    # Every crawled booth vanishes: a parse failure, and it must still be
+    # caught even though curated rows now outnumber the crawled ones.
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("Norway")])
+    stats = run_reconciliation(db_session, festival_id=festival_id)
+
+    assert stats.skipped, "the guard must still see 9 of 10 crawled booths losing support"
+    assert stats.booths_deactivated == 0
+
+
+def test_a_curated_dish_marked_inactive_stays_retired(db_session, tmp_path):
+    """Deleting a hand-added dish in the studio is a curated is_active."""
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [_booth_dto("The Alps")])
+    _curate(db_session, festival_id, tmp_path, {
+        "menu_items": [{"booth_name": "The Alps", "name": "Regretted Dish", "new": True}]
+    })
+    dish = db_session.scalars(select(MenuItem).where(MenuItem.canonical_name == "Regretted Dish")).one()
+    assert dish.is_active
+
+    _curate(db_session, festival_id, tmp_path, {
+        "menu_items": [{"booth_name": "The Alps", "name": "Regretted Dish", "is_active": False}]
+    })
+    db_session.refresh(dish)
+    assert not dish.is_active
+
+    run_reconciliation(db_session, festival_id=festival_id)
+    db_session.refresh(dish)
+    assert not dish.is_active, "reconciliation must not resurrect what curation retired"
 
 
 def test_reconciliation_on_an_empty_festival_is_a_no_op(db_session):

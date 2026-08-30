@@ -50,12 +50,36 @@ BOOTH_FIELDS = (
     "location_description",
     "region_theme",
     "category",
+    # Curated lifecycle, written by docs/studio.html rather than surveyed.
+    # `is_active` is how a hand-added booth gets deleted; `new` asserts that
+    # this is a booth nobody has listed, so the matcher creates it instead of
+    # parking a near-miss name as a conflict (see resolve/merge.py).
+    "is_active",
+    "new",
 )
 
 # Same, for a dish. `booth_name` is not in this list because it is not an
 # editable field - it is how the record finds the booth to be matched inside,
 # exactly as a crawled menu_item record does.
-MENU_ITEM_FIELDS = ("description", "price_usd", "category", "image_url", "dietary_tags")
+MENU_ITEM_FIELDS = (
+    "description",
+    "price_usd",
+    "category",
+    "image_url",
+    "dietary_tags",
+    # See BOOTH_FIELDS - same two curated-lifecycle keys, same reasons.
+    "is_active",
+    "new",
+)
+
+# Fields where an explicit JSON `null` is a statement - "this dish has no
+# photo", "that description was wrong" - rather than "I have nothing to say
+# about this". Everywhere else a null is dropped so the field stays open for
+# a source to fill later; here dropping it is what made the editor's Clear
+# silently do nothing. `dietary_tags` gets the same treatment one layer down,
+# where an empty list already replaces the crawled union.
+NULLABLE_BOOTH_FIELDS = ("location_description",)
+NULLABLE_MENU_ITEM_FIELDS = ("description", "image_url")
 
 # Carries the dish's existing name into `natural_key_hint` so a rename can
 # find the row it is renaming. Stripped before the payload is stored - the
@@ -80,6 +104,8 @@ def load_booth_overrides(path: Path = DEFAULT_PATH) -> list[dict[str, Any]]:
             # coordinate, and dropping it would silently lose a survey.
             if raw.get(field) is not None:
                 entry[field] = raw[field]
+            elif field in NULLABLE_BOOTH_FIELDS and field in raw:
+                entry[field] = None
         entries.append(entry)
     return entries
 
@@ -115,6 +141,8 @@ def load_menu_item_overrides(path: Path = DEFAULT_ITEMS_PATH) -> list[dict[str, 
             # is how a wrong tag gets removed, and 0 is a real price.
             if raw.get(field) is not None:
                 entry[field] = raw[field]
+            elif field in NULLABLE_MENU_ITEM_FIELDS and field in raw:
+                entry[field] = None
         entries.append(entry)
     return entries
 
@@ -157,6 +185,43 @@ def merge_menu_item_overrides(
                 entry[field] = value
 
     payload["menu_items"] = existing
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+
+
+def merge_booth_overrides(
+    path: Path, entries: list[dict[str, Any]], *, overwrite: bool
+) -> None:
+    """The booth twin of `merge_menu_item_overrides`, keyed by `name`.
+
+    docs/map.html used to replace the whole `booths` array wholesale, which
+    worked while dropping pins was the only thing that wrote to this file.
+    docs/studio.html changes a booth's category or location note in the same
+    sitting it drops a pin, and a whole-array replacement would quietly
+    revert whatever was not on screen at export time.
+    """
+    payload: dict[str, Any] = json.loads(path.read_text()) if path.exists() else {}
+    existing: list[dict[str, Any]] = list(payload.get("booths") or [])
+    by_name = {e["name"]: e for e in existing if e.get("name")}
+
+    for new_entry in entries:
+        name = new_entry.get("name")
+        if not name:
+            continue
+        entry = by_name.get(name)
+        if entry is None:
+            entry = {"name": name}
+            existing.append(entry)
+            by_name[name] = entry
+        for field, value in new_entry.items():
+            if field == "name":
+                continue
+            # `not in` rather than falsiness, so a merge can set a field to
+            # null or to 0 - both of which a booth legitimately holds.
+            if overwrite or field not in entry:
+                entry[field] = value
+
+    payload["booths"] = existing
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
 
