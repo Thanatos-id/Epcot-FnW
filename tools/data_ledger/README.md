@@ -69,10 +69,27 @@ menu instead of repeating it on every dish that inherits it.
 Above 900px each pane is pinned and scrolls on its own: 32 booths against a
 menu that runs to 21 dishes, and on one page scroll the rail runs out long
 before the menu does, so working down a long menu meant losing the booth you
-were in. Two consequences worth remembering when editing that block — cards
-need `flex: none` or a bounded flex column shrinks them to slivers instead of
-overflowing, and `.wrap`'s bottom reserve has to come off, or the page gets
-more scroll range than the header can absorb and both panes drag off the top.
+were in. Three consequences worth remembering when editing that block — cards need
+`flex: none` or a bounded flex column shrinks them to slivers instead of
+overflowing; `.wrap`'s bottom reserve has to come off, or the page gets more
+scroll range than the header can absorb and both panes drag off the top; and
+`.layout` needs its `min-height`, or the panes shrink to fit, that shortens
+the page, that leaves no scroll range to move the header away, and they stay
+short forever.
+
+Everything that has to clear the fixed export bar is sized from
+`--bar-height`, measured at runtime. The bar is not one height: it wraps to
+two rows when the change count grows or the screen narrows (61px against
+109px, which is the difference between a clear last card and a covered one)
+and it gains the safe-area inset on a phone. `--pane-max` is measured too,
+because a `sticky` pane only sits at `--shell-top` once the page has
+scrolled far enough to push it there; sizing for the pinned case alone put
+the bottom of both lists behind the bar at every other scroll position,
+including the one selecting a booth scrolls you to.
+
+Both are re-measured where they change - after `renderCounts`, on resize -
+rather than left to a `ResizeObserver` alone, which rides the rendering
+steps and does not run while the tab is hidden.
 
 Each pane carries its own filters, because one search box over both lists
 reads as a single search and behaves as two. The rail's chips are about a

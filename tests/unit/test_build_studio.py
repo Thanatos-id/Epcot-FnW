@@ -260,6 +260,31 @@ def test_each_pane_scrolls_on_its_own():
     assert "overscroll-behavior: contain;" in html
 
 
+def test_everything_that_must_clear_the_export_bar_is_sized_from_a_measurement():
+    """The bar is fixed, so nothing in flow knows its height - and it is not
+    one height: it wraps to two rows when the change count grows or the
+    screen narrows, and gains the safe-area inset on a phone. 61px against
+    109px is the difference between a clear last card and a covered one."""
+    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
+    assert "--bar-height" in html
+    assert "syncBarHeight" in html
+    # Both reserves derive from it rather than restating a number.
+    assert "--shell-bottom: calc(var(--bar-height) + 24px)" in html
+    assert "calc(var(--bar-height) + 32px)" in html
+
+
+def test_a_pane_is_sized_from_where_it_actually_sits():
+    """A sticky pane is only at --shell-top once the page has scrolled far
+    enough to push it there. Sizing for the pinned case alone left the bottom
+    of both lists behind the bar at every other scroll position."""
+    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
+    assert "--pane-max" in html
+    assert "syncPaneHeight" in html
+    # The layout holds the scroll range open, or the panes shrink, the page
+    # shortens, the header never scrolls away and they never grow back.
+    assert ".layout { min-height:" in html
+
+
 def test_cards_do_not_shrink_inside_a_bounded_pane():
     """Both lists are flex columns, and a bounded flex column shrinks its
     items to fit rather than overflowing - every card a sliver, no

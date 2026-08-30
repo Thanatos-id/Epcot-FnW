@@ -25,11 +25,14 @@
   --gold-soft: #f1e2c4; --border: #ddd0b5; --good: #4f7a45; --good-soft: #e1ebdb;
   --warn: #bb5a2c; --warn-soft: #f3e1d2;
   --shadow: 0 1px 2px rgba(36,28,22,0.06), 0 8px 24px rgba(36,28,22,0.06);
-  /* What the pinned panes are inset by: a little air at the top, and enough
-     at the bottom to clear the fixed export bar (40px of button plus its
-     padding) whatever the theme does to it. */
+  /* What the panes are inset by. --bar-height is measured from the export
+     bar at runtime and rewritten here (see syncBarHeight): the bar wraps to
+     two rows on a narrow screen and grows by the safe-area inset on a phone,
+     so any number hard-coded for it is wrong on some device. This value is
+     only the fallback used before the first measurement. */
   --shell-top: 12px;
-  --shell-bottom: 88px;
+  --bar-height: 64px;
+  --shell-bottom: calc(var(--bar-height) + 24px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -194,10 +197,24 @@ button.small { min-height: 32px; padding: 4px 10px; font-size: 12.5px; }
      scroll range than the header can absorb - which is scroll range spent
      dragging both panes off the top of the screen. */
   .wrap { padding-bottom: 24px; }
+  /* Holds the page's scroll range open. Without it the panes shrink to fit
+     the space below the header, that makes the page shorter, that leaves no
+     scroll range to move the header out of the way, and the panes stay
+     short forever - each step reinforcing the last. Keeping the layout box
+     the full pinned height means scrolling still lifts the header away, and
+     the panes grow into the room as it goes. The extra box below them is
+     empty and sits behind the export bar. */
+  .layout { min-height: calc(100vh - var(--shell-top) - var(--shell-bottom)); }
   .rail, .detail {
     position: sticky;
     top: var(--shell-top);
-    max-height: calc(100vh - var(--shell-top) - var(--shell-bottom));
+    /* --pane-max is measured (see syncPaneHeight): a sticky pane is only at
+       --shell-top once the page has scrolled far enough to push it there,
+       and until then it sits lower, so a height computed from the viewport
+       top runs its last stretch under the export bar. The calc() is the
+       no-JS fallback, correct for the pinned case and no worse than before
+       for the rest. */
+    max-height: var(--pane-max, calc(100vh - var(--shell-top) - var(--shell-bottom)));
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -212,13 +229,25 @@ button.small { min-height: 32px; padding: 4px 10px; font-size: 12.5px; }
     scrollbar-gutter: stable;
     flex: 1 1 auto;
     min-height: 0;
-    /* Room for the scrollbar and for the cards' focus outline and inset
-       edited marker, which a flush overflow edge would clip. */
-    padding: 2px 4px 2px 3px;
+    /* Sides: room for the scrollbar and for the cards' focus outline and
+       inset edited marker, which a flush overflow edge would clip.
+
+       Bottom: a runway the height of the export bar. `sticky` only pins a
+       pane once the page has scrolled far enough to push it up to
+       --shell-top; below that the pane sits where it naturally falls, which
+       is lower, and its last stretch is behind the bar. Sizing the pane for
+       the pinned case alone left the bottom of both lists covered at every
+       scroll position except the very end - including the one selecting a
+       booth scrolls you to. A little is kept as air under the last card. */
+    padding: 2px 4px 10px 3px;
   }
 }
 
 @media (max-width: 900px) {
+  /* One page scroll, so the reserve goes on the page. Measured rather than
+     guessed: at this width the bar wraps to two rows, and 130px of guess was
+     already marginal before the safe-area inset on a real phone. */
+  .wrap { padding-bottom: calc(var(--bar-height) + 32px); }
   .layout { grid-template-columns: minmax(0, 1fr); }
   .layout.picked .rail { display: none; }
   .layout:not(.picked) .detail { display: none; }
@@ -555,6 +584,58 @@ footer a { color: var(--accent); }
     return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  // The export bar is fixed, so nothing in normal flow knows how tall it is -
+  // and it is not one height: it wraps to two rows when the change count
+  // grows or the screen narrows, and gains the safe-area inset on a phone.
+  // Everything that has to clear it is sized from this.
+  var shell = document.documentElement;
+  function syncBarHeight() {
+    var bar = document.querySelector('.sticky');
+    if (!bar) return;
+    var height = Math.ceil(bar.getBoundingClientRect().height);
+    if (height > 0) shell.style.setProperty('--bar-height', height + 'px');
+  }
+
+  // How much room a pane actually has: from wherever it is sitting right now
+  // down to the top of the export bar. Recomputed on scroll because that is
+  // the thing that moves it - a sticky pane travels with the page until it
+  // reaches --shell-top and pins, and only the pinned case can be expressed
+  // in CSS. Guarded by the same breakpoint as the panes themselves; below it
+  // they are not scrollers and want their natural height.
+  var SHELL_TWO_PANE = window.matchMedia ? window.matchMedia('(min-width: 901px)') : null;
+  var MIN_PANE = 240;
+  var paneFrame = null;
+
+  function syncPaneHeight() {
+    paneFrame = null;
+    var layout = document.getElementById('layout');
+    if (!layout) return;
+    if (SHELL_TWO_PANE && !SHELL_TWO_PANE.matches) {
+      shell.style.removeProperty('--pane-max');
+      return;
+    }
+    var shellTop = parseFloat(getComputedStyle(shell).getPropertyValue('--shell-top')) || 12;
+    var barHeight = parseFloat(getComputedStyle(shell).getPropertyValue('--bar-height')) || 64;
+    var top = Math.max(layout.getBoundingClientRect().top, shellTop);
+    var available = (window.innerHeight - barHeight - 12) - top;
+    shell.style.setProperty('--pane-max', Math.max(MIN_PANE, Math.round(available)) + 'px');
+  }
+
+  // Cancel-and-re-request rather than "skip if one is pending". A pending
+  // frame that never runs - requestAnimationFrame is paused while the tab is
+  // hidden - would leave the pending flag set forever, and with it every
+  // later scroll ignored and the panes stuck at whatever height they had
+  // when the tab went away.
+  function queuePaneHeight() {
+    if (!window.requestAnimationFrame) {
+      clearTimeout(paneFrame);
+      paneFrame = setTimeout(syncPaneHeight, 16);
+      return;
+    }
+    if (paneFrame !== null) cancelAnimationFrame(paneFrame);
+    paneFrame = requestAnimationFrame(syncPaneHeight);
   }
 
   function warn(message) {
@@ -1380,6 +1461,12 @@ footer a { color: var(--accent); }
     document.getElementById('edit-count').innerHTML =
       n === 0 ? 'No changes yet' : '<b>' + n + '</b>' + (n === 1 ? ' row changed' : ' rows changed');
     document.getElementById('export').disabled = n === 0;
+    // This is one of the two things that resize the export bar - "No changes
+    // yet" and "12 rows changed" wrap differently on a narrow screen, and a
+    // wrapped bar is nearly twice as tall. Measured here rather than left to
+    // the observer, which does not run while the tab is hidden.
+    syncBarHeight();
+    queuePaneHeight();
   }
 
   function emptyNote(text) {
@@ -1711,6 +1798,30 @@ footer a { color: var(--accent); }
     o.textContent = c.replace(/_/g, ' ');
     addCat.appendChild(o);
   });
+
+  syncBarHeight();
+  syncPaneHeight();
+  window.addEventListener('scroll', queuePaneHeight, { passive: true });
+  window.addEventListener('resize', function () {
+    syncBarHeight();
+    queuePaneHeight();
+  });
+  // Nothing recomputes while the tab is hidden, so the panes come back sized
+  // for wherever the page was when it left.
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) syncPaneHeight();
+  });
+  if (SHELL_TWO_PANE && SHELL_TWO_PANE.addEventListener) {
+    SHELL_TWO_PANE.addEventListener('change', syncPaneHeight);
+  }
+  // Belt and braces on top of the two explicit triggers above: catches a
+  // reflow neither of them predicts, such as a font finally loading.
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () {
+      syncBarHeight();
+      syncPaneHeight();
+    }).observe(document.querySelector('.sticky'));
+  }
 
   load();
   refreshBoothOptions();
