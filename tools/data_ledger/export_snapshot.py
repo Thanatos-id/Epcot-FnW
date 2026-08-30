@@ -27,7 +27,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
 from epcot_fw.api.routers.snapshot import build_snapshot  # noqa: E402
 from epcot_fw.db.base import SessionLocal  # noqa: E402
-from epcot_fw.db.models import Booth, CrawlRun, Festival, MenuItem, MergeConflict, Source  # noqa: E402
+from epcot_fw.db.models import (  # noqa: E402
+    Booth,
+    CrawlRun,
+    Festival,
+    MenuItem,
+    MergeConflict,
+    Source,
+)
+from epcot_fw.pipeline.photo_source import image_sources  # noqa: E402
 
 OUT_PATH = Path(__file__).parent / "epcot_db_snapshot.json"
 
@@ -58,6 +66,19 @@ def export() -> None:
             .all()
         )
 
+        # Every photo here was taken by somebody else. Resolved once for the
+        # whole menu rather than per dish, which would be a few hundred round
+        # trips for one page build.
+        credits = image_sources(
+            session,
+            [
+                row.id
+                for row in session.query(MenuItem.id)
+                .filter(MenuItem.booth_id.in_([b.id for b in booths]), MenuItem.is_active.is_(True))
+                .all()
+            ],
+        )
+
         booth_data = []
         for b in booths:
             items = session.query(MenuItem).filter_by(booth_id=b.id, is_active=True).all()
@@ -86,6 +107,9 @@ def export() -> None:
                             "category": it.category,
                             "price": it.price_usd,
                             "image_url": it.image_url,
+                            # Who took the photo, when, and the post it ran in
+                            # where that was captured - see pipeline/photo_source.py.
+                            "image_source": credits.get(it.id),
                             "tags": [t.code for t in it.dietary_tags],
                         }
                         for it in items

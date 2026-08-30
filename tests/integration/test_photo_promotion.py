@@ -253,6 +253,26 @@ def test_every_staging_of_the_same_old_photo_goes_in_one_pass(db_session, dish, 
     assert dish.image_url == f"{DFB}/{year}/08/this-year.jpg"
 
 
+def test_an_unflagged_candidate_is_still_recognised_as_the_one_winning(db_session, dish, tmp_path):
+    """is_selected is not reliable - most dishes in the real database carry a
+    row holding exactly the served URL and still flagged unselected. Trusting
+    it meant skipping those dishes forever."""
+    year = _year(db_session)
+    stale = _candidate(db_session, dish, "manual", f"{DFB}/2025/08/last-year.jpg", selected=False)
+    _candidate(db_session, dish, "disney_food_blog", f"{DFB}/{year}/08/this-year.jpg", selected=False)
+    # The dish is serving the curated photo; nothing is flagged.
+    dish.image_url = f"{DFB}/2025/08/last-year.jpg"
+    db_session.flush()
+    assert not stale.is_selected
+
+    path = _curated(tmp_path, [
+        {"booth_name": "Shimmering Sips", "name": "Berry Mimosa", "image_url": f"{DFB}/2025/08/last-year.jpg"},
+    ])
+    assert promote_current_season_photos(db_session, path=path).total == 1
+    db_session.refresh(dish)
+    assert dish.image_url == f"{DFB}/{year}/08/this-year.jpg"
+
+
 def test_an_inactive_dish_is_not_touched(db_session, dish, tmp_path):
     year = _year(db_session)
     dish.is_active = False

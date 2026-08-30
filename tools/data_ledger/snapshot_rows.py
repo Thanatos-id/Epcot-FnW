@@ -73,6 +73,10 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
                     # both render as the same empty state, which is honest:
                     # either way there is no picture to look at.
                     "image": item.get("image_data_uri"),
+                    # {credit, site, season, page_url, via} or None - who took
+                    # this photo and, where the crawl captured it, the post it
+                    # ran in. Rendered as the credit line under the thumbnail.
+                    "image_source": item.get("image_source"),
                 }
             )
     return {"booths": booths, "items": items}

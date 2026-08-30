@@ -33,7 +33,6 @@ from __future__ import annotations
 
 import json
 import logging
-import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -43,21 +42,16 @@ from sqlalchemy.orm import Session
 
 from epcot_fw.db.models import Booth, EntityFieldProvenance, Festival, MenuItem
 from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH, MANUAL_SOURCE_KEY
+
+# Both are used below, and both are also re-exported: photo_source.py is the
+# one home for reading a photo URL, but callers found these here first.
+from epcot_fw.pipeline.photo_source import is_hand_published, photo_season
 from epcot_fw.resolve.priority import FieldCandidate, resolve_field
 
 logger = logging.getLogger(__name__)
 
 FIELD = "image_url"
 
-# WordPress files uploads under /wp-content/uploads/YYYY/MM/, which is what
-# dates a photo to a season. A URL with no such stamp is treated as undated
-# rather than as current - the point is to promote a photo known to be from
-# this year, not to demote anything that cannot be read.
-_UPLOAD_YEAR_RE = re.compile(r"/uploads/(?P<year>20\d{2})/")
-
-# Photos this project published itself, from docs/studio.html. Matched on the
-# path rather than the host so a fork's Pages domain works too.
-_OWN_PHOTO_PATH = "/dish-photos/"
 
 
 @dataclass(frozen=True)
@@ -76,18 +70,6 @@ class PromotionReport:
     @property
     def total(self) -> int:
         return len(self.promotions)
-
-
-def photo_season(image_url: str | None) -> int | None:
-    """The festival year a photo URL dates itself to, if it says."""
-    if not image_url:
-        return None
-    match = _UPLOAD_YEAR_RE.search(image_url)
-    return int(match.group("year")) if match else None
-
-
-def is_hand_published(image_url: str | None) -> bool:
-    return bool(image_url) and _OWN_PHOTO_PATH in image_url
 
 
 def _clear_curated_image(path: Path, wanted: set[tuple[str, str]]) -> int:
@@ -145,12 +127,17 @@ def promote_current_season_photos(
     stale_rows: list[EntityFieldProvenance] = []
 
     for item_id, candidates in by_item.items():
-        selected = next((c for c in candidates if c.is_selected), None)
-        if selected is None or selected.source.key != MANUAL_SOURCE_KEY:
+        item = session.get(MenuItem, item_id)
+        if item is None or not item.is_active or not item.image_url:
             continue
 
-        item = session.get(MenuItem, item_id)
-        if item is None or not item.is_active:
+        # Which candidate is winning, judged by what the dish is actually
+        # showing rather than by is_selected. That flag is not reliable -
+        # most dishes here carry a row holding exactly the served URL and
+        # still flagged unselected - and trusting it meant skipping those
+        # dishes forever, which is the opposite of what this command is for.
+        selected = next((c for c in candidates if str(c.value) == item.image_url), None)
+        if selected is None or selected.source.key != MANUAL_SOURCE_KEY:
             continue
 
         if is_hand_published(selected.value):

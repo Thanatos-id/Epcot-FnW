@@ -81,6 +81,31 @@ booth as a whole (*not placed*) or about work done anywhere inside it
 still has to be findable, or the filter cannot answer the question it exists
 to answer. Below 900px the two panes take turns rather than shrinking.
 
+## Photo credit
+
+Every photo on these pages was taken by somebody else, almost all of them by
+Disney Food Blog. `pipeline/photo_source.py` traces a served `image_url`
+back through provenance to the source that offered it and, where a crawl
+found it, the post it ran in. That travels in the snapshot as
+`image_source` and renders as the credit line under each thumbnail.
+
+Attribution matches on the value being served, not on
+`entity_field_provenance.is_selected`. That flag is not reliable - most
+dishes carry a row holding exactly the URL on the dish and still flagged
+unselected - and crediting the wrong post is worse than crediting none.
+
+The credit element is a contract another page reads, so it is covered by a
+test that fails if the class or the `data-*` attributes move:
+
+```html
+<div class="photo-credit"
+     data-credit="Disney Food Blog" data-site="www.disneyfoodblog.com"
+     data-season="2026" data-page-url="https://…/review-…/"
+     data-via="disney_food_blog" data-image-url="https://…/waffle.jpg"
+     data-dish="Belgian Waffle" data-booth="Belgium"
+     data-public-id="e0838d90-…">Photo: Disney Food Blog · 2026 · source</div>
+```
+
 ## The studio's changeset
 
 The studio's edits leave as one downloaded file rather than a paste block,

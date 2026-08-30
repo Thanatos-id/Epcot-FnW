@@ -322,6 +322,15 @@ button.small { min-height: 32px; padding: 4px 10px; font-size: 12.5px; }
   letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 6px; border-radius: 20px;
   background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold);
 }
+/* Photo credit. Every picture here was taken by somebody else, and the
+   credit is also the hook another page reads this out of - see the
+   data-* attributes in renderThumb. */
+.photo-credit {
+  margin-top: 6px; font-size: 11px; line-height: 1.35; color: var(--ink-muted);
+  overflow-wrap: anywhere;
+}
+.photo-credit a { color: var(--accent); }
+.photo-credit .season { font-variant-numeric: tabular-nums; }
 .photo-actions { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
 .photo-actions button { min-height: 28px; padding: 3px 8px; font-size: 11.5px; }
 input[type="file"] { display: none; }
@@ -1208,7 +1217,48 @@ footer a { color: var(--accent); }
     actions.appendChild(button('URL', 'small', function () { useUrl(row); }));
     if (img) actions.appendChild(button('Clear', 'small', function () { clearPhoto(row); }));
     col.appendChild(actions);
+    col.appendChild(renderCredit(row, img));
     return col;
+  }
+
+  // The credit line, and the element another page reads this out of. Every
+  // fact is on the element as a data-* attribute as well as in the text, so
+  // a consumer never has to parse the sentence back apart.
+  function renderCredit(row, img) {
+    var el = document.createElement('div');
+    el.className = 'photo-credit';
+    if (!img) return el;
+
+    // An attached photo has not been exported yet, so the snapshot's source
+    // is about whatever it is replacing, not about this picture.
+    var src = img.attached ? { credit: 'Added by hand', site: null, season: null, page_url: null, via: 'studio' }
+                           : (row.image_source || {});
+    var credit = src.credit || 'Unknown';
+
+    el.setAttribute('data-credit', credit);
+    if (src.site) el.setAttribute('data-site', src.site);
+    if (src.season) el.setAttribute('data-season', src.season);
+    if (src.page_url) el.setAttribute('data-page-url', src.page_url);
+    if (src.via) el.setAttribute('data-via', src.via);
+    var url = valueOf(row, 'image_url');
+    if (url) el.setAttribute('data-image-url', url);
+    el.setAttribute('data-dish', valueOf(row, 'name') || '');
+    el.setAttribute('data-booth', row.booth || '');
+    if (row.public_id) el.setAttribute('data-public-id', row.public_id);
+
+    var parts = ['Photo: ' + esc(credit)];
+    if (src.season) parts.push('<span class="season">' + esc(src.season) + '</span>');
+    el.innerHTML = parts.join(' · ');
+    if (src.page_url) {
+      var a = document.createElement('a');
+      a.href = src.page_url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = 'source';
+      el.appendChild(document.createTextNode(' · '));
+      el.appendChild(a);
+    }
+    return el;
   }
 
   function renderItemRow(row) {

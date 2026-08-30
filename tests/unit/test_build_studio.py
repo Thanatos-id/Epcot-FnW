@@ -23,6 +23,7 @@ import snapshot_rows  # noqa: E402
 def _item(name, **kw):
     return {
         "name": name,
+        "image_source": kw.get("image_source"),
         "public_id": kw.get("public_id", "11111111-1111-4111-8111-111111111111"),
         "origin": kw.get("origin", "crawled"),
         "description": kw.get("description"),
@@ -280,6 +281,37 @@ def test_the_page_no_longer_offers_a_flat_list_of_every_dish():
     html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
     assert 'id="tab-items"' not in html
     assert 'id="tab-booths"' not in html
+
+
+# ---------------------------------------------------------------------------
+# photo credit
+# ---------------------------------------------------------------------------
+
+
+def test_the_photo_source_reaches_the_page():
+    """Every picture here was taken by somebody else, and another page reads
+    the credit back out of this one."""
+    source = {"credit": "Disney Food Blog", "site": "www.disneyfoodblog.com",
+              "season": 2026, "page_url": "https://example.test/review/", "via": "disney_food_blog"}
+    rows = snapshot_rows.studio_rows(
+        _snapshot(_booth("Belgium", [_item("Belgian Waffle", image_source=source)]))
+    )
+    assert rows["items"][0]["image_source"] == source
+
+
+def test_a_dish_with_no_recorded_source_carries_none_rather_than_a_gap():
+    rows = snapshot_rows.studio_rows(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
+    assert rows["items"][0]["image_source"] is None
+
+
+def test_the_credit_element_is_stable_enough_to_read_from_outside():
+    """The class and the data-* attributes are the contract another page
+    consumes, so they are worth a test that fails when they move."""
+    html = build_studio.render(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
+    assert "photo-credit" in html
+    for attribute in ("data-credit", "data-page-url", "data-season", "data-image-url",
+                      "data-dish", "data-booth", "data-public-id", "data-via"):
+        assert attribute in html, attribute
 
 
 def test_the_page_names_the_command_that_applies_its_export():
