@@ -127,11 +127,20 @@ def image_sources(session: Session, item_ids: list[int]) -> dict[int, dict[str, 
     out: dict[int, dict[str, Any]] = {}
     for item_id, item in items.items():
         row = winner.get(item_id)
+        page_url = pages.get(row.extracted_record_id) if row else None
+        site = urlparse(item.image_url).netloc or None
         out[item_id] = {
             "credit": photo_credit(item.image_url),
-            "site": urlparse(item.image_url).netloc or None,
+            "site": site,
             "season": photo_season(item.image_url),
-            "page_url": pages.get(row.extracted_record_id) if row else None,
+            "page_url": page_url,
+            # Somewhere to send a reader, always. A client rendering the
+            # credit as a link should not have to decide what to do about the
+            # ones with no article behind them - most photos here came in
+            # through the curated file, which records the image and not the
+            # post it ran in - so this falls back to the publisher's own site
+            # rather than leaving the link dead half the time.
+            "url": page_url or (f"https://{site}/" if site else None),
             "via": row.source.key if row else None,
         }
     return out

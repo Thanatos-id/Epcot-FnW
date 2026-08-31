@@ -49,6 +49,7 @@ a tree.
 | `latitude` / `longitude` | Null for most booths. Only 8 are placed today. |
 | `location_precision` | `surveyed` (GPS at the booth, metres), `mapped` (a pin dropped by eye against satellite imagery), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for anything short of `surveyed`** — "about 200 ft" — rather than presenting it as measured. |
 | `origin` | `crawled` (a source listed it) or `curated` (somebody added it by hand in the studio, because no source did). Optional to use: badge or filter on it if that's useful, ignore it otherwise. Added after the first release, so treat a missing value as `crawled`. |
+| `image_source` | Who took the photo, and where to send a reader who asks: `{name, url, site, season}`. Null when the dish has no photo. **`url` is always set when the object is present** — the post the photo ran in where that was captured, the publisher's own site otherwise — so a credit rendered as a link is never dead. Most photos here are Disney Food Blog's; showing the credit is the point of the field. |
 | `dietary_tags` | Keyword matches against a food blog's copy, **not Disney allergen data**. Fine for filtering a menu, never an allergen check. Say so in the UI. |
 | `is_active` | Always true here; retired rows are filtered out before publishing. |
 | `data_updated_at` | When the data last changed, not when the file was built — so an unchanged database produces an identical file and a stable ETag. |

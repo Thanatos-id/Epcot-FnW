@@ -22,11 +22,13 @@ from epcot_fw.api.schemas import (
     BoothOut,
     ConcertEventOut,
     FestivalOut,
+    ImageSourceOut,
     MenuItemOut,
     SeminarOut,
     SnapshotOut,
 )
 from epcot_fw.db.models import Booth, ConcertEvent, Festival, MenuItem, Seminar
+from epcot_fw.pipeline.photo_source import image_sources
 
 router = APIRouter(tags=["snapshot"])
 
@@ -72,6 +74,23 @@ def build_snapshot(db: Session, festival: Festival) -> dict:
         else []
     )
 
+    # Attribution is not a column on the row - it is read back out of
+    # provenance - so it is resolved for the whole menu at once and attached,
+    # rather than left for a client to work out from a URL it cannot trace.
+    credits = image_sources(db, [i.id for i in items])
+    item_out = []
+    for item in items:
+        out = MenuItemOut.model_validate(item)
+        source = credits.get(item.id)
+        if source:
+            out.image_source = ImageSourceOut(
+                name=source["credit"],
+                url=source["url"],
+                site=source["site"],
+                season=source["season"],
+            )
+        item_out.append(out)
+
     events = db.scalars(
         select(ConcertEvent)
         .where(ConcertEvent.festival_id == festival.id)
@@ -94,7 +113,7 @@ def build_snapshot(db: Session, festival: Festival) -> dict:
         min_app_version=MIN_APP_VERSION,
         festival=FestivalOut.model_validate(festival),
         booths=booth_out,
-        menu_items=[MenuItemOut.model_validate(i) for i in items],
+        menu_items=item_out,
         events=[ConcertEventOut.model_validate(e) for e in events],
         seminars=[SeminarOut.model_validate(s) for s in seminars],
     ).model_dump(mode="json")

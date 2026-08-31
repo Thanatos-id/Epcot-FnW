@@ -61,6 +61,20 @@ class BoothOut(BaseModel):
     is_active: bool
 
 
+class ImageSourceOut(BaseModel):
+    """Who took the photo on a dish, and where to send someone who asks.
+
+    `url` is always populated when there is a photo: the post it ran in when
+    that was captured, and the publisher's own site otherwise. A client
+    rendering the credit as a link should never have to handle a dead one.
+    """
+
+    name: str | None = None
+    url: str | None = None
+    site: str | None = None
+    season: int | None = None
+
+
 class MenuItemOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
@@ -72,6 +86,9 @@ class MenuItemOut(BaseModel):
     category: str
     price_usd: Decimal | None
     image_url: str | None = None
+    # Null when the dish has no photo. Additive with a default, like origin,
+    # so a client built before it existed still decodes.
+    image_source: ImageSourceOut | None = None
     # See BoothOut.origin.
     origin: str = "crawled"
     is_active: bool

@@ -142,6 +142,57 @@ def test_the_snapshot_says_where_each_row_came_from(db_session):
         app.dependency_overrides.clear()
 
 
+def test_the_snapshot_says_who_took_each_photo(db_session):
+    """Every photo on these pages was taken by somebody else. A client cannot
+    work that out from the URL alone - the post it ran in is only knowable
+    from provenance - so it travels with the dish."""
+    booth, _ = _seed(db_session)
+    item = db_session.scalars(select(MenuItem).where(MenuItem.booth_id == booth.id)).one()
+    item.image_url = "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/torte.jpg"
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        entry = next(i for i in body["menu_items"] if i["canonical_name"] == item.canonical_name)
+        source = entry["image_source"]
+        assert source["name"] == "Disney Food Blog"
+        assert source["site"] == "www.disneyfoodblog.com"
+        assert source["season"] == 2026
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_a_credit_always_has_somewhere_to_link(db_session):
+    """Most photos came through the curated file, which records the image and
+    not the article. A client rendering the credit as a link should not have
+    to handle a dead one, so the publisher's site stands in."""
+    booth, _ = _seed(db_session)
+    item = db_session.scalars(select(MenuItem).where(MenuItem.booth_id == booth.id)).one()
+    item.image_url = "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/torte.jpg"
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        entry = next(i for i in body["menu_items"] if i["canonical_name"] == item.canonical_name)
+        assert entry["image_source"]["url"] == "https://www.disneyfoodblog.com/"
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_a_dish_with_no_photo_has_no_credit(db_session):
+    _seed(db_session)
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        for entry in body["menu_items"]:
+            if not entry["image_url"]:
+                assert entry["image_source"] is None
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_adding_origin_did_not_break_the_contract(db_session):
     """It is an added field with a default, so a client built before it
     existed still decodes the payload - which is why v1 stays v1."""
