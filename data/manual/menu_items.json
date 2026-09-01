@@ -87,7 +87,11 @@
     {
       "booth_name": "Greece",
       "name": "Spanakopita",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-greece-food-booth-Spanakopita-01-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Spanakopita-_-Greece-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-2-31-55-PM-4032-x-3024.jpg",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [],
+      "price_usd": 5.19
     },
     {
       "booth_name": "Mexico",
@@ -470,7 +474,7 @@
     {
       "booth_name": "Greece",
       "name": "Wine Flight",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2021/07/2021-epcot-food-and-wine-festival-greece-wine-flight-003-700x525.jpg",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-greece-food-booth-Wine-Flight.jpg",
       "price_usd": 7.5
     },
     {
@@ -517,7 +521,8 @@
       "booth_name": "India",
       "name": "Mango Lassi (non-alcoholic)",
       "price_usd": 5.29,
-      "description": "(Non-alcoholic)"
+      "description": "(Non-alcoholic)",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Mango-Lassi-India-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-4-23-53-PM-4032-x-3024-scaled.jpg"
     },
     {
       "booth_name": "Italy",
@@ -572,12 +577,12 @@
     {
       "booth_name": "China",
       "name": "Beijing Zhajiang Noodles",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Beijing-Zhajiang-Noodles-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-1-700x571.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Beijing-Zhajiang-Noodles-China-Booth-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
     },
     {
       "booth_name": "China",
       "name": "Smoked Duck Bao Bun",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Smoked-Duck-Bao-Bun-China-Booth-2025-EPCOT-Food-and-Wine-Festival-Disney-World-1-700x508.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Smoked-Duck-Bao-Bun-_-China-_-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
     },
     {
       "booth_name": "China",
@@ -622,17 +627,22 @@
     {
       "booth_name": "Flavors from Fire",
       "name": "Smoked Corned Beef",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Smoked-Corned-Beef-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Smoked-Corned-Beef-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-5.jpg"
     },
     {
       "booth_name": "Flavors from Fire",
       "name": "Rodizio-style Grilled Beef Skewer",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Rodizio-style-grilled-beef-skewer-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-4-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Rodizio-style-Grilled-Beef-Skewer-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-1.jpg"
     },
     {
       "booth_name": "Flavors from Fire",
       "name": "Swine Brine",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Swine-Brine-Flavors-From-Fire-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Swine-Brine-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-1.jpg",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [],
+      "description": "Jim Beam Kentucky Straight Bourbon Whiskey, apple-cinnamon cider, lemon juice, and Dijon mustard",
+      "price_usd": 13
     },
     {
       "booth_name": "Forest and Field",
@@ -702,7 +712,7 @@
     {
       "booth_name": "Hawai’i",
       "name": "Pineapple Cheesecake",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/Pineapple-Cheesecake-Hawaii-2025-EPCOT-Food-and-Wine-Festival-Disney-World-2-679x600.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Pineapple-Cheesecake-_-Hawaii-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-2.jpg"
     },
     {
       "booth_name": "Hawai’i",
@@ -717,7 +727,7 @@
     {
       "booth_name": "Japan",
       "name": "Teriyaki Chicken Bun",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Teriyaki-Chicken-Bun-Japan-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-47-12-PM-5712-x-4284-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Teriyaki-Chicken-Bun-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-2.jpg"
     },
     {
       "booth_name": "Milled and Mulled",
@@ -858,6 +868,312 @@
       "description": "Niagara-on-the-Lake, ON",
       "price_usd": 9.5,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chateau-des-Charmes-Petales-Rouge-Canada-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-2.jpg"
+    },
+    {
+      "booth_name": "Brazil",
+      "name": "Moqueca de Camarão",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Moqueca-de-Camarao-_-Brazil-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-3.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Dumplings Trio",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Dumplings-Trio-_-China-Booth-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "China",
+      "name": "Mango-Peach Bubble Tea",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Mango-Peach-Bubble-Tea-China-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Coastal Eats",
+      "name": "Crab Cake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Lump-Crab-Cake-Coastal-Eats-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-1.jpg"
+    },
+    {
+      "booth_name": "Coastal Eats",
+      "name": "Seafood Pot Pie",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Seaside-Pot-Pie-Coastal-Eats-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-1.jpg"
+    },
+    {
+      "booth_name": "Earth Eats",
+      "name": "Minute Maid® Aguas Frescas",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Minute-Maid-Strawberry-Hibiscus-Aguas-Frescas-Earth-Eats-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2.jpg"
+    },
+    {
+      "booth_name": "Festival Favorites",
+      "name": "Bo Ssam Pork Belly Lettuce Wraps",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2010/07/PorkWrap141.jpg"
+    },
+    {
+      "booth_name": "Flavors from Fire",
+      "name": "Smoked Chocolate Bread Pudding",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Smoked-Chocolate-Bread-Pudding-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-2.jpg"
+    },
+    {
+      "booth_name": "Flavors from Fire",
+      "name": "Left Hand Brewing Co. Sawtooth Amber Ale",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Left-Hand-Brewing-Co.-Sawtooth-Amber-Ale-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-2.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Boeuf Braise vin Rouge et Echalottes, Gâteau de Pomes de Terre",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Boeuf-Braise-vin-Rouge-et-Echalottes-Gateau-de-Pomes-de-Terre-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-3.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Crème Brûlée Pistache, Confiture de Fruits Rouges",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Creme-Brulee-Pistache-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-6.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Trio d’Escargots, Garniture a l’ail et au Persil",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Trio-dEscargots-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-2.jpg"
+    },
+    {
+      "booth_name": "Germany",
+      "name": "Apple Strudel",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Apple-Strudel-_-Germany-_-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Germany",
+      "name": "Wiener Schnitzel",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Wiener-Schnitzel-Germany-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Germany",
+      "name": "Schöfferhofer Orange Spritz Hefeweizen",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Schofferhofer-Orange-Spritz-Hefeweizen-Germany-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Gyozas of the Galaxy",
+      "name": "Basil Pesto Chicken Dumplings:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Basil-Pesto-Chicken-Dumplings-_-Gyozas-of-the-Galaxy-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-3.jpg"
+    },
+    {
+      "booth_name": "Gyozas of the Galaxy",
+      "name": "Edamame Dumplings",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Edamame-Dumplings-_-Gyozas-of-the-Galaxy-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-1.jpg"
+    },
+    {
+      "booth_name": "Hawai’i",
+      "name": "Florida Orange Groves Sparkling Pineapple Wine",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2016/09/2016-Epcot-Food-and-Wine-Festival-Hawaii-Florida-Orange-Groves-Sparkling-Pineapple-Wine.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Smoked Brisket and Cheddar Melt",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Smoked-Brisket-and-Cheddar-Melt-_-Hops-and-Barley-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Harpoon Brewery Southie Lager",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Beer-Flight-_-Hops-Barley-_-2026-EPCOT-Food-Wine-Festival-Harpoon-Brewery-Southie-Lager.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Gulf Coast-style Seafood Roll",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Gulf-Coast-style-Seafood-Roll-Hops-and-Barley-_-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Freshly Baked Chocolate Pudding Cake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Freshly-Baked-Chocolate-Pudding-Cake-_-Hops-and-Barley-_-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Samuel Adams Boston Brick Red Irish Red Ale",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Beer-Flight-_-Hops-Barley-_-2026-EPCOT-Food-Wine-Festival-Samuel-Adams-Bright-Red-irish-Ale.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Beer Flight",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Beer-Flight-_-Hops-and-Barley-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Hops & Barley",
+      "name": "Allagash Brewing Company Haunted House Hoppy Dark Ale",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Beer-Flight-_-Hops-and-Barley-_-2026-EPCOT-Food-and-Wine-Festival-Allagash-Brewing-Co-Haunted-House-Hoppy-Dark-Ale.jpg"
+    },
+    {
+      "booth_name": "India",
+      "name": "Potato and Pea Samosas",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Potato-and-Pea-Samosas-India-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-4-34-06-PM-5712-x-4284-scaled.jpg"
+    },
+    {
+      "booth_name": "India",
+      "name": "Chicken Tikka Masala",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chicken-Tikka-Masala-India-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-4-41-37-PM-5712-x-4284-scaled.jpg"
+    },
+    {
+      "booth_name": "India",
+      "name": "Sula Brut Tropicale Sparkling Wine",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2021/08/2021-epcot-food-and-wine-festival-india-booth-Sula-Brut-Tropicale-Sparkling-Wine-3.jpg"
+    },
+    {
+      "booth_name": "Italy",
+      "name": "Amaretto Bellini",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Amaretto-Bellini-_-Italy-Booth-Marketplace-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Italy",
+      "name": "Almond Panna Cotta:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Almond-Panna-Cotta-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Italy",
+      "name": "Stromboli",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Stromboli-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-3.jpg"
+    },
+    {
+      "booth_name": "Italy",
+      "name": "Pollo al Marsala",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Pollo-al-Marsala-_-Italy-Booth-2026-EPCOT-Food-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Spicy Temaki Hand Roll:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Spicy-Temaki-Hand-Roll-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-12-08-55-PM-4032-x-3024.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Beef Wagyu Temaki Hand Roll:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Beef-Wagyu-Temaki-Hand-Roll-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-1.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Mango-Apple Fruit Pearl",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Mango-Apple-Fruit-Pearl-Wasabi-Soy-Sauce-flavored-Potato-Chip-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-wdw-5.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Mango-Apple Fruit Pearl paired with Wasabi-Soy Sauce flavored Potato Chips",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Mango-Apple-Fruit-Pearl-Wasabi-Soy-Sauce-flavored-Potato-Chip-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-wdw-7.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Autumn Breeze",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Autumn-Breeze-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-1.jpg"
+    },
+    {
+      "booth_name": "Japan",
+      "name": "Kirinzan Lemonade Sake",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Kirinzan-Lemonade-Sake-_-Japan-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-2.jpg"
+    },
+    {
+      "booth_name": "La Poutinerie",
+      "name": "Seoul, South Korea Bo Ssam Pork Poutine:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Seoul-South-Korea-Bo-Ssam-Pork-Poutine-_-La-Poutinerie-_-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "La Poutinerie",
+      "name": "Spiced Apple Slushy",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Spiced-Apple-Slushy-La-Poutinerie-_-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Mexico",
+      "name": "Tostada de Osso Buco:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Tostada-de-Osso-Buco-Booth-Mexico-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Mexico",
+      "name": "Fruta de la Pasiόn:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Fruta-de-la-Pasion-Booth-Mexico-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+    },
+    {
+      "booth_name": "Mexico",
+      "name": "Taco de Camaron:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Taco-de-Camaron-_-Booth-Mexico-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Mexico",
+      "name": "Paleta de Moras:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Paleta-de-Moras-Booth-Mexico-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Mexico",
+      "name": "Cherry Nostalgia",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Cherry-Nostalgia-_-Mexico-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Spain",
+      "name": "Croquetas de Jamón",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Croquetas-de-Jamon-_-Spain-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-1.jpg"
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Cheesesteak Macaroni and Cheese",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-macatizers-Cheesesteak-Macaroni-and-Cheese-01.jpg"
+    },
+    {
+      "booth_name": "Brazil",
+      "name": "Frozen Caipirinha with Cachaça Spirit",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [],
+      "price_usd": 12.5,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Frozen-Caipirinha-Brazil-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1.jpg"
+    },
+    {
+      "booth_name": "The Fry Basket",
+      "name": "Adobo Yuca Fries",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "description": "with plant-based garlic-cilantro aïoli",
+      "price_usd": 5.79,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Adobo-Yuca-Fries-_-The-Fry-Basket-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-1.jpg"
+    },
+    {
+      "booth_name": "The Fry Basket",
+      "name": "Fry Flight",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [],
+      "description": "Sea Salt-Malt Vinegar Fries (Plant-based) / Truffle-Parmesan Fries with black garlic-truffle aïoli / Sweet Potato Casserole Fries with cinnamon-sugar, candied pecans, and marshmallow cream",
+      "price_usd": 7.99,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Fry-Flight-_-The-Fry-Basket-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-4.jpg"
+    },
+    {
+      "booth_name": "Germany",
+      "name": "Selbach-Oster Riesling",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [],
+      "price_usd": 9
+    },
+    {
+      "booth_name": "Greece",
+      "name": "Griddled Cheese",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "description": "with Pistachios and Honey (Emile’s Fromage Montage Item)",
+      "price_usd": 5.49,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Griddled-Cheese-_-Greece-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-1.jpg"
+    },
+    {
+      "booth_name": "Greece",
+      "name": "Chicken Souvlaki Gyro",
+      "new": true,
+      "category": "food",
+      "dietary_tags": [],
+      "description": "with Shaved Lettuce, Tomato-Cucumber Relish, and Tzatziki on Warm Pita (A 30th Anniversary Legacy Item — Reimagined for 2026!)",
+      "price_usd": 6.99,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Chicken-Souvlaki-Gyro-_-Greece-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-2.jpg"
+    },
+    {
+      "booth_name": "La Poutinerie",
+      "name": "Spiced Apple Mule",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [],
+      "description": "Frozen Ginger Beer blended with Lively Lime and Cozy Spiced Apple Flavors with Iceberg Canadian Vodka",
+      "price_usd": 14.5,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/2026-Disney-World-WDW-EPCOT-International-Food-and-Wine-Festival-La-Poutinerie-Hosted-By-Air-Canada-Booth-Spiced-Apple-Mule-scaled.jpg"
     }
   ]
 }

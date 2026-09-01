@@ -183,6 +183,54 @@
       "latitude": 28.372684,
       "longitude": -81.550376,
       "location_precision": "mapped"
+    },
+    {
+      "name": "Earth Eats",
+      "latitude": 28.373574,
+      "longitude": -81.551225,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Festival Favorites",
+      "latitude": 28.37364,
+      "longitude": -81.549916,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Forest and Field",
+      "latitude": 28.371997,
+      "longitude": -81.550099,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Gyozas of the Galaxy",
+      "latitude": 28.373498,
+      "longitude": -81.548302,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Hops & Barley",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "La Poutinerie",
+      "latitude": 28.371754,
+      "longitude": -81.550568,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Milled and Mulled",
+      "latitude": 28.372512,
+      "longitude": -81.550324,
+      "location_precision": "mapped"
+    },
+    {
+      "name": "Swirled Showcase (NEW)",
+      "latitude": 28.371811,
+      "longitude": -81.55041,
+      "location_precision": "mapped"
     }
   ]
 }
