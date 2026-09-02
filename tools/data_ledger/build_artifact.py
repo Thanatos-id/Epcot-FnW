@@ -396,6 +396,33 @@ details[open] .booth-caret { transform: rotate(90deg); }
 .item-row.has-photo .item-main::after { content: ""; display: block; clear: both; }
 @media (max-width: 460px) { .dish-thumb { width: 52px; height: 52px; } }
 
+/* ---------- app feedback ----------
+   The one other panel on this page (besides build_map.py's Leaflet tiles)
+   that isn't built from DATA. Everything else here is baked in at build
+   time from a snapshot; this is fetched live, client-side, from GitHub's
+   public Issues API - because feedback the ledger can only show as of the
+   last rebuild defeats the point of a page meant to surface it. */
+.feedback-list { display: flex; flex-direction: column; gap: 8px; }
+.feedback-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 13px; font-size: 13px;
+}
+.feedback-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.feedback-title { font-weight: 600; color: var(--ink); text-decoration: none; }
+.feedback-title:hover, .feedback-title:focus-visible { text-decoration: underline; }
+.feedback-badge {
+  flex: none; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 20px; border: 1px solid var(--border); color: var(--ink-muted);
+  background: var(--surface-2);
+}
+.feedback-badge.bug { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
+.feedback-badge.enhancement { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.feedback-meta { color: var(--ink-muted); font-size: 11.5px; margin-top: 2px; }
+.feedback-body {
+  color: var(--ink); margin-top: 6px; overflow-wrap: break-word; white-space: pre-wrap;
+  max-height: 4.5em; overflow: hidden;
+}
+
 /* ---------- conflicts ---------- */
 .conflict-list { display: flex; flex-direction: column; gap: 8px; }
 .conflict {
@@ -558,6 +585,22 @@ footer {
     </p>
 
     <div class="booth-list" id="booth-list"></div>
+  </section>
+
+  <section id="feedback-section">
+    <div class="section-head">
+      <h2 class="display">App feedback</h2>
+      <span class="section-note">Sent from the Epcot Events app's About page — read live from GitHub, not baked into this build</span>
+    </div>
+    <div class="panel" id="feedback-error" hidden></div>
+    <div class="feedback-list" id="feedback-list">
+      <div class="empty-state">Loading…</div>
+    </div>
+    <p style="margin: 10px 0 0;">
+      <a class="survey-link" href="https://github.com/Thanatos-id/Epcot-FnW/issues?q=is%3Aissue+label%3Aapp-feedback" target="_blank" rel="noopener">
+        View all on GitHub →
+      </a>
+    </p>
   </section>
 
   <section id="conflicts-section">
@@ -811,6 +854,68 @@ footer {
       runsCard.appendChild(row);
     });
   }
+
+  // ---- app feedback ----
+  // Not from DATA: this is the one panel besides build_map.py's map tiles
+  // that needs the network at view time. Issues the app files land on
+  // GitHub directly (no server of ours in between - see FeedbackService in
+  // the iOS app), and this reads them back the same way anyone browsing the
+  // repo would, just rendered inline. GitHub's REST API allows anonymous
+  // reads of a public repo's issues from a browser (CORS, 60 req/hr per IP),
+  // so no token and no proxy are needed for this half of the round trip.
+  (function loadFeedback() {
+    var FEEDBACK_API = 'https://api.github.com/repos/Thanatos-id/Epcot-FnW/issues'
+      + '?labels=app-feedback&state=open&sort=created&direction=desc&per_page=30';
+    var list = document.getElementById('feedback-list');
+    var errorBox = document.getElementById('feedback-error');
+
+    function badgeFor(issue) {
+      var names = (issue.labels || []).map(function (l) { return l.name; });
+      if (names.indexOf('bug') !== -1) return { cls: 'bug', text: 'Bug' };
+      if (names.indexOf('enhancement') !== -1) return { cls: 'enhancement', text: 'Idea' };
+      return { cls: '', text: 'Feedback' };
+    }
+
+    fetch(FEEDBACK_API, { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (resp) {
+        if (!resp.ok) throw new Error('GitHub returned HTTP ' + resp.status);
+        return resp.json();
+      })
+      .then(function (issues) {
+        // A pull request also comes back from this endpoint; feedback never is one.
+        issues = issues.filter(function (i) { return !i.pull_request; });
+        if (issues.length === 0) {
+          list.innerHTML = '<div class="empty-state">No open feedback right now.</div>';
+          return;
+        }
+        list.innerHTML = '';
+        issues.forEach(function (issue) {
+          var badge = badgeFor(issue);
+          var row = document.createElement('div');
+          row.className = 'feedback-item';
+          var body = (issue.body || '').trim();
+          row.innerHTML =
+            '<div class="feedback-head">' +
+              '<a class="feedback-title" href="' + escapeHtml(issue.html_url) + '" target="_blank" rel="noopener">' +
+                '#' + issue.number + ' ' + escapeHtml(issue.title) +
+              '</a>' +
+              (badge.text ? '<span class="feedback-badge ' + badge.cls + '">' + badge.text + '</span>' : '') +
+            '</div>' +
+            '<div class="feedback-meta">' + fmtDateTime(issue.created_at) + '</div>' +
+            (body ? '<div class="feedback-body">' + escapeHtml(body) + '</div>' : '');
+          list.appendChild(row);
+        });
+      })
+      .catch(function (err) {
+        // A rate-limited or offline browser must not take the rest of the
+        // page down with it - everything above this already rendered.
+        list.innerHTML = '<div class="empty-state">Couldn\'t load feedback here.</div>';
+        errorBox.hidden = false;
+        errorBox.className = 'panel';
+        errorBox.innerHTML = 'GitHub didn\'t answer (' + escapeHtml(err.message) +
+          '). <a class="survey-link" href="https://github.com/Thanatos-id/Epcot-FnW/issues?q=is%3Aissue+label%3Aapp-feedback" target="_blank" rel="noopener">View on GitHub instead →</a>';
+      });
+  })();
 })();
 </script>
 </body>

@@ -139,6 +139,26 @@ not noticed. Curated rows are skipped by that pass entirely — their
 `is_active` comes from the curated file instead, which is how deleting one
 works.
 
+## App feedback
+
+`docs/index.html` carries one panel that isn't built from the snapshot: **App
+feedback**, a live client-side fetch of GitHub issues labelled
+`app-feedback` on this repo. Everything else on these pages is baked in at
+build time; this one deliberately isn't, because feedback the ledger can
+only show as of the last rebuild defeats the point of surfacing it.
+
+The round trip has no server of this project's own in it. The iOS app files
+an issue directly against `POST /repos/Thanatos-id/Epcot-FnW/issues` using a
+repo-scoped, `issues: write`-only token (see `FeedbackService.swift` in the
+Epcot Events app), and the ledger reads it back with an unauthenticated
+`GET` — GitHub's REST API allows anonymous, CORS-enabled reads of a public
+repo's issues, so no proxy or credential is needed for this half.
+
+A `bug` or `enhancement` label (GitHub's own defaults) picks the badge
+colour; a fetch failure — offline, rate-limited at 60 req/hr per IP — falls
+back to a link to view issues directly on GitHub rather than taking the rest
+of the page down with it.
+
 ## Retired entities
 
 The export counts only `is_active` booths and dishes, matching what
