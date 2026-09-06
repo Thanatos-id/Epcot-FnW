@@ -74,6 +74,10 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "longitude": "longitude",
         "location_description": "location_description",
         "location_precision": "location_precision",
+        # Same reasoning as the coordinates: no crawled source publishes a
+        # trustworthy opening date, only the prose a heading is stripped of
+        # before it ever reaches a payload. Curated-only from the start.
+        "opens_at": "opens_at",
         # Only the curated source ever sets this: it is how docs/studio.html
         # deletes a booth it added by hand. Unlisted in priority.py's
         # FIELD_STRATEGIES, so it resolves by priority, and `manual` at rank 0

@@ -142,6 +142,23 @@ def test_the_snapshot_says_where_each_row_came_from(db_session):
         app.dependency_overrides.clear()
 
 
+def test_the_snapshot_says_when_a_booth_opens(db_session):
+    """Null means open now - true for every booth before this field existed,
+    so a client built before it existed keeps reading every booth as open."""
+    booth, _other = _seed(db_session)
+    booth.opens_at = datetime.date(2026, 12, 25)
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert {b["canonical_name"]: b["opens_at"] for b in body["booths"]} == {
+            "The Alps": "2026-12-25", "Australia": None,
+        }
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_the_snapshot_says_who_took_each_photo(db_session):
     """Every photo on these pages was taken by somebody else. A client cannot
     work that out from the URL alone - the post it ran in is only knowable

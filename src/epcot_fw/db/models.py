@@ -223,6 +223,11 @@ class Booth(Base):
     # treating them alike.
     location_precision: Mapped[str | None] = mapped_column(Text)
     image_url: Mapped[str | None] = mapped_column(Text)
+    # Curated-only, like the coordinates above - no crawled source publishes this as data, only
+    # as prose in a heading the crawl already discards (see sources/disney_food_blog.py's
+    # _OPENING_SUFFIX_RE). NULL means open now. A date here that is today or in the past also
+    # means open now: nobody has to come back and clear it the day the booth actually opens.
+    opens_at: Mapped[datetime.date | None] = mapped_column(Date)
     # 'crawled' | 'curated'. A curated row exists because a person added it in
     # docs/studio.html, not because a source listed it, so pipeline/reconcile.py
     # must never retire it for lack of crawled support - see that module.

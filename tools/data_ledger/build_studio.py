@@ -378,6 +378,7 @@ input[type="file"] { display: none; }
 .pill.anchored { background: var(--gold-soft); color: var(--gold); }
 .pill.unplaced { background: var(--surface-2); color: var(--ink-muted); }
 .pill.curated { background: var(--accent-soft); color: var(--accent); }
+.pill.opens-later { background: var(--warn-soft); color: var(--warn); }
 .geo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
 
 .cell-input {
@@ -647,6 +648,32 @@ footer a { color: var(--accent); }
     return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  // Today as YYYY-MM-DD, compared as strings against opens_at rather than
+  // through Date parsing - Date('2026-10-02') reads as UTC midnight, which
+  // is the previous day in some local time zones. String comparison on two
+  // values already in this exact shape has no time zone to get wrong.
+  function todayISO() {
+    var d = new Date();
+    var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  // null once the date has arrived or passed, or was never set - the "open
+  // now" case every booth was in before this field existed. Otherwise the
+  // raw YYYY-MM-DD, for a caller to format.
+  function opensAtIfFuture(row) {
+    var raw = valueOf(row, 'opens_at');
+    return raw && raw > todayISO() ? raw : null;
+  }
+
+  function formatOpeningDate(iso) {
+    // Parsed at local midnight, not UTC, for the same reason todayISO()
+    // compares as strings: new Date('2026-10-02') can print as Oct 1 west
+    // of Greenwich.
+    var d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   // The export bar is fixed, so nothing in normal flow knows how tall it is -
@@ -1144,6 +1171,12 @@ footer a { color: var(--accent); }
       el.type = 'number';
       el.step = '0.01';
       el.min = '0';
+    } else if (kind === 'date') {
+      el = document.createElement('input');
+      el.type = 'date';
+      // <input type="date">'s own value is already plain YYYY-MM-DD - the
+      // exact shape date.isoformat() writes and date.fromisoformat() reads
+      // on the way back in, so this kind needs no special-casing below.
     } else {
       el = document.createElement('input');
       el.type = 'text';
@@ -1406,6 +1439,7 @@ footer a { color: var(--accent); }
     var withPhoto = dishes.filter(function (d) { return currentImage(d); }).length;
     var bits = [dishes.length + (dishes.length === 1 ? ' dish' : ' dishes')];
     if (dishes.length) bits.push(withPhoto + ' of ' + dishes.length + ' photographed');
+    var opensAt = opensAtIfFuture(booth);
 
     card.innerHTML =
       '<span class="booth-item-top">' +
@@ -1416,6 +1450,7 @@ footer a { color: var(--accent); }
       '<span class="booth-item-meta">' + esc(bits.join(' · ')) +
         (isAdded(booth) ? ' <span class="pill curated">' +
           (isDeleted(booth) ? 'Deleted' : 'By hand') + '</span>' : '') +
+        (opensAt ? ' <span class="pill opens-later">Opens ' + esc(formatOpeningDate(opensAt)) + '</span>' : '') +
       '</span>';
 
     card.addEventListener('click', function () { select(booth.name); });
@@ -1443,6 +1478,14 @@ footer a { color: var(--accent); }
       pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
       head.appendChild(pill);
     }
+    var openingPill = null;
+    var futureAt = opensAtIfFuture(row);
+    if (futureAt) {
+      openingPill = document.createElement('span');
+      openingPill.className = 'pill opens-later';
+      openingPill.textContent = 'Opens ' + formatOpeningDate(futureAt);
+      head.appendChild(openingPill);
+    }
     fields.appendChild(head);
 
     var live = dishesOf(row.name).length;
@@ -1453,6 +1496,34 @@ footer a { color: var(--accent); }
 
     fields.appendChild(makeInput(row, 'category', 'text', 'Category'));
     fields.appendChild(makeInput(row, 'location_description', 'textarea', 'Location description'));
+
+    // When this isn't set, or is today or earlier, the booth reads as open
+    // now - the case every booth was in before this field existed, so
+    // nothing needs to be entered for the common case. Kept out of `geo`:
+    // this is about the booth's status, not its position.
+    var opening = document.createElement('div');
+    opening.className = 'geo';
+    var openingLabel = document.createElement('span');
+    openingLabel.textContent = 'Opening';
+    opening.appendChild(openingLabel);
+    var openingInput = makeInput(row, 'opens_at', 'date');
+    opening.appendChild(openingInput);
+    openingInput.addEventListener('change', function () {
+      // The header's pill is a preview, not a form field - `markRow` (wired
+      // up inside makeInput) already refreshes the rail's own copy of it,
+      // so only this one needs a manual nudge, and only this one element,
+      // rather than re-rendering the whole detail pane and losing whatever
+      // else was mid-edit below it (an expanded tag picker, a focused field).
+      if (openingPill) { openingPill.remove(); openingPill = null; }
+      var stillFuture = opensAtIfFuture(row);
+      if (stillFuture) {
+        openingPill = document.createElement('span');
+        openingPill.className = 'pill opens-later';
+        openingPill.textContent = 'Opens ' + formatOpeningDate(stillFuture);
+        head.appendChild(openingPill);
+      }
+    });
+    fields.appendChild(opening);
 
     var geo = document.createElement('div');
     geo.className = 'geo';
@@ -1667,6 +1738,7 @@ footer a { color: var(--accent); }
       if (Object.prototype.hasOwnProperty.call(e, 'location_description')) {
         entry.location_description = e.location_description;
       }
+      if (Object.prototype.hasOwnProperty.call(e, 'opens_at')) entry.opens_at = e.opens_at;
       if (gone) entry.is_active = false;
       booths.push(entry);
     });

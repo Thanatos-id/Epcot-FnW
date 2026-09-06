@@ -1,6 +1,7 @@
 """Hand-curated booth facts have to reach the canonical row, beat whatever a
 crawl said, and survive the next crawl saying it again."""
 
+import datetime
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -202,6 +203,39 @@ def test_a_survey_supersedes_the_anchor_it_replaces(db_session, overrides_file, 
     refreshed = db_session.get(Booth, booth.id)
     assert refreshed.location_precision == "surveyed"
     assert refreshed.latitude == pytest.approx(Decimal(str(ALPS_LAT)))
+
+
+def test_a_curated_opening_date_lands_on_the_booth(db_session, overrides_file, no_curated_items):
+    """The whole reason this field exists: a staggered-opening booth read as
+    available the same as everything else until a date is entered for it."""
+    festival_id = db_session.info["festival_id"]
+    booth = _seed_booth(db_session, festival_id)
+    assert booth.opens_at is None
+
+    path = overrides_file([{"name": "The Alps", "opens_at": "2026-12-25"}])
+    stage_manual_overrides(db_session, path=path, items_path=no_curated_items)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(Booth, booth.id).opens_at == datetime.date(2026, 12, 25)
+
+
+def test_an_opening_date_can_be_cleared_once_the_booth_opens(db_session, overrides_file, no_curated_items):
+    """Explicit null is the one exception load_booth_overrides makes for this
+    field (see NULLABLE_BOOTH_FIELDS) - the entry that got it wrong, or the
+    booth that opened, needs a way back to "open now" that isn't waiting for
+    the date to lapse on its own."""
+    festival_id = db_session.info["festival_id"]
+    booth = _seed_booth(db_session, festival_id)
+
+    dated = overrides_file([{"name": "The Alps", "opens_at": "2026-12-25"}])
+    stage_manual_overrides(db_session, path=dated, items_path=no_curated_items)
+    run_resolve(db_session, festival_id=festival_id)
+    assert db_session.get(Booth, booth.id).opens_at is not None
+
+    cleared = overrides_file([{"name": "The Alps", "opens_at": None}])
+    stage_manual_overrides(db_session, path=cleared, items_path=no_curated_items)
+    run_resolve(db_session, festival_id=festival_id)
+    assert db_session.get(Booth, booth.id).opens_at is None
 
 
 def test_a_name_that_is_close_but_not_exact_still_matches(db_session, overrides_file, no_curated_items):

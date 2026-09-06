@@ -127,6 +127,18 @@ def test_booths_carry_their_item_count_and_placement():
     assert booth["location_precision"] == "anchored"
 
 
+def test_a_booths_opening_date_reaches_the_page():
+    rows = snapshot_rows.studio_rows(_snapshot(_booth("The Wedge", opens_at="2026-09-18")))
+    assert rows["booths"][0]["opens_at"] == "2026-09-18"
+
+
+def test_a_booth_with_no_opening_date_reads_as_open_now():
+    """Absent on the snapshot - true of every booth before this field
+    existed - has to render the same as an explicit null: open now."""
+    rows = snapshot_rows.studio_rows(_snapshot(_booth("Italy")))
+    assert rows["booths"][0]["opens_at"] is None
+
+
 def test_rows_without_a_name_are_dropped():
     rows = snapshot_rows.studio_rows(
         _snapshot(_booth("", [_item("Orphan")]), _booth("Spain", [_item(""), _item("Paella")]))
@@ -327,6 +339,15 @@ def test_the_photo_source_reaches_the_page():
 def test_a_dish_with_no_recorded_source_carries_none_rather_than_a_gap():
     rows = snapshot_rows.studio_rows(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
     assert rows["items"][0]["image_source"] is None
+
+
+def test_the_opening_date_control_is_in_the_rendered_page():
+    """The rest of this page's editable fields are only exercised through the
+    browser (see docs/WORKFLOW.md), so this is a lighter guard: catches the
+    field being dropped from the template outright, not a JS behaviour bug."""
+    html = build_studio.render(_snapshot(_booth("The Wedge")))
+    assert "opens_at" in html
+    assert "opens-later" in html
 
 
 def test_the_credit_element_is_stable_enough_to_read_from_outside():
