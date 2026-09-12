@@ -160,6 +160,32 @@ A client that shows a distance is expected to qualify an anchored one
 This also runs automatically at the start of every crawl and refresh, so an
 edit is picked up on the next scheduled run either way.
 
+## Booths that open later
+
+Some booths run on a staggered schedule - a heading like "Opening October
+2nd" on the source page, not a fact any crawled source publishes as data.
+Set it in **`docs/studio.html`**'s booth pane, under **Opening**: pick the
+date it starts serving, and the app shows a "not yet open" banner instead of
+the menu until then.
+
+By hand, an entry looks like this:
+
+```json
+{
+  "booths": [
+    { "name": "The Wedge", "opens_at": "2026-09-18" }
+  ]
+}
+```
+
+Leave it unset for the overwhelming majority of booths, which are open from
+day one - `null` means open now. A date that has passed needs no follow-up
+to revert; it simply reads as open again on its own.
+
+```bash
+epcot-fw manual        # stage + re-resolve
+```
+
 ## Rules worth knowing
 
 - **`name` is matched fuzzily** against booths for the current festival,
@@ -175,10 +201,10 @@ edit is picked up on the next scheduled run either way.
 - **Editing a value supersedes it.** Re-applying an unchanged file is a
   no-op; changing one stages a correction that wins on recency.
 - **An explicit `null` erases, an absent field does not.** For
-  `description`, `image_url` and `location_description`, writing `null` is
-  how a wrong value comes off - the studio's **Clear** does exactly this.
-  Every other field drops a null, so a missing one stays open for a source
-  to fill later.
+  `description`, `image_url`, `location_description` and `opens_at`,
+  writing `null` is how a wrong value comes off - the studio's **Clear**
+  does exactly this. Every other field drops a null, so a missing one stays
+  open for a source to fill later.
 - **`new: true` means the crawl never found this.** The studio sets it on a
   dish or booth you added by hand. It makes the resolver create the row
   rather than park a near-miss name as a merge conflict, and the row comes

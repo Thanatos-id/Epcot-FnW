@@ -98,6 +98,8 @@ def export() -> None:
                     "longitude": b.longitude,
                     "location_precision": b.location_precision,
                     "location_description": b.location_description,
+                    # Null (or today/past) means open now. See Booth.opens_at.
+                    "opens_at": b.opens_at,
                     "items": [
                         {
                             "name": it.canonical_name,

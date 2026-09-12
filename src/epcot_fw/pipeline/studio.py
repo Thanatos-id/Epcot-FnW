@@ -78,7 +78,8 @@ _MENU_ITEM_KEYS = frozenset({
 })
 _BOOTH_KEYS = frozenset({
     "name", "latitude", "longitude", "location_precision",
-    "location_description", "region_theme", "category", "is_active", "new",
+    "location_description", "region_theme", "category", "opens_at",
+    "is_active", "new",
 })
 
 

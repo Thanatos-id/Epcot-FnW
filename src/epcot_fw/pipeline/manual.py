@@ -50,6 +50,9 @@ BOOTH_FIELDS = (
     "location_description",
     "region_theme",
     "category",
+    # A date in the future means "not yet open"; today, the past, or absent
+    # all mean open now. See Booth.opens_at.
+    "opens_at",
     # Curated lifecycle, written by docs/studio.html rather than surveyed.
     # `is_active` is how a hand-added booth gets deleted; `new` asserts that
     # this is a booth nobody has listed, so the matcher creates it instead of
@@ -78,7 +81,7 @@ MENU_ITEM_FIELDS = (
 # a source to fill later; here dropping it is what made the editor's Clear
 # silently do nothing. `dietary_tags` gets the same treatment one layer down,
 # where an empty list already replaces the crawled union.
-NULLABLE_BOOTH_FIELDS = ("location_description",)
+NULLABLE_BOOTH_FIELDS = ("location_description", "opens_at")
 NULLABLE_MENU_ITEM_FIELDS = ("description", "image_url")
 
 # Carries the dish's existing name into `natural_key_hint` so a rename can

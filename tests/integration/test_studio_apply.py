@@ -221,6 +221,14 @@ def test_a_booth_edit_does_not_revert_a_pin_it_never_mentioned(workspace):
     assert by_name["Belgium"]["location_precision"] == "mapped"
 
 
+def test_a_booth_opening_date_reaches_the_curated_file(workspace):
+    _apply(workspace, {
+        "version": 1,
+        "booths": [{"name": "The Wedge", "opens_at": "2026-09-18"}],
+    })
+    assert _booths(workspace)[0]["opens_at"] == "2026-09-18"
+
+
 def test_an_unknown_key_is_dropped_rather_than_written_into_a_curated_file(workspace):
     """The curated files are read by people too; a key nothing understands
     would sit in one forever meaning nothing."""

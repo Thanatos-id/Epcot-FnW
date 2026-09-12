@@ -49,6 +49,14 @@ class BoothOut(BaseModel):
     region_theme: str | None
     description: str | None
     location_description: str | None
+    # Null means open now - true for every booth before this field existed,
+    # so a client built before it existed keeps reading every booth as open,
+    # not as newly closed. A date in the future means not yet open; the
+    # client compares against its OWN local calendar day rather than trust a
+    # server-computed flag, which is what makes the banner disappear the
+    # moment it's actually opening-day where the guest is standing, not
+    # where the snapshot happened to be built.
+    opens_at: datetime.date | None = None
     latitude: Decimal | None = None
     longitude: Decimal | None = None
     # 'surveyed' | 'mapped' | 'anchored' | None - see Booth.location_precision.

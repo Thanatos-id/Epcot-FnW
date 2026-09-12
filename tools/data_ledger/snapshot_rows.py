@@ -50,6 +50,7 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
                 "latitude": booth.get("latitude"),
                 "longitude": booth.get("longitude"),
                 "location_precision": booth.get("location_precision"),
+                "opens_at": booth.get("opens_at"),
                 "item_count": len(booth.get("items") or []),
             }
         )
