@@ -3,6 +3,7 @@ import re
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import all_prices, clean_text
 from epcot_fw.parse.schemas import ExtractedRecordDTO
@@ -43,14 +44,19 @@ def extract_priced_items(article: Tag) -> list[ExtractedRecordDTO]:
             continue
 
         price = min(prices)
-        name = _NAME_SPLIT_RE.split(text, maxsplit=1)[0].strip() or text[:80]
         tags = extract_dietary_tags(text)
         category = "alcoholic_beverage" if "contains_alcohol" in tags else "food"
+        # Read the mark off the line, then take it out of the line - the whole
+        # line becomes the description here, and a mark left in it is shown
+        # under the dish.
+        is_new = new_this_year_payload(text)
+        text = strip_new_marker(text)
+        name = _NAME_SPLIT_RE.split(text, maxsplit=1)[0].strip() or text[:80]
 
         records.append(
             ExtractedRecordDTO(
                 entity_type="menu_item",
-                natural_key_hint=normalize_name(name[:80]),
+                natural_key_hint=normalize_name(name),
                 payload={
                     "booth_name": current_heading,
                     "name": name,
@@ -58,6 +64,7 @@ def extract_priced_items(article: Tag) -> list[ExtractedRecordDTO]:
                     "category": category,
                     "price_usd": str(price),
                     "dietary_tags": tags,
+                    **is_new,
                 },
             )
         )

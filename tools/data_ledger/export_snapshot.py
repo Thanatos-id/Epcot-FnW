@@ -105,6 +105,8 @@ def export() -> None:
                             "name": it.canonical_name,
                             "public_id": str(it.public_id),
                             "origin": it.origin,
+                            # New to this festival. See MenuItem.is_new_this_year.
+                            "is_new_this_year": it.is_new_this_year,
                             "description": it.description,
                             "category": it.category,
                             "price": it.price_usd,

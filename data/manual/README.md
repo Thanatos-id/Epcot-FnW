@@ -81,6 +81,36 @@ Like the booth fields below, an `image_url` already sitting here - typed by
 hand or staged by an earlier backfill run - is never overwritten by a later
 one. Clear it in the editor first if you want a fresh run to replace it.
 
+## New to the festival this year
+
+`is_new_this_year` marks a dish the festival added this season, so the app can
+filter a menu down to what's actually new. It is read automatically out of the
+"(New)" mark the blogs write into their menu copy — no curation needed for the
+ordinary case — and re-derived on every crawl.
+
+Two reasons to touch it by hand in **`docs/studio.html`** (the *New this year*
+toggle on a dish, and the matching filter chip):
+
+- **A dish nobody parenthesised.** Detection only believes an explicit
+  "(New)", so a new dish the sources described in prose reads as not-new.
+  Tick it on.
+- **A dish a blog got wrong.** Disney Food Blog also puts a "NEW!" banner on
+  returning dishes — the Belgian Waffle and the Wiener Schnitzel have both
+  worn it — so that banner is deliberately ignored. If a wrong one still gets
+  through, ticking it off is the only way back: no crawled source can ever
+  say "not new", only curation can.
+
+```json
+{
+  "menu_items": [
+    { "booth_name": "Belgium", "name": "Belgian Waffle", "is_new_this_year": false }
+  ]
+}
+```
+
+Not to be confused with `new` further down, which says the crawl never found
+the row at all. One is about the dish, the other about how it got here.
+
 ## Why the booth fields exist
 
 Sorting booths by distance needs coordinates, and not one of the seven

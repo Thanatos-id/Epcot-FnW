@@ -1,10 +1,11 @@
 from decimal import Decimal
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from posthog import Posthog
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
-from epcot_fw.api.deps import get_db
+from epcot_fw.api.deps import get_db, get_posthog_client
 from epcot_fw.api.schemas import ListResponse, MenuItemOut, Meta
 from epcot_fw.db.models import Booth, DietaryTag, MenuItem
 
@@ -22,6 +23,7 @@ def list_menu_items(
     page: int = Query(1, ge=1),
     page_size: int = Query(50, ge=1, le=200),
     db: Session = Depends(get_db),
+    posthog_client: Posthog | None = Depends(get_posthog_client),  # noqa: B008
 ):
     stmt = (
         select(MenuItem)
@@ -44,6 +46,24 @@ def list_menu_items(
     rows = db.scalars(
         stmt.order_by(MenuItem.canonical_name).offset((page - 1) * page_size).limit(page_size)
     ).all()
+
+    filters_applied = {
+        "dietary_tag": dietary_tag is not None,
+        "category": category is not None,
+        "booth": booth_id is not None,
+        "min_price": min_price is not None,
+        "max_price": max_price is not None,
+    }
+    if posthog_client and any(filters_applied.values()):
+        posthog_client.capture(
+            "menu_items_filtered",
+            properties={
+                "filters_applied": filters_applied,
+                "filter_count": sum(filters_applied.values()),
+                "result_count": total or 0,
+            },
+        )
+
     return ListResponse(data=rows, meta=Meta(total=total or 0, page=page, page_size=page_size))
 
 

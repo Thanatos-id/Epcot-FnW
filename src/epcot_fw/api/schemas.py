@@ -99,6 +99,9 @@ class MenuItemOut(BaseModel):
     image_source: ImageSourceOut | None = None
     # See BoothOut.origin.
     origin: str = "crawled"
+    # New to this festival. Additive with a default, like origin, so a client
+    # built before it existed still decodes.
+    is_new_this_year: bool = False
     is_active: bool
     dietary_tags: list[DietaryTagOut] = []
 

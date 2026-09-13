@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, Query
+from posthog import Posthog
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from epcot_fw.api.deps import get_db
+from epcot_fw.api.deps import get_db, get_posthog_client
 from epcot_fw.db.models import Booth, ConcertEvent, MenuItem, Seminar
 
 router = APIRouter(tags=["search"])
@@ -16,6 +17,7 @@ def search(
     festival_id: int | None = None,
     types: str | None = Query(None, description="Comma-separated: booth,menu_item,event,seminar"),
     db: Session = Depends(get_db),
+    posthog_client: Posthog | None = Depends(get_posthog_client),  # noqa: B008
 ):
     wanted = set(t.strip() for t in types.split(",")) if types else set(ALL_TYPES)
     like = f"%{q}%"
@@ -56,5 +58,16 @@ def search(
             {"id": s.id, "title": s.title, "seminar_type": s.seminar_type}
             for s in db.scalars(stmt.limit(25)).all()
         ]
+
+    if posthog_client:
+        posthog_client.capture(
+            "festival_search_performed",
+            properties={
+                "query_length": len(q),
+                "requested_types": sorted(wanted),
+                "has_festival_scope": festival_id is not None,
+                "result_counts": {result_type: len(matches) for result_type, matches in results.items()},
+            },
+        )
 
     return results

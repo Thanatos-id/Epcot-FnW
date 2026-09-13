@@ -523,6 +523,7 @@ footer a { color: var(--accent); }
             <option value="non_alcoholic_beverage">Non-alcoholic</option>
           </select>
           <button type="button" class="chip" id="chip-nophoto">Needs a photo</button>
+          <button type="button" class="chip" id="chip-new">New this year</button>
           <button type="button" class="chip" id="add-dish-btn">+ Add dish</button>
           <span class="spacer"></span>
           <span class="count" id="dish-count"></span>
@@ -633,6 +634,7 @@ footer a { color: var(--accent); }
     // than either.
     boothQ: '', dishQ: '', category: '',
     noPhotoOnly: false, unplacedOnly: false, editedOnly: false, addedOnly: false,
+    newOnly: false,
     expandedTags: null,
     armed: null,
     mapOpen: false
@@ -1123,6 +1125,7 @@ footer a { color: var(--accent); }
       if (state.addedOnly && !isAdded(row)) return false;
       if (state.category && valueOf(row, 'category') !== state.category) return false;
       if (state.noPhotoOnly && currentImage(row)) return false;
+      if (state.newOnly && !valueOf(row, 'is_new_this_year')) return false;
       if (state.dishQ) {
         var hay = [valueOf(row, 'name'), valueOf(row, 'description')].join(' ').toLowerCase();
         if (hay.indexOf(state.dishQ) === -1) return false;
@@ -1226,6 +1229,33 @@ footer a { color: var(--accent); }
       cell.appendChild(summary);
     }
     paint();
+    return cell;
+  }
+
+  // One chip, on or off, styled as a dietary tag is - but stored as its own
+  // field, not as a tag. "New this year" is a fact about the festival's
+  // line-up, and a diet filter is not where anyone would look for it.
+  function makeNewCell(row) {
+    var cell = document.createElement('div');
+    cell.className = 'new-cell';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+
+    function paint() {
+      var on = !!valueOf(row, 'is_new_this_year');
+      btn.className = 'tag-toggle' + (on ? ' on' : '') +
+        (edited(row, 'is_new_this_year') ? ' changed' : '');
+      btn.textContent = 'New this year';
+    }
+
+    btn.addEventListener('click', function () {
+      setValue(row, 'is_new_this_year', !valueOf(row, 'is_new_this_year'));
+      paint();
+      markRow(btn, row);
+    });
+
+    paint();
+    cell.appendChild(btn);
     return cell;
   }
 
@@ -1407,6 +1437,7 @@ footer a { color: var(--accent); }
     fields.appendChild(line);
 
     fields.appendChild(makeTagCell(row));
+    fields.appendChild(makeNewCell(row));
 
     var actions = document.createElement('div');
     actions.className = 'field-row';
@@ -1697,6 +1728,7 @@ footer a { color: var(--accent); }
         entry['new'] = true;
         entry.category = valueOf(row, 'category') || 'food';
         entry.dietary_tags = valueOf(row, 'tags') || [];
+        if (valueOf(row, 'is_new_this_year')) entry.is_new_this_year = true;
         // Only what was actually filled in. A null here is read downstream as
         // "this field should be empty", which is not what a blank Add form
         // means - it means nobody has said yet.
@@ -1710,6 +1742,12 @@ footer a { color: var(--accent); }
         if (Object.prototype.hasOwnProperty.call(e, 'price')) entry.price_usd = e.price;
         if (Object.prototype.hasOwnProperty.call(e, 'category')) entry.category = e.category;
         if (Object.prototype.hasOwnProperty.call(e, 'tags')) entry.dietary_tags = e.tags;
+        // Exported even when false: false is the whole point of touching this
+        // one by hand - it is how a blog calling a returning dish new gets
+        // taken back, and nothing but curation can say it.
+        if (Object.prototype.hasOwnProperty.call(e, 'is_new_this_year')) {
+          entry.is_new_this_year = !!e.is_new_this_year;
+        }
       }
       if (Object.prototype.hasOwnProperty.call(e, 'image_url')) entry.image_url = e.image_url;
       if (photo) {
@@ -1901,6 +1939,7 @@ footer a { color: var(--accent); }
     });
   }
   chip('chip-nophoto', 'noPhotoOnly');
+  chip('chip-new', 'newOnly');
   chip('chip-unplaced', 'unplacedOnly');
   chip('chip-edited', 'editedOnly');
   chip('chip-added', 'addedOnly');

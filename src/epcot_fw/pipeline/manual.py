@@ -70,10 +70,27 @@ MENU_ITEM_FIELDS = (
     "category",
     "image_url",
     "dietary_tags",
+    # Not to be confused with `new` below: this says the dish is new to the
+    # festival this season, which is a fact about the menu. `new` says the
+    # crawl never found it, which is a fact about how the row got here.
+    "is_new_this_year",
     # See BOOTH_FIELDS - same two curated-lifecycle keys, same reasons.
     "is_active",
     "new",
 )
+
+# The only categories a dish can have. Not a style preference: the client maps
+# this string with a `switch` whose `default` is `.food`, so a typo here does
+# not fail anywhere - it quietly files a cocktail under Food, in the app, with
+# nothing in the pipeline having complained. Every parser already emits one of
+# these three (see sources/disney_food_blog.py::_resolve_category), so a
+# curated entry outside the set is a mistake rather than a new case.
+#
+# Booth `category` is deliberately not checked the same way: every source emits
+# the single value "global_marketplace" and the app derives a booth's kind from
+# its slug and name instead of reading the field, so there is no wrong answer
+# for a guard to catch.
+MENU_ITEM_CATEGORIES = frozenset({"food", "alcoholic_beverage", "non_alcoholic_beverage"})
 
 # Fields where an explicit JSON `null` is a statement - "this dish has no
 # photo", "that description was wrong" - rather than "I have nothing to say
@@ -146,6 +163,14 @@ def load_menu_item_overrides(path: Path = DEFAULT_ITEMS_PATH) -> list[dict[str, 
                 entry[field] = raw[field]
             elif field in NULLABLE_MENU_ITEM_FIELDS and field in raw:
                 entry[field] = None
+        category = entry.get("category")
+        if category is not None and category not in MENU_ITEM_CATEGORIES:
+            raise ValueError(
+                f"{path}: {booth_name} / {name}: category {category!r} is not one of "
+                f"{sorted(MENU_ITEM_CATEGORIES)}. Left unchecked this reaches the app as "
+                f"Food, because the client falls back to Food for anything it does not "
+                f"recognise."
+            )
         entries.append(entry)
     return entries
 

@@ -9,10 +9,13 @@ Both fixtures are real captured pages.
 """
 
 import re
+from collections import defaultdict
 from pathlib import Path
 
 import pytest
 
+from epcot_fw.normalize.text import normalize_name
+from epcot_fw.resolve.matcher import Candidate, find_best_match
 from epcot_fw.sources.disney_food_blog import (
     BASE_URL,
     DisneyFoodBlogAdapter,
@@ -198,16 +201,56 @@ def test_two_variants_of_one_drink_stay_two_items(records_2026):
     assert len({i.payload["name"] for i in affogatos}) == len(affogatos)
 
 
-def test_no_two_items_in_a_booth_share_a_name(records_2026):
-    seen = set()
+def test_two_szarlotkas_survive_a_trailing_colon(records_2026):
+    """Swirled Showcase lists Frozen Szarlotka twice, non-alcoholic and with
+    Zubrowka Bison Grass Vodka. The two lines differ only by a trailing colon
+    on the name - a difference normalize_name discards - so a raw-name
+    collision check let them through as distinct and resolution merged them
+    anyway, into one row calling itself non-alcoholic while carrying the other
+    one's contains_alcohol tag."""
+    items = [i for i in _items(records_2026) if "Szarlotka" in i.payload["name"]]
+    assert len(items) == 2
+    assert len({normalize_name(i.payload["name"]) for i in items}) == 2
+
+    by_category = {i.payload["category"]: i.payload for i in items}
+    assert set(by_category) == {"alcoholic_beverage", "non_alcoholic_beverage"}
+    assert by_category["alcoholic_beverage"]["dietary_tags"] == ["contains_alcohol"]
+    assert by_category["non_alcoholic_beverage"]["dietary_tags"] == []
+
+
+def test_a_long_name_can_still_match_itself(records_2026):
+    """resolve/merge.py scores an extracted record's natural_key_hint against
+    candidate keys that _load_scoped_candidates builds from the full canonical
+    name, so a hint built from a prefix scores a dish against itself as a
+    near-miss. Cutting the name at 80 characters first put every long dish name
+    under the 90 auto-merge threshold - two byte-identical 137-character names
+    scored 78.5 - so those dishes never re-matched themselves across crawls."""
+    items = _items(records_2026)
+    for item in items:
+        assert item.natural_key_hint == normalize_name(item.payload["name"])
+
+    longest = max(items, key=lambda i: len(i.payload["name"]))
+    assert len(longest.payload["name"]) > 80, "expected the real page to run past 80 chars"
+    itself = Candidate(canonical_id=1, natural_key=normalize_name(longest.payload["name"]))
+    assert find_best_match(longest.natural_key_hint, [itself]).outcome == "auto_merge"
+
+
+def test_no_two_items_in_a_booth_share_a_match_key(records_2026):
+    """Two items in one booth may share a normalized name only if they are the
+    same line twice - the 2026 page does list one Joffrey's cold brew twice,
+    and resolution merging those is correct. What must not happen is two
+    *different* dishes landing on one key, because the merge that follows
+    silently keeps one dish's price and category and the other's tags."""
+    groups = defaultdict(list)
     for item in _items(records_2026):
-        key = (item.payload["booth_name"], item.payload["name"])
-        # A booth genuinely listing the same line twice is the source
-        # repeating itself; what must not happen is two *different* lines
-        # collapsing onto one name.
-        seen.add(key)
-    names = [(i.payload["booth_name"], i.payload["name"]) for i in _items(records_2026)]
-    assert len(seen) >= len({n for n in names})
+        groups[(item.payload["booth_name"], normalize_name(item.payload["name"]))].append(
+            item.payload
+        )
+    for (booth, key), payloads in groups.items():
+        first = payloads[0]
+        assert all(p == first for p in payloads[1:]), (
+            f"{booth}: {len(payloads)} different dishes share the match key {key!r}"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -243,6 +286,46 @@ def test_natural_keys_are_normalized_so_the_resolver_can_match(records_2026):
     for record in _booths(records_2026):
         assert record.natural_key_hint == record.natural_key_hint.lower().strip()
         assert "  " not in record.natural_key_hint
+
+
+# ---------------------------------------------------------------------------
+# new this year
+# ---------------------------------------------------------------------------
+
+
+def test_the_season_mark_is_read_off_the_real_page(records_2026):
+    """The page marks a good chunk of the line-up "(New)"; before this the
+    whole lot was thrown away with the rest of the prose."""
+    flagged = [i for i in _items(records_2026) if i.payload.get("is_new_this_year")]
+    assert 20 < len(flagged) < len(_items(records_2026)) / 2
+
+
+def test_a_dish_the_page_calls_a_legacy_item_is_not_new(records_2026):
+    """This page says both things about the Belgian Waffle on one line -
+    "(30th anniversary legacy item (New)". Telling a guest a dish that has
+    been here for years is new is the error worth designing against."""
+    flagged = {i.payload["name"] for i in _items(records_2026) if i.payload.get("is_new_this_year")}
+    assert "Belgian Waffle" not in flagged
+    assert "Wiener Schnitzel" not in flagged
+
+
+def test_no_dish_keeps_the_mark_in_its_description(records_2026):
+    """A description is what a guest reads under the dish, and the mark is
+    data now. Reading the mark late and stripping only the name is what puts
+    it here: "Sapporo Reserve (New)" minus its own name is "(New)", and that
+    became the description of fourteen dishes before this was caught."""
+    for item in _items(records_2026):
+        description = item.payload.get("description") or ""
+        assert not re.search(r"\(\s*new\s*\)", description, re.IGNORECASE), item.payload["name"]
+
+
+def test_no_dish_keeps_the_mark_in_its_name(records_2026):
+    """Once the mark is data it has no business still being in the name -
+    and a name carrying it resolves as a different dish from the one that
+    doesn't."""
+    for item in _items(records_2026):
+        assert not re.search(r"\(\s*new\s*\)", item.payload["name"], re.IGNORECASE)
+        assert not item.payload["name"].startswith("NEW")
 
 
 # ---------------------------------------------------------------------------
