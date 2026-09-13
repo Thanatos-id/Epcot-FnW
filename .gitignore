@@ -18,3 +18,18 @@ Epcot Events/
 # pytest-cov output
 .coverage
 coverage.json
+
+# Package manager and tooling stores. Nothing here is source: pnpm's content-
+# addressable store alone is 122 MB, and the PostHog wizard's cache is scratch
+# from a one-off setup run.
+.pnpm-store/
+.posthog-wizard-cache/
+
+# Agent tool config, alongside .claude/ above.
+.agents/
+.codex/
+
+# The working folder `epcot-fw images export` fills and `images import` reads
+# back - a scratch copy of every dish photo, named by public_id. Photos that
+# have actually been published live in docs/dish-photos/, which is tracked.
+dish-photos/
