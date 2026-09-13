@@ -7,12 +7,16 @@ https://thanatos-id.github.io/Epcot-FnW/v1/snapshot.json
 ```
 
 Everything an app needs for one festival — booths, dishes, concerts,
-seminars — in a single response. ~84 KB, ~18 KB over the wire once GitHub
+seminars — in a single response. ~127 KB, ~22 KB over the wire once GitHub
 Pages gzips it.
+
+Counts and sizes in this document describe the feed as published in September
+2026. They move every time the data is rebuilt — they are here to give a sense
+of scale, and nothing in a client should depend on them.
 
 ## Why a file and not a server
 
-At 33 booths and 229 dishes there is nothing an API would buy that a file
+At 32 booths and 219 dishes there is nothing an API would buy that a file
 does not already give: it is edge-cached, has no uptime to lose, costs
 nothing, and answers a re-check with a 304 and no body. A live
 `/api/v1/snapshot` exists in this repo and serves **the same bytes from the
@@ -20,7 +24,7 @@ same builder**, so moving to it later is a URL change and nothing else.
 
 Keep the URL configurable in the app from day one. GitHub Pages frames itself
 as project hosting rather than production infrastructure (~100 GB/month), which
-is effectively unlimited at 18 KB a fetch but is the thing to outgrow first.
+is effectively unlimited at 22 KB a fetch but is the thing to outgrow first.
 
 ## Shape
 
@@ -47,8 +51,8 @@ a tree.
 |---|---|
 | `public_id` | **Save this, never `id`.** A UUID that survives rebuilds; `id` is an autoincrement that renumbers, so a favourite keyed on it comes back pointing at a different dish. |
 | `festival.status` | `upcoming`, `running` or `ended`, worked out from `start_date`/`end_date` each time the feed is built — not a stored value, so it cannot go stale. Treat an unrecognised value as `running` rather than hiding the menu. |
-| `latitude` / `longitude` | Null for most booths. Only 8 are placed today. |
-| `location_precision` | `surveyed` (GPS at the booth, metres), `mapped` (a pin dropped by eye against satellite imagery), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for anything short of `surveyed`** — "about 200 ft" — rather than presenting it as measured. |
+| `latitude` / `longitude` | Set for every booth today except the catch-all "Additional Festival Locations", which names no single place. Still model them as optional: a booth added mid-season arrives unplaced until somebody pins it. |
+| `location_precision` | `surveyed` (GPS at the booth, metres), `mapped` (a pin dropped by eye against satellite imagery), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for anything short of `surveyed`** — "about 200 ft" — rather than presenting it as measured. Every placed booth reads `mapped` today, so that qualification currently applies to all of them. |
 | `origin` | `crawled` (a source listed it) or `curated` (somebody added it by hand in the studio, because no source did). Optional to use: badge or filter on it if that's useful, ignore it otherwise. Added after the first release, so treat a missing value as `crawled`. |
 | `opens_at` | Booths only. `null` means open now — the case for almost every booth. A date means this booth hasn't started serving yet; show a "not yet open" banner on its detail page instead of the menu until that date arrives. **Compare it to the client's own local calendar day, not UTC** — it's a plain `YYYY-MM-DD` with no time or zone, so parse it as local midnight (e.g. `Date` + `"T00:00:00"` in JS, or a plain `DateComponents`/`Calendar` compare in Swift) rather than as UTC, or a booth can flip open a day early or late depending on the reader's timezone. A date that has passed needs no further action from anyone — it's simply in the past and the booth reads as open. |
 | `image_source` | Who took the photo, and where to send a reader who asks: `{name, url, site, season}`. Null when the dish has no photo. **`url` is always set when the object is present** — the post the photo ran in where that was captured, the publisher's own site otherwise — so a credit rendered as a link is never dead. Most photos here are Disney Food Blog's; showing the credit is the point of the field. |
