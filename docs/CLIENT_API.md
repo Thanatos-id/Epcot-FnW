@@ -7,7 +7,7 @@ https://thanatos-id.github.io/Epcot-FnW/v1/snapshot.json
 ```
 
 Everything an app needs for one festival — booths, dishes, concerts,
-seminars — in a single response. ~127 KB, ~22 KB over the wire once GitHub
+seminars — in a single response. ~144 KB, ~24 KB over the wire once GitHub
 Pages gzips it.
 
 Counts and sizes in this document describe the feed as published in September
@@ -16,7 +16,7 @@ of scale, and nothing in a client should depend on them.
 
 ## Why a file and not a server
 
-At 32 booths and 219 dishes there is nothing an API would buy that a file
+At 33 booths and 234 dishes there is nothing an API would buy that a file
 does not already give: it is edge-cached, has no uptime to lose, costs
 nothing, and answers a re-check with a 304 and no body. A live
 `/api/v1/snapshot` exists in this repo and serves **the same bytes from the
@@ -24,7 +24,7 @@ same builder**, so moving to it later is a URL change and nothing else.
 
 Keep the URL configurable in the app from day one. GitHub Pages frames itself
 as project hosting rather than production infrastructure (~100 GB/month), which
-is effectively unlimited at 22 KB a fetch but is the thing to outgrow first.
+is effectively unlimited at 24 KB a fetch but is the thing to outgrow first.
 
 ## Shape
 
