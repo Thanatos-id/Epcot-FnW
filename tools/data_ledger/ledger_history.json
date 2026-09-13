@@ -526,7 +526,7 @@
       }
     },
     {
-      "recorded_at": "2026-09-13T15:15:06.534080+00:00",
+      "recorded_at": "2026-09-13T15:50:02.578259+00:00",
       "label": "2026-08-30T14:59:07.066422-04:00",
       "data": {
         "booths": 33,
@@ -539,6 +539,56 @@
         "booths_with_image": 0,
         "sources_enabled": 4,
         "open_conflicts": 276
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "b3c4189",
+        "measured_at": "2026-08-28T04:12:10.984838+00:00",
+        "tests": 424,
+        "coverage_pct": 92.5,
+        "covered_lines": 2427,
+        "num_statements": 2623
+      }
+    },
+    {
+      "recorded_at": "2026-09-13T16:46:03.864773+00:00",
+      "label": "2026-08-30T14:59:07.066422-04:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 233,
+        "items_priced": 227,
+        "items_described": 144,
+        "items_with_image": 149,
+        "items_tagged": 147,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 302
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "b3c4189",
+        "measured_at": "2026-08-28T04:12:10.984838+00:00",
+        "tests": 424,
+        "coverage_pct": 92.5,
+        "covered_lines": 2427,
+        "num_statements": 2623
+      }
+    },
+    {
+      "recorded_at": "2026-09-13T21:51:34.638313+00:00",
+      "label": "2026-08-30T14:59:07.066422-04:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 234,
+        "items_priced": 228,
+        "items_described": 144,
+        "items_with_image": 152,
+        "items_tagged": 147,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 320
       },
       "pipeline": {
         "label": "Current",
