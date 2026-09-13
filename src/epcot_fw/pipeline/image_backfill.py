@@ -40,7 +40,8 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from epcot_fw.db.models import Booth, Festival, MenuItem, Source
+from epcot_fw.db.models import Booth, MenuItem, Source
+from epcot_fw.festival import require_current_festival
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.schemas import ExtractedRecordDTO
 from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH, merge_menu_item_overrides
@@ -168,9 +169,7 @@ def backfill_dish_images(
     written, without touching the file - use it to see the match counts
     before committing to a run over several seasons' worth of pages.
     """
-    festival = session.scalars(select(Festival).order_by(Festival.year.desc())).first()
-    if festival is None:
-        raise RuntimeError("No festival row found - run `epcot-fw db seed` first.")
+    festival = require_current_festival(session)
 
     source = session.scalars(select(Source).where(Source.key == "disney_food_blog")).first()
     if source is None:

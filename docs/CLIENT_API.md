@@ -29,7 +29,7 @@ is effectively unlimited at 18 KB a fetch but is the thing to outgrow first.
   "schema_version": 1,          // bumped only for a breaking change
   "data_updated_at": "2026-08-22T22:17:48.564329Z",
   "min_app_version": null,      // see below
-  "festival":  { "name": "...", "start_date": "...", "status": "upcoming" },
+  "festival":  { "name": "...", "start_date": "...", "status": "running" },
   "booths":    [ /* … */ ],
   "menu_items":[ /* … */ ],     // flat, keyed to booths by booth_id
   "events":    [ /* … */ ],
@@ -46,6 +46,7 @@ a tree.
 | field | why |
 |---|---|
 | `public_id` | **Save this, never `id`.** A UUID that survives rebuilds; `id` is an autoincrement that renumbers, so a favourite keyed on it comes back pointing at a different dish. |
+| `festival.status` | `upcoming`, `running` or `ended`, worked out from `start_date`/`end_date` each time the feed is built — not a stored value, so it cannot go stale. Treat an unrecognised value as `running` rather than hiding the menu. |
 | `latitude` / `longitude` | Null for most booths. Only 8 are placed today. |
 | `location_precision` | `surveyed` (GPS at the booth, metres), `mapped` (a pin dropped by eye against satellite imagery), `anchored` (pavilion coordinate standing in, 30–50 m), or `null`. **Qualify the distance you show for anything short of `surveyed`** — "about 200 ft" — rather than presenting it as measured. |
 | `origin` | `crawled` (a source listed it) or `curated` (somebody added it by hand in the studio, because no source did). Optional to use: badge or filter on it if that's useful, ignore it otherwise. Added after the first release, so treat a missing value as `crawled`. |

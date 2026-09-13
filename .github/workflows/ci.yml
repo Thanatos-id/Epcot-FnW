@@ -1,0 +1,94 @@
+name: CI
+
+# The suite is the only thing standing between a crawler change and a wrong
+# menu on somebody's phone in World Showcase, and until now it only ran when
+# a person remembered to run it.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A second push to the same branch makes the first run's answer irrelevant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: ruff
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      # The dev extra rather than a bare `pip install ruff`, so the version
+      # is the one pyproject.toml asks for and not whatever is newest today.
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # The rule set is pinned in pyproject.toml - see the comment there for
+      # why it is not left to ruff's shifting defaults.
+      - name: ruff check
+        run: ruff check .
+
+  test:
+    name: pytest
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: epcot_fw
+        ports:
+          - 5432:5432
+        # Without the health check the first connection races the server's
+        # startup and the whole job fails on a connection refused.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      # Two databases, as in .env.example: tests/conftest.py reflects and drops
+      # everything in TEST_DATABASE_URL on every run, so it must not be the one
+      # anything else points at.
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/epcot_fw
+      TEST_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/epcot_fw_test
+      # Settings requires a contact and refuses to import without one. Nothing
+      # here reaches the network - respx intercepts it - so this is never sent.
+      USER_AGENT_CONTACT: ci@example.invalid
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Create the test database
+        env:
+          PGPASSWORD: postgres
+        run: psql -h localhost -U postgres -c 'CREATE DATABASE epcot_fw_test'
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,data_ledger]"
+
+      - name: pytest
+        run: pytest -q

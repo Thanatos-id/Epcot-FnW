@@ -109,7 +109,7 @@ def test_seed_reruns_do_not_re_enable_a_manually_enabled_source(seed_session_fac
     assert row2.enabled is True
 
 
-def test_seed_uses_the_current_year_before_october(seed_session_factory, monkeypatch):
+def test_seed_uses_the_current_year_before_the_rollover(seed_session_factory, monkeypatch):
     _freeze_today(monkeypatch, 2026, 8, 15)
     seed_module.seed()
 
@@ -119,8 +119,23 @@ def test_seed_uses_the_current_year_before_october(seed_session_factory, monkeyp
     assert festival.slug == "epcot-food-wine-2026"
 
 
-def test_seed_rolls_over_to_next_year_starting_in_october(seed_session_factory, monkeypatch):
+def test_seed_does_not_roll_over_mid_festival(seed_session_factory, monkeypatch):
+    """October is mid-run. Seeding next year's row then put a higher year in
+    the table while this year's festival was still serving, and every
+    "current festival" lookup in the codebase followed it into an empty
+    festival. The rollover waits for December.
+    """
     _freeze_today(monkeypatch, 2026, 10, 5)
+    seed_module.seed()
+
+    session = seed_session_factory()
+    festival = session.query(Festival).one()
+    assert festival.year == 2026
+    assert festival.slug == "epcot-food-wine-2026"
+
+
+def test_seed_rolls_over_to_next_year_in_december(seed_session_factory, monkeypatch):
+    _freeze_today(monkeypatch, 2026, 12, 1)
     seed_module.seed()
 
     session = seed_session_factory()

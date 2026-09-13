@@ -5,7 +5,6 @@ Measurements taken from the source raster (905x924 crop):
   lattice: horizontal period 194, triangle base 108, height 94
   row centers (y): 118, 250, 381.5, 522.5, 654.5, 785
 """
-import numpy as np
 from PIL import Image, ImageDraw
 
 # ---- source-space geometry constants ----
@@ -55,7 +54,10 @@ def _clip_to_circle(poly, cx, cy, r, n=192):
 
 
 def _isect(p1, p2, a, b):
-    x1, y1 = p1; x2, y2 = p2; x3, y3 = a; x4, y4 = b
+    x1, y1 = p1
+    x2, y2 = p2
+    x3, y3 = a
+    x4, y4 = b
     d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
     if abs(d) < 1e-12:
         return p2
@@ -92,7 +94,8 @@ def triangles():
 def _area(poly):
     s = 0.0
     for i in range(len(poly)):
-        x1, y1 = poly[i]; x2, y2 = poly[(i + 1) % len(poly)]
+        x1, y1 = poly[i]
+        x2, y2 = poly[(i + 1) % len(poly)]
         s += x1 * y2 - x2 * y1
     return abs(s) / 2.0
 
