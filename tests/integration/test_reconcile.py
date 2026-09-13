@@ -389,6 +389,74 @@ def test_a_curated_dish_marked_inactive_stays_retired(db_session, tmp_path):
     assert not dish.is_active, "reconciliation must not resurrect what curation retired"
 
 
+def test_a_crawled_dish_deleted_in_the_studio_stays_deleted(db_session, tmp_path):
+    """Deleting a duplicate or wrong dish the crawl found, which is the whole
+    point of the studio's Delete button on an ordinary row.
+
+    Unlike a hand-added dish, this row's source still lists it - and will go on
+    listing it every week. Support alone would therefore vote it back every
+    single crawl, which is exactly what this must not do: a delete that undoes
+    itself next Tuesday is worse than no delete at all, because nobody watches
+    the feed to notice."""
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [
+        _booth_dto("The Alps"),
+        _item_dto("The Alps", "Duplicate Dish"),
+        _item_dto("The Alps", "Good Dish"),
+    ])
+    dish = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Duplicate Dish")
+    ).one()
+    assert dish.is_active and dish.origin == "crawled"
+
+    _curate(db_session, festival_id, tmp_path, {
+        "menu_items": [{"booth_name": "The Alps", "name": "Duplicate Dish", "is_active": False}]
+    })
+    db_session.refresh(dish)
+    assert not dish.is_active, "curation must retire it in the first place"
+
+    # The source has not changed its mind - the same page still lists the dish.
+    run_reconciliation(db_session, festival_id=festival_id)
+    db_session.refresh(dish)
+    assert not dish.is_active, "reconciliation must not resurrect what curation deleted"
+
+    neighbour = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Good Dish")
+    ).one()
+    assert neighbour.is_active, "deleting one dish must not take the rest of the menu with it"
+
+
+def test_a_dish_retired_only_by_the_crawl_still_comes_back_when_relisted(db_session, tmp_path):
+    """The other half: protecting a curated delete must not freeze an ordinary
+    row that was retired for the ordinary reason. Nobody curated this one, so
+    a source listing it again is still allowed to bring it back."""
+    festival_id = db_session.info["festival_id"]
+    _publish(db_session, festival_id, "allears", HUB, [
+        _booth_dto("The Alps"),
+        _item_dto("The Alps", "Seasonal Dish"),
+        _item_dto("The Alps", "Year-Round Dish"),
+    ])
+    # The second fetch drops one dish and keeps the other, so this reads as an
+    # ordinary lineup change rather than the parse failure the guard catches.
+    _publish(db_session, festival_id, "allears", HUB, [
+        _booth_dto("The Alps"), _item_dto("The Alps", "Year-Round Dish"),
+    ])
+    run_reconciliation(db_session, festival_id=festival_id)
+    dish = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Seasonal Dish")
+    ).one()
+    assert not dish.is_active
+
+    _publish(db_session, festival_id, "allears", HUB, [
+        _booth_dto("The Alps"),
+        _item_dto("The Alps", "Seasonal Dish"),
+        _item_dto("The Alps", "Year-Round Dish"),
+    ])
+    run_reconciliation(db_session, festival_id=festival_id)
+    db_session.refresh(dish)
+    assert dish.is_active
+
+
 def test_reconciliation_on_an_empty_festival_is_a_no_op(db_session):
     stats = run_reconciliation(db_session, festival_id=db_session.info["festival_id"])
     assert (stats.booths_deactivated, stats.items_deactivated) == (0, 0)

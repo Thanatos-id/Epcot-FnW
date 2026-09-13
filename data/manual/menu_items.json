@@ -12,9 +12,10 @@
     "byte-identical to what the ledger shows.",
     "",
     "Editable fields: description, price_usd, category, image_url, dietary_tags,",
-    "is_active. Omit a field to leave it alone - only what is present here is",
-    "overridden. For description and image_url an explicit null is different from",
-    "an absent field: it erases the value, which is how the studio's Clear works.",
+    "is_new_this_year, is_active. Omit a field to leave it alone - only what is",
+    "present here is overridden. For description and image_url an explicit null is",
+    "different from an absent field: it erases the value, which is how the studio's",
+    "Clear works.",
     "",
     "These come in under the `manual` source at priority_rank 0, so they beat every",
     "crawled source and survive the next refresh. dietary_tags is the one field",
@@ -25,6 +26,12 @@
     "category is one of: food, alcoholic_beverage, non_alcoholic_beverage.",
     "dietary_tags are: vegetarian, vegan, gluten_free, plant_based,",
     "contains_alcohol, spicy, contains_nuts.",
+    "",
+    "`is_new_this_year` says the dish is new to the festival this season. It is read",
+    "automatically from the \"(New)\" mark the blogs write into their copy, so it",
+    "usually needs nothing here. Set it by hand for a new dish nobody parenthesised,",
+    "or to false for a returning dish a blog wrongly called new - nothing in a crawl",
+    "can ever say \"not new\", so false only ever comes from here.",
     "",
     "`new: true` marks a dish the crawl never found. It makes the resolver create",
     "the row instead of parking a near-miss name as a merge conflict, and the row",
@@ -91,7 +98,8 @@
       "new": true,
       "category": "food",
       "dietary_tags": [],
-      "price_usd": 5.19
+      "price_usd": 5.19,
+      "is_active": true
     },
     {
       "booth_name": "Mexico",
@@ -542,7 +550,8 @@
     {
       "booth_name": "Australia",
       "name": "Roasted Lamb Chop*",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Roasted-Lamb-Chop-Australia-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1-03-36-PM-5712-x-4284-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Roasted-Lamb-Chop_-Australia-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-3.jpg",
+      "rename_to": "Roasted Lamb Chop"
     },
     {
       "booth_name": "Australia",
@@ -672,7 +681,7 @@
     {
       "booth_name": "France",
       "name": "Brioche aux Epices Avec Une Garniture Mornay de Trois Fromages",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Brioche-aux-Epices-France-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-1-700x527.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Brioche-aux-Epices-Avec-Une-Garniture-Mornay-de-Trois-Fromages-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-1.jpg"
     },
     {
       "booth_name": "France",
@@ -687,7 +696,7 @@
     {
       "booth_name": "Germany",
       "name": "Schinkennudeln",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Schinkennudeln-Germany-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Schinkennudeln-2026-EPCOT-Food-and-Wine-Festival-3.jpg"
     },
     {
       "booth_name": "Greece",
@@ -785,14 +794,27 @@
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Summer-in-Spain-Spain-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-55-54-PM-4032-x-3024-700x543.jpg"
     },
     {
-      "booth_name": "Swirled Showcase (NEW)",
+      "booth_name": "Swirled Showcase",
+      "name": "Frozen Szarlotka",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Frozen-Szarlotka-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-12-47-26-PM-4032-x-3024.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Frozen Szarlotka: Apple Pie Filling, Apple-Cinnamon Cider, and Żubrówka Bison Grass Vodka topped with Streusel (A 30th Anniversary Legacy Item — Reimagined for 2026!)",
+      "rename_to": "Frozen Szarlotka with Żubrówka Bison Grass Vodka",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "Swirled Showcase",
       "name": "Strawberry Beer Float:",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Strawberry-Beer-Float-Swirled-Showcase-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-11-42-49-AM-4032-x-3024-700x525.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Strawberry-Beer-Float-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-3.jpg"
     },
     {
       "booth_name": "Tangierine Café: Flavors of the Medina",
       "name": "Moroccan Wrap",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Moroccan-Wrap-lamb-and-falafel-Tangierine-Cafe-2025-EPCOT-Food-and-Wine-Festival-Disney-World-9-700x370.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/11/DFB-Falafel-Moroccan-Wrap-Tangierine-Cafe-Booth-Festival-of-the-Holidays-EPCOT-Disney-World-Photo-Nov-28-2025-2.jpg",
+      "description": "with tomato-cucumber relish and garlic sauce served on warm moroccan flatbread. Plant-based falafel."
     },
     {
       "booth_name": "Tangierine Café: Flavors of the Medina",
@@ -822,7 +844,8 @@
     {
       "booth_name": "Australia",
       "name": "Wine Flight also available",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-australia-food-booth-wine-flight.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-australia-food-booth-wine-flight.jpg",
+      "is_active": false
     },
     {
       "booth_name": "Bramblewood Bites",
@@ -917,7 +940,8 @@
     {
       "booth_name": "France",
       "name": "Boeuf Braise vin Rouge et Echalottes, Gâteau de Pomes de Terre",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Boeuf-Braise-vin-Rouge-et-Echalottes-Gateau-de-Pomes-de-Terre-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-3.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Boeuf-Braise-vin-Rouge-et-Echalottes-Gateau-de-Pomes-de-Terre-_-France-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-3.jpg",
+      "is_new_this_year": true
     },
     {
       "booth_name": "France",
@@ -937,7 +961,8 @@
     {
       "booth_name": "Germany",
       "name": "Wiener Schnitzel",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Wiener-Schnitzel-Germany-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Wiener-Schnitzel-Germany-2026-EPCOT-Food-and-Wine-Festival-2.jpg",
+      "is_new_this_year": true
     },
     {
       "booth_name": "Germany",
@@ -1017,17 +1042,20 @@
     {
       "booth_name": "Italy",
       "name": "Almond Panna Cotta:",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Almond-Panna-Cotta-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-1.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Almond-Panna-Cotta-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-1.jpg",
+      "is_new_this_year": true
     },
     {
       "booth_name": "Italy",
       "name": "Stromboli",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Stromboli-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-3.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Stromboli-_-Italy-Booth-2026-EPCOT-Food-and-Wine-Festival-3.jpg",
+      "is_new_this_year": true
     },
     {
       "booth_name": "Italy",
       "name": "Pollo al Marsala",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Pollo-al-Marsala-_-Italy-Booth-2026-EPCOT-Food-Wine-Festival-2.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Pollo-al-Marsala-_-Italy-Booth-2026-EPCOT-Food-Wine-Festival-2.jpg",
+      "is_new_this_year": true
     },
     {
       "booth_name": "Japan",
@@ -1174,6 +1202,197 @@
       "description": "Frozen Ginger Beer blended with Lively Lime and Cozy Spiced Apple Flavors with Iceberg Canadian Vodka",
       "price_usd": 14.5,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/2026-Disney-World-WDW-EPCOT-International-Food-and-Wine-Festival-La-Poutinerie-Hosted-By-Air-Canada-Booth-Spiced-Apple-Mule-scaled.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Wing Experiments featuring Pilgrim’s® Jumbo Wings: Garlic-Parmesan",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Garlic-Parmesan-Wings_-Brew-Wing-Lab-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Frozen Pomegranate & Raspberry Tea featuring Twinings® Pomegranate & Raspberry Herbal Tea with Orange Ice Cream Molecules (non-alcoholic)",
+      "rename_to": "Frozen Pomegranate & Raspberry Tea",
+      "description": "featuring Twinings® Pomegranate & Raspberry Herbal Tea with Orange Ice Cream Molecules (non-alcoholic)",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Frozen-Pomegranate-and-Raspberry-Tea-Brew-Wing-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Pickle Milk Shake (non-alcoholic) (30th Anniversary Legacy Item)",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Pickle-Milk-Shake-Brew-Wing-Lab-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Wing Experiments featuring Pilgrim’s® Jumbo Wings: Unnecessarily Spicy Yet Extremely Tasty Carolina Reaper Pepper-Curry",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Unnecessarily-Spicy-Yet-Extremely-Tasty-Carolina-Reaper-Pepper-Curry-Wings-_-Brew-Wing-Lab-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Fried Pickle Spears with Dill Ranch",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Fried-Pickle-Spears-Brew-Wing-Lab-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Sweet Chile-Lime Plant-based Chicken Strips",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Sweet-Chile-Lime-Plant-based-Chicken-Strips-_-Brew-Wing-Lab-_-2026-EPCOT-Food-and-Wine-Festival.jpg"
+    },
+    {
+      "booth_name": "Brew-Wing Lab",
+      "name": "Wing Experiments featuring Pilgrim’s® Jumbo Wings: Buffalo-Dill Pickle",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Buffalo-Dill-Pickle-Wings_-Brew-Wing-Lab-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Frozen Szarlotka with Żubrówka Bison Grass Vodka",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Frozen-Szarlotka-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-12-44-12-PM-1-4032-x-3024.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Liquid Nitrogen Almond Truffle Mousse:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Liquid-Nitrogen-Almond-Truffle-Mousse-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-4.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Soft-serve in a Cone",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-swirled-showcase-cinnamon-apple-soft-serve.jpg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Ice Cream Float:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2023/09/2023-epcot-food-and-wine-festival-swirled-showcase-cream-soda-float-3.jpeg"
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Irish Milk Shake:",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Irish-Milk-Shake-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-3.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Chermoula Chicken Hummus Bowl:",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Chermoula-Chicken-Hummus-Bowl-_-Tangierine-Cafe-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Spiced Flank Steak Hummus Bowl:",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Spiced-Flank-Steak-Hummus-Bowl-_-Tangierine-Cafe-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Ras el Hanout Cauliflower Bowl:",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Ras-el-Hanout-Cauliflower-Bowl-_-Tangierine-Cafe-_-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Plant-based falafel (Plant-based)",
+      "is_active": false
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Carib Brewery Honey & Fig Dream Hard Cider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Hard-Cider-Flight-Tangierine-Cafe-_-2026-EPCOT-Food-and-Wine-Festival-honey-and-fig-dream-hard-cider.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Keel Farms Goji Berry Citrus Hard Cider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Hard-Cider-Flight-_-Tangierine-Cafe-_-2026-EPCOT-Food-Wine-Festival-gogi-berry-citrus-hard-cider.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Keel Farms Golden Apple Chai Hard Cider",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Hard-Cider-Flight-_-Tangierine-Cafe-_-2026-EPCOT-Food-and-Wine-Festival-keel-farms-golden-apple-chai-hard-cider.jpg"
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Chocolate-Pistachio Cookie",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/Chocolate-Pistachio-Cookie-Tangierine-Cafe-2026-EPCOT-Food-and-Wine-Festival-2.jpg"
+    },
+    {
+      "booth_name": "Belgium",
+      "name": "Chilled Belgian Coffee",
+      "new": true,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "description": "with ChocoLaty Deluxe Salted Caramel Chocolate Liqueur",
+      "price_usd": 12.5,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-Belgian-Coffee-non-alcoholic-Belgium-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x526.jpg"
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Wine Flight also available",
+      "is_active": false
+    },
+    {
+      "booth_name": "Festival Favorites",
+      "name": "Pumpkin Cheesecake Mousse Trifle",
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/09/2026-wdw-epcot-food-and-wine-festival-festival-favorites-pumpkin-cheesecake-mousse-trifle-1.jpg"
+    },
+    {
+      "booth_name": "Festival Favorites",
+      "name": "Frozen Apple Blossom",
+      "is_new_this_year": true,
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/09/2026-wdw-epcot-food-and-wine-festival-festival-favorites-frozen-apple-blossom-1.jpg"
+    },
+    {
+      "booth_name": "France",
+      "name": "Plaimont ELIA Colombard",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "France",
+      "name": "La Roche Prestige Cuvée",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Tartiflette",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Salomon Undhof Stein Kremstal DAC Riesling, Stein a.d. Donau, Austria",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Loimer Lois Grüner Veltliner, Niederösterreich, Austria",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Alps",
+      "name": "Schlumberger Klassik Brut, Weinviertel, Austria",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Selection of Cheeses",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Crab and Corn Macaroni and Cheese",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Cannoli Milk Shake",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Bodegas Avancia Old Vines Godello",
+      "is_new_this_year": true
+    },
+    {
+      "booth_name": "The Wedge",
+      "name": "Las Jaras Superbloom Rosé",
+      "is_new_this_year": true
     }
   ]
 }

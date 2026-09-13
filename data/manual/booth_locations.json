@@ -58,7 +58,7 @@
       "location_precision": "mapped"
     },
     {
-      "name": "Brew-Wing",
+      "name": "Brew-Wing Lab",
       "latitude": 28.372385,
       "longitude": -81.547957,
       "location_precision": "mapped"
@@ -79,7 +79,8 @@
       "name": "Coastal Eats",
       "latitude": 28.373514,
       "longitude": -81.548414,
-      "location_precision": "mapped"
+      "location_precision": "mapped",
+      "opens_at": "2026-10-02"
     },
     {
       "name": "Flavors from Fire",
@@ -115,7 +116,8 @@
       "name": "India",
       "latitude": 28.369573,
       "longitude": -81.546569,
-      "location_precision": "mapped"
+      "location_precision": "mapped",
+      "opens_at": "2026-10-02"
     },
     {
       "name": "Italy",
@@ -169,7 +171,8 @@
       "name": "The Alps",
       "latitude": 28.368565,
       "longitude": -81.546684,
-      "location_precision": "mapped"
+      "location_precision": "mapped",
+      "opens_at": "2026-10-02"
     },
     {
       "name": "The Fry Basket",
@@ -181,7 +184,8 @@
       "name": "The Wedge",
       "latitude": 28.373954,
       "longitude": -81.550073,
-      "location_precision": "mapped"
+      "location_precision": "mapped",
+      "opens_at": "2026-09-18"
     },
     {
       "name": "Bramblewood Bites",
@@ -193,7 +197,8 @@
       "name": "Earth Eats",
       "latitude": 28.373574,
       "longitude": -81.551225,
-      "location_precision": "mapped"
+      "location_precision": "mapped",
+      "opens_at": "2026-10-02"
     },
     {
       "name": "Festival Favorites",
@@ -232,7 +237,7 @@
       "location_precision": "mapped"
     },
     {
-      "name": "Swirled Showcase (NEW)",
+      "name": "Swirled Showcase",
       "latitude": 28.371811,
       "longitude": -81.55041,
       "location_precision": "mapped"

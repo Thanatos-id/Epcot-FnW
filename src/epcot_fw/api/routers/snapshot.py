@@ -14,10 +14,11 @@ import hashlib
 import json
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from posthog import Posthog
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from epcot_fw.api.deps import get_db
+from epcot_fw.api.deps import get_db, get_posthog_client
 from epcot_fw.api.schemas import (
     BoothOut,
     ConcertEventOut,
@@ -126,6 +127,7 @@ def get_snapshot(
     response: Response,
     festival_id: int | None = None,
     db: Session = Depends(get_db),
+    posthog_client: Posthog | None = Depends(get_posthog_client),  # noqa: B008
 ):
     """Everything for one festival in a single cacheable response.
 
@@ -151,5 +153,18 @@ def get_snapshot(
     # than serialising the payload the client already has.
     if request.headers.get("if-none-match") == etag:
         return Response(status_code=304, headers={"ETag": etag, "Cache-Control": CACHE_CONTROL})
+
+    if posthog_client:
+        posthog_client.capture(
+            "snapshot_refreshed",
+            properties={
+                "festival_id": festival.id,
+                "schema_version": SCHEMA_VERSION,
+                "booth_count": len(payload["booths"]),
+                "menu_item_count": len(payload["menu_items"]),
+                "event_count": len(payload["events"]),
+                "seminar_count": len(payload["seminars"]),
+            },
+        )
 
     return payload

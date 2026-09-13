@@ -3,6 +3,7 @@ import copy
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import clean_text, soupify
 from epcot_fw.parse.schemas import ExtractedRecordDTO
@@ -119,17 +120,19 @@ class AllEarsAdapter(SourceAdapter):
                                     if "contains_alcohol" in tags
                                     else "non_alcoholic_beverage"
                                 )
+                            name = strip_new_marker(item_text)
                             records.append(
                                 ExtractedRecordDTO(
                                     entity_type="menu_item",
-                                    natural_key_hint=normalize_name(item_text[:80]),
+                                    natural_key_hint=normalize_name(name),
                                     payload={
                                         "booth_name": booth_name,
-                                        "name": item_text,
+                                        "name": name,
                                         "description": None,
                                         "category": category,
                                         "price_usd": None,
                                         "dietary_tags": tags,
+                                        **new_this_year_payload(item_text),
                                     },
                                 )
                             )

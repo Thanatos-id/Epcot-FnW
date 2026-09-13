@@ -63,6 +63,7 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
                     "name": item.get("name"),
                     "public_id": item.get("public_id"),
                     "origin": item.get("origin") or "crawled",
+                    "is_new_this_year": bool(item.get("is_new_this_year")),
                     "description": item.get("description"),
                     "price": item.get("price"),
                     "category": item.get("category"),

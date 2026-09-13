@@ -86,7 +86,12 @@ FIELD_MAP: dict[str, dict[str, str]] = {
         "is_active": "is_active",
     },
     # is_active: see the booth map above - curated deletion, nothing else.
-    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url", "is_active": "is_active"},
+    # is_new_this_year: unlike the fields around it, every source can observe
+    # this one (normalize/newness.py reads the marker out of the copy each
+    # source writes), so it resolves by priority like a name or a price -
+    # which is what lets a curated `false` in the studio take back a blog
+    # calling a returning dish new.
+    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url", "is_active": "is_active", "is_new_this_year": "is_new_this_year"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},
     "seminar": {
         "title": "title",
@@ -409,8 +414,39 @@ def apply_match_outcome(
         )
         _sync_dietary_tags(session, model_obj, resolution.value or [])
 
+    if entity_type == "menu_item":
+        _enforce_alcohol_consistency(model_obj)
+
     session.flush()
     return canonical_id
+
+
+def _enforce_alcohol_consistency(menu_item: MenuItem) -> None:
+    """A dish carrying `contains_alcohol` cannot also be a non-alcoholic drink.
+
+    `category` and `dietary_tags` resolve independently and by different rules -
+    category by source priority, tags by union - so nothing otherwise stops one
+    source's category sitting beside another's tags in plain contradiction. The
+    app showed Summer in Spain as a non-alcoholic beverage with a Contains
+    Alcohol badge: Disney Food Blog read the full line once ("Frozen Simply
+    Lemonade with Yellow Chartreuse Liqueur...") and categorised it correctly,
+    then re-listed the drink by name alone on later crawls, and priority breaks
+    ties on recency, so the least informed look won.
+
+    The tag is the side to trust. normalize/dietary_tags.py is deliberately
+    broad on contains_alcohol because a miss is the costly direction, and an
+    explicit disclaimer ("non-alcoholic", "mocktail", "virgin") removes the tag
+    before it is ever set - so a dish still carrying it is one no source has
+    disclaimed, and the category beside it is simply wrong.
+
+    Only this direction is enforced. The absence of the tag is not evidence a
+    drink is soft: plenty of cocktails are named without a word this module
+    would catch, which is exactly how this dish got here.
+    """
+    if menu_item.category != "non_alcoholic_beverage":
+        return
+    if any(tag.code == "contains_alcohol" for tag in menu_item.dietary_tags):
+        menu_item.category = "alcoholic_beverage"
 
 
 def resolve_extracted_record(

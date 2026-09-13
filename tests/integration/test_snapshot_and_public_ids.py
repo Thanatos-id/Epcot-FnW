@@ -159,6 +159,28 @@ def test_the_snapshot_says_when_a_booth_opens(db_session):
         app.dependency_overrides.clear()
 
 
+def test_the_snapshot_says_which_dishes_are_new_this_year(db_session):
+    """What the whole field is for: a client filtering its menu down to what
+    the festival added this season. False for everything before it existed,
+    so a client built before it existed reads no dish as new."""
+    _seed(db_session)
+    torte = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Kirschwasser Torte")
+    ).one()
+    torte.is_new_this_year = True
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        assert {i["canonical_name"]: i["is_new_this_year"] for i in body["menu_items"]} == {
+            "Kirschwasser Torte": True, "Lamington": False,
+        }
+        assert body["schema_version"] == 1, "an additive field must not break an old client"
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_the_snapshot_says_who_took_each_photo(db_session):
     """Every photo on these pages was taken by somebody else. A client cannot
     work that out from the URL alone - the post it ran in is only knowable

@@ -350,6 +350,16 @@ def test_the_opening_date_control_is_in_the_rendered_page():
     assert "opens-later" in html
 
 
+def test_every_dish_can_be_deleted_not_just_the_hand_added_ones():
+    """The button used to be gated behind `isAdded(row)`, which left no way to
+    remove a duplicate or a mangled row the crawl produced - the case it is
+    most often needed for. Same lighter guard as the test above: catches the
+    gate coming back, not a JS behaviour bug."""
+    html = build_studio.render(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
+    assert "deleteDish" in html
+    assert "pill deleted" in html
+
+
 def test_the_credit_element_is_stable_enough_to_read_from_outside():
     """The class and the data-* attributes are the contract another page
     consumes, so they are worth a test that fails when they move."""

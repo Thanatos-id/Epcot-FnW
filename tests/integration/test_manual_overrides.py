@@ -428,6 +428,149 @@ def test_a_curated_correction_reaches_the_dish(db_session, empty_booths, items_f
     assert refreshed.price_usd == pytest.approx(Decimal("7.25"))
 
 
+def test_a_crawled_new_mark_reaches_the_dish(db_session, empty_booths, items_file):
+    """The ordinary path: a source parenthesised "(New)", so the dish carries
+    the flag without anyone curating anything."""
+    festival_id = db_session.info["festival_id"]
+    ingest(
+        db_session,
+        [
+            ExtractedRecordDTO(
+                entity_type="booth",
+                natural_key_hint="italy",
+                payload={"name": "Italy", "category": "global_marketplace"},
+            ),
+            ExtractedRecordDTO(
+                entity_type="menu_item",
+                natural_key_hint="peroni pilsner",
+                payload={
+                    "booth_name": "Italy",
+                    "name": "Peroni Pilsner",
+                    "category": "alcoholic_beverage",
+                    "dietary_tags": [],
+                    "is_new_this_year": True,
+                },
+            ),
+        ],
+        "disney_food_blog",
+        festival_id,
+        url="https://example.test/hub",
+    )
+    run_resolve(db_session, festival_id=festival_id)
+
+    dish = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Peroni Pilsner")
+    ).one()
+    assert dish.is_new_this_year is True
+
+
+def test_a_dish_no_source_marked_is_not_new(db_session):
+    """The default, and the reason absence is never written as `False`: the
+    flag is a claim somebody made, not the lack of one."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).is_new_this_year is False
+
+
+def test_curation_can_take_back_a_dish_a_blog_called_new(db_session, empty_booths, items_file):
+    """Disney Food Blog marks returning dishes new often enough that this is
+    the correction the studio's toggle exists for. Nothing in a crawl can say
+    "not new" - only a person can - so this is the only route back."""
+    festival_id = db_session.info["festival_id"]
+    ingest(
+        db_session,
+        [
+            ExtractedRecordDTO(
+                entity_type="booth",
+                natural_key_hint="belgium",
+                payload={"name": "Belgium", "category": "global_marketplace"},
+            ),
+            ExtractedRecordDTO(
+                entity_type="menu_item",
+                natural_key_hint="belgian waffle",
+                payload={
+                    "booth_name": "Belgium",
+                    "name": "Belgian Waffle",
+                    "category": "food",
+                    "dietary_tags": [],
+                    "is_new_this_year": True,
+                },
+            ),
+        ],
+        "disney_food_blog",
+        festival_id,
+        url="https://example.test/hub",
+    )
+    run_resolve(db_session, festival_id=festival_id)
+    dish = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Belgian Waffle")
+    ).one()
+    assert dish.is_new_this_year is True
+
+    path = items_file(
+        [{"booth_name": "Belgium", "name": "Belgian Waffle", "is_new_this_year": False}]
+    )
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).is_new_this_year is False
+
+
+def test_applying_a_rename_twice_does_not_create_a_second_dish(db_session, empty_booths, items_file):
+    """The bug that put four Frozen Szarlotkas in the database.
+
+    A rename matches on the old name. Once it has been applied there is no old
+    name left to match, so the second run found nothing, created the dish
+    instead, and did it again every run after that. Only renames that
+    genuinely change the name were affected - one that just drops a trailing
+    "*" still scores 100 through normalize_name."""
+    festival_id = db_session.info["festival_id"]
+    _seed_dish(db_session, festival_id, dish="Frozen Szarlotka: Apple Pie Filling and Cider")
+
+    rename = [{
+        "booth_name": "Italy",
+        "name": "Frozen Szarlotka: Apple Pie Filling and Cider",
+        "rename_to": "Frozen Szarlotka",
+    }]
+
+    def apply(payload):
+        stage_manual_overrides(db_session, path=empty_booths, items_path=items_file(payload))
+        run_resolve(db_session, festival_id=festival_id)
+
+    apply(rename)
+    named = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Frozen Szarlotka")
+    ).all()
+    assert len(named) == 1, "the rename itself has to land"
+
+    # The same file again, plus an unrelated edit so the content hash moves and
+    # it genuinely re-stages rather than short-circuiting as unchanged.
+    apply(rename + [{"booth_name": "Italy", "name": "Peroni Pilsner", "price_usd": "7.00"}])
+
+    still = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Frozen Szarlotka")
+    ).all()
+    assert len(still) == 1, f"re-applying a rename duplicated the dish: {len(still)} rows"
+
+
+def test_a_rename_still_finds_the_dish_the_first_time(db_session, empty_booths, items_file):
+    """The guard above must not break the case it is guarding - a rename whose
+    old name is still there has to go on matching the old name, or nothing
+    would ever get renamed at all."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id, dish="Peroni Pilsner ")
+
+    path = items_file([
+        {"booth_name": "Italy", "name": "Peroni Pilsner ", "rename_to": "Peroni Pilsner"}
+    ])
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).canonical_name == "Peroni Pilsner"
+
+
 def test_a_wrong_photo_can_be_cleared(db_session, empty_booths, items_file):
     """The studio's Clear button, end to end.
 
@@ -571,3 +714,47 @@ def test_restaging_unchanged_files_stages_nothing(db_session, overrides_file, it
 
     assert stage_manual_overrides(db_session, path=booths, items_path=items) == 2
     assert stage_manual_overrides(db_session, path=booths, items_path=items) == 0
+
+
+def test_a_mistyped_dish_category_is_refused(tmp_path):
+    """The client maps this string with a switch whose default is Food, so an
+    unrecognised value never errors anywhere - it silently files a cocktail
+    under Food. Catching it at apply time is the only place it shows up."""
+    path = tmp_path / "menu_items.json"
+    path.write_text(
+        json.dumps(
+            {"menu_items": [
+                {"booth_name": "Japan", "name": "Kirinzan Lemonade Sake", "category": "beverage"}
+            ]}
+        )
+    )
+    with pytest.raises(ValueError, match="not one of"):
+        load_menu_item_overrides(path)
+
+
+def test_the_three_real_categories_are_accepted(tmp_path):
+    path = tmp_path / "menu_items.json"
+    path.write_text(
+        json.dumps(
+            {"menu_items": [
+                {"booth_name": "Japan", "name": f"Dish {c}", "category": c}
+                for c in ("food", "alcoholic_beverage", "non_alcoholic_beverage")
+            ]}
+        )
+    )
+    assert [e["category"] for e in load_menu_item_overrides(path)] == [
+        "food", "alcoholic_beverage", "non_alcoholic_beverage"
+    ]
+
+
+def test_an_entry_with_no_category_is_untouched(tmp_path):
+    """Most curated entries only set a photo or a description; the guard must
+    not turn "I said nothing about the category" into an error."""
+    path = tmp_path / "menu_items.json"
+    path.write_text(
+        json.dumps({"menu_items": [{"booth_name": "Japan", "name": "Sapporo Reserve",
+                                    "description": "A lager"}]})
+    )
+    entries = load_menu_item_overrides(path)
+    assert len(entries) == 1
+    assert "category" not in entries[0]

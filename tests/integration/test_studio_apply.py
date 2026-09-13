@@ -229,6 +229,23 @@ def test_a_booth_opening_date_reaches_the_curated_file(workspace):
     assert _booths(workspace)[0]["opens_at"] == "2026-09-18"
 
 
+def test_a_new_this_year_correction_reaches_the_curated_file(workspace):
+    """Both directions have to survive the export. `false` especially: it is
+    the only thing that can take back a blog calling a returning dish new,
+    and a filter that drops falsy values would silently discard it."""
+    _apply(workspace, {
+        "version": 1,
+        "menu_items": [
+            {"booth_name": "Japan", "name": "Kirinzan Lemonade Sake", "is_new_this_year": True},
+            {"booth_name": "Belgium", "name": "Belgian Waffle", "is_new_this_year": False},
+        ],
+    })
+
+    by_name = {e["name"]: e for e in _items(workspace)}
+    assert by_name["Kirinzan Lemonade Sake"]["is_new_this_year"] is True
+    assert by_name["Belgian Waffle"]["is_new_this_year"] is False
+
+
 def test_an_unknown_key_is_dropped_rather_than_written_into_a_curated_file(workspace):
     """The curated files are read by people too; a key nothing understands
     would sit in one forever meaning nothing."""

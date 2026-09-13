@@ -7,6 +7,7 @@ from urllib.parse import urljoin, urlparse
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import all_prices, clean_text, soupify
 from epcot_fw.parse.images import extract_captioned_images
@@ -396,8 +397,20 @@ def _inline_menu_item(
         return None
     text = _strip_new_badge(text)
 
+    # Read the season's mark off the whole line, then take it out of the line,
+    # before anything downstream is cut from it. Reading it later and stripping
+    # only the name leaves the mark behind as the description: the line
+    # "Sapporo Reserve (New)" minus the name "Sapporo Reserve" is "(New)", and
+    # that is what a guest would have been shown under the dish.
+    is_new = new_this_year_payload(text)
+    text = strip_new_marker(text)
+
     name_tag = li.find("strong")
-    name = _strip_new_badge(clean_text(name_tag.get_text())) if name_tag is not None else ""
+    name = (
+        strip_new_marker(_strip_new_badge(clean_text(name_tag.get_text())))
+        if name_tag is not None
+        else ""
+    )
     if not name:
         # Either there was no <strong> at all, or it turned out to be nothing
         # but the badge (name text is a plain sibling, not inside it) - both
@@ -414,7 +427,7 @@ def _inline_menu_item(
 
     record = ExtractedRecordDTO(
         entity_type="menu_item",
-        natural_key_hint=normalize_name(name[:80]),
+        natural_key_hint=normalize_name(name),
         payload={
             "booth_name": booth_name,
             "name": name,
@@ -424,6 +437,7 @@ def _inline_menu_item(
             # the single-serving price is the comparable one.
             "price_usd": str(min(prices)) if prices else None,
             "dietary_tags": tags,
+            **is_new,
         },
     )
     return record, fallback
@@ -441,14 +455,25 @@ def _restore_colliding_names(
     the Baileys in it. Where that would happen, both lines keep their full
     text as the name: a long name is a much smaller problem than a missing
     drink.
+
+    Collision is judged on the *normalized* name, not the raw one, because
+    normalize_name is the key resolution actually matches on. Swirled Showcase
+    lists its Frozen Szarlotka twice - "Frozen Szarlotka" non-alcoholic and
+    "Frozen Szarlotka:" with Zubrowka Bison Grass Vodka - and comparing raw
+    names read that trailing colon as a difference where the matcher sees
+    none. The two lines passed through here as distinct and were merged one
+    layer down anyway, into a single row that described itself as
+    non-alcoholic while carrying the contains_alcohol tag off the other. A
+    difference this function trusts has to be one the matcher will still see.
     """
-    counts = Counter(record.payload["name"] for record, _ in parsed)
+    counts = Counter(normalize_name(record.payload["name"]) for record, _ in parsed)
     records = []
     for record, fallback in parsed:
-        if counts[record.payload["name"]] > 1 and fallback != record.payload["name"]:
+        key = normalize_name(record.payload["name"])
+        if counts[key] > 1 and normalize_name(fallback) != key:
             record.payload["name"] = fallback
             record.payload["description"] = None
-            record.natural_key_hint = normalize_name(fallback[:80])
+            record.natural_key_hint = normalize_name(fallback)
         records.append(record)
     return records
 
@@ -664,7 +689,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
         return [
             ExtractedRecordDTO(
                 entity_type="menu_item",
-                natural_key_hint=normalize_name(image.caption[:80]),
+                natural_key_hint=normalize_name(image.caption),
                 payload={
                     "booth_name": booth_name,
                     "name": image.caption,
@@ -701,7 +726,7 @@ class DisneyFoodBlogAdapter(SourceAdapter):
             records.append(
                 ExtractedRecordDTO(
                     entity_type="menu_item",
-                    natural_key_hint=normalize_name(image.caption[:80]),
+                    natural_key_hint=normalize_name(image.caption),
                     payload={
                         "booth_name": booth_name,
                         "name": image.caption,
@@ -831,17 +856,24 @@ class DisneyFoodBlogAdapter(SourceAdapter):
                                         if "contains_alcohol" in tags
                                         else "non_alcoholic_beverage"
                                     )
+                                # Read before stripping, and strip both: the
+                                # description here is the whole line, so a
+                                # mark left in it is shown under the dish.
+                                is_new = new_this_year_payload(item_text)
                                 records.append(
                                     ExtractedRecordDTO(
                                         entity_type="menu_item",
-                                        natural_key_hint=normalize_name(item_name[:80]),
+                                        natural_key_hint=normalize_name(
+                                            strip_new_marker(item_name)
+                                        ),
                                         payload={
                                             "booth_name": booth_name,
-                                            "name": item_name,
-                                            "description": item_text,
+                                            "name": strip_new_marker(item_name),
+                                            "description": strip_new_marker(item_text),
                                             "category": category,
                                             "price_usd": str(price) if price else None,
                                             "dietary_tags": tags,
+                                            **is_new,
                                         },
                                     )
                                 )

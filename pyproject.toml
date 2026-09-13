@@ -19,6 +19,7 @@ dependencies = [
     "fastapi>=0.111",
     "uvicorn[standard]>=0.30",
     "feedparser>=6.0",
+    "posthog>=7.29.0",
 ]
 
 [project.optional-dependencies]

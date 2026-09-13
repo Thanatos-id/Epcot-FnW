@@ -13,6 +13,7 @@ from sqlalchemy import (
     Text,
     Time,
     UniqueConstraint,
+    false,
     func,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -274,6 +275,12 @@ class MenuItem(Base):
     # See Booth.origin - a dish added by hand survives the next crawl only
     # because reconcile.py can tell it apart from a crawled one.
     origin: Mapped[str] = mapped_column(Text, nullable=False, server_default="crawled")
+    # New to this festival, lifted out of the "(New)"/"NEW!" marker the sources
+    # write into the copy (normalize/newness.py). Scoped by the row's own
+    # lifetime: next festival brings its own booths, and its own dishes.
+    is_new_this_year: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=false(), default=False
+    )
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
