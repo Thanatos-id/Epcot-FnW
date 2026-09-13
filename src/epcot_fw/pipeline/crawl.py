@@ -5,6 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from epcot_fw.db.models import CrawlRun, ExtractedRecord, Festival, Source
+from epcot_fw.festival import require_current_festival
 from epcot_fw.fetch import cache, http_client
 from epcot_fw.fetch.http_client import RobotsDisallowedError
 from epcot_fw.pipeline.manual import stage_manual_overrides
@@ -20,10 +21,12 @@ EMPTY_STATS = {"pages_fetched": 0, "pages_changed": 0, "records_extracted": 0, "
 
 
 def _current_festival(session: Session) -> Festival:
-    festival = session.scalars(select(Festival).order_by(Festival.year.desc())).first()
-    if festival is None:
-        raise RuntimeError("No festival row found - run `epcot-fw db seed` first.")
-    return festival
+    """The festival happening now - see epcot_fw.festival.current_festival.
+
+    Kept as a name here because five pipelines and the CLI import it from
+    this module.
+    """
+    return require_current_festival(session)
 
 
 def _fetch_and_stage(

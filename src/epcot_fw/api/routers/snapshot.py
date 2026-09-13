@@ -28,6 +28,7 @@ from epcot_fw.api.schemas import (
     SnapshotOut,
 )
 from epcot_fw.db.models import Booth, ConcertEvent, Festival, MenuItem, Seminar
+from epcot_fw.festival import current_festival
 from epcot_fw.pipeline.photo_source import image_sources
 
 router = APIRouter(tags=["snapshot"])
@@ -128,16 +129,15 @@ def get_snapshot(
 ):
     """Everything for one festival in a single cacheable response.
 
-    Defaults to the newest festival so a client needs no prior knowledge to
-    make its first call.
+    Defaults to the festival happening now so a client needs no prior
+    knowledge to make its first call. Not the newest row: next year's has to
+    exist before that festival opens, and answering with it while this year
+    is still serving hands the client an empty payload.
     """
-    stmt = select(Festival)
-    stmt = (
-        stmt.where(Festival.id == festival_id)
-        if festival_id
-        else stmt.order_by(Festival.year.desc())
-    )
-    festival = db.scalars(stmt).first()
+    if festival_id:
+        festival = db.scalars(select(Festival).where(Festival.id == festival_id)).first()
+    else:
+        festival = current_festival(db)
     if festival is None:
         raise HTTPException(status_code=404, detail="festival not found")
 

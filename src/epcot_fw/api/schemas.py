@@ -3,7 +3,9 @@ import uuid
 from decimal import Decimal
 from typing import Generic, TypeVar
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
+
+from epcot_fw.festival import festival_status
 
 T = TypeVar("T")
 
@@ -33,8 +35,33 @@ class FestivalOut(BaseModel):
     slug: str
     start_date: datetime.date | None
     end_date: datetime.date | None
+    # `upcoming`, `running` or `ended`, worked out from the dates below
+    # rather than read off the row - see the validator.
     status: str
     official_url: str | None
+
+    @model_validator(mode="after")
+    def _status_from_the_dates(self):
+        """Answer with where the festival actually is in its run.
+
+        The column is written once, at seed time, and nothing in the codebase
+        ever moved it - so it said `upcoming` for the whole of a running
+        festival, to every client reading the field. The dates are the thing
+        that knows, so they are what answers.
+
+        This makes the payload depend on the clock, which `data_updated_at`
+        deliberately does not. The cost is two ETag changes a year, on the
+        opening and closing days, for rows the database did not touch. That
+        is the data genuinely changing, and it is the only clock dependency
+        here: a status that is wrong for three months is the alternative.
+
+        The stored value still stands when the dates are unknown, which is
+        every row between seeding and the first crawl that finds them.
+        """
+        derived = festival_status(self.start_date, self.end_date)
+        if derived is not None:
+            self.status = derived
+        return self
 
 
 class BoothOut(BaseModel):
