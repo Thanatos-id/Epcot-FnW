@@ -379,6 +379,7 @@ input[type="file"] { display: none; }
 .pill.unplaced { background: var(--surface-2); color: var(--ink-muted); }
 .pill.curated { background: var(--accent-soft); color: var(--accent); }
 .pill.opens-later { background: var(--warn-soft); color: var(--warn); }
+.pill.deleted { background: var(--warn-soft); color: var(--warn); }
 .geo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
 
 .cell-input {
@@ -908,6 +909,21 @@ footer a { color: var(--accent); }
     render();
   }
 
+  // A row typed in here and never exported just goes - there is nothing to
+  // undo and nothing downstream has heard of it. Deleting a dish that is
+  // already in the database is a different act: it travels as a curated
+  // `is_active: false`, which beats the crawl that keeps listing it, so it
+  // stays gone until somebody says otherwise. Worth one question.
+  function deleteDish(row) {
+    if (!row._id) {
+      var name = valueOf(row, 'name') || 'this dish';
+      if (!confirm('Delete "' + name + '"?\n\nIt stops showing in the app once you export this ' +
+                   'changeset and apply it, and stays gone through future crawls. Undo is right ' +
+                   'here until you export.')) return;
+    }
+    removeRow(row);
+  }
+
   function changeCount() {
     var n = 0;
     itemRows().forEach(function (r) { if (isRowChanged(r)) n++; });
@@ -1417,11 +1433,13 @@ footer a { color: var(--accent); }
 
     // No booth label: these rows only ever appear under that booth's own
     // heading, and repeating it 209 times was noise even when they didn't.
-    if (isAdded(row)) {
+    // A deleted row says so whatever its origin - a crawled dish dimmed to
+    // 55% and nothing else would read as a rendering glitch.
+    if (isAdded(row) || isDeleted(row)) {
       var head = document.createElement('div');
       head.className = 'row-head';
       var pill = document.createElement('span');
-      pill.className = 'pill curated';
+      pill.className = isDeleted(row) ? 'pill deleted' : 'pill curated';
       pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
       head.appendChild(pill);
       fields.appendChild(head);
@@ -1442,11 +1460,12 @@ footer a { color: var(--accent); }
     var actions = document.createElement('div');
     actions.className = 'field-row';
     if (isRowChanged(row) && !row._id) actions.appendChild(button('Revert', 'linkish', function () { revert(row); }));
-    if (isAdded(row)) {
-      actions.appendChild(isDeleted(row)
-        ? button('Undo delete', 'linkish', function () { undelete(row); })
-        : button('Delete', 'linkish', function () { removeRow(row); }));
-    }
+    // Every dish, not only the hand-added ones: the crawl lists the same dish
+    // twice under two spellings often enough, and a wrong row nobody can
+    // remove is a wrong row the app goes on showing.
+    actions.appendChild(isDeleted(row)
+      ? button('Undo delete', 'linkish', function () { undelete(row); })
+      : button('Delete', 'linkish', function () { deleteDish(row); }));
     if (actions.childNodes.length) fields.appendChild(actions);
 
     card.appendChild(fields);
@@ -1539,12 +1558,29 @@ footer a { color: var(--accent); }
     opening.appendChild(openingLabel);
     var openingInput = makeInput(row, 'opens_at', 'date');
     opening.appendChild(openingInput);
-    openingInput.addEventListener('change', function () {
-      // The header's pill is a preview, not a form field - `markRow` (wired
-      // up inside makeInput) already refreshes the rail's own copy of it,
-      // so only this one needs a manual nudge, and only this one element,
-      // rather than re-rendering the whole detail pane and losing whatever
-      // else was mid-edit below it (an expanded tag picker, a focused field).
+
+    // A date is far easier to set than to unset: the native control offers no
+    // clear of its own on every browser, so a date typed by mistake - or a
+    // booth that turns out to open with everything else - had no way back
+    // except retyping something wrong. Mirrors the photo row's Clear, and
+    // stages the same explicit null, which is what erases the field rather
+    // than leaving it open for a later source (see NULLABLE_BOOTH_FIELDS).
+    var openingClear = button('Clear', 'small', function () {
+      setValue(row, 'opens_at', null);
+      openingInput.value = '';
+      openingInput.classList.toggle('changed', !!edited(row, 'opens_at'));
+      markRow(openingInput, row);
+      syncOpening();
+    });
+    opening.appendChild(openingClear);
+
+    // The header's pill is a preview, not a form field - `markRow` (wired up
+    // inside makeInput) already refreshes the rail's own copy of it, so only
+    // this one needs a manual nudge, and only this one element, rather than
+    // re-rendering the whole detail pane and losing whatever else was
+    // mid-edit below it (an expanded tag picker, a focused field).
+    function syncOpening() {
+      openingClear.style.display = valueOf(row, 'opens_at') ? '' : 'none';
       if (openingPill) { openingPill.remove(); openingPill = null; }
       var stillFuture = opensAtIfFuture(row);
       if (stillFuture) {
@@ -1553,7 +1589,13 @@ footer a { color: var(--accent); }
         openingPill.textContent = 'Opens ' + formatOpeningDate(stillFuture);
         head.appendChild(openingPill);
       }
-    });
+    }
+
+    openingInput.addEventListener('change', syncOpening);
+    // Only the button's visibility on first render - the pill above was just
+    // built by the header and is already right; rebuilding it here would be
+    // DOM churn for an identical result.
+    openingClear.style.display = valueOf(row, 'opens_at') ? '' : 'none';
     fields.appendChild(opening);
 
     var geo = document.createElement('div');

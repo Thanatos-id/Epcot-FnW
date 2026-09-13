@@ -518,6 +518,59 @@ def test_curation_can_take_back_a_dish_a_blog_called_new(db_session, empty_booth
     assert db_session.get(MenuItem, dish.id).is_new_this_year is False
 
 
+def test_applying_a_rename_twice_does_not_create_a_second_dish(db_session, empty_booths, items_file):
+    """The bug that put four Frozen Szarlotkas in the database.
+
+    A rename matches on the old name. Once it has been applied there is no old
+    name left to match, so the second run found nothing, created the dish
+    instead, and did it again every run after that. Only renames that
+    genuinely change the name were affected - one that just drops a trailing
+    "*" still scores 100 through normalize_name."""
+    festival_id = db_session.info["festival_id"]
+    _seed_dish(db_session, festival_id, dish="Frozen Szarlotka: Apple Pie Filling and Cider")
+
+    rename = [{
+        "booth_name": "Italy",
+        "name": "Frozen Szarlotka: Apple Pie Filling and Cider",
+        "rename_to": "Frozen Szarlotka",
+    }]
+
+    def apply(payload):
+        stage_manual_overrides(db_session, path=empty_booths, items_path=items_file(payload))
+        run_resolve(db_session, festival_id=festival_id)
+
+    apply(rename)
+    named = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Frozen Szarlotka")
+    ).all()
+    assert len(named) == 1, "the rename itself has to land"
+
+    # The same file again, plus an unrelated edit so the content hash moves and
+    # it genuinely re-stages rather than short-circuiting as unchanged.
+    apply(rename + [{"booth_name": "Italy", "name": "Peroni Pilsner", "price_usd": "7.00"}])
+
+    still = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Frozen Szarlotka")
+    ).all()
+    assert len(still) == 1, f"re-applying a rename duplicated the dish: {len(still)} rows"
+
+
+def test_a_rename_still_finds_the_dish_the_first_time(db_session, empty_booths, items_file):
+    """The guard above must not break the case it is guarding - a rename whose
+    old name is still there has to go on matching the old name, or nothing
+    would ever get renamed at all."""
+    festival_id = db_session.info["festival_id"]
+    dish = _seed_dish(db_session, festival_id, dish="Peroni Pilsner ")
+
+    path = items_file([
+        {"booth_name": "Italy", "name": "Peroni Pilsner ", "rename_to": "Peroni Pilsner"}
+    ])
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, dish.id).canonical_name == "Peroni Pilsner"
+
+
 def test_a_wrong_photo_can_be_cleared(db_session, empty_booths, items_file):
     """The studio's Clear button, end to end.
 

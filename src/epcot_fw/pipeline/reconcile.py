@@ -32,8 +32,18 @@ letting this pass judge them would retire every one of them on the next
 crawl. Their `is_active` comes from the curated file instead, which is how
 deleting a hand-added dish works.
 
+A row whose `is_active` was set by hand is skipped for a related reason. The
+studio can delete an ordinary crawled dish - a duplicate, or one the parser
+mangled - and there the source keeps listing it week after week, so support
+alone would vote it back on every single crawl. Deleting it would appear to
+work, right up until the next refresh put it back with nothing to announce
+that it had. Curation beats a crawl at priority_rank 0 for every other
+field; `is_active` is the one field this pass also writes, so it has to
+honour the same rule rather than quietly overrule it.
+
 Reactivation is handled by the same pass: support is recomputed from scratch
-each run, so a booth that returns next season comes back on its own.
+each run, so a booth that returns next season comes back on its own - unless
+somebody curated its `is_active`, which is the point above.
 """
 
 import logging
@@ -42,7 +52,15 @@ from dataclasses import dataclass, field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from epcot_fw.db.models import Booth, CanonicalLink, ExtractedRecord, MenuItem, RawPage, Source
+from epcot_fw.db.models import (
+    Booth,
+    CanonicalLink,
+    EntityFieldProvenance,
+    ExtractedRecord,
+    MenuItem,
+    RawPage,
+    Source,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -106,6 +124,30 @@ def _supported_ids(
     return set(session.scalars(stmt).all())
 
 
+def _curated_is_active_ids(
+    session: Session, manual_source_ids: list[int]
+) -> set[tuple[str, int]]:
+    """`(entity_type, canonical_id)` for every row whose live `is_active` was
+    decided by curation rather than by a crawl.
+
+    Curation reaches `is_active` the same way it reaches any other field -
+    staged as a `manual` observation at priority_rank 0, which wins field
+    resolution - so the provenance row that resolution selected is the honest
+    record of who decided it, and the thing to ask.
+    """
+    if not manual_source_ids:
+        return set()
+
+    stmt = select(
+        EntityFieldProvenance.entity_type, EntityFieldProvenance.canonical_id
+    ).where(
+        EntityFieldProvenance.field_name == "is_active",
+        EntityFieldProvenance.source_id.in_(manual_source_ids),
+        EntityFieldProvenance.is_selected.is_(True),
+    )
+    return set(session.execute(stmt).all())
+
+
 def _guard(
     label: str, active_count: int, losing_count: int, force: bool, *, ratio_guard: bool
 ) -> str | None:
@@ -145,16 +187,38 @@ def run_reconciliation(
     # Hand-added rows are not up for judgement here - not for retirement, and
     # not as part of the totals the guards below are measured against, where
     # they would only dilute the ratio that is meant to catch a broken parse.
-    booths = [b for b in all_booths if b.origin != CURATED_ORIGIN]
-    items = [i for i in all_items if i.origin != CURATED_ORIGIN]
+    #
+    # Neither is any row whose `is_active` somebody set by hand. That covers
+    # the studio's Delete on an ordinary crawled dish - a duplicate, or one
+    # the parser got wrong - where the source goes on listing it every week
+    # and support alone would vote it back on every crawl. A delete that
+    # undoes itself next Tuesday is worse than none at all, because nothing
+    # announces it. Curation wins field resolution at priority_rank 0
+    # everywhere else; this is that same rule, applied to the one field this
+    # pass also writes.
+    curated_active = _curated_is_active_ids(session, manual_source_ids)
+    booths = [
+        b for b in all_booths
+        if b.origin != CURATED_ORIGIN and ("booth", b.id) not in curated_active
+    ]
+    items = [
+        i for i in all_items
+        if i.origin != CURATED_ORIGIN and ("menu_item", i.id) not in curated_active
+    ]
     booth_ids = {b.id for b in booths}
 
     supported_booths = _supported_ids(session, "booth", manual_source_ids) & booth_ids
     supported_items = _supported_ids(session, "menu_item", manual_source_ids) & {i.id for i in items}
 
     # A dish cannot outlive the booth that serves it, even if some page still
-    # mentions it in isolation.
-    curated_booth_ids = {b.id for b in all_booths if b.origin == CURATED_ORIGIN and b.is_active}
+    # mentions it in isolation. A booth this pass does not judge - hand-added,
+    # or with an is_active somebody curated - is still somewhere to serve
+    # from, so long as it is actually active.
+    curated_booth_ids = {
+        b.id
+        for b in all_booths
+        if b.is_active and (b.origin == CURATED_ORIGIN or ("booth", b.id) in curated_active)
+    }
     supported_items = {
         i.id
         for i in items

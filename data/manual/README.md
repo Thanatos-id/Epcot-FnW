@@ -241,5 +241,13 @@ epcot-fw manual        # stage + re-resolve
   back with `origin = "curated"`, which is what stops the next crawl
   retiring it for having no source behind it. Delete one with
   `is_active: false`.
+- **`is_active: false` deletes any dish, not only a hand-added one.** The
+  studio's **Delete** sits on every dish for the case it is most needed:
+  a duplicate the crawl published twice under two spellings, or a row the
+  parser mangled. The dish drops out of the feed the app reads, and it
+  *stays* out - reconciliation leaves a row alone once curation has set its
+  `is_active`, so the source listing it again next week does not undo you.
+  Take it back by removing the entry from this file, or with
+  `is_active: true`.
 - Coordinates are decimal degrees (WGS84). Five decimal places is roughly a
   metre, far more precision than distance-sorting needs.

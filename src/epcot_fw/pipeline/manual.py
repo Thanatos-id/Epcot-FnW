@@ -28,7 +28,7 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from epcot_fw.db.models import ExtractedRecord, RawPage, Source
+from epcot_fw.db.models import Booth, ExtractedRecord, MenuItem, RawPage, Source
 from epcot_fw.normalize.text import normalize_name
 
 logger = logging.getLogger(__name__)
@@ -259,6 +259,52 @@ def _content_hash(entries: list[dict[str, Any]]) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def _dishes_by_booth(session: Session) -> dict[str, set[str]]:
+    """Normalized dish names already in the database, keyed by normalized booth
+    name. Both sides normalized because a curated `booth_name` is matched
+    fuzzily like any other, so it need not be byte-identical either."""
+    rows = session.execute(
+        select(MenuItem.canonical_name, Booth.canonical_name).join(
+            Booth, Booth.id == MenuItem.booth_id
+        )
+    ).all()
+    index: dict[str, set[str]] = {}
+    for dish_name, booth_name in rows:
+        index.setdefault(normalize_name(booth_name), set()).add(normalize_name(dish_name))
+    return index
+
+
+def _match_name(entry: dict[str, Any], index: dict[str, set[str]]) -> str:
+    """Which name a curated dish entry should be matched on.
+
+    Normally the old one: a rename says "find the dish called X and call it Y",
+    so X is what finds it. The trouble starts on the *second* run. By then the
+    rename has been applied and there is no X any more - the row is called Y -
+    so the old name matches nothing, and a curated record that matches nothing
+    is created rather than dropped. The dish that was only ever meant to be
+    renamed now exists twice, and once more on every run after that. That is
+    how one Frozen Szarlotka became four.
+
+    A rename that only moves punctuation survives it, because normalize_name
+    strips punctuation and the old key still scores 100 against the new row -
+    which is why "Roasted Lamb Chop*" never multiplied and the two that
+    genuinely shortened a name did.
+
+    So: once the booth holds the new name and no longer holds the old one, the
+    rename has already happened. Match on the new name and correct the row
+    that is there.
+    """
+    old = entry.get(MATCH_KEY) or entry["name"]
+    new = entry["name"]
+    if normalize_name(old) == normalize_name(new):
+        return old
+
+    dishes = index.get(normalize_name(entry.get("booth_name") or ""), set())
+    if normalize_name(old) not in dishes and normalize_name(new) in dishes:
+        return new
+    return old
+
+
 def _stage(
     session: Session,
     source: Source,
@@ -292,9 +338,18 @@ def _stage(
     session.add(raw_page)
     session.flush()
 
+    # Only built when a rename is actually present, and only for dishes -
+    # booth entries carry no match key of their own.
+    index = (
+        _dishes_by_booth(session)
+        if entity_type == "menu_item"
+        and any(e.get(MATCH_KEY) and e[MATCH_KEY] != e.get("name") for e in entries)
+        else None
+    )
+
     for entry in entries:
         payload = {k: v for k, v in entry.items() if k != MATCH_KEY}
-        match_name = entry.get(MATCH_KEY)
+        match_name = _match_name(entry, index) if index is not None else entry.get(MATCH_KEY)
         session.add(
             ExtractedRecord(
                 raw_page_id=raw_page.id,
