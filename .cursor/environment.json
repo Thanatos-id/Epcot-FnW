@@ -1,0 +1,12 @@
+{
+  "name": "Epcot Food & Wine",
+  "install": ".cursor/install.sh",
+  "start": ".cursor/start.sh",
+  "terminals": [
+    {
+      "name": "api",
+      "command": "python3 -m uvicorn epcot_fw.api.main:app --host 127.0.0.1 --port 8000 --reload"
+    }
+  ],
+  "ports": [8000]
+}
