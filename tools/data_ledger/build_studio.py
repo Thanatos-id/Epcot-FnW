@@ -54,6 +54,7 @@ TAGS = (
     "contains_alcohol",
     "spicy",
     "contains_nuts",
+    "contains_shellfish",
 )
 
 # World Showcase's rough centre - every booth sits within a few hundred
@@ -1769,7 +1770,14 @@ footer a { color: var(--accent); }
         entry.name = valueOf(row, 'name');
         entry['new'] = true;
         entry.category = valueOf(row, 'category') || 'food';
-        entry.dietary_tags = valueOf(row, 'tags') || [];
+        // Only when tags were actually ticked. An empty list is not "no tags
+        // yet" downstream - it is a curated statement that none apply, it
+        // wins at priority_rank 0, and it *replaces* whatever the crawl
+        // detected rather than adding to it. Exported blindly from the Add
+        // form's empty default, it silently stripped the alcohol tag off four
+        // drinks that plainly said Bourbon and Vodka in their own names.
+        var newTags = valueOf(row, 'tags') || [];
+        if (newTags.length) entry.dietary_tags = newTags;
         if (valueOf(row, 'is_new_this_year')) entry.is_new_this_year = true;
         // Only what was actually filled in. A null here is read downstream as
         // "this field should be empty", which is not what a blank Add form

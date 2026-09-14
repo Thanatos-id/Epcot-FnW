@@ -130,3 +130,72 @@ def test_dietary_claims_are_only_made_when_the_source_makes_them():
 def test_no_text_yields_no_tags():
     assert extract_dietary_tags() == []
     assert extract_dietary_tags("", None) == []
+
+
+# ---------------------------------------------------------------------------
+# shellfish
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("Crab Cake with Tropical Fruit Chutney", True),
+        ("Gulf Coast-style Seafood Roll with Warm-Water Lobster, Rock Shrimp", True),
+        ("Seafood Pot Pie with Shrimp, Scallops, and Lobster Bisque", True),
+        ("Moqueca de Camarão: Plancha-seared Shrimp in Coconut Milk Broth", True),
+        ("Seafood Salad with Bay Scallops, Mussels, Olive Oil", True),
+        # Molluscs a guest avoiding shellfish would not expect to meet.
+        ("Trio d'Escargots, Garniture a l'ail et au Persil", True),
+        ("Grilled Octopus with Salsa Verde", True),
+        # Nothing shellfish about these.
+        ("Beijing Zhajiang Noodles with Stir-fried Minced Beef", False),
+        ("Pão de Queijo: Brazilian Cheese Bread", False),
+        ("Crab Apple Cider Doughnut", True),  # "crab" alone is enough; a miss costs more
+    ],
+)
+def test_shellfish_detection(text, expected):
+    assert ("contains_shellfish" in tags(text)) is expected
+
+
+# ---------------------------------------------------------------------------
+# heat by name, not just the word "spicy"
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("Seoul, South Korea Bo Ssam Pork Poutine with Gochujang Gravy, Kimchi", True),
+        ("Spiced Flank Steak Hummus Bowl with Harissa Yogurt", True),
+        ("BBQ Braai Chicken Pizza with Piri Piri Sauce", True),
+        ("Taco de Camaron with Chipotle Aïoli", True),
+        ("Berry Ice Pop topped with Chili-Lime Seasoning", True),
+        ("Mango-Apple Fruit Pearl with Wasabi-Soy Sauce", True),
+        ("Unnecessarily Spicy Carolina Reaper Pepper-Curry Wings", True),
+        # The ham, not the pepper - this menu says "Jamón Serrano" far more
+        # often than it says the chile, and the bare word filed it as spicy.
+        ("Croquetas de Jamón with Saffron Aïoli and Shaved Jamón Serrano", False),
+        ("Freshly Baked Carrot Cake with Cream Cheese Frosting", False),
+    ],
+)
+def test_heat_detection(text, expected):
+    assert ("spicy" in tags(text)) is expected
+
+
+def test_gluten_friendly_survives_the_separator_the_menus_actually_use():
+    """The 2026 menus write "(Gluten/ Wheat Friendly)" - a slash AND a space.
+    A single optional separator matched the slash and then failed on the
+    space, so every gluten-friendly dish was invisible to the one filter
+    people search *for*."""
+    assert "gluten_free" in tags("Pão de Queijo: Brazilian cheese bread (Gluten/ Wheat Friendly)")
+    assert "gluten_free" in tags("Paella with Rice, Chorizo, and Shrimp (Gluten/Wheat Friendly)")
+    assert "gluten_free" in tags("Griddled Cheese (Gluten / Wheat Friendly)")
+    assert "gluten_free" in tags("Gluten-Free Brownie")
+
+
+def test_cachaca_is_a_spirit():
+    """Brazil's own, and what the Frozen Caipirinha is built on - missing from
+    the spirit list, so the drink read as soft."""
+    assert "contains_alcohol" in tags("Frozen Caipirinha with Cachaça")
+    assert "contains_alcohol" in tags("Frozen Caipirinha with Cachaca Spirit")
