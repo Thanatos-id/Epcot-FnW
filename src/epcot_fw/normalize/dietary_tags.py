@@ -47,6 +47,9 @@ _ALCOHOL_TERMS = [
     r"\b(vodka|gin|rum|whisk(?:e)?y|bourbon|scotch|tequila|mezcal|brandy|cognac|"
     r"armagnac|grappa|absinthe|soju|schnapps|a(?:q|k)vavit|ouzo|pisco|rye|"
     r"kirschwasser|calvados|spirits?|liquor)\b",
+    # Cachaça: Brazil's own spirit, and the one the Frozen Caipirinha is built
+    # on. Missing from the list above, so the drink read as soft.
+    r"\bcacha(?:ç|c)as?\b",
     # liqueurs and fortified extras
     r"\b(liqueur|amaretto|baileys|kahl(?:u|ú)a|cointreau|curacao|cura(?:ç)ao|aperol|"
     r"campari|vermouth|limoncello|sambuca|chartreuse|triple sec|bitters)\b",
@@ -61,6 +64,25 @@ _ALCOHOL_TERMS = [
 # Bare "cider" is deliberately absent: in the US it is apple juice unless it
 # says hard, which is why "Cider-brined Pork Tenderloin" used to come back
 # tagged as containing alcohol.
+
+# Crustaceans and molluscs, which is what a guest avoiding shellfish means by
+# it. Broad, for the same reason the nut list is: a miss is the costly
+# direction here, and the words are specific enough that breadth costs
+# nothing - no dish is called a crab by accident.
+#
+# Escargot and snails are in deliberately. They are molluscs, they sit beside
+# oysters and mussels in every allergen scheme that names molluscs at all,
+# and somebody avoiding shellfish is not expecting to meet one.
+_SHELLFISH_TERMS = [
+    r"\b(shrimps?|prawns?|crabs?|lobsters?|crawfish|crayfish|langoustines?)\b",
+    r"\b(scallops?|oysters?|mussels?|clams?|cockles?|whelks?|abalone)\b",
+    r"\b(squid|calamari|octopus|cuttlefish)\b",
+    r"\b(escargots?|snails?|shellfish|crustaceans?|molluscs?|mollusks?)\b",
+    # "Seafood Pot Pie", "Gulf Coast-style Seafood Roll" - the word is used
+    # here for a mix that has always turned out to contain shellfish, and the
+    # dish's own copy names the shrimp and lobster a line later anyway.
+    r"\bseafood\b",
+]
 
 _NUT_TERMS = [
     r"\b(peanuts?|almonds?|cashews?|walnuts?|pecans?|hazelnuts?|pistachios?|"
@@ -78,14 +100,39 @@ def _any(patterns: list[str]) -> re.Pattern:
     return re.compile("|".join(patterns), re.IGNORECASE)
 
 
+# Heat by name, not just by the word "spicy". The sources rarely say spicy -
+# they say what is in it - so a single-word pattern found nine dishes out of
+# 234 and missed the gochujang, the harissa and the Carolina Reaper.
+#
+# "serrano" carries a guard: on this menu it is far more often the ham than
+# the pepper ("Croquetas de Jamón ... Shaved Jamón Serrano"), which the bare
+# word would have filed as spicy.
+_HEAT_TERMS = [
+    r"\b(jalape(?:n|ñ)os?|chipotles?|sriracha|harissa|gochujang|sambal)\b",
+    r"\b(cayenne|habaneros?|scotch bonnet|carolina reaper|poblanos?|chile de arbol)\b",
+    r"\b(peri[\s-]?peri|piri[\s-]?piri)\b",
+    r"(?<!jamón )(?<!jamon )\bserranos?\b",
+    # Chili in any of its spellings, and the compounds the menus build from
+    # it - chili-lime, chili crisp, coconut-chili.
+    r"\bchil[ie](?:es|is|s)?\b",
+    r"\b(wasabi|horseradish|kimchi)\b",
+    r"\bspicy\b",
+]
+
 _TAG_PATTERNS: dict[str, re.Pattern] = {
     "vegan": re.compile(r"\bvegan\b", re.IGNORECASE),
     "vegetarian": re.compile(r"\bvegetarian\b", re.IGNORECASE),
     "plant_based": re.compile(r"\bplant[\s-]based\b", re.IGNORECASE),
-    "gluten_free": re.compile(r"\bgluten[\s/-]?(free|friendly|wheat friendly)\b", re.IGNORECASE),
+    # `[\s/-]*` rather than `?`: the 2026 menus write "(Gluten/ Wheat
+    # Friendly)" - a slash AND a space - and a single optional separator
+    # matched the slash, then failed on the space before "Wheat". Every
+    # gluten-friendly dish on the menu was invisible to the filter that
+    # exists to find them, which is the one tag people search *for*.
+    "gluten_free": re.compile(r"\bgluten[\s/-]*(free|friendly|wheat friendly)\b", re.IGNORECASE),
     "contains_alcohol": _any(_ALCOHOL_TERMS),
-    "spicy": re.compile(r"\bspicy\b", re.IGNORECASE),
+    "spicy": _any(_HEAT_TERMS),
     "contains_nuts": _any(_NUT_TERMS),
+    "contains_shellfish": _any(_SHELLFISH_TERMS),
 }
 
 

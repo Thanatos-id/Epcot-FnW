@@ -76,6 +76,7 @@ DIETARY_TAGS = [
     ("contains_alcohol", "Contains Alcohol"),
     ("spicy", "Spicy"),
     ("contains_nuts", "Contains Nuts"),
+    ("contains_shellfish", "Contains Shellfish"),
 ]
 
 
