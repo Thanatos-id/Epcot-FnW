@@ -649,7 +649,9 @@
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Swine-Brine-_-Flavors-from-Fire-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-2026-08-27-1.jpg",
       "new": true,
       "category": "alcoholic_beverage",
-      "dietary_tags": [],
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
       "description": "Jim Beam Kentucky Straight Bourbon Whiskey, apple-cinnamon cider, lemon juice, and Dijon mustard",
       "price_usd": 13
     },
@@ -887,7 +889,9 @@
       "name": "Château des Charmes Pétales Rouge",
       "new": true,
       "category": "alcoholic_beverage",
-      "dietary_tags": [],
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
       "description": "Niagara-on-the-Lake, ON",
       "price_usd": 9.5,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chateau-des-Charmes-Petales-Rouge-Canada-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-2.jpg"
@@ -1137,9 +1141,11 @@
       "name": "Frozen Caipirinha with Cachaça Spirit",
       "new": true,
       "category": "alcoholic_beverage",
-      "dietary_tags": [],
       "price_usd": 12.5,
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Frozen-Caipirinha-Brazil-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Frozen-Caipirinha-Brazil-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-1.jpg",
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
     },
     {
       "booth_name": "The Fry Basket",
@@ -1158,7 +1164,9 @@
       "name": "Fry Flight",
       "new": true,
       "category": "food",
-      "dietary_tags": [],
+      "dietary_tags": [
+        "contains_nuts"
+      ],
       "description": "Sea Salt-Malt Vinegar Fries (Plant-based) / Truffle-Parmesan Fries with black garlic-truffle aïoli / Sweet Potato Casserole Fries with cinnamon-sugar, candied pecans, and marshmallow cream",
       "price_usd": 7.99,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Fry-Flight-_-The-Fry-Basket-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-4.jpg"
@@ -1168,8 +1176,10 @@
       "name": "Selbach-Oster Riesling",
       "new": true,
       "category": "alcoholic_beverage",
-      "dietary_tags": [],
-      "price_usd": 9
+      "price_usd": 9,
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
     },
     {
       "booth_name": "Greece",
@@ -1198,10 +1208,12 @@
       "name": "Spiced Apple Mule",
       "new": true,
       "category": "alcoholic_beverage",
-      "dietary_tags": [],
       "description": "Frozen Ginger Beer blended with Lively Lime and Cozy Spiced Apple Flavors with Iceberg Canadian Vodka",
       "price_usd": 14.5,
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/2026-Disney-World-WDW-EPCOT-International-Food-and-Wine-Festival-La-Poutinerie-Hosted-By-Air-Canada-Booth-Spiced-Apple-Mule-scaled.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/2026-Disney-World-WDW-EPCOT-International-Food-and-Wine-Festival-La-Poutinerie-Hosted-By-Air-Canada-Booth-Spiced-Apple-Mule-scaled.jpg",
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
     },
     {
       "booth_name": "Brew-Wing Lab",
