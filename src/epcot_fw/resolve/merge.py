@@ -19,6 +19,7 @@ from epcot_fw.db.models import (
     Seminar,
     Source,
 )
+from epcot_fw.festival import festival_year_for
 from epcot_fw.normalize.dietary_tags import (
     extract_dietary_tags,  # noqa: F401 (re-export convenience)
 )
@@ -166,7 +167,7 @@ def _create_new(
     retired by the first crawl after they land.
     """
     if entity_type == "festival":
-        year = datetime.date.today().year
+        year = festival_year_for()
         return Festival(year=year, name=name, slug=f"{slugify(name)}-{year}", status="upcoming")
     if entity_type == "booth":
         return Booth(

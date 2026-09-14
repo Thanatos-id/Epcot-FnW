@@ -24,7 +24,9 @@ def to_svg(content_frac, size=1024):
     s = content / max(SRC_W, SRC_H)
     ox = (size - SRC_W * s) / 2.0
     oy = (size - SRC_H * s) / 2.0
-    T = lambda p: (p[0] * s + ox, p[1] * s + oy)
+
+    def T(p):
+        return (p[0] * s + ox, p[1] * s + oy)
     fg = "#%02X%02X%02X" % FG
     bg = "#%02X%02X%02X" % BG
 

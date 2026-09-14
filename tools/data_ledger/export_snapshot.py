@@ -30,11 +30,11 @@ from epcot_fw.db.base import SessionLocal  # noqa: E402
 from epcot_fw.db.models import (  # noqa: E402
     Booth,
     CrawlRun,
-    Festival,
     MenuItem,
     MergeConflict,
     Source,
 )
+from epcot_fw.festival import festival_status, require_current_festival  # noqa: E402
 from epcot_fw.pipeline.photo_source import image_sources  # noqa: E402
 
 OUT_PATH = Path(__file__).parent / "epcot_db_snapshot.json"
@@ -56,7 +56,12 @@ def _default(o):
 
 def export() -> None:
     with SessionLocal() as session:
-        festival = session.query(Festival).first()
+        # The same pick the API makes. This used to be an unordered
+        # `.first()` - one row in the database made it agree with the API by
+        # luck, and a second row for next year would have had the ledger and
+        # the published feed describing a different festival from the one
+        # /api/v1/snapshot serves.
+        festival = require_current_festival(session)
         # Mirror what the API serves - retired booths/dishes are no longer
         # part of this festival, so the ledger should not count them.
         booths = (
@@ -139,7 +144,10 @@ def export() -> None:
                 "name": festival.name,
                 "start": festival.start_date,
                 "end": festival.end_date,
-                "status": festival.status,
+                # Derived, not read off the row - see epcot_fw.festival.
+                "status": (
+                    festival_status(festival.start_date, festival.end_date) or festival.status
+                ),
             },
             "booths": booth_data,
             "sources": sources,

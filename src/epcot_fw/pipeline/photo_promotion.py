@@ -40,7 +40,8 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from epcot_fw.db.models import Booth, EntityFieldProvenance, Festival, MenuItem
+from epcot_fw.db.models import Booth, EntityFieldProvenance, MenuItem
+from epcot_fw.festival import require_current_festival
 from epcot_fw.pipeline.manual import DEFAULT_ITEMS_PATH, MANUAL_SOURCE_KEY
 
 # Both are used below, and both are also re-exported: photo_source.py is the
@@ -108,9 +109,7 @@ def promote_current_season_photos(
 ) -> PromotionReport:
     """Stop preferring a historical curated photo wherever a current-season
     crawled one is available."""
-    festival = session.scalars(select(Festival).order_by(Festival.year.desc())).first()
-    if festival is None:
-        raise RuntimeError("No festival row found - run `epcot-fw db seed` first.")
+    festival = require_current_festival(session)
 
     rows = session.scalars(
         select(EntityFieldProvenance).where(

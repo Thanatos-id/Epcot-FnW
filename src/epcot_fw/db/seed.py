@@ -1,9 +1,8 @@
-import datetime
-
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from epcot_fw.db.base import SessionLocal
 from epcot_fw.db.models import DietaryTag, Festival, Source
+from epcot_fw.festival import festival_year_for
 
 SOURCES = [
     # Hand-curated facts that no source publishes - booth coordinates above
@@ -102,9 +101,10 @@ def seed() -> None:
             )
             session.execute(stmt)
 
-        year = datetime.date.today().year
-        if datetime.date.today().month >= 10:
-            year += 1
+        # Rolls over in December, not October: October is mid-festival, and
+        # the next year's row seeded then used to win every "current
+        # festival" lookup in the codebase. See epcot_fw.festival.
+        year = festival_year_for()
         stmt = (
             pg_insert(Festival)
             .values(

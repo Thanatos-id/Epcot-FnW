@@ -46,3 +46,11 @@ packages = ["src/epcot_fw"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+
+[tool.ruff.lint]
+# Pinned rather than left implicit. Ruff's default set has widened between
+# releases - 0.5 and 0.16 disagree by some eighty findings on this tree - so
+# an unpinned `ruff check` means CI and a contributor's local run can reach
+# opposite verdicts on identical code. This is the long-standing default set,
+# and the tree is clean against it.
+select = ["E4", "E7", "E9", "F"]
