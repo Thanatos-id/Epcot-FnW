@@ -847,7 +847,8 @@
       "booth_name": "Australia",
       "name": "Wine Flight also available",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-australia-food-booth-wine-flight.jpg",
-      "is_active": false
+      "rename_to": "Wine Flight",
+      "is_active": true
     },
     {
       "booth_name": "Bramblewood Bites",
@@ -1338,7 +1339,8 @@
     {
       "booth_name": "The Alps",
       "name": "Wine Flight also available",
-      "is_active": false
+      "rename_to": "Wine Flight",
+      "is_active": true
     },
     {
       "booth_name": "Festival Favorites",
