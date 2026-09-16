@@ -566,7 +566,10 @@
     {
       "booth_name": "Belgium",
       "name": "Chilled Belgian Coffee (non-alcoholic)",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-Belgian-Coffee-non-alcoholic-Belgium-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x526.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-Belgian-Coffee-non-alcoholic-Belgium-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x526.jpg",
+      "price_usd": 5.29,
+      "dietary_tags": [],
+      "description": null
     },
     {
       "booth_name": "Bramblewood Bites",
@@ -847,7 +850,8 @@
       "booth_name": "Australia",
       "name": "Wine Flight also available",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-australia-food-booth-wine-flight.jpg",
-      "is_active": false
+      "rename_to": "Wine Flight",
+      "is_active": true
     },
     {
       "booth_name": "Bramblewood Bites",
@@ -1325,20 +1329,21 @@
     },
     {
       "booth_name": "Belgium",
-      "name": "Chilled Belgian Coffee",
+      "name": "Chilled Belgian Coffee with ChocoLat Deluxe Salted Caramel Chocolate Liqueur",
       "new": true,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
       ],
-      "description": "with ChocoLaty Deluxe Salted Caramel Chocolate Liqueur",
+      "description": "with ChocoLat Deluxe Salted Caramel Chocolate Liqueur",
       "price_usd": 12.5,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chilled-Belgian-Coffee-non-alcoholic-Belgium-Booth-EPCOT-Food-and-Wine-Festival-WDW-Aug-28-2025-2-700x526.jpg"
     },
     {
       "booth_name": "The Alps",
       "name": "Wine Flight also available",
-      "is_active": false
+      "rename_to": "Wine Flight",
+      "is_active": true
     },
     {
       "booth_name": "Festival Favorites",
