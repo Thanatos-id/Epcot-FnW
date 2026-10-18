@@ -57,6 +57,15 @@ TAGS = (
     "contains_shellfish",
 )
 
+# A separate vocabulary from the dietary one above, kept apart here for the
+# same reason the feed keeps them apart: what a dish tastes like and what a
+# guest has to avoid are different questions.
+FLAVOUR_TAGS = ("sweet", "savory")
+
+# One per alcoholic drink, or none. Cider is its own value rather than filed
+# under beer - see normalize/alcohol_kind.py.
+ALCOHOL_KINDS = ("beer", "wine", "liquor", "cider")
+
 # World Showcase's rough centre - every booth sits within a few hundred
 # metres of it, so it is a fine default view regardless of what is placed.
 DEFAULT_CENTER = [28.3689, -81.5493]
@@ -602,6 +611,18 @@ footer a { color: var(--accent); }
   </div>
 </dialog>
 
+<dialog id="ask-dialog">
+  <form class="dialog-body" method="dialog" id="ask-form">
+    <h2 class="display" id="ask-title"></h2>
+    <p id="ask-message"></p>
+    <input type="text" id="ask-input" autocomplete="off" spellcheck="false">
+    <div class="dialog-actions">
+      <button type="button" id="ask-cancel">Cancel</button>
+      <button type="submit" class="primary" id="ask-ok">OK</button>
+    </div>
+  </form>
+</dialog>
+
 <script id="studio-data" type="application/json">__DATA_JSON__</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
@@ -609,6 +630,8 @@ footer a { color: var(--accent); }
   var DATA = JSON.parse(document.getElementById('studio-data').textContent);
   var CATEGORIES = __CATEGORIES__;
   var TAGS = __TAGS__;
+  var FLAVOUR_TAGS = __FLAVOUR_TAGS__;
+  var ALCOHOL_KINDS = __ALCOHOL_KINDS__;
   var CENTER = __CENTER_JSON__;
   var ZOOM = __ZOOM__;
   // A heading covering dishes sold in several places at once, not somewhere
@@ -915,14 +938,68 @@ footer a { color: var(--accent); }
   // already in the database is a different act: it travels as a curated
   // `is_active: false`, which beats the crawl that keeps listing it, so it
   // stays gone until somebody says otherwise. Worth one question.
+  // In-page stand-ins for prompt() and confirm(). Native dialogs are not a
+  // given: the desktop app's preview pane throws on prompt() and answers
+  // confirm() with an instant `false` without drawing anything, so URL,
+  // Delete and Discard all each did nothing at all - no dialog, no error, no
+  // change. A <dialog> works everywhere the Add and Export dialogs already
+  // do, and it answers asynchronously, so callers take the result in .then.
+  //
+  // `value` as a string asks for text and resolves to it, or null on cancel.
+  // Without one it is a yes/no and resolves to true or false.
+  var askDialog = document.getElementById('ask-dialog');
+  var askForm = document.getElementById('ask-form');
+  var askInput = document.getElementById('ask-input');
+  var askCancel = document.getElementById('ask-cancel');
+  function ask(opts) {
+    return new Promise(function (resolve) {
+      var wantsText = typeof opts.value === 'string';
+      document.getElementById('ask-title').textContent = opts.title || '';
+      var message = document.getElementById('ask-message');
+      message.textContent = opts.message || '';
+      message.hidden = !opts.message;
+      askInput.hidden = !wantsText;
+      askInput.value = wantsText ? opts.value : '';
+      askInput.placeholder = opts.placeholder || '';
+      document.getElementById('ask-ok').textContent = opts.okLabel || 'OK';
+
+      var settled = false;
+      function finish(answer) {
+        if (settled) return;
+        settled = true;
+        askForm.removeEventListener('submit', onSubmit);
+        askCancel.removeEventListener('click', onCancel);
+        askDialog.removeEventListener('cancel', onCancel);
+        if (askDialog.open) askDialog.close();
+        resolve(answer);
+      }
+      function onSubmit(ev) {
+        ev.preventDefault();
+        finish(wantsText ? askInput.value : true);
+      }
+      // Covers the Cancel button and Esc, which fires `cancel` on a modal.
+      function onCancel(ev) {
+        if (ev) ev.preventDefault();
+        finish(wantsText ? null : false);
+      }
+      askForm.addEventListener('submit', onSubmit);
+      askCancel.addEventListener('click', onCancel);
+      askDialog.addEventListener('cancel', onCancel);
+
+      if (askDialog.showModal) askDialog.showModal(); else askDialog.setAttribute('open', '');
+      if (wantsText) { askInput.focus(); askInput.select(); }
+    });
+  }
+
   function deleteDish(row) {
-    if (!row._id) {
-      var name = valueOf(row, 'name') || 'this dish';
-      if (!confirm('Delete "' + name + '"?\n\nIt stops showing in the app once you export this ' +
-                   'changeset and apply it, and stays gone through future crawls. Undo is right ' +
-                   'here until you export.')) return;
-    }
-    removeRow(row);
+    if (row._id) { removeRow(row); return; }
+    var name = valueOf(row, 'name') || 'this dish';
+    ask({
+      title: 'Delete "' + name + '"?',
+      message: 'It stops showing in the app once you export this changeset and apply it, ' +
+               'and stays gone through future crawls. Undo is right here until you export.',
+      okLabel: 'Delete',
+    }).then(function (yes) { if (yes) removeRow(row); });
   }
 
   function changeCount() {
@@ -980,12 +1057,20 @@ footer a { color: var(--accent); }
   }
 
   function useUrl(row) {
-    var url = prompt('Image URL for this dish:', valueOf(row, 'image_url') || '');
-    if (url === null) return;
-    url = url.trim();
-    dropPhoto(photoKey(row)).then(function () {
-      setValue(row, 'image_url', url || null);
-      render();
+    ask({
+      title: 'Image URL',
+      message: 'Paste the address of a photo of ' + (valueOf(row, 'name') || 'this dish') +
+               '. Leave it empty to remove the current one.',
+      value: valueOf(row, 'image_url') || '',
+      placeholder: 'Paste an image address',
+      okLabel: 'Use this photo',
+    }).then(function (url) {
+      if (url === null) return;
+      url = url.trim();
+      dropPhoto(photoKey(row)).then(function () {
+        setValue(row, 'image_url', url || null);
+        render();
+      });
     });
   }
 
@@ -1249,6 +1334,80 @@ footer a { color: var(--accent); }
     return cell;
   }
 
+  // Sweet and savoury, as two independent chips rather than a choice: a dish
+  // can be both (candied pecans on a plate of fries) and most drinks are
+  // neither, so there is nothing here to force.
+  function makeFlavourCell(row) {
+    var cell = document.createElement('div');
+    cell.className = 'new-cell';
+
+    var label = document.createElement('span');
+    label.className = 'tag-none';
+    label.textContent = 'flavour';
+    cell.appendChild(label);
+
+    FLAVOUR_TAGS.forEach(function (code) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+
+      function paint() {
+        var on = (valueOf(row, 'flavor_tags') || []).indexOf(code) !== -1;
+        btn.className = 'tag-toggle' + (on ? ' on' : '') +
+          (edited(row, 'flavor_tags') ? ' changed' : '');
+        btn.textContent = code;
+      }
+
+      btn.addEventListener('click', function () {
+        var next = (valueOf(row, 'flavor_tags') || []).slice();
+        var at = next.indexOf(code);
+        if (at === -1) next.push(code); else next.splice(at, 1);
+        next.sort();
+        setValue(row, 'flavor_tags', next);
+        // Repaint both chips: the `changed` outline belongs to the field, not
+        // to whichever one was clicked.
+        Array.prototype.forEach.call(cell.querySelectorAll('button'), function (b) {
+          if (b.repaint) b.repaint();
+        });
+        markRow(btn, row);
+      });
+
+      btn.repaint = paint;
+      paint();
+      cell.appendChild(btn);
+    });
+
+    return cell;
+  }
+
+  // Only on a drink the menu calls alcoholic - "Kirschwasser Torte" is a cake
+  // and "Beer-braised Beef" is a plate of beef, and neither wants this.
+  function makeAlcoholCell(row) {
+    var cell = document.createElement('div');
+    cell.className = 'geo';
+    if (valueOf(row, 'category') !== 'alcoholic_beverage') return cell;
+
+    var label = document.createElement('span');
+    label.textContent = 'Kind';
+    cell.appendChild(label);
+
+    var sel = document.createElement('select');
+    sel.className = 'cell-input' + (edited(row, 'alcohol_kind') ? ' changed' : '');
+    [''].concat(ALCOHOL_KINDS).forEach(function (k) {
+      var o = document.createElement('option');
+      o.value = k;
+      o.textContent = k || 'not set';
+      sel.appendChild(o);
+    });
+    sel.value = valueOf(row, 'alcohol_kind') || '';
+    sel.addEventListener('change', function () {
+      setValue(row, 'alcohol_kind', sel.value === '' ? null : sel.value);
+      sel.classList.toggle('changed', !!edited(row, 'alcohol_kind'));
+      markRow(sel, row);
+    });
+    cell.appendChild(sel);
+    return cell;
+  }
+
   // One chip, on or off, styled as a dietary tag is - but stored as its own
   // field, not as a tag. "New this year" is a fact about the festival's
   // line-up, and a diet filter is not where anyone would look for it.
@@ -1456,6 +1615,8 @@ footer a { color: var(--accent); }
     fields.appendChild(line);
 
     fields.appendChild(makeTagCell(row));
+    fields.appendChild(makeFlavourCell(row));
+    fields.appendChild(makeAlcoholCell(row));
     fields.appendChild(makeNewCell(row));
 
     var actions = document.createElement('div');
@@ -1778,6 +1939,9 @@ footer a { color: var(--accent); }
         // drinks that plainly said Bourbon and Vodka in their own names.
         var newTags = valueOf(row, 'tags') || [];
         if (newTags.length) entry.dietary_tags = newTags;
+        var newFlavours = valueOf(row, 'flavor_tags') || [];
+        if (newFlavours.length) entry.flavor_tags = newFlavours;
+        if (valueOf(row, 'alcohol_kind')) entry.alcohol_kind = valueOf(row, 'alcohol_kind');
         if (valueOf(row, 'is_new_this_year')) entry.is_new_this_year = true;
         // Only what was actually filled in. A null here is read downstream as
         // "this field should be empty", which is not what a blank Add form
@@ -1792,6 +1956,8 @@ footer a { color: var(--accent); }
         if (Object.prototype.hasOwnProperty.call(e, 'price')) entry.price_usd = e.price;
         if (Object.prototype.hasOwnProperty.call(e, 'category')) entry.category = e.category;
         if (Object.prototype.hasOwnProperty.call(e, 'tags')) entry.dietary_tags = e.tags;
+        if (Object.prototype.hasOwnProperty.call(e, 'flavor_tags')) entry.flavor_tags = e.flavor_tags;
+        if (Object.prototype.hasOwnProperty.call(e, 'alcohol_kind')) entry.alcohol_kind = e.alcohol_kind;
         // Exported even when false: false is the whole point of touching this
         // one by hand - it is how a blog calling a returning dish new gets
         // taken back, and nothing but curation can say it.
@@ -1885,13 +2051,19 @@ footer a { color: var(--accent); }
 
   document.getElementById('discard').addEventListener('click', function () {
     if (!changeCount()) return;
-    if (!confirm('Discard every change, pin and attached photo on this device?')) return;
-    state.edits = { items: {}, booths: {} };
-    state.placements = {};
-    state.added = { items: [], booths: [] };
-    state.deleted = { items: {}, booths: {} };
-    save();
-    dropAllPhotos().then(render);
+    ask({
+      title: 'Discard all changes?',
+      message: 'Every edit, pin and attached photo on this device goes. This cannot be undone.',
+      okLabel: 'Discard all',
+    }).then(function (yes) {
+      if (!yes) return;
+      state.edits = { items: {}, booths: {} };
+      state.placements = {};
+      state.added = { items: [], booths: [] };
+      state.deleted = { items: {}, booths: {} };
+      save();
+      dropAllPhotos().then(render);
+    });
   });
 
   // ---------- adding by hand ----------
@@ -2068,6 +2240,8 @@ def render(snapshot: dict[str, Any], *, generated_at: str = "") -> str:
     return (
         TEMPLATE.replace("__CATEGORIES__", json.dumps(list(CATEGORIES)))
         .replace("__TAGS__", json.dumps(list(TAGS)))
+        .replace("__FLAVOUR_TAGS__", json.dumps(list(FLAVOUR_TAGS)))
+        .replace("__ALCOHOL_KINDS__", json.dumps(list(ALCOHOL_KINDS)))
         .replace("__CENTER_JSON__", json.dumps(DEFAULT_CENTER))
         .replace("__ZOOM__", str(DEFAULT_ZOOM))
         .replace("__AGGREGATE_BOOTH_NAME__", json.dumps(AGGREGATE_BOOTH_NAME))
