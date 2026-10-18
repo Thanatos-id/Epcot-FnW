@@ -74,7 +74,8 @@ _SAFE_ID = re.compile(r"\A[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 # studio adds: `rename_to` and `new`.
 _MENU_ITEM_KEYS = frozenset({
     "booth_name", "name", "rename_to", "description", "price_usd",
-    "category", "image_url", "dietary_tags", "is_new_this_year",
+    "category", "image_url", "dietary_tags", "flavor_tags",
+    "alcohol_kind", "is_new_this_year",
     "is_active", "new",
 })
 _BOOTH_KEYS = frozenset({

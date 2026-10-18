@@ -3,6 +3,8 @@ import re
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.alcohol_kind import alcohol_kind_payload
+from epcot_fw.normalize.flavour import flavour_payload
 from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import all_prices, clean_text
@@ -64,6 +66,8 @@ def extract_priced_items(article: Tag) -> list[ExtractedRecordDTO]:
                     "category": category,
                     "price_usd": str(price),
                     "dietary_tags": tags,
+                    **flavour_payload(text),
+                    **alcohol_kind_payload(category, text),
                     **is_new,
                 },
             )

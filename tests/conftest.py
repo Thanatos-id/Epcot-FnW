@@ -7,6 +7,10 @@ from sqlalchemy.orm import sessionmaker
 from epcot_fw.config import settings
 from epcot_fw.db.base import Base
 from epcot_fw.db.models import DietaryTag, Festival, Source
+# The real vocabulary rather than a copy of it. A second list here drifted
+# from seed.py the moment a tag was added - shellfish and the two flavours
+# were missing, so nothing under test could carry them.
+from epcot_fw.db.seed import DIETARY_TAGS as DIETARY_TAG_ROWS
 
 TEST_DB_URL = settings.test_database_url
 
@@ -21,15 +25,6 @@ SOURCE_ROWS = [
     dict(key="wdw_prep_school", display_name="WDW Prep School", base_url="https://wdwprepschool.com", priority_rank=7, enabled=False, crawl_delay_sec=5),
 ]
 
-DIETARY_TAG_ROWS = [
-    ("vegetarian", "Vegetarian"),
-    ("vegan", "Vegan"),
-    ("gluten_free", "Gluten-Free"),
-    ("plant_based", "Plant-Based"),
-    ("contains_alcohol", "Contains Alcohol"),
-    ("spicy", "Spicy"),
-    ("contains_nuts", "Contains Nuts"),
-]
 
 
 @pytest.fixture(scope="session")
@@ -66,8 +61,8 @@ def db_session(engine):
 
     for row in SOURCE_ROWS:
         session.add(Source(**row))
-    for code, label in DIETARY_TAG_ROWS:
-        session.add(DietaryTag(code=code, label=label))
+    for code, label, kind in DIETARY_TAG_ROWS:
+        session.add(DietaryTag(code=code, label=label, kind=kind))
     session.flush()
 
     festival = Festival(

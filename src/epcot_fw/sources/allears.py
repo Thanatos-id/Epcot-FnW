@@ -3,6 +3,8 @@ import copy
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.alcohol_kind import alcohol_kind_payload
+from epcot_fw.normalize.flavour import flavour_payload
 from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import clean_text, soupify
@@ -132,6 +134,8 @@ class AllEarsAdapter(SourceAdapter):
                                         "category": category,
                                         "price_usd": None,
                                         "dietary_tags": tags,
+                                        **flavour_payload(item_text),
+                                        **alcohol_kind_payload(category, item_text),
                                         **new_this_year_payload(item_text),
                                     },
                                 )

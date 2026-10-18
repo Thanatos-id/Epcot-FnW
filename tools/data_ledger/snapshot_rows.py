@@ -68,6 +68,8 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
                     "price": item.get("price"),
                     "category": item.get("category"),
                     "tags": sorted(item.get("tags") or []),
+                    "flavor_tags": sorted(item.get("flavor_tags") or []),
+                    "alcohol_kind": item.get("alcohol_kind"),
                     "image_url": item.get("image_url"),
                     # Inlined by fetch_images.py, so the page shows the photo
                     # it already has without a network round trip. Absent

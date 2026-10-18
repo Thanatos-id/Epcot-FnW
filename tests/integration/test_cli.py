@@ -48,8 +48,8 @@ def cli_session_factory(engine, monkeypatch):
     seed_session = session_factory()
     for row in SOURCE_ROWS:
         seed_session.add(Source(**row))
-    for code, label in DIETARY_TAG_ROWS:
-        seed_session.add(DietaryTag(code=code, label=label))
+    for code, label, kind in DIETARY_TAG_ROWS:
+        seed_session.add(DietaryTag(code=code, label=label, kind=kind))
     seed_session.add(
         Festival(
             year=2026,

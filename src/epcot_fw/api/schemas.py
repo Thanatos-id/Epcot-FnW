@@ -25,6 +25,9 @@ class DietaryTagOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     code: str
     label: str
+    # 'dietary' | 'flavour'. Carried so a client can group chips by meaning
+    # rather than keep its own hardcoded list of which code goes where.
+    kind: str = "dietary"
 
 
 class FestivalOut(BaseModel):
@@ -129,8 +132,30 @@ class MenuItemOut(BaseModel):
     # New to this festival. Additive with a default, like origin, so a client
     # built before it existed still decodes.
     is_new_this_year: bool = False
+    # 'beer' | 'wine' | 'liquor' | 'cider' for an alcoholic drink, else null.
+    alcohol_kind: str | None = None
     is_active: bool
+    # Diet and allergen-adjacent only. Flavour deliberately does NOT appear
+    # here: the shipped app builds its filter chips from whatever codes it
+    # finds in this field and files unknown ones under "hide items with", so
+    # a "sweet" code arriving here would have read as something to avoid in
+    # every installed copy. Flavours travel in `flavor_tags` instead.
     dietary_tags: list[DietaryTagOut] = []
+    # Sweet, savoury, both, or neither. Additive with a default.
+    flavor_tags: list[DietaryTagOut] = []
+
+    @model_validator(mode="after")
+    def _split_the_two_vocabularies(self):
+        """Route each tag to the field its kind belongs in.
+
+        Both live in one table and arrive on the ORM object as one
+        relationship; which field a client reads them from is this layer's
+        decision, not the database's.
+        """
+        everything = list(self.dietary_tags) + list(self.flavor_tags)
+        self.dietary_tags = [t for t in everything if getattr(t, "kind", "dietary") != "flavour"]
+        self.flavor_tags = [t for t in everything if getattr(t, "kind", None) == "flavour"]
+        return self
 
 
 class BoothDetailOut(BoothOut):

@@ -7,6 +7,8 @@ from urllib.parse import urljoin, urlparse
 from bs4 import Tag
 
 from epcot_fw.normalize.dietary_tags import extract_dietary_tags
+from epcot_fw.normalize.alcohol_kind import alcohol_kind_payload
+from epcot_fw.normalize.flavour import flavour_payload
 from epcot_fw.normalize.newness import new_this_year_payload, strip_new_marker
 from epcot_fw.normalize.text import normalize_name
 from epcot_fw.parse.html_utils import all_prices, clean_text, soupify
@@ -437,6 +439,8 @@ def _inline_menu_item(
             # the single-serving price is the comparable one.
             "price_usd": str(min(prices)) if prices else None,
             "dietary_tags": tags,
+            **flavour_payload(text),
+            **alcohol_kind_payload(resolved, text),
             **is_new,
         },
     )

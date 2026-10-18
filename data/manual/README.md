@@ -111,6 +111,37 @@ toggle on a dish, and the matching filter chip):
 Not to be confused with `new` further down, which says the crawl never found
 the row at all. One is about the dish, the other about how it got here.
 
+## Flavour, and what kind of drink a drink is
+
+Two fields behind the app's filtering, both read automatically from the menu
+copy and both correctable in **`docs/studio.html`** on the dish itself.
+
+`flavor_tags` is `sweet`, `savory`, both, or nothing. Both is ordinary - a
+flight of fries with candied pecans is honestly both - and nothing is the
+normal answer for a drink, because a dry Riesling is neither. The chips sit
+beside the dietary ones on each dish; they are a separate vocabulary and
+reach the app in a separate field.
+
+`alcohol_kind` is `beer`, `wine`, `liquor` or `cider`, one per alcoholic
+drink, chosen from the dropdown on the dish. Cider counts as its own kind
+rather than beer, whoever brewed it. Detection reads about 97% of the
+drinks; the handful it cannot are wines whose names never say wine
+("Château des Charmes Pétales Rouge"), and those are what the dropdown is
+for.
+
+```json
+{
+  "menu_items": [
+    { "booth_name": "Belgium", "name": "Beer Flight",
+      "flavor_tags": [], "alcohol_kind": "beer" }
+  ]
+}
+```
+
+Like `dietary_tags`, a curated `flavor_tags` list **replaces** what the crawl
+detected rather than adding to it - give the complete list you want, and
+`[]` to clear every flavour.
+
 ## Why the booth fields exist
 
 Sorting booths by distance needs coordinates, and not one of the seven

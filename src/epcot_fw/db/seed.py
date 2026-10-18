@@ -68,15 +68,20 @@ SOURCES = [
     ),
 ]
 
+# (code, label, kind). `kind` separates two vocabularies that share this
+# table: what a guest avoids or seeks for dietary reasons, and what a dish
+# tastes like. The API keeps them in separate fields - see DietaryTag.
 DIETARY_TAGS = [
-    ("vegetarian", "Vegetarian"),
-    ("vegan", "Vegan"),
-    ("gluten_free", "Gluten-Free"),
-    ("plant_based", "Plant-Based"),
-    ("contains_alcohol", "Contains Alcohol"),
-    ("spicy", "Spicy"),
-    ("contains_nuts", "Contains Nuts"),
-    ("contains_shellfish", "Contains Shellfish"),
+    ("vegetarian", "Vegetarian", "dietary"),
+    ("vegan", "Vegan", "dietary"),
+    ("gluten_free", "Gluten-Free", "dietary"),
+    ("plant_based", "Plant-Based", "dietary"),
+    ("contains_alcohol", "Contains Alcohol", "dietary"),
+    ("spicy", "Spicy", "dietary"),
+    ("contains_nuts", "Contains Nuts", "dietary"),
+    ("contains_shellfish", "Contains Shellfish", "dietary"),
+    ("sweet", "Sweet", "flavour"),
+    ("savory", "Savory", "flavour"),
 ]
 
 
@@ -93,11 +98,15 @@ def seed() -> None:
             )
             session.execute(stmt)
 
-        for code, label in DIETARY_TAGS:
+        for code, label, kind in DIETARY_TAGS:
             stmt = (
                 pg_insert(DietaryTag)
-                .values(code=code, label=label)
-                .on_conflict_do_nothing(index_elements=["code"])
+                .values(code=code, label=label, kind=kind)
+                # Updates rather than skips: this list is the vocabulary's
+                # definition, so a label or a kind corrected here should reach
+                # a database that already has the row. The M2M hangs off the
+                # id, which is untouched, so nothing a dish points at moves.
+                .on_conflict_do_update(index_elements=["code"], set_={"label": label, "kind": kind})
             )
             session.execute(stmt)
 
