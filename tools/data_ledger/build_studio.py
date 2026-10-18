@@ -478,6 +478,7 @@ footer a { color: var(--accent); }
   </div>
 
   <div class="panel warn hidden" id="storage-note"></div>
+  <div class="panel note hidden" id="settled-note"></div>
 
   <section id="map-panel" class="hidden">
     <div class="panel warn hidden" id="offline-note">
@@ -786,6 +787,158 @@ footer a { color: var(--accent); }
     } catch (e) {
       warn('This browser refused to save your edits — they will be lost on reload. Export before you close the tab.');
     }
+  }
+
+  // ---------- settling what has already shipped ----------
+  // Edits live in this browser until they are exported, and nothing here
+  // ever learned when one had been applied: `studio apply` and a rebuild put
+  // the value into DATA, but the stored edit stayed, so every edit ever made
+  // went on counting as a change - 72 of them, all already live - and every
+  // export re-sent the lot. On each load, anything the rebuilt page already
+  // says is dropped, and only what is genuinely still pending survives.
+  //
+  // Only ever removes an edit whose value DATA now carries, so the worst a
+  // wrong answer here can do is leave something counted that need not be.
+  // An edit that disagrees with DATA - including one DATA has since moved
+  // past, like a kind somebody corrected again later - is kept and shown.
+  function sameValue(a, b) {
+    if (Array.isArray(a) || Array.isArray(b)) {
+      return JSON.stringify((a || []).slice().sort()) === JSON.stringify((b || []).slice().sort());
+    }
+    var blankA = a === null || a === undefined || a === '';
+    var blankB = b === null || b === undefined || b === '';
+    if (blankA || blankB) return blankA && blankB;
+    // A price is "13.00" in DATA and 13 once typed into a number field.
+    if (typeof a === 'number' || typeof b === 'number') {
+      var na = Number(a), nb = Number(b);
+      if (isFinite(na) && isFinite(nb)) return na === nb;
+    }
+    return String(a) === String(b);
+  }
+
+  // The fields of `edit` DATA's row already has, removed in place. A rename
+  // is settled when a row by the new name exists; the old key then points at
+  // nothing, so the rest of the edit is checked against the renamed row.
+  function settleEdit(edit, row) {
+    var n = 0;
+    Object.keys(edit).forEach(function (key) {
+      if (key === 'name') return;
+      if (Object.prototype.hasOwnProperty.call(row, key) && sameValue(edit[key], row[key])) {
+        delete edit[key];
+        n++;
+      }
+    });
+    if (Object.prototype.hasOwnProperty.call(edit, 'name') && sameValue(edit.name, row.name)) {
+      delete edit.name;
+      n++;
+    }
+    return n;
+  }
+
+  function settle() {
+    // Counted by row, to read the same as the "rows changed" count it is
+    // emptying - a row with a tag and a photo both settled is one row.
+    var touched = {};
+    var itemsByKey = {}, boothsByName = {}, byPhotoKey = {};
+    DATA.items.forEach(function (row) {
+      itemsByKey[rowKey(row)] = row;
+      if (row.public_id) byPhotoKey[row.public_id] = row;
+    });
+    DATA.booths.forEach(function (row) { boothsByName[row.name] = row; });
+
+    // Dish and booth edits.
+    [['items', function (k, e) {
+      if (itemsByKey[k]) return itemsByKey[k];
+      if (!e.name || k.indexOf('new:') === 0) return null;
+      try { return itemsByKey[JSON.stringify([JSON.parse(k)[0], e.name])] || null; } catch (err) { return null; }
+    }], ['booths', function (k) { return boothsByName[k] || null; }]].forEach(function (pair) {
+      var bucket = state.edits[pair[0]];
+      Object.keys(bucket).forEach(function (k) {
+        var row = pair[1](k, bucket[k]);
+        if (!row) return;
+        if (settleEdit(bucket[k], row)) touched[pair[0] + k] = true;
+        if (!Object.keys(bucket[k]).length) delete bucket[k];
+      });
+    });
+
+    // Rows typed in here that the database now has. Whatever was typed and
+    // still differs carries over onto the real row as an ordinary edit, and
+    // so does an attached photo, so nothing pending is lost in the handover.
+    state.added.items = state.added.items.filter(function (row) {
+      var e = state.edits.items['new:' + row._id] || {};
+      var live = itemsByKey[JSON.stringify([row.booth, e.name || row.name])];
+      if (!live) return true;
+      var pending = {};
+      ['description', 'price', 'category', 'tags', 'flavor_tags', 'alcohol_kind', 'is_new_this_year', 'image_url']
+        .forEach(function (key) {
+          var typed = Object.prototype.hasOwnProperty.call(e, key) ? e[key] : row[key];
+          // A blank Add-form field means nobody said, not "make it empty" -
+          // the export treats it the same way.
+          if (typed === null || typed === undefined || typed === '' || typed === false ||
+              (Array.isArray(typed) && !typed.length)) return;
+          if (!sameValue(typed, live[key])) pending[key] = typed;
+        });
+      if (Object.keys(pending).length) {
+        var k = rowKey(live);
+        state.edits.items[k] = Object.assign(pending, state.edits.items[k] || {});
+      }
+      var photo = photos[photoKey(row)];
+      if (photo && !live.image_url && !photos[photoKey(live)]) {
+        putPhoto(Object.assign({}, photo, { key: photoKey(live) }));
+      }
+      if (photo) dropPhoto(photo.key);
+      delete state.edits.items['new:' + row._id];
+      touched['items' + rowKey(live)] = true;
+      return false;
+    });
+    state.added.booths = state.added.booths.filter(function (row) {
+      var e = state.edits.booths['new:' + row._id] || {};
+      if (!boothsByName[e.name || row.name]) return true;
+      delete state.edits.booths['new:' + row._id];
+      touched['booths' + (e.name || row.name)] = true;
+      return false;
+    });
+
+    // Photos `studio apply` has published: the dish's image_url now points at
+    // the file it wrote, which is named by the same key the photo is stored
+    // under here.
+    Object.keys(photos).forEach(function (key) {
+      var row = byPhotoKey[key];
+      if (row && row.image_url && row.image_url.indexOf('/dish-photos/' + key + '.') !== -1) {
+        dropPhoto(key);
+        touched['items' + rowKey(row)] = true;
+      }
+    });
+
+    // Pins DATA already has, to the precision a click can mean anything.
+    Object.keys(state.placements).forEach(function (name) {
+      var booth = boothsByName[name], pin = state.placements[name];
+      if (booth && booth.latitude != null && booth.longitude != null &&
+          Math.abs(booth.latitude - pin.latitude) < 1e-6 &&
+          Math.abs(booth.longitude - pin.longitude) < 1e-6) {
+        delete state.placements[name];
+        touched['booths' + name] = true;
+      }
+    });
+
+    // Deletes: DATA carries only live rows, so a deleted row it no longer
+    // lists is a delete that landed.
+    Object.keys(state.deleted.items).forEach(function (k) {
+      if (k.indexOf('new:') !== 0 && !itemsByKey[k]) { delete state.deleted.items[k]; touched['items' + k] = true; }
+    });
+    Object.keys(state.deleted.booths).forEach(function (k) {
+      if (k.indexOf('new:') !== 0 && !boothsByName[k]) { delete state.deleted.booths[k]; touched['booths' + k] = true; }
+    });
+
+    var cleared = Object.keys(touched).length;
+    if (cleared) {
+      save();
+      var note = document.getElementById('settled-note');
+      note.textContent = 'Cleared ' + cleared + (cleared === 1 ? ' row' : ' rows') +
+        ' whose changes this build already includes — they were applied, so there is nothing left to export for them.';
+      note.classList.remove('hidden');
+    }
+    return cleared;
   }
 
   var dbPromise = null;
@@ -2222,7 +2375,7 @@ footer a { color: var(--accent); }
   load();
   refreshBoothOptions();
   if (!haveLeaflet) document.getElementById('offline-note').classList.remove('hidden');
-  loadPhotos().then(render, render);
+  loadPhotos().then(settle).then(render, render);
 })();
 </script>
 </body>
