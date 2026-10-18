@@ -375,3 +375,13 @@ def test_the_page_names_the_command_that_applies_its_export():
     say what to do with it or the loop has no end."""
     html = build_studio.render(_snapshot(_booth("Spain")))
     assert "epcot-fw studio apply" in html
+
+
+def test_edits_already_applied_are_settled_on_load():
+    """Stored edits never learned they had shipped, so after an apply and a
+    rebuild every one of them went on counting as a change and riding along
+    in the next export. Same lighter guard as above - the behaviour itself
+    was checked in the browser against a real 72-row backlog."""
+    html = build_studio.render(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
+    assert "loadPhotos().then(settle)" in html
+    assert 'id="settled-note"' in html

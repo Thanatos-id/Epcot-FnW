@@ -961,6 +961,7 @@
       ],
       "description": "Niagara-on-the-Lake, ON",
       "price_usd": 9.5,
+      "alcohol_kind": "wine",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Chateau-des-Charmes-Petales-Rouge-Canada-Booth-EPCOT-Food-and-Wine-Festival-Disney-World-2025-2.jpg"
     },
     {
@@ -1379,6 +1380,7 @@
       "booth_name": "Swirled Showcase",
       "name": "Frozen Szarlotka with Żubrówka Bison Grass Vodka",
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/08/DFB-_-Frozen-Szarlotka-_-Swirled-Showcase-_-2026-EPCOT-Food-Wine-Festival-_-Disney-World-Photo-Aug-27-2026-12-44-12-PM-1-4032-x-3024.jpg",
+      "alcohol_kind": "liquor",
       "flavor_tags": [
         "sweet"
       ]

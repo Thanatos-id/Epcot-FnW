@@ -799,6 +799,81 @@
         "covered_lines": 2427,
         "num_statements": 2623
       }
+    },
+    {
+      "recorded_at": "2026-10-18T20:22:22.191641+00:00",
+      "label": "2026-08-30T14:59:07.066422-04:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 241,
+        "items_priced": 234,
+        "items_described": 146,
+        "items_with_image": 172,
+        "items_tagged": 172,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 420
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "b3c4189",
+        "measured_at": "2026-08-28T04:12:10.984838+00:00",
+        "tests": 424,
+        "coverage_pct": 92.5,
+        "covered_lines": 2427,
+        "num_statements": 2623
+      }
+    },
+    {
+      "recorded_at": "2026-10-18T20:26:01.892395+00:00",
+      "label": "2026-08-30T14:59:07.066422-04:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 240,
+        "items_priced": 234,
+        "items_described": 145,
+        "items_with_image": 171,
+        "items_tagged": 172,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 420
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "b3c4189",
+        "measured_at": "2026-08-28T04:12:10.984838+00:00",
+        "tests": 424,
+        "coverage_pct": 92.5,
+        "covered_lines": 2427,
+        "num_statements": 2623
+      }
+    },
+    {
+      "recorded_at": "2026-10-18T20:30:22.984517+00:00",
+      "label": "2026-08-30T14:59:07.066422-04:00",
+      "data": {
+        "booths": 33,
+        "menu_items": 240,
+        "items_priced": 234,
+        "items_described": 145,
+        "items_with_image": 171,
+        "items_tagged": 172,
+        "booths_with_menu": 33,
+        "booths_with_image": 0,
+        "sources_enabled": 4,
+        "open_conflicts": 428
+      },
+      "pipeline": {
+        "label": "Current",
+        "commit": "b3c4189",
+        "measured_at": "2026-08-28T04:12:10.984838+00:00",
+        "tests": 424,
+        "coverage_pct": 92.5,
+        "covered_lines": 2427,
+        "num_statements": 2623
+      }
     }
   ]
 }

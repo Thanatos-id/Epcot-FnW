@@ -197,6 +197,21 @@ def _load_scoped_candidates(
     else:
         stmt = select(model_cls.id, name_field).where(model_cls.festival_id == festival_id)
 
+    # Order decides ties. find_best_match keeps the first of equally good
+    # candidates, and this query used to have no order at all - so when a
+    # live dish shared its name with retired copies of itself, which row a
+    # correction landed on was down to however Postgres felt like returning
+    # them. A "sweet" label on Swirled Showcase's Frozen Szarlotka went to a
+    # retired duplicate that way and never reached the app.
+    #
+    # Retired rows stay candidates on purpose: a dish that comes back next
+    # season should rejoin its old row, not start a new one. They just lose
+    # every tie to a live row, and the lowest id breaks what is left.
+    if hasattr(model_cls, "is_active"):
+        stmt = stmt.order_by(model_cls.is_active.desc(), model_cls.id)
+    else:
+        stmt = stmt.order_by(model_cls.id)
+
     rows = session.execute(stmt).all()
     return [Candidate(canonical_id=row[0], natural_key=normalize_name(row[1])) for row in rows]
 
