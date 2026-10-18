@@ -91,7 +91,7 @@ FIELD_MAP: dict[str, dict[str, str]] = {
     # source writes), so it resolves by priority like a name or a price -
     # which is what lets a curated `false` in the studio take back a blog
     # calling a returning dish new.
-    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url", "is_active": "is_active", "is_new_this_year": "is_new_this_year"},
+    "menu_item": {"name": "canonical_name", "description": "description", "category": "category", "price_usd": "price_usd", "image_url": "image_url", "is_active": "is_active", "is_new_this_year": "is_new_this_year", "alcohol_kind": "alcohol_kind"},
     "event": {"artist_name": "artist_name", "performance_date": "performance_date", "venue": "venue", "description": "description"},
     "seminar": {
         "title": "title",
@@ -412,7 +412,23 @@ def apply_match_outcome(
             raw_value=payload.get("dietary_tags") or [],
             observed_at=observed_at,
         )
-        _sync_dietary_tags(session, model_obj, resolution.value or [])
+        _sync_tags(session, model_obj, resolution.value or [], kind="dietary")
+
+    # Flavour travels in its own field for the same reason it has its own
+    # kind: the shipped app builds its allergen chips from `dietary_tags`,
+    # and a "sweet" chip appearing there would read as something to avoid.
+    if entity_type == "menu_item" and "flavor_tags" in payload:
+        resolution = _write_and_resolve_field(
+            session,
+            entity_type=entity_type,
+            canonical_id=canonical_id,
+            field_name="flavor_tags",
+            source=source,
+            extracted_record=extracted_record,
+            raw_value=payload.get("flavor_tags") or [],
+            observed_at=observed_at,
+        )
+        _sync_tags(session, model_obj, resolution.value or [], kind="flavour")
 
     if entity_type == "menu_item":
         _enforce_alcohol_consistency(model_obj)
@@ -560,19 +576,28 @@ def resolve_extracted_record(
     )
 
 
-def _sync_dietary_tags(session: Session, menu_item: MenuItem, codes: list[str]) -> None:
-    """Set the dish's tags to exactly `codes`, empty included.
+def _sync_tags(session: Session, menu_item: MenuItem, codes: list[str], *, kind: str) -> None:
+    """Set the dish's tags *of one kind* to exactly `codes`, empty included.
 
     An empty list used to return early, which made a tag impossible to take
     off: the curated record said "none of these apply", resolution agreed and
     selected it, and then this dropped the answer on the floor. Reached only
     when resolution produced a value at all, so an empty list here means no
     source asserts a tag - which is the same thing as having none.
+
+    Scoped by kind because two vocabularies share this relationship. Dietary
+    and flavour tags resolve from different payload fields and arrive at
+    different moments, so replacing the whole collection for either would
+    silently drop the other: a dish that was sweet would stop being sweet the
+    moment anything restated its allergens.
     """
     from epcot_fw.db.models import DietaryTag
 
+    keep = [t for t in menu_item.dietary_tags if t.kind != kind]
     if not codes:
-        menu_item.dietary_tags = []
+        menu_item.dietary_tags = keep
         return
-    tags = session.scalars(select(DietaryTag).where(DietaryTag.code.in_(codes))).all()
-    menu_item.dietary_tags = list(tags)
+    tags = session.scalars(
+        select(DietaryTag).where(DietaryTag.code.in_(codes), DietaryTag.kind == kind)
+    ).all()
+    menu_item.dietary_tags = keep + list(tags)

@@ -119,7 +119,9 @@ def export() -> None:
                             # Who took the photo, when, and the post it ran in
                             # where that was captured - see pipeline/photo_source.py.
                             "image_source": credits.get(it.id),
-                            "tags": [t.code for t in it.dietary_tags],
+                            "tags": [t.code for t in it.dietary_tags if t.kind != "flavour"],
+                            "flavor_tags": [t.code for t in it.dietary_tags if t.kind == "flavour"],
+                            "alcohol_kind": it.alcohol_kind,
                         }
                         for it in items
                     ],

@@ -449,3 +449,57 @@ def test_an_empty_festival_still_produces_a_readable_snapshot(db_session):
         assert body["booths"] == []
     finally:
         app.dependency_overrides.clear()
+
+
+def test_flavour_tags_never_leak_into_the_dietary_field(db_session):
+    """The guarantee the split exists for.
+
+    The shipped app builds its filter chips from whatever codes it finds in
+    `dietary_tags`, and files anything outside its own inclusion list under
+    "hide items with". A `sweet` code arriving there would have put a "sweet"
+    chip in every installed copy's allergen filter, reading as something to
+    avoid, before the UI meant to show it existed.
+    """
+    from epcot_fw.db.models import DietaryTag
+
+    _seed(db_session)
+    torte = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Kirschwasser Torte")
+    ).one()
+    # Seeded already - the vocabulary is part of the fixture database.
+    sweet = db_session.scalars(select(DietaryTag).where(DietaryTag.code == "sweet")).one()
+    spicy = db_session.scalars(select(DietaryTag).where(DietaryTag.code == "spicy")).one()
+    assert (sweet.kind, spicy.kind) == ("flavour", "dietary")
+    torte.dietary_tags = [sweet, spicy]
+    torte.alcohol_kind = None
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        dish = next(i for i in body["menu_items"] if i["canonical_name"] == "Kirschwasser Torte")
+
+        assert [t["code"] for t in dish["dietary_tags"]] == ["spicy"]
+        assert [t["code"] for t in dish["flavor_tags"]] == ["sweet"]
+        assert dish["flavor_tags"][0]["kind"] == "flavour"
+        assert body["schema_version"] == 1, "both fields are additive"
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_alcohol_kind_reaches_the_feed(db_session):
+    _seed(db_session)
+    item = db_session.scalars(
+        select(MenuItem).where(MenuItem.canonical_name == "Lamington")
+    ).one()
+    item.alcohol_kind = "cider"
+    db_session.flush()
+
+    client = _client_for(db_session)
+    try:
+        body = client.get(SNAPSHOT).json()
+        kinds = {i["canonical_name"]: i["alcohol_kind"] for i in body["menu_items"]}
+        assert kinds["Lamington"] == "cider"
+        assert kinds["Kirschwasser Torte"] is None
+    finally:
+        app.dependency_overrides.clear()

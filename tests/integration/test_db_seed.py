@@ -73,7 +73,7 @@ def test_seed_creates_all_dietary_tags(seed_session_factory):
 
     session = seed_session_factory()
     codes = {t.code for t in session.query(DietaryTag).all()}
-    assert codes == {code for code, _ in seed_module.DIETARY_TAGS}
+    assert codes == {code for code, _, _ in seed_module.DIETARY_TAGS}
 
 
 def test_seed_creates_exactly_one_festival_row(seed_session_factory):

@@ -248,11 +248,21 @@ class Booth(Base):
 
 
 class DietaryTag(Base):
+    """A tag a dish can carry. Two vocabularies live here, told apart by `kind`.
+
+    'dietary' is the original seven - diet and allergen-adjacent, and never an
+    allergen guarantee (see normalize/dietary_tags.py). 'flavour' is sweet and
+    savoury, which are tags for the same structural reasons - a dish can be
+    both or neither - but answer an entirely different question. The API keeps
+    them in separate fields so a client filtering on one never sees the other.
+    """
+
     __tablename__ = "dietary_tags"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     code: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
     label: Mapped[str] = mapped_column(Text, nullable=False)
+    kind: Mapped[str] = mapped_column(Text, nullable=False, server_default="dietary")
 
 
 class MenuItem(Base):
@@ -281,6 +291,9 @@ class MenuItem(Base):
     is_new_this_year: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=false(), default=False
     )
+    # beer | wine | liquor | cider, and null for anything that is not an
+    # alcoholic drink. One value per drink, so a column rather than a tag.
+    alcohol_kind: Mapped[str | None] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

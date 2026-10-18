@@ -70,6 +70,11 @@ MENU_ITEM_FIELDS = (
     "category",
     "image_url",
     "dietary_tags",
+    # Sweet/savoury, and which kind of drink an alcoholic one is. Same
+    # replace-the-union rule as dietary_tags for the first; a plain value for
+    # the second.
+    "flavor_tags",
+    "alcohol_kind",
     # Not to be confused with `new` below: this says the dish is new to the
     # festival this season, which is a fact about the menu. `new` says the
     # crawl never found it, which is a fact about how the row got here.
