@@ -555,6 +555,37 @@ def test_applying_a_rename_twice_does_not_create_a_second_dish(db_session, empty
     assert len(still) == 1, f"re-applying a rename duplicated the dish: {len(still)} rows"
 
 
+def test_a_correction_lands_on_the_live_dish_not_a_retired_copy(db_session, empty_booths, items_file):
+    """How Swirled Showcase's Frozen Szarlotka lost its "sweet" label.
+
+    A live dish and a retired copy of it share a name, so both score 100 and
+    the matcher keeps whichever it was handed first. The candidate query had
+    no order, so that was whatever Postgres returned - here the retired copy,
+    because touching the live row moves it later in the table. The correction
+    went to a row the app never shows."""
+    festival_id = db_session.info["festival_id"]
+    live = _seed_dish(db_session, festival_id)
+    retired = MenuItem(
+        booth_id=live.booth_id,
+        canonical_name=live.canonical_name,
+        category=live.category,
+        is_active=False,
+    )
+    db_session.add(retired)
+    db_session.flush()
+    # Any update rewrites the live row behind the retired one, which is what
+    # put the retired copy first in an unordered scan.
+    live.price_usd = Decimal("6.50")
+    db_session.flush()
+
+    path = items_file([{"booth_name": "Italy", "name": "Peroni Pilsner", "description": "Italian lager"}])
+    stage_manual_overrides(db_session, path=empty_booths, items_path=path)
+    run_resolve(db_session, festival_id=festival_id)
+
+    assert db_session.get(MenuItem, live.id).description == "Italian lager"
+    assert db_session.get(MenuItem, retired.id).description is None
+
+
 def test_a_rename_still_finds_the_dish_the_first_time(db_session, empty_booths, items_file):
     """The guard above must not break the case it is guarding - a rename whose
     old name is still there has to go on matching the old name, or nothing
