@@ -646,6 +646,11 @@
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/09/20250928-DFB-Boyd-and-Blair-Pomegranate-Codder-Coastal-Eats-Booth-Food-and-Wine-Festival-—-EPCOT-Disney-World-5-700x525.jpg",
       "flavor_tags": [
         "sweet"
+      ],
+      "category": "alcoholic_beverage",
+      "alcohol_kind": "liquor",
+      "dietary_tags": [
+        "contains_alcohol"
       ]
     },
     {
@@ -775,7 +780,8 @@
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2025/08/DFB-Oahu-Sunrise-Hawaii-EPCOT-Food-and-Wine-Festival-Disney-World-Photo-Aug-28-2025-2-700x525.jpg",
       "flavor_tags": [
         "sweet"
-      ]
+      ],
+      "price_usd": 14.5
     },
     {
       "booth_name": "Italy",
@@ -1234,7 +1240,8 @@
     {
       "booth_name": "The Wedge",
       "name": "Cheesesteak Macaroni and Cheese",
-      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-macatizers-Cheesesteak-Macaroni-and-Cheese-01.jpg"
+      "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2024/08/2024-wdw-epcot-international-food-and-wine-festival-macatizers-Cheesesteak-Macaroni-and-Cheese-01.jpg",
+      "price_usd": 6.49
     },
     {
       "booth_name": "Brazil",
@@ -1499,7 +1506,12 @@
     {
       "booth_name": "France",
       "name": "La Roche Prestige Cuvée",
-      "is_new_this_year": true
+      "is_new_this_year": true,
+      "category": "alcoholic_beverage",
+      "alcohol_kind": "wine",
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
     },
     {
       "booth_name": "The Alps",
@@ -1607,7 +1619,10 @@
       "flavor_tags": [
         "sweet"
       ],
-      "alcohol_kind": "beer"
+      "alcohol_kind": "beer",
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
     },
     {
       "booth_name": "Milled and Mulled",
@@ -1698,6 +1713,51 @@
       "description": "(Emile’s Fromage Montage Offering) (30th Anniversary Legacy Item)",
       "price_usd": 6.79,
       "image_url": "https://www.disneyfoodblog.com/wp-content/uploads/2026/10/DFB-_-Warm-Raclette-Swiss-Cheese-on-a-Baguette-with-Jambon-_-The-Alps-_-2026-EPCOT-Food-Wine-Festival-_wdw-Oct-02-2.jpg"
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "BBQ Braai Chicken Pizza",
+      "category": "food"
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Caramel-Apple Cheesecake Baumkuchen",
+      "category": "food"
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Pistachio-Chocolate Mochi Doughnut",
+      "category": "food"
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Mickey-shaped Celebration Macaron",
+      "category": "food"
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Caramel Cream and Gjetost Norwegian Brown Cheese Bolle",
+      "category": "food",
+      "price_usd": 5.49
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Banfi Rosa Regale Sparkling Red",
+      "category": "alcoholic_beverage",
+      "alcohol_kind": "wine",
+      "dietary_tags": [
+        "contains_alcohol"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Frozen Szarlotka: Apple Pie Filling and Apple-Cinnamon Cider topped with Streusel (non-alcoholic) (A 30th Anniversary Legacy Item — Reimagined for 2026!)",
+      "is_active": false
+    },
+    {
+      "booth_name": "Belgium",
+      "name": "Brouwerij Verhaeghe Duchesse Red Sweet & Tart Cherry Ale",
+      "price_usd": 6.0
     }
   ]
 }
