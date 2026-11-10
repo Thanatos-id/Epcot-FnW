@@ -392,3 +392,30 @@ def test_edits_already_applied_are_settled_on_load():
     html = build_studio.render(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
     assert "loadPhotos().then(settle)" in html
     assert 'id="settled-note"' in html
+
+
+def test_the_studio_installs_as_its_own_app():
+    """Its own manifest, so Chrome installs "Epcot Studio" opening on the
+    studio rather than the ledger; and a service worker, which Chrome wants
+    before it offers Install at all."""
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert '<link rel="manifest" href="studio.webmanifest" />' in html
+    assert "navigator.serviceWorker.register('studio-sw.js', { scope: './studio' })" in html
+    assert 'id="install-btn"' in html
+    assert 'id="update-line"' in html
+
+    assets = Path(build_studio.__file__).parent / "assets"
+    manifest = json.loads((assets / "studio.webmanifest").read_text())
+    assert manifest["start_url"] == "studio.html"
+    assert manifest["display"] == "standalone"
+    # The start page has to sit inside both the app's scope and the worker's.
+    assert manifest["start_url"].startswith(manifest["scope"])
+
+
+def test_the_app_always_opens_on_the_latest_build():
+    """Network first: a rebuild, or a merge to main for the Pages copy, is what
+    the app shows next time it opens. The cache only answers when the server
+    cannot."""
+    worker = (Path(build_studio.__file__).parent / "assets" / "studio-sw.js").read_text()
+    assert "fetch(request, { cache: 'no-cache' })" in worker
+    assert ".catch(() => caches.match(request" in worker

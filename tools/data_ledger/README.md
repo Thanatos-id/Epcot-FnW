@@ -92,6 +92,25 @@ The look is deliberately plain: white and light grey, square corners, 1px
 rules instead of shadows, Inter and Inter Tight, and one colour — orange —
 reserved for "this has changed" and "this is the pin you are placing".
 
+### As an installed app
+
+The studio installs from Chrome as **Epcot Studio**, a standalone app with
+its own window: open it, then use the install icon in the address bar or
+**⋯ → Install as app**. It has its own manifest (`assets/studio.webmanifest`,
+so it opens on the studio rather than the ledger) and a service worker
+(`assets/studio-sw.js`, which Chrome requires before it offers Install).
+`build_artifact.py` copies both into `docs/`.
+
+The worker is network first and scoped to the studio's own files. Every
+launch fetches the current `studio.html`, so a rebuild (or, for the Pages
+copy, a merge to main) is what the app shows next; its cached copy is only
+used when the server cannot be reached. A window left open notices a newer
+build on focus and offers **Reload** — edits are saved as they are made, so
+nothing is lost by taking it.
+
+An app installed from `localhost:8123` and one installed from GitHub Pages
+are different origins, and so keep separate unexported edits.
+
 Each pane carries its own filters, because one search box over both lists
 reads as a single search and behaves as two. The rail's chips are about a
 booth as a whole (*not placed*) or about work done anywhere inside it

@@ -1,0 +1,37 @@
+{
+  "id": "studio",
+  "name": "Epcot Studio",
+  "short_name": "Studio",
+  "description": "Curation studio for the Epcot festival database: correct dishes, attach photos, place booths, and export changesets.",
+  "start_url": "studio.html",
+  "scope": "studio",
+  "display": "standalone",
+  "background_color": "#f5f5f4",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
