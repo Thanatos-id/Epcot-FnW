@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="light dark" />
-<meta name="description" content="Curation studio for the crawled Epcot Food &amp; Wine Festival database - correct a dish, attach a photo, place a booth on the map, or add what the crawl missed, and export the result as curated overrides." />
-<title>Studio — Epcot Food &amp; Wine</title>
-
+<meta name="color-scheme" content="light" />
+<meta name="description" content="Curation studio for the Epcot festival database - correct a dish, attach a photo, place a booth on the map, or add what the crawl missed, and export the result as curated overrides." />
+<title>Studio — Epcot Festivals</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icons/favicon.ico" sizes="any" />
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
@@ -14,446 +13,431 @@
 <meta name="apple-mobile-web-app-title" content="Studio" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="#efe8d8" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#1b1510" media="(prefers-color-scheme: dark)" />
-
+<meta name="theme-color" content="#ffffff" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&display=swap" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 <style>
+/* One light palette, flat and square. Separation comes from 1px rules and
+   white on grey, never from shadow or rounding; colour is reserved for one
+   job - the orange that says "this has changed" or "this pin is the one you
+   are placing" - so it is never decoration. */
 :root {
-  --bg: #efe8d8; --surface: #fbf7ee; --surface-2: #f3ebd8; --ink: #241c16;
-  --ink-muted: #6b5d4f; --accent: #7a2036; --accent-soft: #f0dce0; --gold: #a9752b;
-  --gold-soft: #f1e2c4; --border: #ddd0b5; --good: #4f7a45; --good-soft: #e1ebdb;
-  --warn: #bb5a2c; --warn-soft: #f3e1d2;
-  --shadow: 0 1px 2px rgba(36,28,22,0.06), 0 8px 24px rgba(36,28,22,0.06);
-  /* What the panes are inset by. --bar-height is measured from the export
-     bar at runtime and rewritten here (see syncBarHeight): the bar wraps to
-     two rows on a narrow screen and grows by the safe-area inset on a phone,
-     so any number hard-coded for it is wrong on some device. This value is
-     only the fallback used before the first measurement. */
-  --shell-top: 12px;
-  --bar-height: 64px;
-  --shell-bottom: calc(var(--bar-height) + 24px);
+  --bg: #f5f5f4; --surface: #ffffff; --surface-2: #fafaf9;
+  --line: #e5e5e4; --line-strong: #d4d4d2;
+  --ink: #111111; --ink-2: #525252; --ink-3: #8a8a88;
+  --accent: #111111; --signal: #e85d04; --signal-soft: #fff4ec;
+  --good: #2f7d4f; --warn: #b42318;
+  --radius: 0;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px;
+  --control: 32px;
+  --bar: 56px;
+  --rail: 320px;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-head: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #1b1510; --surface: #241d16; --surface-2: #2c231a; --ink: #f3ecdd;
-    --ink-muted: #b8aa93; --accent: #e0899c; --accent-soft: #3a2029; --gold: #d9a24b;
-    --gold-soft: #3a2e18; --border: #3a2f23; --good: #8fc97f; --good-soft: #24301f;
-    --warn: #e0935c; --warn-soft: #3a2618;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #1b1510; --surface: #241d16; --surface-2: #2c231a; --ink: #f3ecdd;
-  --ink-muted: #b8aa93; --accent: #e0899c; --accent-soft: #3a2029; --gold: #d9a24b;
-  --gold-soft: #3a2e18; --border: #3a2f23; --good: #8fc97f; --good-soft: #24301f;
-  --warn: #e0935c; --warn-soft: #3a2618;
-  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
-}
+@media (pointer: coarse) { :root { --control: 40px; } }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; border-radius: var(--radius); }
 html, body { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   background: var(--bg); color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  font-family: var(--font); font-size: 14px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased; font-feature-settings: "cv11", "ss01";
 }
-.wrap { max-width: 1500px; margin: 0 auto; padding: clamp(18px, 4vw, 34px) clamp(12px, 3vw, 22px) 130px; }
-.display { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; }
-.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+h1, h2, h3 { font-family: var(--font-head); font-weight: 600; letter-spacing: -0.015em; margin: 0; }
+a { color: var(--ink); text-underline-offset: 2px; }
+.mono, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
+}
+.hidden { display: none !important; }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px; font-size: 11px;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
-  font-weight: 600; margin-bottom: 10px;
-}
-.eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-h1 { font-size: clamp(22px, 5vw, 31px); margin: 0 0 8px; font-weight: 600; letter-spacing: -0.01em; }
-.subtitle { color: var(--ink-muted); font-size: 14.5px; max-width: 74ch; }
-.subtitle a, .panel a { color: var(--accent); }
-
-.panel {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  box-shadow: var(--shadow); padding: 13px 15px; margin: 16px 0;
-  font-size: 13.5px; color: var(--ink-muted);
-}
-.panel b { color: var(--ink); }
-.panel.note { background: var(--surface-2); }
-.panel.warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
-.panel.armed { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); font-weight: 600; }
-
-/* ---------- toolbar ---------- */
-.toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 18px 0 10px; }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-input[type="search"], select, input[type="text"], input[type="number"], textarea {
-  font: inherit; font-size: 14px; color: var(--ink); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px;
-}
-input[type="search"] { flex: 1 1 220px; min-width: 0; }
-/* A <select> is sized by its widest option unless told otherwise, and the
-   booth list holds "Additional Festival Locations". Left alone that pushes
-   the toolbar past a 320px viewport. */
-select { max-width: 100%; }
-.toolbar select { flex: 1 1 150px; min-width: 0; }
-input[type="search"]:focus, select:focus, textarea:focus, .cell-input:focus, input:focus {
-  outline: 2px solid var(--accent); outline-offset: -1px;
-}
+/* ---------- controls ---------- */
+button, input, select, textarea { font: inherit; color: var(--ink); }
 button {
-  font: inherit; font-size: 14px; border-radius: 8px; border: 1px solid var(--border);
-  background: var(--surface); color: var(--ink); padding: 8px 13px; cursor: pointer;
-  min-height: 40px;
+  height: var(--control); padding: 0 var(--s3); border: 1px solid var(--line-strong);
+  background: var(--surface); cursor: pointer; font-size: 13px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: var(--s2); white-space: nowrap;
 }
-button:disabled { opacity: 0.5; cursor: default; }
-button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-button.tab.active, button.chip.active {
-  background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600;
+button:hover { border-color: var(--ink); }
+button:disabled { opacity: 0.4; cursor: default; border-color: var(--line-strong); }
+button.primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+button.primary:hover { background: #000; }
+button.quiet { border-color: transparent; background: transparent; color: var(--ink-2); padding: 0 var(--s2); }
+button.quiet:hover { color: var(--ink); border-color: transparent; text-decoration: underline; }
+button.danger { color: var(--warn); }
+button.small { height: 28px; padding: 0 var(--s2); font-size: 12px; }
+button.chip { height: 28px; padding: 0 var(--s2); font-size: 12px; color: var(--ink-2); }
+button.chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.linkish, .tag-done {
+  border: none; background: transparent; color: var(--ink-2); cursor: pointer; height: auto;
+  font-size: 12px; padding: 2px 0; text-decoration: underline; text-underline-offset: 2px;
 }
-button.chip { min-height: 34px; padding: 5px 11px; font-size: 12.5px; }
-button.small { min-height: 32px; padding: 4px 10px; font-size: 12.5px; }
-.spacer { flex: 1 1 auto; }
-.count { font-size: 13px; color: var(--ink-muted); white-space: nowrap; }
+.linkish:hover, .tag-done:hover { color: var(--ink); }
+input[type="search"], input[type="text"], input[type="number"], input[type="date"], select, textarea {
+  height: var(--control); border: 1px solid var(--line-strong); background: var(--surface);
+  padding: 0 var(--s2); font-size: 13px; min-width: 0;
+}
+textarea { height: auto; padding: 6px var(--s2); resize: vertical; line-height: 1.45; }
+select { max-width: 100%; }
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: -1px;
+}
+input[type="file"] { display: none; }
 
-/* ---------- map ---------- */
-.tallies { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 8px; }
-.tally {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-  padding: 5px 12px; font-size: 12.5px; color: var(--ink-muted);
+/* ---------- shell ----------
+   One viewport, two scrollers, nothing measured. The bar is a grid row, so
+   nothing in the panes has to know how tall it is; the rail and the detail
+   each scroll on their own, so the list you choose from stays beside the
+   list you are working through. */
+body.shell {
+  display: grid; grid-template-rows: var(--bar) auto minmax(0, 1fr);
+  height: 100vh; height: 100dvh; overflow: hidden;
 }
-.tally b { color: var(--ink); font-family: ui-monospace, Menlo, monospace; }
-#map {
-  width: 100%; height: min(52vh, 460px); border-radius: 10px; border: 1px solid var(--border);
-  box-shadow: var(--shadow); margin: 12px 0; background: var(--surface-2);
+.bar {
+  display: flex; align-items: center; gap: var(--s4); padding: 0 var(--s4);
+  background: var(--surface); border-bottom: 1px solid var(--line); min-width: 0;
 }
-#map.armed, #map.armed .leaflet-container { cursor: crosshair; }
-.leaflet-control-layers, .leaflet-bar a { background: var(--surface) !important; color: var(--ink) !important; border-color: var(--border) !important; }
-.leaflet-control-attribution { background: rgba(255,255,255,0.75) !important; font-size: 10px; }
-.booth-pin span { display: block; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+.wordmark { font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+.festivals { display: flex; border: 1px solid var(--line-strong); min-width: 0; overflow-x: auto; }
+.festivals button {
+  border: none; border-right: 1px solid var(--line-strong); height: 30px; font-size: 12.5px;
+  color: var(--ink-2); padding: 0 var(--s3);
+}
+.festivals button:last-child { border-right: none; }
+.festivals button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.festivals button .dot { width: 5px; height: 5px; background: currentColor; opacity: 0.5; }
+.bar .spacer { flex: 1 1 auto; }
+.bar .count { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+.bar .count b { color: var(--signal); font-weight: 600; }
+.menu { position: relative; }
+.menu-list {
+  position: absolute; right: 0; top: calc(100% + 4px); z-index: 1200; min-width: 220px;
+  background: var(--surface); border: 1px solid var(--ink); display: flex; flex-direction: column;
+}
+.menu-list button, .menu-list a {
+  border: none; border-bottom: 1px solid var(--line); height: 36px; justify-content: flex-start;
+  padding: 0 var(--s3); font-size: 13px; text-decoration: none; display: flex; align-items: center;
+  background: var(--surface); color: var(--ink);
+}
+.menu-list > :last-child { border-bottom: none; }
+.menu-list button:hover, .menu-list a:hover { background: var(--surface-2); }
+
+.status { display: flex; flex-direction: column; }
+.status-line {
+  display: flex; align-items: center; gap: var(--s3); padding: 6px var(--s4);
+  font-size: 12.5px; border-bottom: 1px solid var(--line); background: var(--surface);
+}
+.status-line.warn { color: var(--warn); }
+.status-line .spacer { flex: 1 1 auto; }
+
+.workspace { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); min-height: 0; }
+.rail {
+  display: flex; flex-direction: column; min-height: 0; background: var(--surface);
+  border-right: 1px solid var(--line);
+}
+.rail-head { padding: var(--s4) var(--s4) var(--s3); display: grid; gap: var(--s2); border-bottom: 1px solid var(--line); }
+.rail-title { display: flex; align-items: baseline; justify-content: space-between; }
+.rail-title h2 { font-size: 15px; }
+.count { font-size: 12px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rail-head input[type="search"] { width: 100%; }
+.chips { display: flex; gap: var(--s1); flex-wrap: wrap; }
+.booth-list, .detail {
+  overflow-y: auto; overscroll-behavior: contain; min-height: 0; scrollbar-gutter: stable;
+}
+.booth-list { flex: 1 1 auto; }
+.rail-foot { border-top: 1px solid var(--line); padding: var(--s2) var(--s4); }
+.rail-foot button { width: 100%; justify-content: center; }
+
+.booth-item {
+  width: 100%; height: auto; display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px var(--s2); text-align: left; padding: 10px var(--s4); border: none;
+  border-bottom: 1px solid var(--line); border-left: 2px solid transparent; background: var(--surface);
+  font-weight: 400; white-space: normal;
+}
+.booth-item:hover { background: var(--surface-2); }
+.booth-item.selected { background: var(--bg); border-left-color: var(--ink); }
+.booth-item.deleted { opacity: 0.45; }
+.booth-item-name { font-weight: 500; font-size: 13.5px; overflow-wrap: anywhere; }
+.booth-item-count { font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 6px; }
+.booth-item-meta { grid-column: 1 / -1; font-size: 11.5px; color: var(--ink-3); display: flex; gap: var(--s2); flex-wrap: wrap; }
+.changed-dot { width: 6px; height: 6px; background: var(--signal); display: inline-block; }
+
+/* ---------- detail ---------- */
+.detail { background: var(--bg); }
+.detail-empty, .festival-empty {
+  height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: var(--s6); color: var(--ink-2); gap: var(--s2);
+}
+.detail-empty h2, .festival-empty h2 { font-size: 22px; color: var(--ink); }
+.detail-empty p, .festival-empty p { margin: 0; max-width: 44ch; }
+.festival-empty .stats { display: flex; gap: 0; margin-top: var(--s4); border: 1px solid var(--line); background: var(--surface); }
+.festival-empty .stats div { padding: var(--s3) var(--s5); border-right: 1px solid var(--line); }
+.festival-empty .stats div:last-child { border-right: none; }
+.festival-empty .stats b { display: block; font-family: var(--font-head); font-size: 22px; color: var(--ink); }
+
+.detail-head { background: var(--surface); border-bottom: 1px solid var(--line); }
+.back-to-booths { display: none; margin: var(--s3) var(--s4) 0; }
+.booth-panel { padding: var(--s4) var(--s5) var(--s3); display: grid; gap: var(--s3); }
+.booth-title { display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap; }
+.booth-title h2 { font-size: 24px; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.booth-fields {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--s2) var(--s4);
+}
+.booth-fields .field { display: grid; gap: 2px; }
+.booth-fields .field.wide { grid-column: 1 / -1; }
+.inline { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; }
+.location {
+  display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap;
+  padding-top: var(--s3); border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-2);
+}
+.location .mono { color: var(--ink); font-size: 12px; }
+.booth-actions { display: flex; gap: var(--s3); }
+
+/* The one thing pinned while a menu scrolls: which booth this is, and the
+   controls for narrowing its dishes. The booth's own fields scroll away -
+   pinned, they took a third of a laptop screen from the dishes. */
+.toolbar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; gap: var(--s2); flex-wrap: wrap; align-items: center;
+  padding: var(--s2) var(--s5); border-bottom: 1px solid var(--line); background: var(--surface-2);
+}
+.toolbar-title { font-family: var(--font-head); font-weight: 600; font-size: 14px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+.toolbar input[type="search"] { flex: 1 1 200px; }
+.toolbar .spacer { flex: 1 1 auto; }
+
+/* Status words rather than coloured pills: one small uppercase label, and
+   colour only where it carries meaning. */
+.pill {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); white-space: nowrap; border: 1px solid var(--line-strong); padding: 1px 6px;
+}
+.pill.surveyed { color: var(--good); border-color: currentColor; }
+.pill.mapped { color: var(--ink); border-color: currentColor; }
+.pill.unplaced, .pill.opens-later { color: var(--signal); border-color: currentColor; }
+.pill.deleted { color: var(--warn); border-color: currentColor; }
+.pill.curated { color: var(--ink); }
+
+/* ---------- dish rows: a ruled list, not a stack of cards ---------- */
+.rows { display: flex; flex-direction: column; padding: 0 0 var(--s6); }
+.row {
+  display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: var(--s4);
+  padding: var(--s4) var(--s5); background: var(--surface); border-bottom: 1px solid var(--line);
+  border-left: 3px solid transparent;
+}
+.row.edited { border-left-color: var(--signal); }
+.row.deleted { opacity: 0.5; }
+.thumb {
+  width: 112px; aspect-ratio: 1; overflow: hidden; background: var(--bg);
+  border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; position: relative;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb-empty-label { color: var(--ink-3); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.thumb .badge {
+  position: absolute; left: 0; bottom: 0; right: 0; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; background: var(--signal); color: #fff;
+}
+.photo-actions { display: flex; flex-wrap: wrap; gap: var(--s1); margin-top: var(--s2); }
+.photo-actions button { height: 24px; padding: 0 6px; font-size: 11px; }
+.photo-credit { margin-top: 6px; font-size: 10.5px; line-height: 1.35; color: var(--ink-3); overflow-wrap: anywhere; }
+.photo-credit .season { font-variant-numeric: tabular-nums; }
+
+.fields { display: grid; gap: var(--s2); min-width: 0; align-content: start; }
+.field-row { display: flex; gap: var(--s2); flex-wrap: wrap; align-items: center; }
+.row-head { display: flex; align-items: center; gap: var(--s2); }
+/* Element-qualified so it outranks the generic input[type] rule above. A
+   light rule on every field says "editable" without shouting it. */
+input.cell-input, textarea.cell-input, select.cell-input {
+  width: 100%; border: 1px solid var(--line); background: var(--surface); padding: 0 var(--s2);
+  height: var(--control); font-size: 13.5px;
+}
+input.cell-input:hover, textarea.cell-input:hover, select.cell-input:hover { border-color: var(--line-strong); }
+textarea.cell-input { height: auto; min-height: 44px; padding: 6px var(--s2); color: var(--ink-2); }
+input.cell-input[placeholder="Dish name"] { font-weight: 600; font-size: 15px; }
+input.cell-input.changed, textarea.cell-input.changed, select.cell-input.changed { border-color: var(--signal); background: var(--signal-soft); }
+input.price { flex: 0 0 104px; width: 104px; font-family: var(--mono); font-size: 13px; }
+select.cell-input { width: auto; }
+
+.attrs { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); align-items: center; }
+.tag-cell { cursor: pointer; }
+.tag-summary, .tag-picker, .new-cell, .geo { display: flex; flex-wrap: wrap; gap: var(--s1); align-items: center; font-size: 12px; color: var(--ink-3); }
+.tag-none { color: var(--ink-3); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; margin-right: 2px; }
+.tag-edit { color: var(--ink-2); font-size: 12px; text-decoration: underline; text-underline-offset: 2px; margin-left: 2px; }
+.tag-toggle {
+  height: 24px; padding: 0 var(--s2); font-size: 11.5px; font-weight: 500; color: var(--ink-2);
+  border: 1px solid var(--line-strong); background: var(--surface); cursor: pointer;
+  display: inline-flex; align-items: center;
+}
+.tag-toggle.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.tag-toggle.changed { box-shadow: inset 0 -2px 0 var(--signal); }
+.geo select.cell-input { height: 24px; font-size: 12px; padding: 0 4px; }
+.row-actions { display: flex; gap: var(--s4); justify-content: flex-end; }
+.empty-state { padding: var(--s6) var(--s4); text-align: center; color: var(--ink-3); font-size: 13px; }
+
+/* ---------- map drawer ----------
+   The map is a tool you pick up, not a region of the page. It slides over
+   from the right with the booth it is about, holds a draft pin until Save,
+   and puts everything back where it was on Close. */
+.scrim {
+  position: fixed; inset: 0; background: rgba(17,17,17,0.24); z-index: 1300;
+  opacity: 0; pointer-events: none; transition: opacity 220ms ease-out;
+}
+.scrim.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); z-index: 1400;
+  background: var(--surface); border-left: 1px solid var(--ink);
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  transform: translateX(100%); transition: transform 220ms ease-out;
+  box-shadow: -1px 0 0 rgba(0,0,0,0.04), -12px 0 32px rgba(0,0,0,0.06);
+}
+.drawer.open { transform: none; }
+.drawer-head { padding: var(--s4) var(--s5); border-bottom: 1px solid var(--line); display: grid; gap: var(--s2); }
+.drawer-title { display: flex; align-items: center; gap: var(--s3); }
+.drawer-title h2 { font-size: 20px; flex: 1 1 auto; overflow-wrap: anywhere; }
+.drawer-meta { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; font-size: 12.5px; color: var(--ink-2); }
+.drawer-meta .spacer { flex: 1 1 auto; }
+.segmented { display: inline-flex; border: 1px solid var(--line-strong); }
+.segmented button { border: none; height: 26px; font-size: 12px; color: var(--ink-2); }
+.segmented button + button { border-left: 1px solid var(--line-strong); }
+.segmented button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.drawer-body { position: relative; min-height: 0; background: var(--bg); }
+#map { position: absolute; inset: 0; }
+#map.placing, #map.placing .leaflet-container { cursor: crosshair; }
+.drawer-hint {
+  position: absolute; left: var(--s4); bottom: var(--s5); z-index: 500; background: var(--surface);
+  border: 1px solid var(--ink); padding: 6px var(--s3); font-size: 12.5px; max-width: calc(100% - 32px);
+}
+.drawer-offline { padding: var(--s5); color: var(--warn); }
+.drawer-foot {
+  display: flex; align-items: center; gap: var(--s2); padding: var(--s3) var(--s5);
+  border-top: 1px solid var(--line); flex-wrap: wrap;
+}
+.drawer-foot .spacer { flex: 1 1 auto; }
+.tallies { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--line); }
+.tally { padding: 4px var(--s3); font-size: 12px; color: var(--ink-2); border-right: 1px solid var(--line); }
+.tally:last-child { border-right: none; }
+.tally b { color: var(--ink); font-family: var(--mono); font-weight: 500; }
+
+.leaflet-container { font-family: var(--font); background: var(--bg); }
+.leaflet-bar, .leaflet-bar a { border-radius: 0 !important; }
+.leaflet-bar { border: 1px solid var(--ink) !important; box-shadow: none !important; }
+.leaflet-bar a { color: var(--ink) !important; border-bottom-color: var(--line) !important; }
+.leaflet-control-attribution { background: rgba(255,255,255,0.8) !important; font-size: 10px; }
+.booth-pin span { display: block; width: 12px; height: 12px; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.5); }
+.booth-pin.dim span { opacity: 0.55; }
+.booth-pin.active span { width: 18px; height: 18px; background: var(--signal) !important; box-shadow: 0 0 0 1px #000; }
+.booth-pin.draft span { width: 18px; height: 18px; background: var(--signal) !important; border-color: #000; }
 .leaflet-tooltip.booth-tooltip {
-  background: var(--surface); color: var(--ink); border: 1px solid var(--border);
-  border-radius: 6px; font-size: 12px; font-weight: 600; padding: 2px 7px; box-shadow: var(--shadow);
+  background: var(--surface); color: var(--ink); border: 1px solid var(--ink); border-radius: 0;
+  font-size: 11px; font-weight: 500; padding: 1px 6px; box-shadow: none;
 }
 .leaflet-tooltip.booth-tooltip::before { display: none; }
 
-/* ---------- master / detail ----------
-
-   The booth list is the way in: 32 booths against 209 dishes, and a dish is
-   only ever understood next to the others on the same menu. 450px is enough
-   for the longest booth name plus its pills without letting the rail eat the
-   half of the screen the dishes need.
-
-   Below RAIL_BREAKPOINT the two panes cannot sit side by side, so they take
-   turns: the rail until a booth is picked, the detail (with a way back)
-   after. `.picked` on the layout is what switches them. */
-.layout { display: grid; grid-template-columns: 450px minmax(0, 1fr); gap: 18px; align-items: start; }
-.rail, .detail { min-width: 0; }
-
-.rail-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
-.rail-head h2 { font-size: 18px; margin: 0; font-weight: 600; }
-.rail-controls { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-.rail-controls input[type="search"] { width: 100%; flex: none; }
-.booth-list { display: flex; flex-direction: column; gap: 6px; }
-
-.booth-item {
-  width: 100%; text-align: left; display: block; cursor: pointer; flex: none;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  padding: 10px 12px; min-height: 0; font: inherit; color: var(--ink);
-}
-.booth-item:hover { border-color: var(--accent); }
-.booth-item.selected { background: var(--accent-soft); border-color: var(--accent); }
-.booth-item.edited { box-shadow: inset 3px 0 0 var(--gold); }
-.booth-item.deleted { opacity: 0.55; }
-.booth-item-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.booth-item-name { font-weight: 600; font-size: 14.5px; overflow-wrap: anywhere; min-width: 0; }
-.booth-item-meta { color: var(--ink-muted); font-size: 12px; margin-top: 3px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.booth-item.selected .booth-item-meta { color: var(--accent); }
-
-.detail-empty { padding: clamp(28px, 7vw, 56px) 22px; text-align: center; }
-.detail-empty h2 { font-size: 19px; margin: 0 0 8px; color: var(--ink); font-weight: 600; }
-.detail-empty p { margin: 0 auto; max-width: 46ch; }
-.back-to-booths { display: none; margin-bottom: 12px; }
-
-/* Each pane scrolls on its own.
-
-   Two lists of very different lengths share this screen - 32 booths against
-   a menu that runs to 21 dishes - and on one page scroll the rail runs out
-   long before the menu does, so working down a long menu means losing the
-   booth you are in. Pinning both and giving each its own scroller keeps the
-   list you are choosing from next to the list you are working through.
-
-   `max-height` rather than `height`: a short menu keeps its natural size
-   instead of a card floating in an empty viewport-tall box, and leaving the
-   pane shorter than its container is also what gives `sticky` something to
-   travel through. The bottom reserve clears the fixed export bar.
-
-   Only above the breakpoint where the two panes are side by side. Below it
-   they take turns, and a touch device should scroll the way every other
-   page does rather than trapping a finger in a nested scroller. */
-@media (min-width: 901px) {
-  /* The 130px reserve exists to keep the last card clear of the fixed export
-     bar while the page scrolls as one. Pinned panes clear it themselves via
-     --shell-bottom, and leaving the reserve in would give the page more
-     scroll range than the header can absorb - which is scroll range spent
-     dragging both panes off the top of the screen. */
-  .wrap { padding-bottom: 24px; }
-  /* Holds the page's scroll range open. Without it the panes shrink to fit
-     the space below the header, that makes the page shorter, that leaves no
-     scroll range to move the header out of the way, and the panes stay
-     short forever - each step reinforcing the last. Keeping the layout box
-     the full pinned height means scrolling still lifts the header away, and
-     the panes grow into the room as it goes. The extra box below them is
-     empty and sits behind the export bar. */
-  .layout { min-height: calc(100vh - var(--shell-top) - var(--shell-bottom)); }
-  .rail, .detail {
-    position: sticky;
-    top: var(--shell-top);
-    /* --pane-max is measured (see syncPaneHeight): a sticky pane is only at
-       --shell-top once the page has scrolled far enough to push it there,
-       and until then it sits lower, so a height computed from the viewport
-       top runs its last stretch under the export bar. The calc() is the
-       no-JS fallback, correct for the pinned case and no worse than before
-       for the rest. */
-    max-height: var(--pane-max, calc(100vh - var(--shell-top) - var(--shell-bottom)));
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-  .rail-head, .rail-controls, #booth-detail, .detail .toolbar, .detail-empty { flex: none; }
-  #detail-body { display: flex; flex-direction: column; min-height: 0; flex: 1 1 auto; }
-  .booth-list, .rows {
-    overflow-y: auto;
-    /* Reaching the end of a menu should stop, not start scrolling the page
-       out from under it. */
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
-    flex: 1 1 auto;
-    min-height: 0;
-    /* Sides: room for the scrollbar and for the cards' focus outline and
-       inset edited marker, which a flush overflow edge would clip.
-
-       Bottom: a runway the height of the export bar. `sticky` only pins a
-       pane once the page has scrolled far enough to push it up to
-       --shell-top; below that the pane sits where it naturally falls, which
-       is lower, and its last stretch is behind the bar. Sizing the pane for
-       the pinned case alone left the bottom of both lists covered at every
-       scroll position except the very end - including the one selecting a
-       booth scrolls you to. A little is kept as air under the last card. */
-    padding: 2px 4px 10px 3px;
-  }
-}
-
-@media (max-width: 900px) {
-  /* One page scroll, so the reserve goes on the page. Measured rather than
-     guessed: at this width the bar wraps to two rows, and 130px of guess was
-     already marginal before the safe-area inset on a real phone. */
-  .wrap { padding-bottom: calc(var(--bar-height) + 32px); }
-  .layout { grid-template-columns: minmax(0, 1fr); }
-  .layout.picked .rail { display: none; }
-  .layout:not(.picked) .detail { display: none; }
-  .back-to-booths { display: inline-flex; }
-}
-
-/* ---------- rows ---------- */
-.rows { display: flex; flex-direction: column; gap: 10px; }
-.row {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-  box-shadow: var(--shadow); padding: 12px; display: grid; gap: 12px;
-  grid-template-columns: 132px minmax(0, 1fr);
-  /* Both lists are flex columns, and a flex column with a bounded height
-     shrinks its items to fit rather than overflowing. Once these panes
-     scroll, that is every card squashed to a sliver instead of a scrollbar. */
-  flex: none;
-}
-@media (max-width: 560px) { .row { grid-template-columns: 96px minmax(0, 1fr); } }
-.row.edited { border-color: var(--gold); box-shadow: inset 3px 0 0 var(--gold), var(--shadow); }
-.row.added { border-color: var(--accent); }
-.row.deleted { opacity: 0.55; }
-.row.booth-row { grid-template-columns: minmax(0, 1fr); margin-bottom: 4px; }
-.row.booth-row h2 { font-size: 20px; margin: 0; font-weight: 600; overflow-wrap: anywhere; }
-
-.thumb {
-  width: 100%; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;
-  background: var(--surface-2); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center; position: relative;
-}
-.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.thumb.empty { border-style: dashed; }
-.thumb-empty-label {
-  color: var(--ink-muted); font-size: 11px; letter-spacing: 0.04em;
-  text-transform: uppercase; text-align: center; padding: 4px;
-}
-.thumb .badge {
-  position: absolute; top: 5px; left: 5px; font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 6px; border-radius: 20px;
-  background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold);
-}
-/* Photo credit. Every picture here was taken by somebody else, and the
-   credit is also the hook another page reads this out of - see the
-   data-* attributes in renderThumb. */
-.photo-credit {
-  margin-top: 6px; font-size: 11px; line-height: 1.35; color: var(--ink-muted);
-  overflow-wrap: anywhere;
-}
-.photo-credit a { color: var(--accent); }
-.photo-credit .season { font-variant-numeric: tabular-nums; }
-.photo-actions { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-.photo-actions button { min-height: 28px; padding: 3px 8px; font-size: 11.5px; }
-input[type="file"] { display: none; }
-
-.fields { display: grid; gap: 8px; min-width: 0; }
-.field-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.field-row > .grow { flex: 1 1 200px; min-width: 0; }
-.row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.booth-name { color: var(--ink-muted); font-size: 12.5px; font-weight: 600; }
-.pill {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 20px; white-space: nowrap;
-}
-.pill.surveyed { background: var(--good-soft); color: var(--good); }
-.pill.mapped { background: var(--accent-soft); color: var(--accent); }
-.pill.anchored { background: var(--gold-soft); color: var(--gold); }
-.pill.unplaced { background: var(--surface-2); color: var(--ink-muted); }
-.pill.curated { background: var(--accent-soft); color: var(--accent); }
-.pill.opens-later { background: var(--warn-soft); color: var(--warn); }
-.pill.deleted { background: var(--warn-soft); color: var(--warn); }
-.geo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
-
-.cell-input {
-  font: inherit; font-size: 13.5px; width: 100%; color: var(--ink);
-  background: transparent; border: 1px solid var(--border); border-radius: 6px;
-  padding: 6px 8px; resize: vertical;
-}
-.cell-input.changed { background: var(--gold-soft); border-color: var(--gold); }
-textarea.cell-input { min-height: 40px; line-height: 1.4; }
-input.price { flex: 0 0 108px; width: 108px; }
-select.cell-input { width: auto; max-width: 100%; }
-
-.tag-cell { cursor: pointer; min-height: 28px; }
-.tag-summary { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
-.tag-none { color: var(--ink-muted); font-size: 12px; font-style: italic; }
-.tag-edit { color: var(--ink-muted); font-size: 11px; margin-left: 2px; text-decoration: underline; }
-.tag-picker { display: flex; flex-wrap: wrap; gap: 4px; }
-.tag-toggle {
-  font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em;
-  padding: 3px 8px; border-radius: 20px; cursor: pointer;
-  border: 1px solid var(--border); background: transparent; color: var(--ink-muted); min-height: 0;
-}
-.tag-toggle.on { background: var(--gold-soft); border-color: var(--gold); color: var(--gold); }
-.tag-toggle.changed { outline: 1px dashed var(--gold); outline-offset: 1px; }
-.linkish, .tag-done {
-  border: none; background: transparent; color: var(--accent); cursor: pointer;
-  font-size: 12px; padding: 4px 2px; min-height: 0; text-decoration: underline;
-}
-.empty-state { padding: 34px 16px; text-align: center; color: var(--ink-muted); }
-
-/* ---------- drawers ---------- */
-.sticky {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000;
-  background: var(--surface); border-top: 1px solid var(--border);
-  padding: 10px clamp(12px, 3vw, 22px) calc(10px + env(safe-area-inset-bottom));
-  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.07);
-}
-.sticky .count b { color: var(--accent); }
+/* ---------- dialogs ---------- */
 dialog {
-  border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
-  color: var(--ink); max-width: min(680px, 92vw); width: 100%; padding: 0;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+  border: 1px solid var(--ink); background: var(--surface); color: var(--ink);
+  max-width: min(560px, 92vw); width: 100%; padding: 0;
 }
-dialog::backdrop { background: rgba(20,14,10,0.5); }
-.dialog-body { padding: 18px 20px 20px; }
-.dialog-body h2 { margin: 0 0 6px; font-size: 19px; }
-.dialog-body p { margin: 0 0 12px; font-size: 13.5px; color: var(--ink-muted); }
-.dialog-body code { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; }
-.dialog-body label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin: 10px 0 3px; font-weight: 700; }
+dialog::backdrop { background: rgba(17,17,17,0.32); }
+.dialog-body { padding: var(--s5); }
+.dialog-body h2 { font-size: 20px; margin-bottom: var(--s2); }
+.dialog-body p { margin: 0 0 var(--s3); font-size: 13px; color: var(--ink-2); }
+.dialog-body code { font-family: var(--mono); font-size: 12px; }
+.dialog-body label { display: block; margin: var(--s3) 0 var(--s1); }
 .dialog-body input[type="text"], .dialog-body input[type="number"], .dialog-body select, .dialog-body textarea { width: 100%; }
-.dialog-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 16px; }
-.summary { list-style: none; padding: 0; margin: 0 0 14px; font-size: 13.5px; }
-.summary li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); }
-.summary b { font-family: ui-monospace, Menlo, monospace; }
-pre.cmd {
-  background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px; font-size: 12px; overflow-x: auto; margin: 0;
+.dialog-actions { display: flex; gap: var(--s2); justify-content: flex-end; flex-wrap: wrap; margin-top: var(--s5); }
+.summary { list-style: none; padding: 0; margin: 0 0 var(--s4); font-size: 13px; border-top: 1px solid var(--line); }
+.summary li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.summary b { font-family: var(--mono); font-weight: 500; }
+pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s3); font-family: var(--mono); font-size: 12px; overflow-x: auto; margin: 0; }
+.help ol { margin: 0 0 var(--s3); padding-left: 18px; color: var(--ink-2); font-size: 13px; }
+.help li { margin-bottom: var(--s2); }
+.help .meta { font-size: 12px; color: var(--ink-3); margin-top: var(--s3); }
+
+/* ---------- narrow screens: the panes take turns ---------- */
+@media (max-width: 900px) {
+  :root { --rail: 100%; }
+  .bar { gap: var(--s2); padding: 0 var(--s3); }
+  .bar .count { display: none; }
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+  .workspace.picked .rail { display: none; }
+  .workspace:not(.picked) .detail { display: none; }
+  .back-to-booths { display: inline-flex; }
+  .booth-panel, .toolbar, .row { padding-left: var(--s4); padding-right: var(--s4); }
+  .booth-fields { grid-template-columns: minmax(0, 1fr); }
 }
-footer { margin-top: 26px; color: var(--ink-muted); font-size: 12.5px; }
-footer a { color: var(--accent); }
-.hidden { display: none !important; }
+@media (max-width: 640px) {
+  .wordmark, .bar > .spacer { display: none; }
+  /* The switcher takes the room the wordmark gave up and scrolls sideways
+     rather than shrinking to nothing. */
+  .festivals { flex: 1 1 auto; }
+  .festivals button { padding: 0 var(--s2); font-size: 12px; flex: none; }
+  .row { grid-template-columns: 84px minmax(0, 1fr); gap: var(--s3); }
+  .thumb { width: 84px; }
+  #map-btn { display: none; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="eyebrow">Curation studio</div>
-    <h1 class="display">Studio</h1>
-    <p class="subtitle">
-      Pick a booth on the left and its whole menu opens on the right, each dish with its photo,
-      editable in place. Correct what's wrong, attach a photo, place a booth on the map, or add
-      what the crawl missed — then <b>Export</b> a changeset and apply it.
-      <a href="index.html">Back to the ledger</a> · <a href="survey.html">In-park GPS survey →</a>
-    </p>
-  </header>
-
-  <div class="panel">
-    <b>Nothing here writes to the database.</b> Edits and photos live in this browser until you
-    export them, so you can work through the list across several sittings. Export downloads one
-    changeset file; <code>epcot-fw studio apply</code> reads it back, publishes the photos and
-    merges the rest into the curated files that override the crawl. A dish's <b>name</b> is how a
-    correction finds it again, so renaming one is recorded as a rename — both names go into the
-    export.
+<body class="shell">
+<header class="bar">
+  <span class="wordmark">Studio</span>
+  <nav class="festivals" id="festivals" aria-label="Festival"></nav>
+  <span class="spacer"></span>
+  <span class="count" id="edit-count"></span>
+  <button type="button" id="map-btn">Map</button>
+  <button type="button" class="primary" id="export" disabled>Export</button>
+  <div class="menu">
+    <button type="button" id="menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="More">⋯</button>
+    <div class="menu-list hidden" id="menu-list" role="menu">
+      <button type="button" role="menuitem" id="help-btn">How this works</button>
+      <a role="menuitem" href="index.html">Open the ledger</a>
+      <a role="menuitem" href="survey.html">In-park GPS survey</a>
+      <button type="button" role="menuitem" class="danger" id="discard">Discard all changes</button>
+    </div>
   </div>
+</header>
 
-  <div class="panel warn hidden" id="storage-note"></div>
-  <div class="panel note hidden" id="settled-note"></div>
+<div class="status">
+  <div class="status-line warn hidden" id="storage-note"></div>
+  <div class="status-line hidden" id="settled-line">
+    <span id="settled-note"></span><span class="spacer"></span>
+    <button type="button" class="quiet small" id="settled-dismiss">Dismiss</button>
+  </div>
+</div>
 
-  <section id="map-panel" class="hidden">
-    <div class="panel warn hidden" id="offline-note">
-      Map tiles need an internet connection — this part of the page isn't usable offline the way
-      the survey tool is.
+<main class="workspace" id="layout">
+  <aside class="rail">
+    <div class="rail-head">
+      <div class="rail-title"><h2>Booths</h2><span class="count" id="booth-count"></span></div>
+      <input type="search" id="booth-search" placeholder="Filter booths…" autocomplete="off" />
+      <div class="chips">
+        <button type="button" class="chip" id="chip-unplaced">Not placed</button>
+        <button type="button" class="chip" id="chip-edited">Edited</button>
+        <button type="button" class="chip" id="chip-added">Added by hand</button>
+      </div>
     </div>
-    <div class="panel note" id="armed-banner">
-      Hit <b>Place on map</b> on a booth to start, then click its spot on the map.
+    <div class="booth-list" id="booth-list"></div>
+    <div class="rail-foot"><button type="button" id="add-booth-btn">Add booth</button></div>
+  </aside>
+
+  <section class="detail" id="detail">
+    <div class="detail-empty" id="detail-empty">
+      <h2>Select a booth</h2>
+      <p>Its menu opens here: every dish with its photo, price, description and tags, and where the booth sits on the map.</p>
     </div>
-    <div id="map"></div>
-    <div class="tallies" id="tallies"></div>
-  </section>
 
-  <div class="layout" id="layout">
-    <aside class="rail">
-      <div class="rail-head">
-        <h2 class="display">Booths</h2>
-        <span class="count" id="booth-count"></span>
-      </div>
-      <div class="rail-controls">
-        <input type="search" id="booth-search" placeholder="Filter booths…" autocomplete="off" />
-        <div class="chips" style="margin: 0;">
-          <button type="button" class="chip" id="chip-unplaced">Not placed</button>
-          <button type="button" class="chip" id="chip-edited">Edited</button>
-          <button type="button" class="chip" id="chip-added">Added by hand</button>
-        </div>
-        <div class="chips" style="margin: 0;">
-          <button type="button" class="chip" id="toggle-map">Show map</button>
-          <button type="button" class="chip" id="add-booth-btn">+ Add booth</button>
-        </div>
-      </div>
-      <div class="booth-list" id="booth-list"></div>
-    </aside>
-
-    <section class="detail" id="detail">
-      <div class="panel detail-empty" id="detail-empty">
-        <h2 class="display">Select a booth</h2>
-        <p>
-          Everything that lives inside it opens here — every dish on its menu with its photo or
-          an empty state, its price, description and dietary tags, and where the booth sits on
-          the Epcot map.
-        </p>
-      </div>
-
-      <div id="detail-body" class="hidden">
+    <div id="detail-body" class="hidden">
+      <div class="detail-head">
         <button type="button" class="chip back-to-booths" id="back-to-booths">← All booths</button>
         <div id="booth-detail"></div>
-        <div class="toolbar">
+      </div>
+      <div class="toolbar">
+          <span class="toolbar-title" id="toolbar-title"></span>
           <input type="search" id="dish-search" placeholder="Search this menu…" autocomplete="off" />
           <select id="filter-cat">
             <option value="">All categories</option>
@@ -463,55 +447,89 @@ footer a { color: var(--accent); }
           </select>
           <button type="button" class="chip" id="chip-nophoto">Needs a photo</button>
           <button type="button" class="chip" id="chip-new">New this year</button>
-          <button type="button" class="chip" id="add-dish-btn">+ Add dish</button>
           <span class="spacer"></span>
           <span class="count" id="dish-count"></span>
-        </div>
-        <div class="rows" id="dish-list"></div>
+          <button type="button" class="small" id="add-dish-btn">Add dish</button>
       </div>
-    </section>
+      <div class="rows" id="dish-list"></div>
+    </div>
+  </section>
+</main>
+
+<main class="festival-empty hidden" id="festival-empty"></main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="map-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" inert>
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <h2 id="drawer-title">Map</h2>
+      <button type="button" class="quiet" id="drawer-close" aria-label="Close map">Close</button>
+    </div>
+    <div class="drawer-meta">
+      <span id="drawer-position"></span>
+      <span class="spacer"></span>
+      <div class="segmented" id="layer-toggle">
+        <button type="button" data-layer="sat" aria-pressed="true">Satellite</button>
+        <button type="button" data-layer="streets" aria-pressed="false">Streets</button>
+      </div>
+    </div>
+    <div class="tallies" id="tallies"></div>
   </div>
+  <div class="drawer-body">
+    <div class="drawer-hint hidden" id="drawer-hint"></div>
+    <div class="drawer-offline hidden" id="offline-note">
+      Map tiles need an internet connection. Everything else on this page works offline.
+    </div>
+    <div id="map"></div>
+  </div>
+  <div class="drawer-foot">
+    <button type="button" class="quiet danger hidden" id="drawer-remove">Remove staged pin</button>
+    <span class="spacer"></span>
+    <button type="button" id="drawer-cancel">Cancel</button>
+    <button type="button" class="primary" id="drawer-save" disabled>Save location</button>
+  </div>
+</aside>
 
-  <footer>
-    Snapshot built Oct 22, 2026 · Prices are US dollars; a blank price means no source has
-    published one. Pins dropped here stage as <code class="mono">location_precision: "mapped"</code> —
-    better than a pavilion-anchor stand-in, not as good as a GPS fix taken standing at the booth.
-  </footer>
-</div>
-
-<div class="sticky">
-  <span class="count" id="edit-count"></span>
-  <span class="spacer"></span>
-  <button type="button" id="discard">Discard all</button>
-  <button type="button" class="primary" id="export" disabled>Export changeset</button>
-</div>
+<dialog id="help-dialog">
+  <div class="dialog-body help">
+    <h2>How this works</h2>
+    <ol>
+      <li><b>Nothing here writes to the database.</b> Edits and photos stay in this browser until you export them, so you can work across several sittings.</li>
+      <li>Pick a booth, then correct its dishes in place. A changed field is marked in orange; the count in the top bar is what an export will carry.</li>
+      <li>Use <b>Place on map</b> on a booth to open the map, click its spot, and <b>Save location</b>. Pins stage as <code>location_precision: "mapped"</code>.</li>
+      <li><b>Export</b> downloads one changeset. <code>epcot-fw studio apply</code> publishes its photos and merges the rest into the curated files that override the crawl.</li>
+      <li>A dish's <b>name</b> is how a correction finds it again, so a rename travels as a rename, with both names.</li>
+    </ol>
+    <p class="meta">Snapshot built Nov 10, 2026. Prices are US dollars; a blank price means no source has published one.</p>
+    <div class="dialog-actions"><button type="button" class="primary" id="help-close">Done</button></div>
+  </div>
+</dialog>
 
 <dialog id="add-dialog">
   <form class="dialog-body" id="add-form" method="dialog">
-    <h2 class="display">Add by hand</h2>
+    <h2>Add by hand</h2>
     <p>
-      For something the crawl never found. It comes back as
-      <code>origin: "curated"</code>, which is what stops the next crawl retiring it — and what
-      the <b>Added by hand</b> filter finds when you want to change or delete it later.
+      For something the crawl never found. It comes back as <code>origin: "curated"</code>, which
+      stops the next crawl retiring it, and the <b>Added by hand</b> filter finds it later.
     </p>
     <div id="add-item-fields">
-      <label for="add-booth">Booth</label>
+      <label class="label" for="add-booth">Booth</label>
       <select id="add-booth"></select>
-      <label for="add-name">Dish name</label>
+      <label class="label" for="add-name">Dish name</label>
       <input type="text" id="add-name" autocomplete="off" />
-      <label for="add-desc">Description</label>
+      <label class="label" for="add-desc">Description</label>
       <textarea id="add-desc" rows="2"></textarea>
-      <label for="add-price">Price (USD)</label>
+      <label class="label" for="add-price">Price (USD)</label>
       <input type="number" id="add-price" step="0.01" min="0" />
-      <label for="add-cat">Category</label>
+      <label class="label" for="add-cat">Category</label>
       <select id="add-cat"></select>
     </div>
     <div id="add-booth-fields" class="hidden">
-      <label for="add-booth-name">Booth name</label>
+      <label class="label" for="add-booth-name">Booth name</label>
       <input type="text" id="add-booth-name" autocomplete="off" />
-      <label for="add-booth-loc">Location description</label>
+      <label class="label" for="add-booth-loc">Location description</label>
       <input type="text" id="add-booth-loc" autocomplete="off" />
-      <p style="margin-top:10px">Place it on the map once it's added.</p>
+      <p style="margin-top:12px">Place it on the map once it's added.</p>
     </div>
     <p class="hidden" id="add-error" style="color:var(--warn)"></p>
     <div class="dialog-actions">
@@ -523,7 +541,7 @@ footer a { color: var(--accent); }
 
 <dialog id="export-dialog">
   <div class="dialog-body">
-    <h2 class="display">Export</h2>
+    <h2>Export</h2>
     <p>Download the changeset, then apply it from the repo root:</p>
     <ul class="summary" id="export-summary"></ul>
     <pre class="cmd" id="export-cmd">epcot-fw studio apply ~/Downloads/epcot-changeset.json</pre>
@@ -541,9 +559,9 @@ footer a { color: var(--accent); }
 
 <dialog id="ask-dialog">
   <form class="dialog-body" method="dialog" id="ask-form">
-    <h2 class="display" id="ask-title"></h2>
+    <h2 id="ask-title"></h2>
     <p id="ask-message"></p>
-    <input type="text" id="ask-input" autocomplete="off" spellcheck="false">
+    <input type="text" id="ask-input" autocomplete="off" spellcheck="false" style="width:100%">
     <div class="dialog-actions">
       <button type="button" id="ask-cancel">Cancel</button>
       <button type="submit" class="primary" id="ask-ok">OK</button>
@@ -560,6 +578,7 @@ footer a { color: var(--accent); }
   var TAGS = ["vegetarian", "vegan", "gluten_free", "plant_based", "contains_alcohol", "spicy", "contains_nuts", "contains_shellfish"];
   var FLAVOUR_TAGS = ["sweet", "savory"];
   var ALCOHOL_KINDS = ["beer", "wine", "liquor", "cider"];
+  var FESTIVALS = [{"key": "festival-of-the-arts", "name": "Festival of the Arts", "short": "Arts", "season": "January \u2013 February", "has_data": false}, {"key": "flower-and-garden", "name": "Flower & Garden Festival", "short": "Flower & Garden", "season": "March \u2013 June", "has_data": false}, {"key": "food-and-wine", "name": "Food & Wine Festival", "short": "Food & Wine", "season": "August \u2013 November", "has_data": true}, {"key": "festival-of-the-holidays", "name": "Festival of the Holidays", "short": "Holidays", "season": "November \u2013 December", "has_data": false}];
   var CENTER = [28.3689, -81.5493];
   var ZOOM = 18;
   // A heading covering dishes sold in several places at once, not somewhere
@@ -589,8 +608,8 @@ footer a { color: var(--accent); }
     noPhotoOnly: false, unplacedOnly: false, editedOnly: false, addedOnly: false,
     newOnly: false,
     expandedTags: null,
-    armed: null,
-    mapOpen: false
+    festival: null,                    // key into FESTIVALS; null = the one with data
+    drawer: null                       // {booth, draft} while the map drawer is open
   };
 
   // Photo bytes never go in localStorage: a handful of shots is past its ~5MB
@@ -631,58 +650,6 @@ footer a { color: var(--accent); }
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  // The export bar is fixed, so nothing in normal flow knows how tall it is -
-  // and it is not one height: it wraps to two rows when the change count
-  // grows or the screen narrows, and gains the safe-area inset on a phone.
-  // Everything that has to clear it is sized from this.
-  var shell = document.documentElement;
-  function syncBarHeight() {
-    var bar = document.querySelector('.sticky');
-    if (!bar) return;
-    var height = Math.ceil(bar.getBoundingClientRect().height);
-    if (height > 0) shell.style.setProperty('--bar-height', height + 'px');
-  }
-
-  // How much room a pane actually has: from wherever it is sitting right now
-  // down to the top of the export bar. Recomputed on scroll because that is
-  // the thing that moves it - a sticky pane travels with the page until it
-  // reaches --shell-top and pins, and only the pinned case can be expressed
-  // in CSS. Guarded by the same breakpoint as the panes themselves; below it
-  // they are not scrollers and want their natural height.
-  var SHELL_TWO_PANE = window.matchMedia ? window.matchMedia('(min-width: 901px)') : null;
-  var MIN_PANE = 240;
-  var paneFrame = null;
-
-  function syncPaneHeight() {
-    paneFrame = null;
-    var layout = document.getElementById('layout');
-    if (!layout) return;
-    if (SHELL_TWO_PANE && !SHELL_TWO_PANE.matches) {
-      shell.style.removeProperty('--pane-max');
-      return;
-    }
-    var shellTop = parseFloat(getComputedStyle(shell).getPropertyValue('--shell-top')) || 12;
-    var barHeight = parseFloat(getComputedStyle(shell).getPropertyValue('--bar-height')) || 64;
-    var top = Math.max(layout.getBoundingClientRect().top, shellTop);
-    var available = (window.innerHeight - barHeight - 12) - top;
-    shell.style.setProperty('--pane-max', Math.max(MIN_PANE, Math.round(available)) + 'px');
-  }
-
-  // Cancel-and-re-request rather than "skip if one is pending". A pending
-  // frame that never runs - requestAnimationFrame is paused while the tab is
-  // hidden - would leave the pending flag set forever, and with it every
-  // later scroll ignored and the panes stuck at whatever height they had
-  // when the tab went away.
-  function queuePaneHeight() {
-    if (!window.requestAnimationFrame) {
-      clearTimeout(paneFrame);
-      paneFrame = setTimeout(syncPaneHeight, 16);
-      return;
-    }
-    if (paneFrame !== null) cancelAnimationFrame(paneFrame);
-    paneFrame = requestAnimationFrame(syncPaneHeight);
-  }
-
   function warn(message) {
     var el = document.getElementById('storage-note');
     el.textContent = message;
@@ -698,6 +665,7 @@ footer a { color: var(--accent); }
       state.added = { items: (raw.added || {}).items || [], booths: (raw.added || {}).booths || [] };
       state.deleted = { items: (raw.deleted || {}).items || {}, booths: (raw.deleted || {}).booths || {} };
       state.selected = raw.selected || null;
+      state.festival = raw.festival || null;
     } catch (e) {
       // Private mode, storage off - start clean rather than refusing to run.
     }
@@ -709,7 +677,9 @@ footer a { color: var(--accent); }
         added: state.added, deleted: state.deleted,
         // Kept so a reload drops you back on the menu you were working
         // through rather than at the empty state.
-        selected: state.selected
+        selected: state.selected,
+        // Older builds ignore it, so the store stays readable both ways.
+        festival: state.festival
       }));
     } catch (e) {
       warn('This browser refused to save your edits — they will be lost on reload. Export before you close the tab.');
@@ -863,7 +833,7 @@ footer a { color: var(--accent); }
       var note = document.getElementById('settled-note');
       note.textContent = 'Cleared ' + cleared + (cleared === 1 ? ' row' : ' rows') +
         ' whose changes this build already includes — they were applied, so there is nothing left to export for them.';
-      note.classList.remove('hidden');
+      document.getElementById('settled-line').classList.remove('hidden');
     }
     return cleared;
   }
@@ -1042,6 +1012,7 @@ footer a { color: var(--accent); }
       askInput.value = wantsText ? opts.value : '';
       askInput.placeholder = opts.placeholder || '';
       document.getElementById('ask-ok').textContent = opts.okLabel || 'OK';
+      askCancel.textContent = opts.cancelLabel || 'Cancel';
 
       var settled = false;
       function finish(answer) {
@@ -1154,7 +1125,13 @@ footer a { color: var(--accent); }
     });
   }
 
-  // ---------- map ----------
+  // ---------- map drawer ----------
+  // The map is a tool you pick up for one booth at a time, so it lives in a
+  // drawer rather than a region of the page. A pin dropped or dragged in it
+  // is a draft: nothing reaches state.placements - and so nothing reaches
+  // the export - until Save location. Close, Cancel and Esc leave everything
+  // as it was.
+
   // A dropped pin beats whatever the database already had for that booth.
   function positionOf(booth) {
     if (!booth) return null;
@@ -1165,119 +1142,231 @@ footer a { color: var(--accent); }
     return { lat: Number(lat), lon: Number(booth.longitude), precision: booth.location_precision || 'anchored' };
   }
 
-  var PIN_COLOR = { mapped: 'var(--accent)', anchored: 'var(--gold)', surveyed: 'var(--good)' };
-  function pinIcon(precision) {
+  var PIN_COLOR = { mapped: 'var(--ink)', anchored: 'var(--ink-3)', surveyed: 'var(--good)' };
+  function pinIcon(precision, mode) {
     return L.divIcon({
-      className: 'booth-pin',
-      html: '<span style="background:' + (PIN_COLOR[precision] || 'var(--ink-muted)') + '"></span>',
-      iconSize: [16, 16], iconAnchor: [8, 8]
+      className: 'booth-pin' + (mode ? ' ' + mode : ''),
+      html: '<span style="background:' + (PIN_COLOR[precision] || 'var(--ink-3)') + '"></span>',
+      iconSize: [18, 18], iconAnchor: [9, 9]
     });
   }
 
   var haveLeaflet = typeof L !== 'undefined';
-  var map = null, markers = {};
+  var map = null, markers = {}, draftMarker = null, layers = {};
+  var drawerEl = document.getElementById('map-drawer');
+  var scrimEl = document.getElementById('scrim');
 
   function initMap() {
     if (map || !haveLeaflet) return;
     map = L.map('map').setView(CENTER, ZOOM);
-    var sat = L.tileLayer(
+    layers.sat = L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
       { maxZoom: 20, maxNativeZoom: 19, attribution: 'Tiles &copy; Esri' }
     );
-    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    layers.streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
     });
-    sat.addTo(map);
-    L.control.layers({ Satellite: sat, Streets: streets }).addTo(map);
+    layers.sat.addTo(map);
 
     map.on('click', function (e) {
-      if (!state.armed) return;
-      state.placements[state.armed] = {
-        latitude: Number(e.latlng.lat.toFixed(6)),
-        longitude: Number(e.latlng.lng.toFixed(6)),
-        placed_at: new Date().toISOString()
-      };
-      state.armed = null;
-      save();
-      render();
+      if (!state.drawer || !state.drawer.booth || !festivalEditable()) return;
+      setDraft(e.latlng.lat, e.latlng.lng);
     });
   }
 
-  // One marker per placed booth, created once then moved in place, so
-  // dragging and re-renders don't fight each other.
+  function setLayer(name) {
+    if (!map) return;
+    Object.keys(layers).forEach(function (k) {
+      if (k === name) { if (!map.hasLayer(layers[k])) layers[k].addTo(map); }
+      else if (map.hasLayer(layers[k])) map.removeLayer(layers[k]);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#layer-toggle button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-layer') === name ? 'true' : 'false');
+    });
+  }
+
+  function setDraft(lat, lon) {
+    if (!state.drawer) return;
+    state.drawer.draft = { latitude: Number(lat.toFixed(6)), longitude: Number(lon.toFixed(6)) };
+    renderDrawer();
+  }
+
+  // One marker per placed booth, created once then updated in place, so
+  // dragging and re-renders don't fight each other. With a booth in the
+  // drawer its own pin is the only one that moves; the rest are context.
   function syncMarkers() {
     if (!map) return;
+    var focus = state.drawer && state.drawer.booth;
+    var draft = state.drawer && state.drawer.draft;
     boothRows().forEach(function (booth) {
       var pos = isDeleted(booth) ? null : positionOf(booth);
+      var isFocus = focus === booth.name;
+      // While a draft exists the booth's saved pin steps aside for it.
+      if (isFocus && draft) pos = null;
       var existing = markers[booth.name];
       if (!pos) {
         if (existing) { map.removeLayer(existing); delete markers[booth.name]; }
         return;
       }
-      var draggable = !!state.placements[booth.name];
-      if (existing) {
-        existing.setLatLng([pos.lat, pos.lon]);
-        existing.setIcon(pinIcon(pos.precision));
-        if (existing.dragging) { draggable ? existing.dragging.enable() : existing.dragging.disable(); }
-        return;
+      var mode = focus ? (isFocus ? 'active' : 'dim') : '';
+      var draggable = isFocus && festivalEditable();
+      if (!existing) {
+        existing = L.marker([pos.lat, pos.lon], { icon: pinIcon(pos.precision, mode), draggable: true });
+        existing.bindTooltip(booth.name, { permanent: false, direction: 'top', offset: [0, -10], className: 'booth-tooltip' });
+        existing.on('dragend', function () {
+          var ll = existing.getLatLng();
+          setDraft(ll.lat, ll.lng);
+        });
+        // In the overview a pin is a way into its booth.
+        existing.on('click', function () {
+          if (state.drawer && !state.drawer.booth) focusBooth(booth.name);
+        });
+        existing.addTo(map);
+        markers[booth.name] = existing;
       }
-      var marker = L.marker([pos.lat, pos.lon], { icon: pinIcon(pos.precision), draggable: draggable });
-      marker.bindTooltip(booth.name, { permanent: true, direction: 'top', offset: [0, -8], className: 'booth-tooltip' });
-      marker.on('dragend', function () {
-        var ll = marker.getLatLng();
-        state.placements[booth.name] = {
-          latitude: Number(ll.lat.toFixed(6)),
-          longitude: Number(ll.lng.toFixed(6)),
-          placed_at: new Date().toISOString()
-        };
-        save();
-        render();
-      });
-      marker.addTo(map);
-      markers[booth.name] = marker;
+      existing.setLatLng([pos.lat, pos.lon]);
+      existing.setIcon(pinIcon(pos.precision, mode));
+      if (existing.dragging) { draggable ? existing.dragging.enable() : existing.dragging.disable(); }
     });
+
+    if (draft) {
+      if (!draftMarker) {
+        draftMarker = L.marker([draft.latitude, draft.longitude], { icon: pinIcon('mapped', 'draft'), draggable: true });
+        draftMarker.on('dragend', function () {
+          var ll = draftMarker.getLatLng();
+          setDraft(ll.lat, ll.lng);
+        });
+        draftMarker.addTo(map);
+      }
+      draftMarker.setLatLng([draft.latitude, draft.longitude]);
+    } else if (draftMarker) {
+      map.removeLayer(draftMarker);
+      draftMarker = null;
+    }
+    document.getElementById('map').classList.toggle('placing', !!focus && festivalEditable());
   }
 
-  function openMap() {
-    state.mapOpen = true;
-    document.getElementById('map-panel').classList.remove('hidden');
-    document.getElementById('toggle-map').classList.add('active');
-    document.getElementById('toggle-map').textContent = 'Hide map';
-    if (!haveLeaflet) {
-      document.getElementById('offline-note').classList.remove('hidden');
-      return;
+  function renderDrawer() {
+    if (!state.drawer) return;
+    var name = state.drawer.booth;
+    var booth = name ? boothByName(name) : null;
+    var draft = state.drawer.draft;
+    var pos = booth ? positionOf(booth) : null;
+
+    document.getElementById('drawer-title').textContent = booth ? valueOf(booth, 'name') : 'All booths';
+    var where = document.getElementById('drawer-position');
+    if (!booth) {
+      where.textContent = 'Click a pin to open that booth.';
+    } else if (draft) {
+      where.innerHTML = '<span class="mono">' + draft.latitude.toFixed(5) + ', ' + draft.longitude.toFixed(5) +
+        '</span> <span class="pill unplaced">Unsaved</span>';
+    } else if (pos) {
+      where.innerHTML = '<span class="mono">' + pos.lat.toFixed(5) + ', ' + pos.lon.toFixed(5) +
+        '</span> <span class="pill ' + pos.precision + '">' + esc(pos.precision) + '</span>';
+    } else {
+      where.innerHTML = '<span class="pill unplaced">Not placed</span>';
     }
-    initMap();
-    // Leaflet measures the container on creation; one built inside a hidden
-    // panel comes out a single grey tile until it is told to look again.
-    setTimeout(function () { if (map) map.invalidateSize(); }, 0);
+
+    var hint = document.getElementById('drawer-hint');
+    hint.classList.toggle('hidden', !booth || !haveLeaflet);
+    hint.textContent = draft ? 'Drag the orange pin to fine-tune it, then Save location.'
+      : pos ? 'Click the map, or drag the pin, to move ' + valueOf(booth, 'name') + '.'
+      : 'Click the map where ' + (booth ? valueOf(booth, 'name') : 'the booth') + ' stands.';
+
+    document.getElementById('tallies').classList.toggle('hidden', !!booth);
+    document.getElementById('drawer-save').disabled = !draft || !festivalEditable();
+    document.getElementById('drawer-save').classList.toggle('hidden', !booth);
+    document.getElementById('drawer-remove').classList.toggle('hidden', !booth || !state.placements[name] || !!draft);
+    document.getElementById('drawer-cancel').textContent = booth ? 'Cancel' : 'Close';
+    renderTallies();
     syncMarkers();
   }
-  function closeMap() {
-    state.mapOpen = false;
-    document.getElementById('map-panel').classList.add('hidden');
-    document.getElementById('toggle-map').classList.remove('active');
-    document.getElementById('toggle-map').textContent = 'Show map';
+
+  function openDrawer(name) {
+    var wasOpen = !!state.drawer;
+    state.drawer = { booth: name || null, draft: null };
+    drawerEl.classList.add('open');
+    scrimEl.classList.add('open');
+    drawerEl.removeAttribute('inert');
+    document.getElementById('offline-note').classList.toggle('hidden', haveLeaflet);
+    initMap();
+    renderDrawer();
+    // Leaflet measures its container when it is created and again only when
+    // told to; one built mid-slide comes out as a single grey tile.
+    var settleMap = function () {
+      if (!map) return;
+      map.invalidateSize();
+      var booth = name ? boothByName(name) : null;
+      var pos = booth ? positionOf(booth) : null;
+      if (pos) map.setView([pos.lat, pos.lon], Math.max(map.getZoom(), 19));
+      else if (!name) map.setView(CENTER, ZOOM);
+    };
+    if (wasOpen) settleMap(); else setTimeout(settleMap, 240);
+    document.getElementById('drawer-close').focus();
   }
 
-  function arm(name) {
-    state.armed = (state.armed === name) ? null : name;
-    if (state.armed) {
-      openMap();
-      document.getElementById('map-panel').scrollIntoView({ block: 'start' });
-    }
+  // From a pin in the overview: open that booth on the left and switch the
+  // drawer to placing it, without closing anything.
+  function focusBooth(name) {
+    select(name);
+    openDrawer(name);
+  }
+
+  function shutDrawer() {
+    state.drawer = null;
+    drawerEl.classList.remove('open');
+    scrimEl.classList.remove('open');
+    drawerEl.setAttribute('inert', '');
+    syncMarkers();
     render();
   }
 
-  function centerOn(booth) {
-    var pos = positionOf(booth);
-    if (!map || !pos) return;
-    openMap();
-    map.setView([pos.lat, pos.lon], Math.max(map.getZoom(), 19));
+  function closeDrawer() {
+    if (!state.drawer) return;
+    if (!state.drawer.draft) { shutDrawer(); return; }
+    ask({
+      title: 'Discard this pin?',
+      message: 'The new position for ' + state.drawer.booth + ' has not been saved.',
+      okLabel: 'Discard pin',
+      cancelLabel: 'Keep editing',
+    }).then(function (yes) { if (yes) shutDrawer(); });
   }
 
+  function saveDrawer() {
+    var d = state.drawer;
+    if (!d || !d.booth || !d.draft || !festivalEditable()) return;
+    state.placements[d.booth] = {
+      latitude: d.draft.latitude,
+      longitude: d.draft.longitude,
+      placed_at: new Date().toISOString()
+    };
+    save();
+    shutDrawer();
+  }
+
+  function removeStagedPin() {
+    var d = state.drawer;
+    if (!d || !d.booth) return;
+    delete state.placements[d.booth];
+    save();
+    renderDrawer();
+    render();
+  }
+
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('drawer-cancel').addEventListener('click', closeDrawer);
+  document.getElementById('drawer-save').addEventListener('click', saveDrawer);
+  document.getElementById('drawer-remove').addEventListener('click', removeStagedPin);
+  scrimEl.addEventListener('click', closeDrawer);
+  Array.prototype.forEach.call(document.querySelectorAll('#layer-toggle button'), function (b) {
+    b.addEventListener('click', function () { setLayer(b.getAttribute('data-layer')); });
+  });
+
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && state.armed) { state.armed = null; render(); }
+    if (e.key !== 'Escape' || !state.drawer) return;
+    // Esc inside one of the dialogs belongs to that dialog.
+    if (document.querySelector('dialog[open]')) return;
+    closeDrawer();
   });
 
   // ---------- filtering ----------
@@ -1332,8 +1421,7 @@ footer a { color: var(--accent); }
     // opening a booth after scrolling through a long menu lands you halfway
     // down the new one. Filtering within a booth deliberately does not reset
     // it - that would throw away your place on every keystroke.
-    dishList.scrollTop = 0;
-    if (name) document.getElementById('detail').scrollIntoView({ block: 'nearest' });
+    document.getElementById('detail').scrollTop = 0;
   }
 
   // ---------- field widgets ----------
@@ -1391,10 +1479,15 @@ footer a { color: var(--accent); }
       var summary = document.createElement('div');
       summary.className = 'tag-summary';
       var current = valueOf(row, 'tags') || [];
+      var label = document.createElement('span');
+      label.className = 'tag-none';
+      label.textContent = 'dietary';
+      summary.appendChild(label);
       if (!current.length) {
         var none = document.createElement('span');
-        none.className = 'tag-none';
-        none.textContent = 'no tags';
+        none.className = 'tag-edit';
+        none.textContent = 'none';
+        none.style.textDecoration = 'none';
         summary.appendChild(none);
       }
       current.forEach(function (tag) {
@@ -1467,7 +1560,8 @@ footer a { color: var(--accent); }
     if (valueOf(row, 'category') !== 'alcoholic_beverage') return cell;
 
     var label = document.createElement('span');
-    label.textContent = 'Kind';
+    label.className = 'tag-none';
+    label.textContent = 'kind';
     cell.appendChild(label);
 
     var sel = document.createElement('select');
@@ -1694,13 +1788,16 @@ footer a { color: var(--accent); }
     line.appendChild(makeInput(row, 'category', 'select'));
     fields.appendChild(line);
 
-    fields.appendChild(makeTagCell(row));
-    fields.appendChild(makeFlavourCell(row));
-    fields.appendChild(makeAlcoholCell(row));
-    fields.appendChild(makeNewCell(row));
+    var attrs = document.createElement('div');
+    attrs.className = 'attrs';
+    attrs.appendChild(makeTagCell(row));
+    attrs.appendChild(makeFlavourCell(row));
+    attrs.appendChild(makeAlcoholCell(row));
+    attrs.appendChild(makeNewCell(row));
+    fields.appendChild(attrs);
 
     var actions = document.createElement('div');
-    actions.className = 'field-row';
+    actions.className = 'row-actions';
     if (isRowChanged(row) && !row._id) actions.appendChild(button('Revert', 'linkish', function () { revert(row); }));
     // Every dish, not only the hand-added ones: the crawl lists the same dish
     // twice under two spellings often enough, and a wrong row nobody can
@@ -1714,9 +1811,9 @@ footer a { color: var(--accent); }
     return card;
   }
 
-  // The rail card: enough to choose by, and nothing to edit. Everything
-  // editable about a booth lives in the detail pane, so 32 of these stay
-  // scannable in a 450px column.
+  // The rail row: enough to choose by, and nothing to edit. Everything
+  // editable about a booth lives in the detail pane, so the whole list stays
+  // scannable in one narrow column.
   function renderBoothItem(booth) {
     var dishes = dishesOf(booth.name);
     var pos = positionOf(booth);
@@ -1725,48 +1822,57 @@ footer a { color: var(--accent); }
     var card = document.createElement('button');
     card.type = 'button';
     card.className = 'booth-item' + (state.selected === booth.name ? ' selected' : '') +
-      (changed ? ' edited' : '') + (isDeleted(booth) ? ' deleted' : '');
+      (isDeleted(booth) ? ' deleted' : '');
     card.setAttribute('aria-pressed', state.selected === booth.name ? 'true' : 'false');
 
     var withPhoto = dishes.filter(function (d) { return currentImage(d); }).length;
-    var bits = [dishes.length + (dishes.length === 1 ? ' dish' : ' dishes')];
-    if (dishes.length) bits.push(withPhoto + ' of ' + dishes.length + ' photographed');
+    var meta = [];
+    if (dishes.length) meta.push(withPhoto + '/' + dishes.length + ' photographed');
+    if (booth.name !== AGGREGATE_BOOTH_NAME) {
+      meta.push(pos ? esc(pos.precision) : '<span style="color:var(--signal)">not placed</span>');
+    }
+    if (isAdded(booth)) meta.push(isDeleted(booth) ? 'deleted' : 'by hand');
     var opensAt = opensAtIfFuture(booth);
+    if (opensAt) meta.push('opens ' + esc(formatOpeningDate(opensAt)));
 
     card.innerHTML =
-      '<span class="booth-item-top">' +
-        '<span class="booth-item-name">' + esc(valueOf(booth, 'name')) + '</span>' +
-        (pos ? '<span class="pill ' + pos.precision + '">' + esc(pos.precision) + '</span>'
-             : '<span class="pill unplaced">Not placed</span>') +
+      '<span class="booth-item-name">' + esc(valueOf(booth, 'name')) + '</span>' +
+      '<span class="booth-item-count">' +
+        (changed ? '<span class="changed-dot" title="Has unexported changes"></span>' : '') +
+        dishes.length +
       '</span>' +
-      '<span class="booth-item-meta">' + esc(bits.join(' · ')) +
-        (isAdded(booth) ? ' <span class="pill curated">' +
-          (isDeleted(booth) ? 'Deleted' : 'By hand') + '</span>' : '') +
-        (opensAt ? ' <span class="pill opens-later">Opens ' + esc(formatOpeningDate(opensAt)) + '</span>' : '') +
-      '</span>';
+      '<span class="booth-item-meta">' + meta.join(' · ') + '</span>';
 
     card.addEventListener('click', function () { select(booth.name); });
     return card;
   }
 
-  // The detail pane's header: the same booth, now editable.
+  function fieldBlock(labelText, control, wide) {
+    var wrap = document.createElement('div');
+    wrap.className = 'field' + (wide ? ' wide' : '');
+    var label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = labelText;
+    wrap.appendChild(label);
+    wrap.appendChild(control);
+    return wrap;
+  }
+
+  // The detail pane's header: the same booth, now editable, with where it
+  // stands one click from the map.
   function renderBoothDetail(row) {
     var card = document.createElement('div');
-    card.className = 'row booth-row' + (isRowChanged(row) ? ' edited' : '') +
-      (isAdded(row) ? ' added' : '') + (isDeleted(row) ? ' deleted' : '');
-
-    var fields = document.createElement('div');
-    fields.className = 'fields';
+    card.className = 'booth-panel' + (isDeleted(row) ? ' deleted' : '');
 
     var pos = positionOf(row);
     var head = document.createElement('div');
-    head.className = 'row-head';
-    head.innerHTML = '<h2 class="display">' + esc(valueOf(row, 'name')) + '</h2>' +
-      (pos ? '<span class="pill ' + pos.precision + '">' + esc(pos.precision) + '</span>'
-           : '<span class="pill unplaced">Not placed</span>');
+    head.className = 'booth-title';
+    var live = dishesOf(row.name).length;
+    head.innerHTML = '<h2>' + esc(valueOf(row, 'name')) + '</h2>' +
+      '<span class="count">' + live + (live === 1 ? ' dish' : ' dishes') + '</span>';
     if (isAdded(row)) {
       var pill = document.createElement('span');
-      pill.className = 'pill curated';
+      pill.className = isDeleted(row) ? 'pill deleted' : 'pill curated';
       pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
       head.appendChild(pill);
     }
@@ -1778,35 +1884,26 @@ footer a { color: var(--accent); }
       openingPill.textContent = 'Opens ' + formatOpeningDate(futureAt);
       head.appendChild(openingPill);
     }
-    fields.appendChild(head);
+    card.appendChild(head);
 
-    var live = dishesOf(row.name).length;
-    var meta = document.createElement('div');
-    meta.className = 'booth-name';
-    meta.textContent = live + (live === 1 ? ' dish on this menu' : ' dishes on this menu');
-    fields.appendChild(meta);
-
-    fields.appendChild(makeInput(row, 'category', 'text', 'Category'));
-    fields.appendChild(makeInput(row, 'location_description', 'textarea', 'Location description'));
+    var fields = document.createElement('div');
+    fields.className = 'booth-fields';
+    fields.appendChild(fieldBlock('Category', makeInput(row, 'category', 'text', 'Category')));
 
     // When this isn't set, or is today or earlier, the booth reads as open
     // now - the case every booth was in before this field existed, so
-    // nothing needs to be entered for the common case. Kept out of `geo`:
-    // this is about the booth's status, not its position.
+    // nothing needs to be entered for the common case.
     var opening = document.createElement('div');
-    opening.className = 'geo';
-    var openingLabel = document.createElement('span');
-    openingLabel.textContent = 'Opening';
-    opening.appendChild(openingLabel);
+    opening.className = 'inline';
     var openingInput = makeInput(row, 'opens_at', 'date');
+    openingInput.style.width = 'auto';
     opening.appendChild(openingInput);
 
     // A date is far easier to set than to unset: the native control offers no
-    // clear of its own on every browser, so a date typed by mistake - or a
-    // booth that turns out to open with everything else - had no way back
-    // except retyping something wrong. Mirrors the photo row's Clear, and
-    // stages the same explicit null, which is what erases the field rather
-    // than leaving it open for a later source (see NULLABLE_BOOTH_FIELDS).
+    // clear of its own on every browser, so a date typed by mistake had no way
+    // back except retyping something wrong. Stages an explicit null, which is
+    // what erases the field rather than leaving it open for a later source
+    // (see NULLABLE_BOOTH_FIELDS).
     var openingClear = button('Clear', 'small', function () {
       setValue(row, 'opens_at', null);
       openingInput.value = '';
@@ -1816,11 +1913,8 @@ footer a { color: var(--accent); }
     });
     opening.appendChild(openingClear);
 
-    // The header's pill is a preview, not a form field - `markRow` (wired up
-    // inside makeInput) already refreshes the rail's own copy of it, so only
-    // this one needs a manual nudge, and only this one element, rather than
-    // re-rendering the whole detail pane and losing whatever else was
-    // mid-edit below it (an expanded tag picker, a focused field).
+    // The header's pill is a preview, not a form field, so only it needs a
+    // nudge - re-rendering the pane would lose whatever was mid-edit below.
     function syncOpening() {
       openingClear.style.display = valueOf(row, 'opens_at') ? '' : 'none';
       if (openingPill) { openingPill.remove(); openingPill = null; }
@@ -1832,60 +1926,44 @@ footer a { color: var(--accent); }
         head.appendChild(openingPill);
       }
     }
-
     openingInput.addEventListener('change', syncOpening);
-    // Only the button's visibility on first render - the pill above was just
-    // built by the header and is already right; rebuilding it here would be
-    // DOM churn for an identical result.
     openingClear.style.display = valueOf(row, 'opens_at') ? '' : 'none';
-    fields.appendChild(opening);
+    fields.appendChild(fieldBlock('Opening', opening));
+    fields.appendChild(fieldBlock('Location description',
+      makeInput(row, 'location_description', 'text', 'Where to find it'), true));
+    card.appendChild(fields);
 
-    var geo = document.createElement('div');
-    geo.className = 'geo';
+    var location = document.createElement('div');
+    location.className = 'location';
+    var label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = 'Location';
+    location.appendChild(label);
     var coords = document.createElement('span');
     coords.innerHTML = pos
-      ? '<span class="mono">' + pos.lat.toFixed(5) + ', ' + pos.lon.toFixed(5) + '</span>'
-      : '<span style="color:var(--ink-muted)">no coordinate</span>';
-    geo.appendChild(coords);
+      ? '<span class="mono">' + pos.lat.toFixed(5) + ', ' + pos.lon.toFixed(5) + '</span> ' +
+        '<span class="pill ' + pos.precision + '">' + esc(pos.precision) + '</span>'
+      : '<span class="pill unplaced">Not placed</span>';
+    location.appendChild(coords);
     if (row.name !== AGGREGATE_BOOTH_NAME) {
-      geo.appendChild(button(
-        state.armed === row.name ? 'Cancel' : (pos ? 'Move pin' : 'Place on map'),
-        'small', function () { arm(row.name); }
-      ));
-      if (pos) geo.appendChild(button('Center', 'small', function () { centerOn(row); }));
-      if (state.placements[row.name]) {
-        geo.appendChild(button('Discard pin', 'small', function () {
-          delete state.placements[row.name];
-          save();
-          render();
-        }));
-      }
+      location.appendChild(button(pos ? 'Edit pin' : 'Place on map', 'small',
+        function () { openDrawer(row.name); }));
     }
-    fields.appendChild(geo);
+    var spacer = document.createElement('span');
+    spacer.style.flex = '1 1 auto';
+    location.appendChild(spacer);
 
-    var actions = document.createElement('div');
-    actions.className = 'field-row';
-    if (isRowChanged(row) && !row._id) actions.appendChild(button('Revert', 'linkish', function () { revert(row); }));
+    var actions = document.createElement('span');
+    actions.className = 'booth-actions';
+    if (isRowChanged(row) && !row._id) actions.appendChild(button('Revert booth', 'linkish', function () { revert(row); }));
     if (isAdded(row)) {
       actions.appendChild(isDeleted(row)
         ? button('Undo delete', 'linkish', function () { undelete(row); })
-        : button('Delete', 'linkish', function () { removeRow(row); }));
+        : button('Delete booth', 'linkish', function () { removeRow(row); }));
     }
-    if (actions.childNodes.length) fields.appendChild(actions);
-
-    card.appendChild(fields);
+    location.appendChild(actions);
+    card.appendChild(location);
     return card;
-  }
-
-  function renderBanner() {
-    var el = document.getElementById('armed-banner');
-    if (state.armed) {
-      el.className = 'panel armed';
-      el.innerHTML = 'Click the map to drop a pin for <b>' + esc(state.armed) + '</b> — Esc to cancel.';
-    } else {
-      el.className = 'panel note';
-      el.innerHTML = 'Hit <b>Place on map</b> on a booth to start, then click its spot on the map.';
-    }
   }
 
   function renderTallies() {
@@ -1898,29 +1976,81 @@ footer a { color: var(--accent); }
       else anchored++;
     });
     document.getElementById('tallies').innerHTML =
+      '<span class="tally">Booths <b>' + all.length + '</b></span>' +
       '<span class="tally">Surveyed <b>' + surveyed + '</b></span>' +
       '<span class="tally">Mapped <b>' + mapped + '</b></span>' +
       '<span class="tally">Anchored <b>' + anchored + '</b></span>' +
-      '<span class="tally">Not placed <b>' + unplaced + '</b></span>' +
-      '<span class="tally">Booths <b>' + all.length + '</b></span>';
+      '<span class="tally">Not placed <b>' + unplaced + '</b></span>';
   }
 
   function renderCounts() {
     var n = changeCount();
     document.getElementById('edit-count').innerHTML =
-      n === 0 ? 'No changes yet' : '<b>' + n + '</b>' + (n === 1 ? ' row changed' : ' rows changed');
-    document.getElementById('export').disabled = n === 0;
-    // This is one of the two things that resize the export bar - "No changes
-    // yet" and "12 rows changed" wrap differently on a narrow screen, and a
-    // wrapped bar is nearly twice as tall. Measured here rather than left to
-    // the observer, which does not run while the tab is hidden.
-    syncBarHeight();
-    queuePaneHeight();
+      n === 0 ? 'No changes' : '<b>' + n + '</b> changed';
+    document.getElementById('export').disabled = n === 0 || !festivalEditable();
+    document.getElementById('map-btn').disabled = !festivalEditable();
+  }
+
+  // ---------- festivals ----------
+  // Four festivals, one database. Only the festival this snapshot was built
+  // from can be edited: the curated files and `studio apply` know about one
+  // festival, so a dish typed under any other would be exported into this
+  // one. The rest are shown, honestly empty, so the switcher is ready for
+  // the day they are crawled.
+  function currentFestival() {
+    var withData = null, picked = null;
+    FESTIVALS.forEach(function (f) {
+      if (f.has_data && !withData) withData = f;
+      if (f.key === state.festival) picked = f;
+    });
+    return picked || withData || FESTIVALS[0];
+  }
+  function liveFestival() {
+    return FESTIVALS.filter(function (f) { return f.has_data; })[0] || null;
+  }
+  function festivalEditable() {
+    var f = currentFestival();
+    return !!(f && f.has_data);
+  }
+
+  function renderFestivals() {
+    var nav = document.getElementById('festivals');
+    var current = currentFestival();
+    nav.innerHTML = '';
+    FESTIVALS.forEach(function (f) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', f.key === current.key ? 'true' : 'false');
+      b.title = f.name + ' · ' + f.season + (f.has_data ? '' : ' · no data yet');
+      b.textContent = f.short;
+      b.addEventListener('click', function () {
+        if (state.festival === f.key) return;
+        if (state.drawer) shutDrawer();
+        state.festival = f.key;
+        save();
+        render();
+      });
+      nav.appendChild(b);
+    });
+  }
+
+  function renderFestivalEmpty() {
+    var f = currentFestival();
+    document.getElementById('festival-empty').innerHTML =
+      '<span class="label">' + esc(f.season) + '</span>' +
+      '<h2>' + esc(f.name) + '</h2>' +
+      '<p>No menu data yet. This festival hasn’t been crawled, so there is nothing here to correct. ' +
+      (liveFestival() ? 'Your ' + esc(liveFestival().short) + ' edits are untouched.' : '') + '</p>' +
+      '<div class="stats">' +
+        '<div><b>0</b><span class="label">Booths</span></div>' +
+        '<div><b>0</b><span class="label">Dishes</span></div>' +
+        '<div><b>0</b><span class="label">Photos</span></div>' +
+      '</div>';
   }
 
   function emptyNote(text) {
     var el = document.createElement('div');
-    el.className = 'panel empty-state';
+    el.className = 'empty-state';
     el.textContent = text;
     return el;
   }
@@ -1956,6 +2086,7 @@ footer a { color: var(--accent); }
     }
 
     header.appendChild(renderBoothDetail(booth));
+    document.getElementById('toolbar-title').textContent = valueOf(booth, 'name');
 
     var dishes = visibleDishes();
     if (!dishes.length) {
@@ -1975,13 +2106,15 @@ footer a { color: var(--accent); }
   }
 
   function render() {
+    renderFestivals();
+    var editable = festivalEditable();
+    document.getElementById('layout').classList.toggle('hidden', !editable);
+    document.getElementById('festival-empty').classList.toggle('hidden', editable);
+    if (!editable) renderFestivalEmpty();
     renderRail();
     renderDetail();
-    renderBanner();
-    renderTallies();
     renderCounts();
-    syncMarkers();
-    document.getElementById('map').classList.toggle('armed', !!state.armed);
+    if (state.drawer) renderDrawer(); else syncMarkers();
   }
 
   // ---------- export ----------
@@ -2088,6 +2221,7 @@ footer a { color: var(--accent); }
   var pendingName = null;
 
   document.getElementById('export').addEventListener('click', function () {
+    if (!festivalEditable()) return;
     var changeset = buildChangeset();
     var photoCount = changeset.menu_items.filter(function (i) { return i.photo; }).length;
     var addedCount = changeset.menu_items.filter(function (i) { return i['new']; }).length +
@@ -2130,6 +2264,7 @@ footer a { color: var(--accent); }
   });
 
   document.getElementById('discard').addEventListener('click', function () {
+    closeMenu();
     if (!changeCount()) return;
     ask({
       title: 'Discard all changes?',
@@ -2248,8 +2383,36 @@ footer a { color: var(--accent); }
 
   document.getElementById('back-to-booths').addEventListener('click', function () { select(null); });
 
-  document.getElementById('toggle-map').addEventListener('click', function () {
-    state.mapOpen ? closeMap() : openMap();
+  document.getElementById('map-btn').addEventListener('click', function () {
+    if (festivalEditable()) openDrawer(null);
+  });
+
+  var menuBtn = document.getElementById('menu-btn');
+  var menuList = document.getElementById('menu-list');
+  function closeMenu() {
+    menuList.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = menuList.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', function (e) {
+    if (!menuList.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  var helpDialog = document.getElementById('help-dialog');
+  document.getElementById('help-btn').addEventListener('click', function () {
+    closeMenu();
+    if (helpDialog.showModal) helpDialog.showModal(); else helpDialog.setAttribute('open', '');
+  });
+  document.getElementById('help-close').addEventListener('click', function () {
+    if (helpDialog.close) helpDialog.close(); else helpDialog.removeAttribute('open');
+  });
+  document.getElementById('settled-dismiss').addEventListener('click', function () {
+    document.getElementById('settled-line').classList.add('hidden');
   });
   document.getElementById('filter-cat').addEventListener('change', function (e) {
     state.category = e.target.value;
@@ -2275,33 +2438,8 @@ footer a { color: var(--accent); }
     addCat.appendChild(o);
   });
 
-  syncBarHeight();
-  syncPaneHeight();
-  window.addEventListener('scroll', queuePaneHeight, { passive: true });
-  window.addEventListener('resize', function () {
-    syncBarHeight();
-    queuePaneHeight();
-  });
-  // Nothing recomputes while the tab is hidden, so the panes come back sized
-  // for wherever the page was when it left.
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) syncPaneHeight();
-  });
-  if (SHELL_TWO_PANE && SHELL_TWO_PANE.addEventListener) {
-    SHELL_TWO_PANE.addEventListener('change', syncPaneHeight);
-  }
-  // Belt and braces on top of the two explicit triggers above: catches a
-  // reflow neither of them predicts, such as a font finally loading.
-  if (window.ResizeObserver) {
-    new ResizeObserver(function () {
-      syncBarHeight();
-      syncPaneHeight();
-    }).observe(document.querySelector('.sticky'));
-  }
-
   load();
   refreshBoothOptions();
-  if (!haveLeaflet) document.getElementById('offline-note').classList.remove('hidden');
   loadPhotos().then(settle).then(render, render);
 })();
 </script>

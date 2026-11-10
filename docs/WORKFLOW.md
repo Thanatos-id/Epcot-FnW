@@ -19,15 +19,16 @@ and a `cd` that failed leaves the rest of them running somewhere else.
 Open `docs/studio.html` — off disk, or the published copy. Pick a booth on
 the left and its whole menu opens on the right: titles, descriptions,
 prices, categories and dietary tags editable in place, a photo attachable
-per dish, the booth placeable on the map, and dishes or booths addable by
-hand where the crawl found none.
+per dish, the booth placeable from the map drawer (**Edit pin** → click →
+**Save location**), and dishes or booths addable by hand where the crawl
+found none.
 
 Edits stay in the browser until exported, so the list can be worked through
 across several sittings. Photos are held in IndexedDB rather than
 localStorage — a handful of camera-roll shots is past that quota — which
 means clearing site data for the page loses anything not yet exported.
 
-Finish with **Export changeset** → **Download changeset**. The file lands in
+Finish with **Export** → **Download changeset**. The file lands in
 `~/Downloads` as `epcot-changeset-<timestamp>.json`.
 
 An export is the whole of what the browser is holding, not the part added

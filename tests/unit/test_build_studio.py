@@ -229,11 +229,14 @@ def test_dropped_pins_are_staged_as_mapped_precision():
     assert "precision: 'mapped'" in html
 
 
-def test_the_page_is_self_contained_apart_from_leaflet():
+def test_the_page_is_self_contained_apart_from_leaflet_and_its_typeface():
+    """Inter comes from Google Fonts with a system-font fallback, so the page
+    still reads cleanly offline - it just reads in San Francisco."""
     html = build_studio.render(_snapshot(_booth("France", [_item("Crème Brûlée")])))
     assert 'name="viewport"' in html
     external = re.findall(r'https?://[^"\s]+', html)
-    allowed = ("unpkg.com/leaflet", "arcgisonline.com", "tile.openstreetmap.org", "www.w3.org")
+    allowed = ("unpkg.com/leaflet", "arcgisonline.com", "tile.openstreetmap.org", "www.w3.org",
+               "fonts.googleapis.com", "fonts.gstatic.com")
     assert [u for u in external if not any(a in u for a in allowed)] == []
 
 
@@ -242,9 +245,16 @@ def test_the_page_is_self_contained_apart_from_leaflet():
 # ---------------------------------------------------------------------------
 
 
-def test_the_booth_rail_is_the_width_it_was_asked_to_be():
-    html = build_studio.render(_snapshot(_booth("Spain")))
-    assert "grid-template-columns: 450px minmax(0, 1fr)" in html
+def test_the_shell_is_one_viewport_with_two_scrollers():
+    """The bar is a grid row and each pane scrolls on its own, so nothing has
+    to be measured at runtime to keep the last dish clear of anything - the
+    old page did, and was wrong on some device every time it wrapped."""
+    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
+    assert "height: 100dvh" in html
+    assert ".booth-list, .detail {" in html
+    assert "overscroll-behavior: contain" in html
+    for gone in ("syncBarHeight", "syncPaneHeight", "--bar-height", "--pane-max"):
+        assert gone not in html, gone
 
 
 def test_the_detail_pane_starts_empty_and_says_what_to_do():
@@ -261,48 +271,45 @@ def test_both_panes_are_present_for_a_snapshot_with_one_booth():
         assert element in html, element
 
 
-def test_each_pane_scrolls_on_its_own():
-    """Two lists of very different lengths share the screen. On one page
-    scroll the rail runs out long before a long menu does, so working down
-    the menu means losing the booth you are in."""
+def test_the_map_is_a_drawer_that_saves_only_on_save():
+    """A pin is a draft until Save location; Close, Cancel and Esc leave the
+    staged placements exactly as they were."""
     html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
-    assert "@media (min-width: 901px)" in html
-    assert ".booth-list, .rows {" in html
-    assert "overflow-y: auto;" in html
-    assert "overscroll-behavior: contain;" in html
+    assert 'id="map-drawer"' in html
+    assert 'id="drawer-save"' in html and "Save location" in html
+    assert "state.drawer.draft" in html
+    # The only write to placements from the map is the save.
+    assert html.count("state.placements[d.booth] = {") == 1
 
 
-def test_everything_that_must_clear_the_export_bar_is_sized_from_a_measurement():
-    """The bar is fixed, so nothing in flow knows its height - and it is not
-    one height: it wraps to two rows when the change count grows or the
-    screen narrows, and gains the safe-area inset on a phone. 61px against
-    109px is the difference between a clear last card and a covered one."""
-    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
-    assert "--bar-height" in html
-    assert "syncBarHeight" in html
-    # Both reserves derive from it rather than restating a number.
-    assert "--shell-bottom: calc(var(--bar-height) + 24px)" in html
-    assert "calc(var(--bar-height) + 32px)" in html
+def test_all_four_festivals_reach_the_page_and_only_the_crawled_one_is_editable():
+    snapshot = _snapshot(_booth("Spain", [_item("Paella")]))
+    snapshot["festival"] = {"name": "EPCOT International Food & Wine Festival"}
+    catalog = build_studio.festival_catalog(snapshot)
+    assert [f["key"] for f in catalog] == [
+        "festival-of-the-arts", "flower-and-garden", "food-and-wine", "festival-of-the-holidays",
+    ]
+    assert [f["key"] for f in catalog if f["has_data"]] == ["food-and-wine"]
+    html = build_studio.render(snapshot)
+    for f in catalog:
+        assert f["key"] in html
+    assert "function festivalEditable()" in html
 
 
-def test_a_pane_is_sized_from_where_it_actually_sits():
-    """A sticky pane is only at --shell-top once the page has scrolled far
-    enough to push it there. Sizing for the pinned case alone left the bottom
-    of both lists behind the bar at every other scroll position."""
-    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
-    assert "--pane-max" in html
-    assert "syncPaneHeight" in html
-    # The layout holds the scroll range open, or the panes shrink, the page
-    # shortens, the header never scrolls away and they never grow back.
-    assert ".layout { min-height:" in html
+def test_a_snapshot_from_no_known_festival_makes_nothing_editable():
+    """Edits typed under the wrong festival would export into this one, so an
+    unrecognised name refuses edits everywhere rather than guessing."""
+    catalog = build_studio.festival_catalog({"festival": {"name": "Something Else"}})
+    assert not any(f["has_data"] for f in catalog)
+    assert not any(f["has_data"] for f in build_studio.festival_catalog({}))
 
 
-def test_cards_do_not_shrink_inside_a_bounded_pane():
-    """Both lists are flex columns, and a bounded flex column shrinks its
-    items to fit rather than overflowing - every card a sliver, no
-    scrollbar."""
-    html = build_studio.render(_snapshot(_booth("Spain", [_item("Paella")])))
-    assert html.count("flex: none;") >= 2
+def test_the_redesign_keeps_reading_the_same_saved_edits():
+    """Unexported work lives in this browser under these names. A rename here
+    would silently strand every edit nobody has exported yet."""
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "var STORE_KEY = 'epcot-studio-v1';" in html
+    assert "var DB_NAME = 'epcot-studio';" in html
 
 
 def test_the_two_search_boxes_are_scoped_to_their_own_pane():

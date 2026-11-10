@@ -59,37 +59,38 @@ attach last year's plates to this year's dishes.
 
 ## The studio's shape
 
-Master/detail: a 450px booth rail on the left, one booth's whole menu on the
+Master/detail: a 320px booth rail on the left, one booth's whole menu on the
 right, and an empty state until something is picked. A booth is the unit
 someone actually works in — 209 dishes in one flat column was a list nobody
 could hold in their head, and a dish is only ever judged against the others
 on the same menu. It also puts the booth's coordinate at the top of its own
 menu instead of repeating it on every dish that inherits it.
 
-Above 900px each pane is pinned and scrolls on its own: 32 booths against a
-menu that runs to 21 dishes, and on one page scroll the rail runs out long
-before the menu does, so working down a long menu meant losing the booth you
-were in. Three consequences worth remembering when editing that block — cards need
-`flex: none` or a bounded flex column shrinks them to slivers instead of
-overflowing; `.wrap`'s bottom reserve has to come off, or the page gets more
-scroll range than the header can absorb and both panes drag off the top; and
-`.layout` needs its `min-height`, or the panes shrink to fit, that shortens
-the page, that leaves no scroll range to move the header away, and they stay
-short forever.
+The page is one viewport: `body` is a grid of the top bar, a status line and
+the workspace, `height: 100dvh`, and the rail and the detail each scroll on
+their own. Nothing is measured at runtime. An earlier version had a fixed
+bottom export bar and sized both panes from its measured height; it was
+wrong on some device every time the bar wrapped, so the bar became a grid
+row at the top and the measuring went. Inside the detail only the dish
+toolbar (with the booth's name) is sticky — the booth's own fields scroll
+away, because pinned they took a third of a laptop screen from the dishes.
 
-Everything that has to clear the fixed export bar is sized from
-`--bar-height`, measured at runtime. The bar is not one height: it wraps to
-two rows when the change count grows or the screen narrows (61px against
-109px, which is the difference between a clear last card and a covered one)
-and it gains the safe-area inset on a phone. `--pane-max` is measured too,
-because a `sticky` pane only sits at `--shell-top` once the page has
-scrolled far enough to push it there; sizing for the pinned case alone put
-the bottom of both lists behind the bar at every other scroll position,
-including the one selecting a booth scrolls you to.
+The map is a drawer that slides in from the right, opened from a booth's
+**Place on map** / **Edit pin** or from **Map** in the top bar (all booths;
+click a pin to open that booth). A pin clicked or dragged there is a draft:
+nothing reaches `state.placements` until **Save location**, and Close,
+Cancel and Esc (with a confirmation when a draft exists) leave things as
+they were.
 
-Both are re-measured where they change - after `renderCounts`, on resize -
-rather than left to a `ResizeObserver` alone, which rides the rendering
-steps and does not run while the tab is hidden.
+The top bar switches between Epcot's four festivals. Only the festival the
+snapshot was built from is editable (`festival_catalog` marks it
+`has_data`); the curated files and `studio apply` know one festival, so a
+dish typed under another would export into this one. The others show an
+empty state until they are crawled.
+
+The look is deliberately plain: white and light grey, square corners, 1px
+rules instead of shadows, Inter and Inter Tight, and one colour — orange —
+reserved for "this has changed" and "this is the pin you are placing".
 
 Each pane carries its own filters, because one search box over both lists
 reads as a single search and behaves as two. The rail's chips are about a
