@@ -1109,13 +1109,19 @@ if ASSETS_DIR.is_dir():
     shutil.copytree(ASSETS_DIR / "icons", DOCS_DIR / "icons", dirs_exist_ok=True)
     copied = len(list((DOCS_DIR / "icons").iterdir()))
     shutil.copy2(ASSETS_DIR / "manifest.json", DOCS_DIR / "manifest.json")
-    print(f"copied {copied} icon file(s) + manifest.json into {DOCS_DIR}")
+    # The studio installs as its own app, with its own name and start page,
+    # so it carries its own manifest and the service worker Chrome needs
+    # before it will offer "Install".
+    for name in ("studio.webmanifest", "studio-sw.js"):
+        shutil.copy2(ASSETS_DIR / name, DOCS_DIR / name)
+    print(f"copied {copied} icon file(s), manifest.json and the studio app files into {DOCS_DIR}")
 
 # A missing icon silently degrades to a blank home-screen tile, so fail loudly
 # instead of shipping a build whose <link> targets aren't there.
 missing = [
     ref
-    for ref in ("icons/favicon.ico", "icons/icon.svg", "icons/apple-touch-icon.png", "manifest.json")
+    for ref in ("icons/favicon.ico", "icons/icon.svg", "icons/apple-touch-icon.png", "manifest.json",
+                "studio.webmanifest", "studio-sw.js")
     if not (DOCS_DIR / ref).exists()
 ]
 if missing:

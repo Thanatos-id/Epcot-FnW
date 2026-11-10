@@ -25,6 +25,14 @@ LANDING = "/studio.html"
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    # Python's table predates web app manifests. Chrome wants the right type
+    # before it will treat the studio as installable, as GitHub Pages sends.
+    extensions_map = {
+        **http.server.SimpleHTTPRequestHandler.extensions_map,
+        ".webmanifest": "application/manifest+json",
+        ".js": "text/javascript",
+    }
+
     def do_GET(self):
         if self.path in ("/", ""):
             self.send_response(302)
