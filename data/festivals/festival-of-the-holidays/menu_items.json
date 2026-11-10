@@ -1,0 +1,4095 @@
+{
+  "menu_items": [
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Tostada de Carne",
+      "public_id": "133d284a-6680-57d0-80bd-573b78d9a017",
+      "description": "Braised beef tips on a fried tortilla with black beans, crispy onions and queso fresco",
+      "price_usd": 8.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Tostada.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Tamal de Pollo con Mole",
+      "public_id": "4726b05a-65ca-5a94-b1c3-3c7fcff342a0",
+      "description": "Shredded chicken and mole negro in corn masa with queso fresco, crema, almonds and sesame seeds",
+      "price_usd": 9.0,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Dulce de Leche Churro",
+      "public_id": "52e51fda-4c3d-5a52-abc0-fe3687082b87",
+      "description": "Churro with dulce de leche and cinnamon sugar",
+      "price_usd": 6.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Churro.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Chai-mazing Margarita",
+      "public_id": "94645da2-597f-58ac-8165-dbe6ace9072f",
+      "description": "Chai-infused Dulce Vida Tequila Blanco with apple-ginger juice and chai liqueur",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Horchata Margarita",
+      "public_id": "9eb2a0c9-4f8f-5f5d-8380-0edf8d855805",
+      "description": "Cinnamon-infused Ilegal Mezcal and Abasolo Corn Whiskey with horchata and cinnamon horchata rum",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Las Posadas Holiday Kitchen",
+      "name": "Holiday Cerveza",
+      "public_id": "745a9f8d-58e5-5a9d-8ca6-90a6aa3197a6",
+      "description": "Mexican artisanal craft lager with black currant liqueur",
+      "price_usd": 7.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "BBQ Char Siu Pork Fried Rice",
+      "public_id": "c4e8c23f-5c37-54a1-944b-af6892e82c83",
+      "description": "Fried rice with Chinese La Chang sausage, egg, onions and sesame",
+      "price_usd": 9.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Fried-Rice.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Beef Noodle Soup Bowl",
+      "public_id": "11755273-44fa-56e8-b54f-2ba500172f30",
+      "description": "Slow-braised beef shank with green onion and house-made chili oil",
+      "price_usd": 9.75,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Beef-Noodles.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Vegetable Spring Rolls",
+      "public_id": "d4f3eb3a-75cc-569f-b1b9-30df58a60d71",
+      "description": "Vegetable spring rolls with citrus sauce",
+      "price_usd": 6.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Spring-Rolls.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Tiger Milk Tea",
+      "public_id": "7d565a0f-a49e-5618-bbfd-9511c57cf7ec",
+      "description": "Assam black tea with milk, brown sugar syrup and tapioca boba (non-alcoholic)",
+      "price_usd": 8.75,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Brew Hub Year of the Dragon",
+      "public_id": "03cedce1-e697-529a-bca5-773fc8f50c7c",
+      "description": "Dragon fruit lager",
+      "price_usd": 5.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Butterfly Lantern",
+      "public_id": "352a7379-5528-595c-a139-40b66f5a9bd2",
+      "description": "Butterfly pea blossom gin and vodka with prickly pear and lychee syrups and white boba",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Lychee Martini",
+      "public_id": "65237ef9-0d3b-5eb1-b6fb-0f9f8b1b492d",
+      "description": "Vodka, lychee syrup and vermouth",
+      "price_usd": 14.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shanghai Holiday Kitchen",
+      "name": "Peach of Longevity",
+      "public_id": "618e4e38-9ada-5079-8996-b168540b275c",
+      "description": "Peach schnapps and citrus vodka with piña colada mix and Minute Maid orange juice",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Spiced Shrimp Stew",
+      "public_id": "75db6994-3085-5304-a996-239c976666be",
+      "description": "Spiced shrimp stew with jollof rice",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Shrimp-Stew.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "DOLE Whip Raspberry",
+      "public_id": "55f8337f-9893-5b25-9911-4bedbcb1c47c",
+      "description": "Raspberry DOLE Whip in a waffle cone (plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Ivanhoe Park Brewing Co. Florida Ginger Snap Lager",
+      "public_id": "b49a2da2-17a0-5f53-b1a6-27eb39264d87",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Crooked Can Brewing Company Chocolate Mint Cookie Stout",
+      "public_id": "3d2a0fd1-0d7c-5589-9394-05900f5b8b20",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Ciderboys Caramel Apple Hard Cider",
+      "public_id": "34e729f0-c26f-5690-bc65-341350278ed3",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Boyd & Blair Vodka Chai Tea Mule",
+      "public_id": "a2fe4168-9c0d-5687-9cd0-935abc898486",
+      "description": "Boyd & Blair vodka with chai tea",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "note": "Disney's list says 'Chai Tea Mule', its photo caption 'Vodka Chai Tea Mule'.",
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Chai-Mule.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Pork Schnitzel",
+      "public_id": "52755204-76ce-5ebf-ab10-ac9907b2c25c",
+      "description": "Pork schnitzel with mushroom sauce, spätzle and braised red cabbage",
+      "price_usd": 6.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Schnitzel.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Cheese Fondue",
+      "public_id": "ce03f4de-1c04-58ad-af5d-b522f0dd2dda",
+      "description": "Cheese fondue in a bread bowl with steamed baby vegetables and marble potatoes",
+      "price_usd": 8.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cheese-Fondue.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Hazelnut Linzer Cookie",
+      "public_id": "e2211c9e-1556-5b83-8a15-02f51319d540",
+      "description": "Hazelnut linzer cookie with raspberry jam",
+      "price_usd": 3.75,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Linzer-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Weihenstephaner Kristallweissbier",
+      "public_id": "ee1d0bc1-4c56-52e0-a680-8931ba4f4b99",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Possmann Pure Hard Cider",
+      "public_id": "f4ebaf98-3d49-5f42-93ef-e2c1622f02bd",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "von Trapp Brewing Trösten Smoked Dark Lager",
+      "public_id": "551fd05f-9088-5e7d-9ac6-9c9b4dde58a3",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Beverage Flight",
+      "public_id": "6724a39a-c128-5ac9-bd3f-3ac7aa1ffef8",
+      "description": "A flight of the kitchen's beer and cider",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Regional Riesling",
+      "public_id": "c5e6fa1d-6cee-5f9a-9c12-cec3ef256803",
+      "description": null,
+      "price_usd": 9.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Bavaria Holiday Kitchen",
+      "name": "Glühwein",
+      "public_id": "02e4a87e-075d-521a-9b9a-b16cb8eb9c33",
+      "description": "House-made hot spiced wine, served warm",
+      "price_usd": 9.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Gluhwein.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Sommerfest",
+      "name": "Warm Apfel Cider with Jägermeister",
+      "public_id": "ca39e046-fe68-5974-b136-b193c6ad2166",
+      "description": "Warm apple cider with Jägermeister and an orange wedge",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Salsiccia e Peperoni",
+      "public_id": "64c2d630-8827-580c-95c7-84560ec184a6",
+      "description": "Sweet sausage and roasted peppers on focaccia",
+      "price_usd": 8.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Pepper-Foccacia.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Pizza e Cioccolato",
+      "public_id": "1090b8df-25d8-5146-8d22-1a1f109b540e",
+      "description": "Fried pizza dough with sugar, cinnamon and chocolate",
+      "price_usd": 7.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Chioccolato.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Montanara",
+      "public_id": "b8547490-bbcf-564e-9e32-f756208bd84a",
+      "description": "Fried pizza dough with pomodoro, Parmesan and basil",
+      "price_usd": 7.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Montanara.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Peroni Pilsner",
+      "public_id": "8e9ed098-164d-588e-8feb-3cf3b8c6cf24",
+      "description": null,
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Tiramisu Stout",
+      "public_id": "6cd933e5-8b4f-5573-ba1e-358f53e6352f",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Prosecco",
+      "public_id": "66c1f4e8-b49c-5639-8ddd-e2d407b1046f",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Moscato",
+      "public_id": "2755d7f1-79cc-5061-aa3c-009f818ec183",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Chianti",
+      "public_id": "9992595a-9973-57bc-8f8a-2aca5c32fae8",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Italian Red Sangria",
+      "public_id": "cfe27020-69be-50e4-86be-c821834f36e1",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tuscany Holiday Kitchen",
+      "name": "Italian-inspired Blood Orange Margarita",
+      "public_id": "7a4512cf-df80-5c95-87c3-6d068359c959",
+      "description": "Tequila, triple sec and blood orange liqueur",
+      "price_usd": 13.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Chocolate Cookie featuring SNICKERS Bar Pieces",
+      "public_id": "11cb1f79-2044-5354-b3ae-16157ddebfd3",
+      "description": "Chocolate cookie with SNICKERS bar pieces and salted caramel",
+      "price_usd": 3.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Chocolate-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Slow-roasted Turkey",
+      "public_id": "965457e8-adfa-57e6-82da-67e4d686cb9f",
+      "description": "Slow-roasted turkey with stuffing, mashed potatoes, green beans and cranberry sauce",
+      "price_usd": 6.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Roasted-Turkey.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Blackened Catfish",
+      "public_id": "52406379-6693-5c10-af2a-566b937d1bd8",
+      "description": "Blackened catfish with Hoppin' John and comeback sauce",
+      "price_usd": 6.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Catfish.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Victory Brewing Co. Chocolate Cherry Stout",
+      "public_id": "dcc813fd-0bca-591f-a8fb-f63d293a7c6a",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Crooked Can Brewing Company Bah HOPbug IPA",
+      "public_id": "70fdbef0-125c-53dd-883e-21582893371d",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "3 Daughters Brewing Eggnog White Porter",
+      "public_id": "ea79fe4a-f1a8-5e88-a1d2-4e995baf7359",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Beer Flight",
+      "public_id": "5e3a2067-1cb9-545b-a6f1-7d4facf83049",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Regional White Wine",
+      "public_id": "2802b126-9164-58a2-ab61-fadfc32c79d0",
+      "description": null,
+      "price_usd": 7.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "American Holiday Table",
+      "name": "Regional Red Wine",
+      "public_id": "1ce97d26-7c88-517e-9a85-99e3bf258498",
+      "description": null,
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Fife and Drum",
+      "name": "Apple Pie Sundae",
+      "public_id": "753d0d73-7cf0-5ecb-8f01-9d7cce879cf8",
+      "description": "Apple pie filling over vanilla ice cream with caramel and streusel",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Apple-Sundae.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Regal Eagle Smokehouse",
+      "name": "Frozen Gingerbread Eggnog",
+      "public_id": "cfe794b6-0a4b-52f5-a64c-7ceeb072762f",
+      "description": "Frozen eggnog with gingerbread syrup and nutmeg (non-alcoholic)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Regal Eagle Smokehouse",
+      "name": "Frozen Gingerbread Eggnog with Thomas Tew Single Barrel Rum",
+      "public_id": "8abf79a0-59f7-5b3b-8844-15689b250e05",
+      "description": "Frozen eggnog with gingerbread syrup, nutmeg and Thomas Tew Single Barrel Rum",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Block & Hans",
+      "name": "Cinnamon-glazed Nuts",
+      "public_id": "ec5b5398-0556-53ae-bbb4-b00d1d1a56a7",
+      "description": "Cinnamon-glazed nuts (plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Block & Hans",
+      "name": "Apple Pie Frozen Slush",
+      "public_id": "f059fc57-2bcf-5964-98d2-a7227bbc6482",
+      "description": "Frozen Minute Maid apple juice with cinnamon syrup and cinnamon sugar (non-alcoholic)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Apple-Slush.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Block & Hans",
+      "name": "Apple Pie Frozen Slush with Apple Pie Moonshine",
+      "public_id": "d649e74d-7aa6-5424-a028-acde655cc489",
+      "description": "Frozen apple juice and cinnamon syrup with apple pie moonshine",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Funnel Cake",
+      "name": "Red Velvet Cookie Funnel Cake",
+      "public_id": "bc0442d7-12c4-5300-9c8b-fecaa8a81b34",
+      "description": "Funnel cake with powdered sugar, vanilla ice cream, cream cheese whipped cream, red velvet cookie pieces, mini chocolate chips and chocolate syrup",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Funnel-Cake-1620x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Strawberry Bun",
+      "public_id": "2d14e162-8905-59b0-a025-f8dea9679662",
+      "description": "Pink dessert bao filled with strawberry cream, with a light coconut sauce",
+      "price_usd": 7.95,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Strawberry-Bun.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Sushi Tree Roll",
+      "public_id": "e2228750-e05b-5479-beb5-8cbabceaae6b",
+      "description": "Christmas-tree-shaped roll with krab, cream cheese, spicy mayo and rice pearls",
+      "price_usd": 7.5,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Sushi-Tree.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Toshikoshi Soba",
+      "public_id": "7dc68f76-0616-5f6f-be2b-c8543aa0fefc",
+      "description": "Buckwheat soba in dashi with shrimp tempura and green onion",
+      "price_usd": 8.5,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Soba.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Yuzu Refresher",
+      "public_id": "59858c2f-ac5e-5a51-969b-1a1418a1f59e",
+      "description": "Yuzu and passion fruit with Minute Maid Premium Lemonade and green apple boba (non-alcoholic)",
+      "price_usd": 7.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Sapporo Premium Black Beer",
+      "public_id": "06d5ebc9-5248-5ae5-af53-71df9f1887b2",
+      "description": null,
+      "price_usd": 5.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Chocolate Nigori Sake",
+      "public_id": "9798a654-8e68-56bd-9f93-ba2272185574",
+      "description": null,
+      "price_usd": 14.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Shi Wasu Holiday Kitchen",
+      "name": "Japanese Punch",
+      "public_id": "f02c5022-aae3-5e59-8c10-a1a8c3f5559a",
+      "description": "Shōchū, plum wine, white cranberry juice and lemon juice",
+      "price_usd": 8.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Moroccan Wrap",
+      "public_id": "3e5cf28e-3119-5c7f-baf8-9a73fd229269",
+      "description": "Warm flatbread with tomato-cucumber relish and garlic sauce; choice of chermoula chicken, Moroccan-spiced lamb or falafel (plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Wrap-Trio-scaled.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Stone-baked Moroccan Bread",
+      "public_id": "9829c187-2c5b-5bee-ab08-1298a5c50a2c",
+      "description": "Stone-baked Moroccan bread with assorted dips",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Bread-Dips.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "3 Daughters Brewing Golden Fig Hard Cider",
+      "public_id": "8bdf8c7a-2da7-5125-948f-82cc8b04329e",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Keel Farms Frostbite Blueberry Ginger Hard Cider",
+      "public_id": "acf234d4-c261-572e-9a47-e07d96ba608b",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Gulf Stream Brewing Holiday Snakebite",
+      "public_id": "164146d1-3cc2-5b01-9f52-4f49946c7b62",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Beverage Flight",
+      "public_id": "b2a3822d-b9d1-5796-9a87-7b9d6693a6ca",
+      "description": "A flight of the kitchen's cider and beer",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Sparkling Holiday Fig Cocktail",
+      "public_id": "f923f9d3-66cf-5cf9-8006-d53577f12bae",
+      "description": "Sparkling wine with Kleiner Feigling fig liqueur and white cranberry juice",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Sparkling-Cocktail-scaled-e1762974988287.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Mickey-shaped Almond Black and White Cookie",
+      "public_id": "fbbec470-17fe-580a-938e-b3944fedb82b",
+      "description": "Mickey-shaped almond black and white cookie",
+      "price_usd": 4.0,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Mickey-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Pastrami on Rye",
+      "public_id": "be1174f6-4e36-5dc6-8475-7a2317c94f91",
+      "description": "Pastrami on rye with house-made pickles and deli mustard",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Pastrami.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Smoked Salmon Potato Latke",
+      "public_id": "76215578-8e40-53b5-9bca-3b2f37fbfd3b",
+      "description": "Potato latke topped with smoked salmon",
+      "price_usd": 6.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Salmon-Latkes.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Potato Latkes",
+      "public_id": "31f3b82b-94bf-530d-bbda-4d815e97190f",
+      "description": "Potato latkes (plant-based)",
+      "price_usd": 4.75,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Latkes.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Rugelach",
+      "public_id": "a399b22a-fe6d-507f-a197-73f2c3955b85",
+      "description": "Rugelach with raspberry jam, walnuts and cinnamon",
+      "price_usd": 4.25,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Rugelach.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Brooklyn Brewery Black Chocolate Stout",
+      "public_id": "e40691ad-423a-580b-ae71-62385d492c12",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "L'Chaim! Holiday Kitchen",
+      "name": "Frozen New York Whiskey Sour",
+      "public_id": "771a56bb-8556-5c69-849e-fb31b2f54d17",
+      "description": "Manifest Whiskey with Manischewitz Blackberry Wine",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Whiskey-Sour.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Macaron de Noël aux Épices",
+      "public_id": "a389a9a7-8adb-5c05-9eba-f7f3de4ce0b2",
+      "description": "Large gingerbread macaron with a spiced filling",
+      "price_usd": 9.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "likely-2026",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025",
+        "disney-food-blog-2026-09-08"
+      ],
+      "note": "Disney has confirmed a macaron returns for 2026 without naming the flavour.",
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Gingerbread-Macaron.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Dinde Rôtie, Sauce et Garniture, servi avec Patates Douces",
+      "public_id": "d3898413-76a6-58c4-a1b5-077abe81cf73",
+      "description": "Roast turkey with mushrooms, pearl onions, bacon and gravy, served with sweet potatoes",
+      "price_usd": 9.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Turkey.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Crème de Saumon Fumé en Brioche",
+      "public_id": "6cf8dc0c-7885-57dd-9720-09eb529c28aa",
+      "description": "Smoked salmon spread on sesame brioche with cucumber and radish",
+      "price_usd": 9.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Brioche.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Pierre Sparr Crémant d'Alsace Brut Rosé",
+      "public_id": "947ac59f-d34d-500c-9642-5d9d3c4289a1",
+      "description": null,
+      "price_usd": 6.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Vin Chaud French Mulled Wine",
+      "public_id": "93bd5af6-9717-5898-a4a5-8b68da4f7653",
+      "description": "Mulled wine with orange and cinnamon, served warm",
+      "price_usd": 9.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Le Marché de Noël Holiday Kitchen",
+      "name": "Frozen Hot Chocolate Martini",
+      "public_id": "322d2116-f15a-5949-847c-9fb301915153",
+      "description": "Frozen cocoa with vodka and whipped cream",
+      "price_usd": 14.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Maple Leaf Shortbread Cookie",
+      "public_id": "7b91c5e6-af60-5c01-a61c-7d534950ab69",
+      "description": "Maple leaf shortbread cookie with maple buttercream",
+      "price_usd": 4.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Shortbread-Cookie-scaled.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Seared Salmon",
+      "public_id": "3ab93528-e076-5922-bbb9-840d849b0539",
+      "description": "Seared salmon with butternut squash purée, maple-bourbon glaze and fennel-arugula salad",
+      "price_usd": 7.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Seared-Salmon-scaled.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Beef Bourguignon",
+      "public_id": "f6aac325-ff92-50bf-a88e-0f46d321f29f",
+      "description": "Beef bourguignon with crushed potatoes",
+      "price_usd": 7.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Beef-Bourguigon-scaled.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Frozen Joffrey's Coffee",
+      "public_id": "90e36e11-80c3-565e-b015-d2828e96ffcb",
+      "description": "Frozen Joffrey's coffee (non-alcoholic)",
+      "price_usd": 5.25,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "81Bay Brewing Co. Peanut Butter Banana Porter",
+      "public_id": "f8080c7e-ede0-57ad-aff3-eef5c51bf4a3",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Playalinda Brewing Co. Maple Cookie Blonde Ale",
+      "public_id": "7c0a4fd8-2431-50c8-8fc4-489717f770be",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Collective Arts Brewing Brown Sugar Coffee Porter",
+      "public_id": "d3e128e9-5678-589b-b31c-29c2364bfad8",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Beer Flight",
+      "public_id": "5e01c70b-3d92-5380-be41-164748226d93",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Regional Ice Wine",
+      "public_id": "48bd0c17-97e1-54a2-aa27-3ba98152e7c7",
+      "description": null,
+      "price_usd": 7.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Regional Red Wine",
+      "public_id": "6c6f381f-23be-54ce-b54e-ef1ec2dab4e5",
+      "description": null,
+      "price_usd": 11.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Yukon Holiday Kitchen",
+      "name": "Frozen Joffrey's Coffee with Tap 357 Canadian Maple Rye Whisky",
+      "public_id": "03713934-9500-5351-a55a-23e9ed13d27e",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Port",
+      "name": "Turkey Poutine",
+      "public_id": "ece22b54-3d62-51b8-9374-9c9e6565a8b9",
+      "description": "Sweet potato fries with turkey gravy, cranberry relish and crispy onions",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "confirmed-2026",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "disney-food-blog-2026-09-08"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Turkey-Poutine-1617x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Port",
+      "name": "Keel Farms Cinnamon Sugar Donut Hard Cider",
+      "public_id": "8a44699d-c903-53d4-b5a7-2b241212ba95",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Port",
+      "name": "Pasek Cellars Cranberry Wine",
+      "public_id": "0454da71-52bd-5e43-b862-c45fa12a69d1",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Liquid Nitrogen Chocolate-Peppermint Mousse",
+      "public_id": "edb6c389-d258-5b44-b26d-c43eda6269c3",
+      "description": "Chocolate-peppermint mousse made with liquid nitrogen, featuring M&M'S Holiday Mint Chocolate Candies",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Peppermint-Mousse.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Soft-serve in a Waffle Cone",
+      "public_id": "ed728b38-2b35-5844-8b68-8638f93b4440",
+      "description": "Vanilla, apple-cinnamon or dark chocolate soft-serve in a waffle cone",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Soda Float",
+      "public_id": "885ad445-41f5-5856-9e32-21c36e475c6d",
+      "description": "Barq's Red Creme Soda or Barq's Root Beer with vanilla soft-serve (non-alcoholic)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Yuletide Float",
+      "public_id": "6a25691c-43cb-5bbb-8eb7-70b45238339e",
+      "description": "Fireball Cinnamon Whisky and Barq's Red Creme Soda with apple-cinnamon soft-serve",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Yuletide-Float-scaled.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Coffee Float",
+      "public_id": "bdbdd928-2e5f-5033-b3e3-7474e2bc2b98",
+      "description": "Dark chocolate soft-serve with Joffrey's cold brew and Mozart Chocolate Cream or White Chocolate liqueur",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Coffee-Float.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Kālua Pork",
+      "public_id": "35100ed7-1f30-5614-ab7f-6b0fe8b3ce5b",
+      "description": "Kālua pork with coconut, sweet potatoes and mango salad",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Kalua-Pork.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Lomi Lomi Salmon",
+      "public_id": "32b065bf-f753-5374-9e16-03c6f08a26ce",
+      "description": "Lomi lomi salmon with tomatoes, onions, salmon roe, yuzu mayonnaise and yuca chips",
+      "price_usd": 6.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Salmon.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Coffee-Mocha Cookie",
+      "public_id": "6a4f4976-8320-5386-8223-6b55e689f3d4",
+      "description": "Coffee-mocha cookie with coffee buttercream, cocoa nibs and chocolate-covered espresso beans",
+      "price_usd": 3.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Mocha-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Maui Brewing Co. Mango Stickee Rice IPA",
+      "public_id": "0b3701f1-c05f-568a-98e6-d7def8d03485",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Florida Orange Groves Winery Pineapple Sparkling Wine",
+      "public_id": "aa46a561-696f-5bc0-bb6a-42b1f34fad98",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Mele Kalikimaka Holiday Kitchen",
+      "name": "Melon Breeze",
+      "public_id": "5dc0f2e4-1d7f-5c59-b316-fae99e42c505",
+      "description": "DOLE pineapple juice, lime juice, melon liqueur and Sailor Jerry Spiced Rum",
+      "price_usd": 14.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Melon-Breeze.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nochebuena Cocina",
+      "name": "Pan de Jamón",
+      "public_id": "9f9cd7c0-04d7-52d1-ac47-df20508004c4",
+      "description": "Latin Christmas bread rolled with ham, raisins and green olives",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Pan-Jamon.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nochebuena Cocina",
+      "name": "Plant-based Chorizo Tamale",
+      "public_id": "fb73c018-e6ef-554d-805b-1e2e0ebd25e3",
+      "description": "Plant-based chorizo tamale with plant-based cotija and spicy red chile sauce",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Chorizo-Tamale.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nochebuena Cocina",
+      "name": "Cinnamon-spiced Chocolate Crinkle Cookie",
+      "public_id": "e30608d7-f1ff-5abb-a754-3a8d46fdb5f9",
+      "description": "Cinnamon-spiced chocolate crinkle cookie",
+      "price_usd": 3.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cinnamon-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nochebuena Cocina",
+      "name": "Ponche Navideño",
+      "public_id": "a485e4a4-d203-5f6f-83dc-e0c058497b3f",
+      "description": "Christmas punch with fruit and spices, served warm (non-alcoholic)",
+      "price_usd": 4.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Ponche-Navideno-e1762976092602.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nochebuena Cocina",
+      "name": "Left Hand Brewing Co. Mexican Hot Chocolate Milk Stout",
+      "public_id": "a4ac9b96-e7a8-5cf9-8b43-5233c0488913",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Cinnamon-glazed Almonds",
+      "public_id": "667e3d33-e9df-5d37-90b2-68e85aaa3909",
+      "description": "Cinnamon-glazed almonds (plant-based)",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Almonds.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Cinnamon-glazed Cashews",
+      "public_id": "27c86676-0495-5246-bc5d-473902bdbede",
+      "description": "Cinnamon-glazed cashews (plant-based)",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cashews.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Cinnamon-glazed Pecans",
+      "public_id": "7b5da8ff-ad05-5b69-8295-888f86ff90ca",
+      "description": "Cinnamon-glazed pecans (plant-based)",
+      "price_usd": 6.0,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Pecans.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Fire-roasted Chestnuts",
+      "public_id": "ca958321-5fbe-518e-ab79-903ba55b2c5a",
+      "description": "Fire-roasted chestnuts (plant-based)",
+      "price_usd": 6.5,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Chestnuts.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Eggnog",
+      "public_id": "c6636c5d-163b-5749-bb1d-929e957af8eb",
+      "description": "Creamy eggnog (non-alcoholic)",
+      "price_usd": 4.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "confirmed-2026",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025",
+        "disney-food-blog-2026-09-08"
+      ],
+      "note": "Confirmed for 2026 as 'Creamy Eggnog' at this kitchen (Disney Food Blog, Sep 8 2026).",
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Eggnog.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Southern Tier Brewing Co. Chestnut Praline Imperial Ale",
+      "public_id": "ef0f751e-5cf2-5f8a-8d45-97e22204e3f7",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "name": "Eggnog with Fireball Cinnamon Whisky or Skrewball Peanut Butter Whiskey",
+      "public_id": "f24238e9-e189-5b2d-9098-88a133fa5ef9",
+      "description": "Eggnog with a choice of Fireball Cinnamon Whisky or Skrewball Peanut Butter Whiskey",
+      "price_usd": 12.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Prototype Cookie",
+      "public_id": "73f61058-931c-55fc-b8d0-c3873c40e868",
+      "description": "Sugar cookie with orange-cranberry icing and dark chocolate",
+      "price_usd": 4.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Prototype-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Ginger-Molasses Cookie",
+      "public_id": "8c851402-2159-5fc1-938a-9b37860cae3f",
+      "description": "Ginger-molasses cookie with cream cheese icing",
+      "price_usd": 3.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Ginger-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Salted Caramel Spaceship Earth Cookie",
+      "public_id": "b5366bba-fc76-5348-b0fa-b2495716f719",
+      "description": "Salted caramel cookie shaped like Spaceship Earth",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Caramel-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Gingerbread Milk Shake",
+      "public_id": "f2df15b4-1f70-57fa-8a88-80eabe27425a",
+      "description": "Gingerbread milk shake (non-alcoholic)",
+      "price_usd": 5.25,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "likely-2026",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025",
+        "disney-food-blog-2026-09-08"
+      ],
+      "note": "A seasonal shake is confirmed for 2026; the flavour has not been announced."
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Gingerbread Milk Shake with Whipped Cream Vodka",
+      "public_id": "faa216d3-9dc7-56fb-b1fc-6428f54b431f",
+      "description": "Gingerbread milk shake with whipped cream vodka",
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "likely-2026",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025",
+        "disney-food-blog-2026-09-08"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Gingerbread-Shake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Hot Cocoa by Joffrey's",
+      "public_id": "e48f6eaf-2244-5a7c-b5a5-90eb736faa6f",
+      "description": "Hot cocoa (non-alcoholic)",
+      "price_usd": 4.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Hot Cocoa by Joffrey's with Whipped Cream Vodka",
+      "public_id": "f5fd407a-5e83-5cb5-9846-683f4237c09e",
+      "description": "Hot cocoa with whipped cream vodka",
+      "price_usd": 12.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Crooked Can Brewing Company Gingerbread Bock",
+      "public_id": "3eb097af-b0a1-5639-b99a-0eccfb27c081",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Gulf Stream Brewing Baking Spirits Bright Gingerbread Red Ale",
+      "public_id": "31450c86-ccab-54b5-bbe9-849c0650a1bf",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Ivanhoe Park Brewing Co. Frosted Gingerbread White Stout",
+      "public_id": "98cfc801-7ee9-5db0-b7bb-d31c52b7b53a",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Beer Flight",
+      "public_id": "69d89111-cb41-5998-a663-5f8c149d368a",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Experimental Prototype Cookies of Tomorrow",
+      "name": "Seasonal Wine",
+      "public_id": "d9de6619-807b-59c6-a0dd-a99ba51e71ff",
+      "description": null,
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Reuben Croquettes",
+      "public_id": "e5a3ac4c-7a3d-5fca-a5d6-5cfacbb08e2d",
+      "description": "Pastrami, sauerkraut and Swiss croquettes with Thousand Island dipping sauce",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Reuben-Croquettes.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Brown Sugar and Mustard-glazed Ham Sliders",
+      "public_id": "a5027c70-7062-56f6-8855-28497448190b",
+      "description": "Brown sugar and mustard-glazed ham with cranberry-apple coleslaw on a Hawaiian roll",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Ham-Slider.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Panettone Holiday Trifle",
+      "public_id": "2ad5fd5b-ffc0-527a-af70-f23ebd6f6bf1",
+      "description": "Panettone trifle with eggnog custard, cranberry-cherry compote and sugared almonds",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Holiday-Trifle.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Cigar City Brewing Oatmeal Raisin Cookie Brown Ale",
+      "public_id": "8f74f0df-8171-585f-a7e8-f9224d6dab8e",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Keel Farms Pecan Pie Hard Cider",
+      "public_id": "7b99f010-fa31-5ff5-addd-68209afebebf",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Southern Tier Brewing Co. Tiramisu Imperial Stout",
+      "public_id": "6d2b5eb7-155a-53ed-acaa-90dcc69014db",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Beverage Flight",
+      "public_id": "3d27f465-8178-51b4-add3-e5e2e83daf4a",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Seasonal White Wine",
+      "public_id": "6d458c56-ea15-57da-baab-9e2df87ebbc2",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Seasonal Red Wine",
+      "public_id": "f4adb596-1cc7-55e8-90f6-e4841160067d",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Martin Ray Chardonnay",
+      "public_id": "f69a2315-67f3-5036-9f3a-fe828391de77",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Favorites of Festivals Past",
+      "name": "Katherine Goldschmidt Cabernet Sauvignon",
+      "public_id": "3d8fdee9-a729-5c1d-a8c9-fbb2db6fd0c9",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Cranberry-Oatmeal Cookie",
+      "public_id": "d9a196c9-e2a0-500c-9826-c758117d3f76",
+      "description": "Cranberry-oatmeal cookie (plant-based)",
+      "price_usd": 3.5,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Oatmeal-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Red Velvet Cake Pop",
+      "public_id": "468e6dbb-6740-5ba2-8aa5-7ab9f721c1b2",
+      "description": "Red velvet cake pop with festive sprinkles",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cake-Pop.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Reindeer Chow",
+      "public_id": "b08719f5-41a5-58d2-9e3a-32a45ce1738e",
+      "description": "Snack mix featuring M&M'S Milk Chocolate Candies Holiday Blend",
+      "price_usd": 6.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Reindeer-Chow.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Apple-Caramel Crumb Cake",
+      "public_id": "88dbdbae-55e6-5cef-8b5e-4d997550a7b3",
+      "description": "Apple-caramel crumb cake",
+      "price_usd": 5.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Apple-Cake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Chocolate-covered Toffee Brittle",
+      "public_id": "b37d2a54-dcb1-5422-a48b-bdeff62b1933",
+      "description": "Chocolate-covered toffee brittle",
+      "price_usd": 4.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Toffee-Brittle.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Hot Cocoa by Joffrey's",
+      "public_id": "90fb3978-f803-5b3f-ad20-5bc96f1fd417",
+      "description": "Hot cocoa (non-alcoholic)",
+      "price_usd": 4.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Frozen Caramel Hot Cocoa",
+      "public_id": "872c0bf5-3bc4-5248-b47c-dbe0d8040f92",
+      "description": "Frozen caramel hot cocoa with TWIX cookie bar pieces and whipped cream (non-alcoholic)",
+      "price_usd": 5.5,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "BRLO Winter Hard Cider",
+      "public_id": "5394e9a9-04ab-58f7-aed2-f83b78a344df",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Keel Farms Yukon Maple Bourbon Hard Cider",
+      "public_id": "6eda2520-51cf-5f79-a5f4-61b004a5aec5",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "3 Daughters Brewing Peppermint Hard Cider",
+      "public_id": "81cece7b-4c90-5126-a019-c945f2a3f9a6",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Wicked Weed Brewing Jack Frost IPA",
+      "public_id": "6a556d0d-24b6-5f45-acf7-1af52ff2d4b5",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Ivanhoe Park Brewing Co. Cranberry Vanilla Wheat Ale",
+      "public_id": "ce62c6d0-dfe3-5b7f-90ba-24a6751897f8",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Brewery Ommegang Gilded Noel White Chocolate Imperial Blonde Stout",
+      "public_id": "f88ce204-de09-53d8-ab18-332d3538965d",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Beer Flight",
+      "public_id": "709c786a-34a1-5862-aeb2-8953064620ee",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Hard Cider Flight",
+      "public_id": "b95798f0-5d81-5cd4-9f3c-44c4730e4fde",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Hearth Desserts",
+      "name": "Cocoa Peppermint Warmer",
+      "public_id": "d2f02393-444a-57f5-a7fc-b42117897b40",
+      "description": "Hot cocoa by Joffrey's with peppermint schnapps",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Peppermint-Cocoa.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Peppermint Sundae",
+      "public_id": "9622f7f1-2945-5356-8f6f-0bbe465d64ee",
+      "description": "Chocolate ice cream with whipped cream and peppermint candy",
+      "price_usd": 6.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Peppermint-Sundae.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Festive Flight featuring Hot Cocoa by Joffrey's",
+      "public_id": "3dd04f6f-7445-5779-bd68-2a55a26c4536",
+      "description": "Three hot cocoas topped with whipped cream: Christmas sugar cookie, gingerbread and cookie butter (non-alcoholic)",
+      "price_usd": 6.5,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Festive-Flight.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Hot Cocoa by Joffrey's",
+      "public_id": "5cb1f989-54a7-5cf8-a745-781a31ccef7a",
+      "description": "Hot cocoa (non-alcoholic)",
+      "price_usd": 4.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cocoa.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Chocolate-Peppermint Shake",
+      "public_id": "f669ae41-4823-5979-b986-ceb8991beaad",
+      "description": "Chocolate-peppermint shake featuring Twinings Peppermint Cheer Tea (non-alcoholic)",
+      "price_usd": 5.25,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Peppermint-Tea.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Carib Brewery Oh Christmas Tree, Oh Christmas Tree IPA",
+      "public_id": "1744db89-fb67-5594-bcaa-9efc6b8a9727",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "TouringPlans lists $12.50 for both beers here, double every other beer; likely a typo for $6.00."
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Stevens Point Brewery Whole Hog Hazelnut Brownie Porter",
+      "public_id": "aeada2f0-52c1-53df-b54b-c640cf6bdae7",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Hot Cocoa by Joffrey's with Liqueur",
+      "public_id": "3045e977-1d81-5f24-bb86-07b92014278a",
+      "description": "Hot cocoa with a choice of Baileys Original Irish Cream, Buffalo Trace Bourbon Cream or Skrewball Peanut Butter Whiskey",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "note": "$12.25-$15.50 depending on the liqueur."
+    },
+    {
+      "booth_name": "Holiday Sweets & Treats",
+      "name": "Chocolate-Peppermint Shake with Whipped Cream Vodka",
+      "public_id": "4ba5e848-2300-5087-9e43-6e30684b835a",
+      "description": "Chocolate-peppermint shake featuring Twinings Peppermint Cheer Tea with whipped cream vodka",
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "booth_name": "Connections Café & Eatery",
+      "name": "Holiday Sugar Cookie",
+      "public_id": "2f63daa0-922b-529d-83fc-1f6a4d3a32ce",
+      "description": "Holiday sugar cookie (Connections Café)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Sugar-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Café & Eatery",
+      "name": "Figment Holiday Sweater Liège Waffle",
+      "public_id": "234d7a16-0f5c-53ea-b641-f5395f5f0968",
+      "description": "Chocolate-coated gingerbread waffle with blizzard sprinkles and white chocolate (Connections Eatery)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Leige-Waffle.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Café & Eatery",
+      "name": "Spiced Caramel Apple",
+      "public_id": "64e1320a-e3d7-53a7-93ad-ce785927953e",
+      "description": "Minute Maid cranberry juice, apple cider and caramel syrup with a cinnamon stick (non-alcoholic)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Connections Café & Eatery",
+      "name": "Spiced Caramel Apple with Fireball Cinnamon Whisky",
+      "public_id": "98412611-9e98-57eb-8ab8-bc2c471f4fb7",
+      "description": "Cranberry juice, apple cider and caramel syrup with Fireball Cinnamon Whisky",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ]
+    },
+    {
+      "booth_name": "Sunshine Seasons",
+      "name": "Peanut Butter Cookie",
+      "public_id": "e85923bf-89f5-5aa9-a795-ad4540d80c98",
+      "description": "Peanut butter cookie featuring M&M'S Minis Milk Chocolate Candies Holiday Blend",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Peanut-Cookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Sunshine Seasons",
+      "name": "Cookie Milk Shake",
+      "public_id": "f0877f50-5c73-54b7-8ff9-b0caa8870cfd",
+      "description": "Spiced gelato shake with whipped cream, a cookie wreath, a Mickey-shaped holly and sprinkles (non-alcoholic)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cookie-Shake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Holiday Cookie Latte",
+      "public_id": "b97a5b97-4e75-53ca-9970-3d8124301412",
+      "description": "Espresso with caramel and almond syrup, milk of choice, whipped cream and sugar sprinkles (non-alcoholic); at Joffrey's Coffee & Tea Company locations",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Cookie-Latte-720x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2025,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Holiday Cookie Latte with Baileys",
+      "public_id": "b85d5774-cbd2-5ced-8d02-54731b7935e4",
+      "description": "Holiday Cookie Latte with Baileys Original Irish Cream; at Joffrey's Coffee & Tea Company locations",
+      "price_usd": 14.99,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2025-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    }
+  ]
+}

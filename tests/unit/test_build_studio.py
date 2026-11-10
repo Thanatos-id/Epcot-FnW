@@ -308,8 +308,12 @@ def test_the_redesign_keeps_reading_the_same_saved_edits():
     """Unexported work lives in this browser under these names. A rename here
     would silently strand every edit nobody has exported yet."""
     html = build_studio.render(_snapshot(_booth("Spain")))
-    assert "var STORE_KEY = 'epcot-studio-v1';" in html
-    assert "var DB_NAME = 'epcot-studio';" in html
+    # The database festival's scope is empty, so its keys are exactly these.
+    assert "var SCOPE = RESEARCH ? ':' + LOADED.key : '';" in html
+    assert "var STORE_KEY = 'epcot-studio-v1' + SCOPE;" in html
+    assert "var DB_NAME = 'epcot-studio' + SCOPE;" in html
+    # And a researched festival is never the one loaded unless asked for.
+    assert "})[0] || PRIMARY;" in html
 
 
 def test_the_two_search_boxes_are_scoped_to_their_own_pane():
@@ -419,3 +423,57 @@ def test_the_app_always_opens_on_the_latest_build():
     worker = (Path(build_studio.__file__).parent / "assets" / "studio-sw.js").read_text()
     assert "fetch(request, { cache: 'no-cache' })" in worker
     assert ".catch(() => caches.match(request" in worker
+
+
+# ---------------------------------------------------------------------------
+# festivals researched into data/festivals/
+# ---------------------------------------------------------------------------
+
+
+def _research():
+    return {"festival-of-the-holidays": {
+        "festival": {"name": "Festival of the Holidays 2026"},
+        "meta": {"name": "Festival of the Holidays 2026", "summary": "First pass from research."},
+        "booths": [_booth("Refreshment Outpost", [{**_item("Turkey Poutine"), "badges": ["2025 menu"]}],
+                          origin="researched")],
+    }}
+
+
+def _embedded_festivals(html):
+    match = re.search(
+        r'<script id="studio-festivals" type="application/json">(.*?)</script>', html, re.DOTALL
+    )
+    return json.loads(match.group(1))
+
+
+def test_a_researched_festival_is_editable_and_says_where_its_rows_came_from():
+    snapshot = _snapshot(_booth("Spain", [_item("Paella")]))
+    snapshot["festival"] = {"name": "EPCOT International Food & Wine Festival"}
+    catalog = {f["key"]: f for f in build_studio.festival_catalog(snapshot, _research())}
+    assert catalog["food-and-wine"]["source"] == "database"
+    assert catalog["festival-of-the-holidays"]["source"] == "research"
+    assert catalog["festival-of-the-holidays"]["note"] == "First pass from research."
+    assert not catalog["flower-and-garden"]["has_data"]
+
+
+def test_researched_rows_travel_separately_from_the_database_rows():
+    """Both festivals have a "Refreshment Outpost"; one blob would merge them."""
+    snapshot = _snapshot(_booth("Refreshment Outpost", [_item("Pork Belly")]))
+    snapshot["festival"] = {"name": "EPCOT International Food & Wine Festival"}
+    html = build_studio.render(snapshot, festivals=_research())
+    assert [i["name"] for i in _embedded(html)["items"]] == ["Pork Belly"]
+    holidays = _embedded_festivals(html)["festival-of-the-holidays"]
+    assert [i["name"] for i in holidays["items"]] == ["Turkey Poutine"]
+    assert holidays["items"][0]["badges"] == ["2025 menu"]
+    assert holidays["booths"][0]["origin"] == "researched"
+
+
+def test_only_a_researched_festival_names_itself_in_its_changeset():
+    """A database changeset stays byte-for-byte what earlier builds wrote."""
+    html = build_studio.render(_snapshot(_booth("Spain")), festivals=_research())
+    assert "if (RESEARCH) changeset.festival = LOADED.key;" in html
+
+
+def test_without_research_the_page_embeds_no_second_festival():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert _embedded_festivals(html) == {}

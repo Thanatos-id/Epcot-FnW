@@ -1,0 +1,3113 @@
+{
+  "menu_items": [
+    {
+      "booth_name": "Opening Bites",
+      "name": "Soft Shell Crab Slider",
+      "public_id": "8da7fe26-2ecc-5768-84b7-ad5649e5ed03",
+      "description": "Green papaya slaw and mango ketchup on a sweet roll",
+      "price_usd": 7.49,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-CrabSlider.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "Enchanted Rose",
+      "public_id": "49aa1f92-a730-570b-95b8-061b54e08c89",
+      "description": "Dark chocolate mousse rose",
+      "price_usd": 6.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-EnchantedRose.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "Crooked Can Brewing Company Fantasia Fusion IPA",
+      "public_id": "d1afb502-8718-572b-8ecd-d59c57f8a4f5",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "von Trapp Brewing Bohemian Pilsner",
+      "public_id": "04f3c2f2-ab3f-5a61-9fb1-461a12798f74",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "Southern Tier Brewing Co. Caramel Cookie Bar Imperial Stout",
+      "public_id": "0ae68cda-3561-500b-bf96-176520a89ac0",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "Beer Flight",
+      "public_id": "66c10497-3ae9-5a16-9298-0ad5c3c88190",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Opening Bites",
+      "name": "Charles Heidsieck Brut Réserve Champagne",
+      "public_id": "0b8b1827-510d-549e-a4da-952bb1eb967a",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "BBQ Chicken Pizza",
+      "public_id": "b0362c86-f67f-5eca-83aa-4fa8b25382d1",
+      "description": "Two slices of freshly baked pizza topped with smoked chicken, sweet barbecue sauce, cheese blend, peppers, and red onions",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BBQPizza.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "Nashville Hot Chicken Sandwich",
+      "public_id": "275ba21b-d661-532c-b0cb-27309781913a",
+      "description": "Spicy hand-breaded chicken, roasted garlic aïoli, and southern slaw on a toasted brioche bun",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-NashvilleSandwich.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "Classic Mojito",
+      "public_id": "ca11914e-7599-52b4-aafc-2dfd0a9bbf8b",
+      "description": "Classic Mojito with mint foam",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Mojito.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Deconstructed Dish",
+      "name": "Deconstructed BLT",
+      "public_id": "6fa7a0e3-4ad5-5b60-8876-c87969775574",
+      "description": "Pork belly, soft-poached egg, onion bread pudding, watercress espuma, and tomato jam",
+      "price_usd": 7.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BLT.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Deconstructed Dish",
+      "name": "Deconstructed Key Lime Pie",
+      "public_id": "aadbf2ec-3ddb-5b27-9e24-e1c9fce2d6fc",
+      "description": "Key lime curd, key lime gelée, toasted meringue, and graham cracker crumbs with waffle cone triangles",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-KeyLimePie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Deconstructed Dish",
+      "name": "Deconstructed Strawberry Mint Julep",
+      "public_id": "0acd33b5-ebb7-58e7-8482-ba9b6931281c",
+      "description": "Frozen mint and simple syrup blended with strawberry purée",
+      "price_usd": 4.79,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "The Deconstructed Dish",
+      "name": "Wicked Weed Brewing Blank Canvas Wheat Ale",
+      "public_id": "0c00fd93-9469-5e5f-a246-44914b65065c",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "The Deconstructed Dish",
+      "name": "Deconstructed Strawberry Mint Julep with Old Forester 86 Bourbon",
+      "public_id": "b73d52c3-5913-507d-b5a4-b12a281d0d0d",
+      "description": "Frozen mint and simple syrup blended with strawberry purée with Old Forester 86 Bourbon",
+      "price_usd": 12.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Popcorn, Popcorn Chicken and Waffles",
+      "public_id": "97c64827-fa50-592a-8df3-2447af95d0b9",
+      "description": "Popcorn, Popcorn Chicken and Waffles with rainbow popcorn, popcorn chicken, mini mozzarella, and maple syrup",
+      "price_usd": 6.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-PopcornWaffles.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Figment Fantasy Cake",
+      "public_id": "cf2c49ec-e40e-5701-b7a6-12038f30fdcc",
+      "description": "Sponge cake filled with strawberry whipped cream topped with a white chocolate ganache, orange icing, and white chocolate Figment wings",
+      "price_usd": 5.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-FigmentCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Color Scheme Cake",
+      "public_id": "1fa44dba-b8a4-5c5b-a22d-6ae69642e46d",
+      "description": "Fruit-flavored rainbow-hued cake topped with SKITTLES POP’d Sour and Original Freeze Dried Candy",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ColorCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Figment Artist Bucket",
+      "public_id": "bf38f4f2-873d-5ddc-af6c-f071b8067e61",
+      "description": "Figment Artist Bucket with Rainbow Popcorn (Available while supplies last via mobile order only, limit two per person, per transaction)",
+      "price_usd": 29.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Figment Imagination Lemonade",
+      "public_id": "6907325c-07f0-5cd3-8f6d-14b758a38813",
+      "description": "Simply Lemonade with choice of flavor",
+      "price_usd": 5.29,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "3 Daughters Brewing Black Cherry Hard Cider",
+      "public_id": "dcf5a06a-f40f-5355-b0c8-74ebb6ddc143",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "3 Daughters Brewing Orange Cream Hard Cider",
+      "public_id": "54d7cc23-637b-5348-ae91-7cb9334cfc07",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "3 Daughters Brewing Strawberry Banana Hard Cider",
+      "public_id": "d8261d5c-69c7-5aab-9f2c-40942f3659b3",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Hard Cider Flight",
+      "public_id": "014d03db-5219-5e17-8fb6-09b58eee9267",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Brouwerij Huyghe Floris Cactus Belgian Wheat Ale",
+      "public_id": "e03fffd5-3b68-57aa-9af5-d70fd4fae86b",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Playalinda Brewing Co. Port of Blue Stout",
+      "public_id": "70f0792e-aaab-578b-8f86-ee88e0723148",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "The Bruery Enticing Boysenberry Sour Blonde Ale",
+      "public_id": "9e5e94e1-ed5a-51bd-a12c-54532cbc7490",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Figment’s Inspiration Station at The Odyssey",
+      "name": "Beer Flight",
+      "public_id": "2ed90625-e085-5e7c-b86b-1a822b7459f2",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Chile Relleno Taco",
+      "public_id": "1f99e4e0-c16a-506d-9134-9872ac05d765",
+      "description": "Flour tortilla filled with seared beef tenderloin, poblano pepper, black beans, and salsa roja",
+      "price_usd": 8.75,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Taco.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Tostada de Cangrejo",
+      "public_id": "985616d8-b6d0-55e3-a501-c49ee2ab39a1",
+      "description": "Crispy corn tortilla topped with guacamole, lump crab, mango, crispy onions, and hot sauce",
+      "price_usd": 9.5,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Tostada.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Passion Fruit Paleta",
+      "public_id": "1799d3f5-10fd-551c-adc7-2e6036dfc3bf",
+      "description": "Tropical passion fruit ice pop filled with sweetened condensed milk and topped with chili-lime seasoning",
+      "price_usd": 6.5,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Mexican Craft Beer",
+      "public_id": "0134dbcd-4d2b-5b8f-b6ca-82e924bf35c6",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Matcharita",
+      "public_id": "a6c596cb-d7e9-5452-907e-c6b2314ff464",
+      "description": "Contraluz Reposado Cristalino Tequila, matcha tea, strawberry liqueur, and sweet cream",
+      "price_usd": 15.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "El Artista Hambriento",
+      "name": "Pear-fect Margarita",
+      "public_id": "45539dc6-09b5-5508-9d76-19aea8ca16cb",
+      "description": "Calenda Mezcal Joven, prickly pear purée, passion fruit purée, and LeJay Crème de Cassis with a potpourri salt rim",
+      "price_usd": 16.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Kringla Bakeri Og Kafe",
+      "name": "Hazelnut Praline Boller",
+      "public_id": "eae336ba-1fff-5929-a28f-89a870bf4b34",
+      "description": "Cardamom bun with hazelnut cream",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-PralineBoller-1620x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "General Tso’s Chicken Shumai",
+      "public_id": "9a5f9178-95a4-5843-ad39-d1336e16b820",
+      "description": "Dumplings filled with chicken, asparagus, onion, and water chestnut topped with General Tso’s sauce",
+      "price_usd": 10.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ChickenShumai.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Char Siu Pork Bun",
+      "public_id": "54efdd63-eda3-5e1d-83aa-37a2e70d5024",
+      "description": "Sweet-and-savory Cantonese-style BBQ pork in a steamed bun",
+      "price_usd": 8.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-PorkBun.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Egg Tart",
+      "public_id": "eada0190-af70-56d8-8129-06000fdbef52",
+      "description": "Hong Kong-style egg custard tart",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-EggTart.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Strawberry Bubble Milk Tea",
+      "public_id": "dad4a178-54c6-517e-8163-7e64bda9ce14",
+      "description": null,
+      "price_usd": 8.75,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Dragonfruit Lager",
+      "public_id": "ab40edd5-009a-5a65-a3ca-f8701c7f4518",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Silk River Hard Lemonade",
+      "public_id": "a09fa89d-7b26-5b15-8261-48f79319c0f2",
+      "description": "Silk River Hard Lemonade with vodka, lavender-coconut syrup, and Minute Maid Premium Lemonade",
+      "price_usd": 14.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "The Painted Panda",
+      "name": "Butterfly Blue",
+      "public_id": "65e09f19-4e2a-5fc2-bff6-6750b5d3594a",
+      "description": "Butterfly pea flower-infused cocktail with vodka, light rum, lychee syrup, and crystal boba pearls",
+      "price_usd": 14.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Artist Palette Jumbo Chocolate Chip Cookie",
+      "public_id": "d878715c-dc83-5eae-ac46-bd3101c2c047",
+      "description": null,
+      "price_usd": 5.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ArtistPaletteCookie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Boyd & Blair Blood Orange Cosmo",
+      "public_id": "2eb8e72f-d3de-54ec-8d72-a444143ac5bd",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Parish Brewing Co. Blueberry Mochi Berliner Weisse",
+      "public_id": "adbc13ba-83ae-5fef-9018-f4d1bc1ed8cc",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Brewlando Liquid Art Pilsner",
+      "public_id": "ea19165d-95a8-5251-8c4b-6be800af1a31",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost",
+      "name": "Wicked Weed Brewing Abstract Blonde Ale",
+      "public_id": "d20dfe42-aa75-50d7-a880-95497449f8dc",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "Red Wine-braised Beef Short Rib",
+      "public_id": "11d997b8-4a6a-56b0-9b50-e12042440e87",
+      "description": "Red Wine-braised Beef Short Rib with parsnip purée, broccolini, baby tomatoes, and balsamic glaze",
+      "price_usd": 8.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ShortRib.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "Black Forest Cake",
+      "public_id": "e5023c93-937e-5f7d-8124-955688db8f45",
+      "description": "Chocolate mousse with morello cherries and chantilly cream",
+      "price_usd": 4.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BlackForestCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "3 Daughters Brewing Rosé Hard Cider",
+      "public_id": "93503c82-b9fa-5a49-aa6b-59a298afb92e",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "81Bay Brewing Co. Rosé Blonde Ale",
+      "public_id": "11401838-a046-586d-83eb-8882f817dc6b",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "Frozen Rosé",
+      "public_id": "434f2798-78c1-5ce2-adf0-d8d26528226a",
+      "description": null,
+      "price_usd": 7.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-FrozenRose.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "A Play on Rosé Flight",
+      "public_id": "97efaf83-b540-540c-8e97-458769e134eb",
+      "description": null,
+      "price_usd": 13.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-RoseFlight.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pastoral Palate",
+      "name": "Hex Vom Dasenstein Pinot Noir",
+      "public_id": "df355086-5a21-5205-8bba-121e20897e8a",
+      "description": null,
+      "price_usd": 7.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Mozzarella Fritta",
+      "public_id": "54531187-f838-51f2-bb2f-1d2bf9343ac9",
+      "description": "Flash-fried breaded fresh mozzarella with artist palette condiments",
+      "price_usd": 9.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Fried-Mozzarella.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Polenta Pasticciata",
+      "public_id": "8a000ceb-bb16-59b4-a9da-aa3ac1ede56d",
+      "description": "Polenta, bolognese, Parmesan, mozzarella, and tomato sauce",
+      "price_usd": 8.0,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Polenta.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Raspberry Spuma",
+      "public_id": "76ec9d2f-4e5a-54bb-b6e7-e59ccd6c90d2",
+      "description": "Vanilla sauce, mint whipped cream, and puffed rice",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-RaspberrySpuma.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Peroni Pilsner",
+      "public_id": "91aff28d-3324-5b8e-ada7-7445c77b9e4c",
+      "description": null,
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Prosecco",
+      "public_id": "c75a7553-ccda-5e49-b8fd-5f194c6cae6f",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Moscato",
+      "public_id": "7993a365-077b-5b9e-b7bc-c06d89c0fc5d",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Chianti",
+      "public_id": "9fe19c99-441c-5759-a48e-210d32f81115",
+      "description": null,
+      "price_usd": 11.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Italian Red Sangria",
+      "public_id": "6ce783e7-1acb-50d2-a078-0043424185e8",
+      "description": null,
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Italian-inspired Margarita",
+      "public_id": "b3f8e8f2-c9a4-586d-91c4-ef7b817a94d0",
+      "description": "Italian-inspired Margarita with Tequila and Fabrizia Blood Orange Liqueur",
+      "price_usd": 13.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Arte di Mangiare",
+      "name": "Sicilian Sunrise",
+      "public_id": "209005eb-261e-5fdb-be5c-459d8ae73c1d",
+      "description": "Canella Granriviera Mimosa and Luxardo Aperitivo",
+      "price_usd": 16.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "The Artist’s Table",
+      "name": "Steakhouse Lobster Caesar Salad",
+      "public_id": "2abf8351-d411-514e-999c-c1cd9aad9077",
+      "description": "Steakhouse Lobster Caesar Salad with romaine and red oak lettuces, warmwater lobster, radish, herbed breadcrumbs, and house-made Caesar dressing",
+      "price_usd": 8.99,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-LobsterSalad.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Artist’s Table",
+      "name": "Peppercorn-crusted Striploin",
+      "public_id": "6f74d3f5-e89a-5100-b996-9640a23da08b",
+      "description": "Peppercorn-crusted Striploin with grilled asparagus, potatoes au gratin, and au poivre butter",
+      "price_usd": 9.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-PeppercornSirloin.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Artist’s Table",
+      "name": "Dark Chocolate Torte",
+      "public_id": "575c18d7-80fc-56dc-9068-4c80fc2a553d",
+      "description": "Flourless chocolate cake, whipped cream, and raspberries",
+      "price_usd": 6.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-DarkChocolateTorte.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Artist’s Table",
+      "name": "Playalinda Brewing Co. Old Fashioned Playa Ale",
+      "public_id": "751c7b2f-8668-5494-80e3-f5e556f1f237",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "The Artist’s Table",
+      "name": "Caymus Cabernet Sauvignon",
+      "public_id": "2347c453-d7e1-544d-a9e6-8c4a30396a34",
+      "description": null,
+      "price_usd": 13.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Funnel Cake",
+      "name": "Wild Berry Funnel Cake",
+      "public_id": "9e27ca77-bf94-57d7-bfed-1d46113027e2",
+      "description": "Funnel cake sandwich with vanilla ice cream and powdered sugar topped with brown sugar brandy-wild berry compote, whipped cream, and dark chocolate sauce",
+      "price_usd": 12.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BerryFunnelCake-1620x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Taiyaki",
+      "public_id": "3bb74147-89cc-53e2-8d31-3ce91a4c6aa1",
+      "description": "Crisp, flaky fish-shaped chocolate-flavored pastry filled with custard and served with whipped topping",
+      "price_usd": 7.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Taiyaki.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Sushi Doughnut",
+      "public_id": "a53f5174-2e05-59be-8357-e1c3817b66f0",
+      "description": "Doughnut-shaped sushi with salmon, tuna, shrimp, cucumber, and sesame seeds over a decorated plate of wasabi aïoli, sriracha aïoli, and eel sauce",
+      "price_usd": 8.75,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-SushiDonut.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Tokyo Kawaii Roll",
+      "public_id": "c2a405c3-f09e-5925-b3c2-d203cff399b8",
+      "description": "Crispy shrimp tempura wrapped in multicolor sushi rice and topped with refreshing yellow yuzu sauce and tangy plum sauce",
+      "price_usd": 9.75,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-KawaiiRoll.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Wagyu Bun",
+      "public_id": "9b3046ea-9fcd-5b7c-8f7a-6c68e9ba9d6c",
+      "description": "Steamed bun filled with sweet-and-savory minced American wagyu beef",
+      "price_usd": 10.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Wagyu-Bun.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Grapey Apple Boba",
+      "public_id": "9f1f96ee-aff5-5f1f-9f7e-1921ff3068de",
+      "description": "Crafted black grape beverage with green apple popping boba",
+      "price_usd": 6.75,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Crooked Can Brewing Company Wasabi IPA",
+      "public_id": "dd4e7c54-3ddc-5a7f-984b-e4ee6ef7ba53",
+      "description": null,
+      "price_usd": 5.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "spicy"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Masu Sake",
+      "public_id": "15d4c075-b5e6-5832-8e96-756a4cfdcbb6",
+      "description": "Masu Sake served in a traditional personalized wooden cup",
+      "price_usd": 14.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Sake Flight",
+      "public_id": "1e22ad88-431c-5334-9464-49eedafa8768",
+      "description": "Peach, mango, and strawberry-flavored Nigori sake",
+      "price_usd": 19.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Goshiki",
+      "name": "Yuzu-Pineapple Punch",
+      "public_id": "b4777218-2963-54f1-a380-b449fe32c50c",
+      "description": "Shochu-based cocktail with refreshing yuzu and pineapple flavors",
+      "price_usd": 8.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Moroccan Wrap",
+      "public_id": "07c5ea6e-3e9b-5e06-9e97-c1134dd7e04f",
+      "description": "Moroccan Wrap with tomato-cucumber relish and garlic sauce served on warm Moroccan flatbread (Choice of Chermoula Chicken, Moroccan-spiced lamb or Plant-based Falafel)",
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ChickenWrap-1620x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Stone-baked Moroccan Bread",
+      "public_id": "198a908c-2a82-5658-b12f-776fd64966da",
+      "description": "Stone-baked Moroccan Bread with assorted dips",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Rekorderlig Strawberry-Lime Hard Cider",
+      "public_id": "f83b80d9-6f7c-59c5-8d26-dbdbb545b6a8",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Keel Farms Blueberry Lavender Hard Cider",
+      "public_id": "8cd5115d-0400-544c-8333-e1a4d26cdbbb",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Blake’s Hard Cider Co. Pomegranate Fizz Hard Cider",
+      "public_id": "91215fba-dc51-5d63-a72d-7cd50c694a30",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Hard Cider Flight",
+      "public_id": "30616174-7912-597c-9056-18735e5248dc",
+      "description": null,
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Chorizo and Potato Empanada",
+      "public_id": "817a6a0e-3032-5432-a042-3332644dfe11",
+      "description": "Chorizo and Potato Empanada with turmeric aïoli and annatto aïoli",
+      "price_usd": 6.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Empanada.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Spicy Ajiaco Soup",
+      "public_id": "310a8ff3-843b-59eb-b3cc-3bae188985d1",
+      "description": "Spicy Ajiaco Soup with guajillo and árbol chili-spiced chicken, potato, avocado, corn, and crème fraîche",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Soup.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Passion Fruit-filled Mango Cheesecake",
+      "public_id": "00a41f5f-05f0-5372-94b1-c3592a1438c4",
+      "description": "Passion Fruit-filled Mango Cheesecake with coconut-pineapple cake, dragon fruit gelée, and dragon fruit-strawberry sauce",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-MangoCheesecake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Layered Berry-Piña Colada Smoothie",
+      "public_id": "97e2f784-c807-5c3f-96c9-3c5d9d81a3c8",
+      "description": "Wild berry, piña colada, and strawberry",
+      "price_usd": 4.99,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BerrySmoothie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Collective Arts Brewing Guava Dream Blonde Ale",
+      "public_id": "a82c2257-761c-5dd7-b29b-901d7c5a969f",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Vibrante & Vívido",
+      "name": "Layered Berry-Piña Colada Smoothie with spiced rum",
+      "public_id": "cca10934-bf25-5cb3-8265-764bf0c536ea",
+      "description": "Wild berry, piña colada, and strawberry with spiced rum",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Crème de Brie en Petit Pain",
+      "public_id": "d19af4fb-33fb-54ec-8153-52943383a7ba",
+      "description": "Warm creamy brie in a house-made bread bowl",
+      "price_usd": 10.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-CremeDeBrie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Gâteau de Crabe, Bisque de Homard, Crème Citron et Aneth",
+      "public_id": "4be65cfa-dab4-580c-b59a-9fc8caea3bf4",
+      "description": "Crab cake, lobster bisque, and lemon-dill sour cream",
+      "price_usd": 11.95,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-CrabCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Éclair au Chocolat et à l’Orange, Crème à l’Orange, Ganache au Chocolat, Croustillant de Noisettes et Oranges Confites: Chocolate-orange éclair, orange cream, chocolate ganache, crispy hazelnut, and candied oranges",
+      "public_id": "1362fe6f-7d6b-5f2c-a2c7-4cfcd56180bc",
+      "description": null,
+      "price_usd": 8.95,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Eclair.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Chardonnay, Laroque, Cite de Carcassonne",
+      "public_id": "641516cb-9faa-5445-8529-1582117917b2",
+      "description": null,
+      "price_usd": 6.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Charles Lafitte, Brut Rosé Prestige, Méthode Traditionnel Champenoise",
+      "public_id": "3f606d1e-169e-520d-b4fc-b36ca0d3a83c",
+      "description": null,
+      "price_usd": 9.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "L’Art de la Cuisine Française",
+      "name": "Frozen French Martini",
+      "public_id": "913bdbf5-82fb-5915-b983-769593da0a2f",
+      "description": "Grey Goose Vodka, Vodka, Chambord Liqueur, DOLE Pineapple Juice, Minute Maid Orange Juice, and grape juice with lemon-lime foam",
+      "price_usd": 15.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Wild Mushroom Risotto",
+      "public_id": "3e74b49d-b954-5fd8-a3e8-008734676643",
+      "description": "Wild Mushroom Risotto with aged Parmesan, truffle shavings, and zinfandel reduction (Plant-based)",
+      "price_usd": 9.79,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-MushroomRisotto.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Roasted Bone Marrow",
+      "public_id": "675aa27d-a9a5-55e2-9a82-41b9bce238c9",
+      "description": "Roasted Bone Marrow with onion marmalade, pickled mushrooms, and petite lettuce",
+      "price_usd": 10.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BoneMarrow.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Citrus-braised Beet Tartare",
+      "public_id": "ddefbea6-9ab2-5022-8698-59b10a8786b3",
+      "description": "Citrus-braised Beet Tartare with golden beet “egg yolk,” mustard vinaigrette, pickled mustard seeds, pickled mushrooms, spiced pistachios, and “feta” snow (Plant-based)",
+      "price_usd": 5.49,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BeetTartare.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Whole Hog Brewery Raspberry Chéret Double Radler",
+      "public_id": "16d7ffec-6c69-5b76-8341-120965abcdd7",
+      "description": null,
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Schlumberger Cuvée Klimt Brut",
+      "public_id": "7cc9d843-7059-582a-a528-fc1ad4d71a4b",
+      "description": null,
+      "price_usd": 9.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Orin Swift Abstract California Red Blend",
+      "public_id": "9f8ed565-3d26-5c35-b07c-38d662b16bfb",
+      "description": null,
+      "price_usd": 8.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Gourmet Landscapes",
+      "name": "Frozen Scotch Cocktail",
+      "public_id": "543dc255-9b25-560c-818f-eda930468157",
+      "description": "Scotch and Twinings Chai Tea garnished with a chocolate nail",
+      "price_usd": 15.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Chapter 1: Beach Oysters",
+      "public_id": "04acb6c4-b59b-5634-973e-f1a9a030cba1",
+      "description": "Grilled oysters, mustard seed-peppercorn sabayon, and creamed spinach",
+      "price_usd": 7.99,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Oysters.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Chapter 2: Plate of Impossible Bites",
+      "public_id": "329d82de-78da-574d-9eaa-a90b74b00a92",
+      "description": "Roasted turkey breast, onion and bacon custard tart, cherry gel, brown butter toast milk foam, and pineapple-toffee butter",
+      "price_usd": 7.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ImpossibleBites.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Chapter 3: Tea Treat",
+      "public_id": "2ce36b0f-017b-573e-b2ff-64fa944c5ada",
+      "description": "Twinings Earl Grey Tea Treat Chocolate Pot de Crème, lemon madeleine, rose and raspberry jam, and a tea biscuit crumble",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-TeaTreat.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Upside Down Shake",
+      "public_id": "f26e30d3-c78c-56ff-8f8a-e64f76700f98",
+      "description": "Yellow cake soft-serve featuring Twinings English Breakfast Tea",
+      "price_usd": 5.29,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Central 28 Beer Company Rose Garden Red Ale",
+      "public_id": "29401ca3-7fb0-5042-ba48-95b248330fff",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Fictional Victuals",
+      "name": "Upside Down Shake with whipped cream vodka",
+      "public_id": "7198cc8f-da4a-5598-bc42-79dba0ef4ff0",
+      "description": "Yellow cake soft-serve with Twinings English Breakfast Tea and whipped cream vodka",
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Deco Delights",
+      "name": "Sparkling Spectacle Gâteau",
+      "public_id": "14eb5155-861b-5410-b1c0-22894b7b7d30",
+      "description": "Vanilla bean mousse with a golden caramel center and apricot jam on a hazelnut cookie",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Gateau.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Deco Delights",
+      "name": "Crooked Can Brewing Company Buttercream Fresco",
+      "public_id": "c50824fc-679a-5933-bded-dfdf1b77532d",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Deco Delights",
+      "name": "Keel Farms Strawberry Shortcake Hard Cider",
+      "public_id": "bae74a70-2494-55e3-9620-b73d2c74d5f5",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Deco Delights",
+      "name": "Boyd & Blair Espresso Martini",
+      "public_id": "47c1601a-4009-5a0c-97ca-daf1bd4c4235",
+      "description": null,
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-EspressoMartini.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pop Eats",
+      "name": "Grilled Cheese",
+      "public_id": "15b7c194-39e5-57ec-a088-392530c94b2d",
+      "description": "Grilled Cheese served with tomato soup",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Pop Eats",
+      "name": "Croque Monsieur-inspired Grilled Cheese",
+      "public_id": "53e8544d-b218-597f-b9c5-c1ba6f7a21ae",
+      "description": "Croque Monsieur-inspired Grilled Cheese with Black Forest ham, Gruyère, and béchamel sauce served with tomato soup",
+      "price_usd": 6.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-GrilledCheese-1080x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pop Eats",
+      "name": "Gulf Stream Brewing Company Pixel Perfect Pilsner",
+      "public_id": "8d0ea1d3-87e0-5e3d-8bf8-dcaa024dfc3a",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Pop Eats",
+      "name": "Blanc de Bleu Cuvée Mousseux",
+      "public_id": "7364f6f8-5dd4-5112-a134-5b4cbad9be1f",
+      "description": "Blanc de Bleu Cuvée Mousseux with fruit juice-filled pearls",
+      "price_usd": 10.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Pink Vanilla Soft-serve in a Cone",
+      "public_id": "8cb704fb-6b0a-59ee-9173-052c1c25658b",
+      "description": null,
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "DOLE Whip in a Cone",
+      "public_id": "2f9d1ec1-284f-535c-a9cb-d2a62d4bc283",
+      "description": "DOLE Whip in a Cone (Plant-based) (Choice of Lemon, Lime or Strawberry)",
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Imagination Cone",
+      "public_id": "eb2740cd-6439-562e-a172-462926e6e516",
+      "description": "Pink vanilla soft-serve in a lavender cone, “sparks” of imagination, and white chocolate Figment wings",
+      "price_usd": 6.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ImaginationCone.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Candy Trio Flight",
+      "public_id": "3cc0421e-b59c-5e20-a647-9b2e2dcc84cd",
+      "description": "DOLE Whip Strawberry with STARBURST MINIS fruit chews, DOLE Whip Lemon with SKITTLES POP’d Original Freeze Dried Candy, and DOLE Whip Lime with chili-lime seasoning and LIFE SAVERS gummies",
+      "price_usd": 8.29,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-CandyTrio.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Liquid Nitrogen Minnie Cake Pop",
+      "public_id": "729b7c38-eb3c-5c2c-9d4f-d448a22cee64",
+      "description": "Liquid Nitrogen Minnie Cake Pop with cotton candy sponge cake, white chocolate ganache, and colorful chocolate splats",
+      "price_usd": 4.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-CakePop.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Craftsman’s Courtyard",
+      "name": "Beef Wellington-inspired Croissant Supreme",
+      "public_id": "a2b78171-2db3-51b1-8666-6b2448593225",
+      "description": "Beef Wellington-inspired Croissant Supreme with creamed spinach croissant pinwheel, mushroom-gorgonzola ragoût, mustard-grilled flank steak, red wine sauce, and pickled mustard seeds",
+      "price_usd": 8.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-BeefWellington.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Craftsman’s Courtyard",
+      "name": "Cast Iron-roasted P.E.I. Mussels",
+      "public_id": "84ed045c-cf79-5198-9432-db654b0ca2ca",
+      "description": "Cast Iron-roasted P.E.I. Mussels with sautéed tomatoes, garlic, and fresh herbs",
+      "price_usd": 7.99,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-Mussels.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Craftsman’s Courtyard",
+      "name": "BrewDog Black Heart Nitro Oatmeal Stout",
+      "public_id": "f2c69e63-13ae-5977-9830-8fb49fc0d300",
+      "description": null,
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "The Craftsman’s Courtyard",
+      "name": "Coffee Old Fashioned Cocktail",
+      "public_id": "55149355-0ccc-515a-a3ca-f0507c02f587",
+      "description": "Joffrey’s Cold Brew Coffee, simple syrup, orange bitters, and Jim Beam Kentucky Straight Bourbon Whiskey",
+      "price_usd": 11.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-OldFashioned.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Sunshine Seasons",
+      "name": "The Architecture of Drip",
+      "public_id": "51fc9bea-2313-5277-b7a4-f457375687f9",
+      "description": "Blueberry-flavored gelato topped with scoops of banana and berry whipped cream, a waffle cone, and sprinkles",
+      "price_usd": 10.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-ConeMilkshake-1620x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Pop Art Latte",
+      "public_id": "d75a5b2c-cf93-5f1d-9185-ef333ce0f175",
+      "description": "Espresso with choice of milk and vanilla syrup topped with lavender whipped cream and SKITTLES POP’d Original Freeze Dried Candy",
+      "price_usd": 7.19,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/01/2026-WDW-FOTA-Foodie-Guide-PopArtLatte-1080x1080.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Pop Art Latte with Baileys Original Irish Cream Liqueur",
+      "public_id": "de58194c-20d6-56b2-bb24-f3716ee8365d",
+      "description": "Espresso with choice of milk and vanilla syrup topped with lavender whipped cream and SKITTLES POP’d Original Freeze Dried Candy With Baileys Original Irish Cream Liqueur.",
+      "price_usd": 15.99,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "wdwnt-2026-arts"
+      ]
+    }
+  ]
+}

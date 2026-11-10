@@ -1086,8 +1086,24 @@ survey_html = build_survey.render(data)
 survey_path.write_text(survey_html)
 print(f"wrote {survey_path} ({len(survey_html)} bytes)")
 
+# Festivals the crawl cannot reach yet, researched by hand into
+# data/festivals/ - each becomes a festival of its own in the studio's
+# switcher, editable, and kept apart from the database festival's edits.
+# The ledger, the survey and the published feed never see them.
+sys.path.insert(1, str(TOOL_DIR.parent.parent / "src"))
+from epcot_fw import festival_files  # noqa: E402
+
+research_festivals = {key: festival_files.build_snapshot(key) for key in festival_files.available()}
+for key, festival in research_festivals.items():
+    print(
+        f"festival {key}: {len(festival['booths'])} booths, "
+        f"{sum(len(b['items']) for b in festival['booths'])} items (from data/festivals/)"
+    )
+
 studio_path = DOCS_DIR / "studio.html"
-studio_html = build_studio.render(data, generated_at=replacements["__GENERATED_AT__"])
+studio_html = build_studio.render(
+    data, generated_at=replacements["__GENERATED_AT__"], festivals=research_festivals
+)
 studio_path.write_text(studio_html)
 print(f"wrote {studio_path} ({len(studio_html)} bytes)")
 

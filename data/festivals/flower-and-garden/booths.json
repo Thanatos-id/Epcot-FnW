@@ -1,0 +1,363 @@
+{
+  "booths": [
+    {
+      "name": "Florida Fresh",
+      "category": "outdoor_kitchen",
+      "location_description": "CommuniCore Plaza",
+      "latitude": 28.37364,
+      "longitude": -81.549916,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Festival Favorites",
+      "note": "Available March 4 through May 25",
+      "public_id": "ed887120-ef5c-5f63-9ea9-33d1345f3c4c",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "EPCOT Farmers Feast",
+      "category": "outdoor_kitchen",
+      "location_description": "CommuniCore Hall",
+      "latitude": 28.372385,
+      "longitude": -81.547957,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Brew-Wing Lab",
+      "note": "Available March 4 to May 10",
+      "public_id": "732dc042-4ae3-5275-8352-a1f73d7c83a9",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Nectar hosted by AdventHealth",
+      "category": "outdoor_kitchen",
+      "location_description": "Land Kiosk",
+      "public_id": "07063ee8-423c-5f21-9f95-d04bb645627f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Sunshine Seasons",
+      "category": "festival_location",
+      "location_description": "The Land",
+      "public_id": "09633e7a-e00e-5d94-a397-84d55c5e6fd5",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Beach Grub",
+      "category": "outdoor_kitchen",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "public_id": "13da6527-048a-5eb2-bc40-95fc695697d2",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Yacht Grub",
+      "category": "outdoor_kitchen",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "public_id": "4506ec8f-6c7a-539a-9c1f-53548c7e28d1",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Swirled Showcase",
+      "category": "festival_location",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "latitude": 28.371811,
+      "longitude": -81.55041,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Swirled Showcase",
+      "public_id": "a69cff20-60d2-582e-ae6d-899a8f2dc65a",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "BRUNCHCOT",
+      "category": "outdoor_kitchen",
+      "location_description": "Near Test Track",
+      "public_id": "436ee3ba-8cc7-52aa-9eb8-d9fc0a4b3cc1",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Refreshment Station Hosted by Coca-Cola",
+      "category": "festival_location",
+      "location_description": "Near Test Track",
+      "public_id": "f16e14be-2db4-5202-8a7c-e621bd177e77",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Connections Eatery",
+      "category": "festival_location",
+      "location_description": null,
+      "public_id": "41b57435-303e-50fa-acc1-b00a4200e056",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Citrus Blossom",
+      "category": "outdoor_kitchen",
+      "location_description": "Odyssey",
+      "public_id": "02f82d37-c927-5898-8012-dd2356eef309",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Honey Bee-stro Hosted by National Honey Board",
+      "category": "outdoor_kitchen",
+      "location_description": "Walkway between the Imagination! Pavilion and World Showcase",
+      "public_id": "da3cf9f6-360f-5b5d-a79e-05fafdccb700",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Pineapple Promenade",
+      "category": "outdoor_kitchen",
+      "location_description": "Near Port of Entry",
+      "public_id": "a056ffce-bdb4-56d4-bf78-a5c1bf70267d",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Trowel & Trellis",
+      "category": "outdoor_kitchen",
+      "location_description": "Near Disney Traders",
+      "public_id": "d1b8dbda-dab9-50c6-bb9c-8aa36c87e223",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Northern Bloom",
+      "category": "outdoor_kitchen",
+      "location_description": "Canada",
+      "latitude": 28.371722,
+      "longitude": -81.550789,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Canada",
+      "public_id": "251dcb3d-3fb3-58e2-849d-3cac7b5bc4fd",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Canada Popcorn Cart",
+      "category": "outdoor_kitchen",
+      "location_description": "Canada",
+      "latitude": 28.371722,
+      "longitude": -81.550789,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Canada",
+      "public_id": "51a9b289-20e2-51c2-8244-28f2d62e014f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Yorkshire County Fish and Chips",
+      "category": "festival_location",
+      "location_description": "United Kingdom",
+      "public_id": "bf84d2c9-0404-5c02-a577-48e2d46c8122",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Fleur de Lys",
+      "category": "outdoor_kitchen",
+      "location_description": "France",
+      "latitude": 28.369212,
+      "longitude": -81.55253,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: France",
+      "public_id": "347f0196-d0b5-5c33-b14d-a3d6a9f47981",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "La Isla Fresca",
+      "category": "outdoor_kitchen",
+      "location_description": "Between France and Morocco",
+      "public_id": "c9563c1c-7ca2-5bf2-982a-febd99272a0f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Tangierine Café: Flavors of the Medina",
+      "category": "festival_location",
+      "location_description": "Morocco",
+      "latitude": 28.368349,
+      "longitude": -81.551827,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Tangierine Café: Flavors of the Medina",
+      "public_id": "1f39570d-3c97-5340-ac01-f83bb8ef2b23",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Hanami",
+      "category": "outdoor_kitchen",
+      "location_description": "Japan",
+      "latitude": 28.368136,
+      "longitude": -81.550748,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Japan",
+      "public_id": "36623d25-e645-593f-b12c-0e4b0883293f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Magnolia Terrace",
+      "category": "outdoor_kitchen",
+      "location_description": "The American Adventure",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "public_id": "a5490ed7-9cbd-547f-b04a-2f0c8ec4319c",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Block & Hans",
+      "category": "festival_location",
+      "location_description": "The American Adventure",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "public_id": "612e1734-62d6-5a84-a07c-ecae532f66b9",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Funnel Cake",
+      "category": "festival_location",
+      "location_description": "The American Adventure",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "public_id": "67e5c513-3c6d-52d7-8c53-9531ca5a361f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Primavera Kitchen",
+      "category": "outdoor_kitchen",
+      "location_description": "Italy",
+      "latitude": 28.368229,
+      "longitude": -81.547906,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Italy",
+      "public_id": "19cdf71a-0af2-559a-af1c-7e76ba4421fd",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Bauernmarkt: Farmer’s Market",
+      "category": "outdoor_kitchen",
+      "location_description": "Germany",
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Germany",
+      "public_id": "34a601c4-c2c4-5d82-84c6-7e93ce80a670",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Sommerfest",
+      "category": "festival_location",
+      "location_description": "Germany",
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Germany",
+      "public_id": "8d76b63d-b851-5b05-ac86-02098151d0a2",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Refreshment Outpost Hosted by Coca-Cola",
+      "category": "festival_location",
+      "location_description": "Outpost",
+      "latitude": 28.369267,
+      "longitude": -81.546379,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Refreshment Outpost",
+      "public_id": "a4354b2b-b0e2-5299-9309-afd61c1e930f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Lan Yuan",
+      "category": "outdoor_kitchen",
+      "location_description": "China",
+      "latitude": 28.370057,
+      "longitude": -81.547004,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: China",
+      "public_id": "b136c529-d022-54cc-80a3-76f92709e548",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Norway Beer Cart",
+      "category": "outdoor_kitchen",
+      "location_description": "Norway",
+      "public_id": "6b7c476e-5926-5120-86c4-1595cb3bb8e5",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Jardin de Fiestas",
+      "category": "outdoor_kitchen",
+      "location_description": "Mexico",
+      "latitude": 28.37152,
+      "longitude": -81.548231,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Mexico",
+      "public_id": "82b5f0a1-9b56-535b-9062-c0e72dc38508",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Additional Festival Locations",
+      "category": "global_marketplace",
+      "location_description": null,
+      "note": "Items sold in several places at once (Joffrey's).",
+      "public_id": "602d7919-7953-5296-ae2d-90fcb8abd680",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    }
+  ]
+}

@@ -368,6 +368,11 @@ def studio_apply(
         f"{verb} {len(report.menu_items)} dish(es) and {len(report.booths)} booth(s); "
         f"{len(report.photos)} photo(s) {'would go' if dry_run else 'published'} to {publish_dir}/"
     )
+    if report.festival:
+        console.print(
+            f"festival {report.festival}: {'would merge' if dry_run else 'merging'} into "
+            f"{report.festival_dir}/ — not the database, not data/manual/"
+        )
     if report.added:
         console.print(f"added by hand: {len(report.added)} — {', '.join(report.added[:5])}")
     if report.deleted:
@@ -382,6 +387,17 @@ def studio_apply(
         console.print("Nothing to apply.")
         return
 
+    # A festival that lives in data/festivals/ has no database row to
+    # resolve into - its files are the data. See epcot_fw.festival_files.
+    if report.festival:
+        console.print(
+            "Rebuild the studio to see it: [bold]python tools/data_ledger/build_artifact.py[/bold], "
+            f"then commit {report.festival_dir}/"
+            + (f" and {publish_dir}/" if report.photos else "")
+            + "."
+        )
+        return
+
     with SessionLocal() as session:
         staged = stage_manual_overrides(session)
         festival = _current_festival(session)
@@ -392,6 +408,95 @@ def studio_apply(
     if report.photos:
         console.print(
             f"Commit + push {publish_dir}/ and data/manual/ to publish the new photos."
+        )
+
+
+festival_app = typer.Typer(help="Festivals researched into data/festivals/ rather than crawled")
+app.add_typer(festival_app, name="festival")
+
+
+@festival_app.command("photos")
+def festival_photos(
+    festival: str = typer.Argument("festival-of-the-holidays", help="Key of a folder in data/festivals/"),
+    confirm_tos: bool = typer.Option(
+        False, "--confirm-tos", help="Confirm you've reviewed the photo pages' site terms / robots.txt"
+    ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Report matches without writing anything"),
+) -> None:
+    """Attach dish photos from the festival's official Foodie Guides.
+
+    Reads the guide pages listed under `photo_pages` in the festival's
+    festival.json (newest season first) - live pages, or Internet Archive
+    copies of past years' guides - matches each photo's alt text to a
+    dish already on the menu, and writes `image_url` + `image_source` into
+    its menu_items.json. Photos are linked, not copied. Never replaces a
+    photo it did not place, and replaces its own only with a newer season's.
+    """
+    from epcot_fw import festival_files
+    from epcot_fw.fetch.http_client import fetch
+    from epcot_fw.pipeline.festival_photos import apply_photos
+
+    if not confirm_tos:
+        raise typer.BadParameter(
+            "Pass --confirm-tos once you've reviewed the terms / robots.txt of the sites in "
+            "this festival's photo_pages - robots.txt is enforced either way."
+        )
+    try:
+        directory = festival_files.festival_dir(festival)
+    except festival_files.FestivalDataError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    pages = festival_files.load_meta(festival).get("photo_pages") or []
+    if not pages:
+        console.print(f"No photo_pages in {directory}/festival.json - nothing to read.")
+        raise typer.Exit(code=1)
+
+    def fetch_html(url: str) -> str | None:
+        try:
+            result = fetch(url, crawl_delay_sec=8)
+        except Exception as exc:  # noqa: BLE001 - one bad page should not stop the rest
+            console.print(f"[yellow]could not fetch[/yellow] {url}: {exc}")
+            return None
+        if not (200 <= result.status_code < 300):
+            console.print(f"[yellow]{result.status_code}[/yellow] {url}")
+            return None
+        return result.text
+
+    import httpx
+
+    from epcot_fw.config import settings
+
+    live: dict[str, bool] = {}
+
+    def image_is_live(url: str) -> bool:
+        if url not in live:
+            try:
+                resp = httpx.head(url, headers={"User-Agent": settings.user_agent},
+                                  follow_redirects=True, timeout=10)
+                live[url] = resp.status_code == 200 and resp.headers.get(
+                    "content-type", "").startswith("image/")
+            except httpx.HTTPError:
+                live[url] = False
+        return live[url]
+
+    report = apply_photos(directory, pages, fetch_html, image_is_live=image_is_live, dry_run=dry_run)
+    verb = "would attach" if dry_run else "attached"
+    console.print(
+        f"read {len(report.pages)} guide(s), {report.photos_found} photo(s); "
+        f"{verb} {len(report.matched)}, {'would replace' if dry_run else 'replaced'} "
+        f"{len(report.replaced)} older, left {len(report.kept_existing)} already pictured"
+    )
+    for hit in report.matched + report.replaced:
+        console.print(f"  {hit.booth_name} / {hit.item_name}  [dim]({hit.season}, {hit.score:.0f})[/dim]")
+    for line in report.near_misses:
+        console.print(f"[yellow]near miss[/yellow] {line}")
+    for line in report.unmatched:
+        console.print(f"[dim]no dish[/dim] {line}")
+    if dry_run:
+        console.print("Nothing was written. Drop --dry-run to apply.")
+    elif report.matched or report.replaced:
+        console.print(
+            f"Rebuild the studio ([bold]python tools/data_ledger/build_artifact.py[/bold]) "
+            f"and commit {directory}/menu_items.json."
         )
 
 

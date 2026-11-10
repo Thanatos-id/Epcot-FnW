@@ -57,32 +57,36 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
         for item in booth.get("items") or []:
             if not item.get("name"):
                 continue
-            items.append(
-                {
-                    "booth": name,
-                    "name": item.get("name"),
-                    "public_id": item.get("public_id"),
-                    "origin": item.get("origin") or "crawled",
-                    "is_new_this_year": bool(item.get("is_new_this_year")),
-                    "description": item.get("description"),
-                    "price": item.get("price"),
-                    "category": item.get("category"),
-                    "tags": sorted(item.get("tags") or []),
-                    "flavor_tags": sorted(item.get("flavor_tags") or []),
-                    "alcohol_kind": item.get("alcohol_kind"),
-                    "image_url": item.get("image_url"),
-                    # Inlined by fetch_images.py, so the page shows the photo
-                    # it already has without a network round trip. Absent
-                    # when the dish has no photo, or when the fetch failed -
-                    # both render as the same empty state, which is honest:
-                    # either way there is no picture to look at.
-                    "image": item.get("image_data_uri"),
-                    # {credit, site, season, page_url, via} or None - who took
-                    # this photo and, where the crawl captured it, the post it
-                    # ran in. Rendered as the credit line under the thumbnail.
-                    "image_source": item.get("image_source"),
-                }
-            )
+            row = {
+                "booth": name,
+                "name": item.get("name"),
+                "public_id": item.get("public_id"),
+                "origin": item.get("origin") or "crawled",
+                "is_new_this_year": bool(item.get("is_new_this_year")),
+                "description": item.get("description"),
+                "price": item.get("price"),
+                "category": item.get("category"),
+                "tags": sorted(item.get("tags") or []),
+                "flavor_tags": sorted(item.get("flavor_tags") or []),
+                "alcohol_kind": item.get("alcohol_kind"),
+                "image_url": item.get("image_url"),
+                # Inlined by fetch_images.py, so the page shows the photo
+                # it already has without a network round trip. Absent
+                # when the dish has no photo, or when the fetch failed -
+                # both render as the same empty state, which is honest:
+                # either way there is no picture to look at.
+                "image": item.get("image_data_uri"),
+                # {credit, site, season, page_url, via} or None - who took
+                # this photo and, where the crawl captured it, the post it
+                # ran in. Rendered as the credit line under the thumbnail.
+                "image_source": item.get("image_source"),
+            }
+            # Read-only labels a hand-researched festival carries - "2025
+            # menu", "Cookie Stroll" (see epcot_fw.festival_files). Only set
+            # when there are some, so a database row's shape is unchanged.
+            if item.get("badges"):
+                row["badges"] = list(item["badges"])
+            items.append(row)
     return {"booths": booths, "items": items}
 
 

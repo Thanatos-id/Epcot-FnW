@@ -1,0 +1,4302 @@
+{
+  "menu_items": [
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Conch Fritters",
+      "public_id": "54385c7e-0176-5819-829e-ec73f7a0e9e6",
+      "description": "Conch Fritters with Key Lime aïoli",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Conch-Fritters.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Blackened Fish Slider",
+      "public_id": "52d29e9f-3ba7-5868-b6e0-1a40fc1e9716",
+      "description": "Blackened Fish Slider with fried green tomato and Cajun rémoulade on a brioche bun",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FishSlider.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Florida Strawberry Shortcake",
+      "public_id": "148bc395-e0ed-5c29-b6f9-249c3f37a2c7",
+      "description": "Florida Strawberry Shortcake with vanilla pound cake, Fresh Driscoll’s Strawberries, strawberry sauce, whipped cream, and strawberry crumbs",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-StrawberryShortcake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Cucumber-Watermelon Slushy",
+      "public_id": "11507b57-58a1-57fa-9ecb-f0deb4ad940b",
+      "description": null,
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-WatermelonSlushy.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Cucumber-Watermelon Slushy with gin",
+      "public_id": "d0df0209-0b46-557d-9870-aa358d69e147",
+      "description": "Cucumber-Watermelon Slushy with gin",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Crooked Can Brewing Company Fiori di Limone Lager",
+      "public_id": "ba7f50d5-8b0e-562a-ade3-6c6214dca584",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Orange Blossom Brewing Co. Starlight Papaya Pilsner",
+      "public_id": "95bf86b5-b520-5666-ae8d-27398ee780be",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Brewery Ommegang Melon Falls Watermelon Kolsch",
+      "public_id": "53312095-7ed6-51d4-992e-9f0dfa6af979",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Florida Fresh",
+      "name": "Beer Flight",
+      "public_id": "59f59d8c-9cf0-5146-a7c7-6318ca5717c3",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Grilled Asparagus",
+      "public_id": "9e342a9c-2dde-5250-9dab-d430e75fc16d",
+      "description": "Grilled Asparagus with pancetta bacon, spring peas, frisée lettuce, truffle sherry vinaigrette, and soft-poached egg (Early Bloom Menu (Available March 4 through April 5)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-GrilledAsparagus.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Scallop",
+      "public_id": "9b3f5710-55c9-582d-ba0c-537768eaa237",
+      "description": "Scallop with spring pea risotto, lemon-beurre blanc, and gremolata (Early Bloom Menu (Available March 4 through April 5)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ScallopRisotto.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Blueberry Crumble Cake",
+      "public_id": "46796fd9-3587-5f90-9bf6-f3e08df3f917",
+      "description": "Blueberry Crumble Cake with blueberry-lemon zest soft-serve and blueberry compote (Early Bloom Menu (Available March 4 through April 5)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BlueberryCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Heirloom Tomatoes and Fresh Mozzarella",
+      "public_id": "8ec5c8ac-9e90-5b7b-b6d6-fc688fd4ccbb",
+      "description": "Heirloom Tomatoes and Fresh Mozzarella with shallot vinaigrette, sourdough croutons, pesto, micro basil, and balsamic pearls (Springtime Menu (Available April 6 through May 10)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-TomatoesAndMozz.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Grilled Beef Strip Loin",
+      "public_id": "39e3f730-c1c7-5ef0-b218-1fa28d5a6e7a",
+      "description": "Grilled Beef Strip Loin with tomato risotto, tomato beurre blanc, and basil pesto (Springtime Menu (Available April 6 through May 10)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-GrilledBeef.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Peach Cobbler",
+      "public_id": "6da63ed6-d4a9-5b47-abc1-f400ca086512",
+      "description": "Peach Cobbler with cinnamon gelato and streusel topping (Springtime Menu (Available April 6 through May 10)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PeachCobbler.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Hibiscus Lemonade Cocktail",
+      "public_id": "9463e6b6-8fe9-515a-937a-e83a3baf442f",
+      "description": "Islamorada Hibiscus Gin and Simply Lemonade (Available March 4 to May 10)",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-LemonadeCocktail.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Frozen Lemon Tea",
+      "public_id": "3603ef48-6a31-5260-90fe-97bf63f3e786",
+      "description": "Frozen Lemon Tea with Bärenjäger Honey & Bourbon (Available March 4 to May 10)",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FrozenTea.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "B Nektar Punk Lemonade",
+      "public_id": "1447ed45-ddd1-5fd4-9ed4-941fab13ba19",
+      "description": "Raspberry lemonade hard cider (Available March 4 to May 10)",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "EPCOT Farmers Feast",
+      "name": "Playalinda Brewing Company Hibiscus Tangelo Hard Seltzer",
+      "public_id": "191f5fdd-331c-55df-b822-110b5fe4f165",
+      "description": "Hard seltzer (Available March 4 to May 10)",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Nectar hosted by AdventHealth",
+      "name": "Tuna Poke Bowl",
+      "public_id": "2d82b596-e7b2-5786-8c74-6e538894991c",
+      "description": "Tuna Poke Bowl with edamame, avocado, mango, pickled red onions, seaweed salad, furikake, and umami sauce on a bed of sticky rice",
+      "price_usd": 8.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PokeBowl.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nectar hosted by AdventHealth",
+      "name": "Coconut Panna Cotta",
+      "public_id": "05d0c7c7-30ea-5fa7-b6a3-f7e2dccf7867",
+      "description": "Coconut Panna Cotta with a cherry gelée and matcha crumb topped with a citrus cookie, plant-based meringue, and flower confetti (Plant-based)",
+      "price_usd": 5.79,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PannaCotta.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nectar hosted by AdventHealth",
+      "name": "Frozen Island Escape",
+      "public_id": "d5245d93-e116-50fd-8b11-35acbfea1858",
+      "description": "Minute Maid Peach and Mango Smoothie featuring an Outshine Frozen Mini Fruit Pop",
+      "price_usd": 4.99,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-IslandEscape.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Nectar hosted by AdventHealth",
+      "name": "Poke Bowl",
+      "public_id": "72c8fe0f-0ad2-5e60-984b-683364856542",
+      "description": "Poke Bowl with edamame, avocado, mango, pickled red onions, seaweed salad, furikake, and umami sauce on a bed of sticky rice (Plant-based)",
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Sunshine Seasons",
+      "name": "Mickey-shaped Lemon-Violet Macaron",
+      "public_id": "ab6bef5f-a266-51ad-b4b9-863eb692087b",
+      "description": "Food Item",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Macaron.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Sunshine Seasons",
+      "name": "Orange Cream Milk Shake",
+      "public_id": "e87cc79b-7286-583d-8724-c8435be8b024",
+      "description": "Orange Cream Milk Shake topped with whipped cream, an orange cookie, and a citrus macaron",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-OrangeMilkshake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Beach Grub",
+      "name": "Seafood Bake",
+      "public_id": "ef33978d-e8ea-5955-bde6-a81e94549a31",
+      "description": "Seafood Bake with shrimp, mussels, clams, andouille sausage, red potatoes, corn on the cob, persillade butter, white wine broth, and grilled sourdough",
+      "price_usd": 8.49,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-SeafoodBake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Beach Grub",
+      "name": "Grilled Street Corn on the Cob",
+      "public_id": "1de4588a-6365-5145-887d-7ce808b05868",
+      "description": "Grilled Street Corn on the Cob with savory garlic spread featuring Boursin Dairy-Free Garlic & Fine Herbs Cheese (Plant-based)",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-StreetCorn.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Beach Grub",
+      "name": "Orange Cream Bar",
+      "public_id": "76982d54-4679-5773-9f44-6db4874c1287",
+      "description": "Orange Cream Bar with vanilla bean-orange mousse covered in a chocolate shell with marshmallow meringue",
+      "price_usd": 5.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-OrangeCreamBar.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Beach Grub",
+      "name": "Strawberry-Basil Lemonade",
+      "public_id": "6fb0e012-8b7f-5fa3-bcef-6b3641af4fae",
+      "description": "Minute Maid Premium Lemonade with strawberry-hibiscus syrup garnished with basil",
+      "price_usd": 4.79,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-StrawberryLemonade.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Beach Grub",
+      "name": "3 Daughters Brewing Key Lime Hard Cider",
+      "public_id": "acfbba4d-e14a-5ead-b03c-95322702481e",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Yacht Grub",
+      "name": "Trio of Dips and Chips",
+      "public_id": "075e9614-58e3-5b6d-8397-f7a7faa346cc",
+      "description": "House-made potato chips with whipped feta dip and candied lemon, caramelized onion dip and caviar, and pimento cheese and pickles",
+      "price_usd": 6.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-DipTrio.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yacht Grub",
+      "name": "Captain’s Board",
+      "public_id": "bddab84d-65c7-558f-9c7b-f4caef948766",
+      "description": "Selection of cheeses and cured meats with seasonal accompaniments",
+      "price_usd": 7.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CaptainsBoard.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yacht Grub",
+      "name": "Limoncello-Basil Sparkling Cocktail",
+      "public_id": "06629a8a-79df-52fc-8668-6d5e3673ef48",
+      "description": "Sparkling wine, Seagram’s Club Soda, and limoncello liqueur",
+      "price_usd": 7.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Limoncello.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Liquid Nitrogen Honey-Mascarpone Cheesecake",
+      "public_id": "abdf8aa9-2336-5d21-bea7-5ebc9fd127b7",
+      "description": "Liquid Nitrogen Honey-Mascarpone Cheesecake with fresh honey, granulated honey, and honey mead-blueberry compote (Presented by National Honey Board)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-NitroCheesecake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Soft-serve in a Waffle Cone",
+      "public_id": "71f91280-9181-5d79-b04f-8c208519e149",
+      "description": "– Vanilla – Blueberry – DOLE Whip Peach (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Lemon Sorbet in a Waffle Cone",
+      "public_id": "c1fb8efc-b43b-5166-be07-d11876844046",
+      "description": "Food Item (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Central 28 Beer Company Elderflower Pale Ale",
+      "public_id": "83e6c395-6252-53e6-8b67-8ba62f9ddd0c",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Swirled Showcase",
+      "name": "Lemon-Elderflower Float",
+      "public_id": "3d7cdc53-9acb-5b08-a78c-80a4da413052",
+      "description": "Lemon sorbet and Central 28 Beer Company Elderflower Pale Ale",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "Avocado Toast",
+      "public_id": "3b4ef673-7c73-52d2-94d4-7d68b27770d9",
+      "description": "Avocado Toast with marinated tomatoes featuring Boursin Dairy-Free Garlic & Fine Herbs Cheese on toasted ciabatta (Plant-based)",
+      "price_usd": 6.49,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-AvocadoToast.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "Shrimp and Grits",
+      "public_id": "5b5a5858-5543-5e08-8c2d-713c84b0cc2a",
+      "description": "Blackened shrimp and cheddar cheese grits with tasso ham gravy, bell peppers, onions, and andouille sausage",
+      "price_usd": 7.79,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ShrimpAndGrits.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "French Toast",
+      "public_id": "9a070f16-4cd7-56b9-b8cd-f1f7eeac50dc",
+      "description": "French Toast with cinnamon cereal cream and caramel sauce",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FrenchToast.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "Fruit Cereal Shake",
+      "public_id": "faea5520-fd0b-5a57-a618-ecd18553bc90",
+      "description": "Vanilla soft-serve and fruit-flavored breakfast cereal",
+      "price_usd": 5.29,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CerealShake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "3 Daughters Brewing Coffee Blonde Ale",
+      "public_id": "e1097417-8ed7-500c-87f5-334cd4720b4f",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "BRUNCHCOT",
+      "name": "Peach Bellini",
+      "public_id": "260cb6cb-7377-5f93-9713-87a0ab47aaa0",
+      "description": "Sparkling wine and peach purée",
+      "price_usd": 11.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Station Hosted by Coca-Cola",
+      "name": "Coca-Cola Cherry Float",
+      "public_id": "09ede1e8-0b21-5c6f-ac41-714e3e292612",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Station Hosted by Coca-Cola",
+      "name": "Coca-Cola Cherry Float Zero Sugar",
+      "public_id": "feb1b76a-d146-5962-b64a-3a7ca67cc4c1",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "Hot Honey Chicken Sandwich",
+      "public_id": "d2136a7d-bba5-532e-8a61-1d6134917db0",
+      "description": "Southern fried chicken sandwich with hot honey, red cabbage slaw, and pickles on a brioche bun",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ChickenSandwich.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "Pizza Bianca",
+      "public_id": "07cec759-ed8a-5f7c-85c6-cf74098d6e4a",
+      "description": "Two slices of freshly baked pizza topped with roasted wild mushrooms, garlic cream, mozzarella, cheese blend, truffle oil, and thyme",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PizzaBianca.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Connections Eatery",
+      "name": "Garden Glimmer",
+      "public_id": "70ade2e0-3a66-5622-9268-55c2c5f0ec68",
+      "description": "Empress 1908 Gin, DOLE Pineapple Juice, lemon juice, and almond-flavored syrup",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-GardenGlimmer.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Orange-Sesame Tempura Shrimp",
+      "public_id": "8584e317-c1d8-5495-bcf9-5b8e2a2721a7",
+      "description": "Orange-Sesame Tempura Shrimp with orange-chile sauce",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-TempuraShrimp.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Lumpia",
+      "public_id": "58e7ac46-1d86-55d2-984f-422a59a782d1",
+      "description": "Lumpia with plant-based pork, green papaya salad, and yuzu sweet-and-sour (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Lumpia.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Cinnamon Beignets",
+      "public_id": "6f6ddad1-8fb9-5ff0-b947-50c33cb69a1a",
+      "description": "tossed in lemon sugar, lemon glaze, and honey mead-blueberry compote",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CinnamonBeignets.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Lemon Tart",
+      "public_id": "3ea46e70-54bf-56de-8f86-c5ff7ed163fe",
+      "description": "Lemon Tart with lemon curd, blood orange fluid gel, plant-based meringue, and raspberry powder (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-LemonTart.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Key Lime Wine Slushy",
+      "public_id": "fe12998f-6718-5832-a173-ffce3bca60a0",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-WineSlushy.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Orange-Lemon Smoothie",
+      "public_id": "29d5f78b-c1a0-531a-be79-eff6fa53d091",
+      "description": "Orange-Lemon Smoothie served in a Souvenir Orange Bird Sipper",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "ACE Cider Orange Groves Hard Cider",
+      "public_id": "439db00c-b927-5855-9fdd-19eddb134c33",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Central 28 Beer Company Grapefruit Pale Ale",
+      "public_id": "f3900f27-78be-5759-ad21-337b3525b0e1",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "BrewDog Brewing Company Five Limes Cerveza",
+      "public_id": "bafacdc7-272e-5b06-ac87-479b4e5ffc8a",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "The Citrus Blossom",
+      "name": "Beverage Flight",
+      "public_id": "5bf90616-0140-544d-9e68-cdd85ccddb36",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Chicken and Waffles",
+      "public_id": "ccfb245a-d28a-5caf-bd98-655af01e12c1",
+      "description": "Crispy chicken and a sweet honey-bacon cornbread waffle with whipped honey butter and orange blossom honey",
+      "price_usd": 6.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ChickenAndWaffles.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Honeycomb Bowl",
+      "public_id": "7da128fb-b495-51e2-bbbd-0e41238bedf4",
+      "description": "Honeycomb Bowl with herb quinoa, honey-whipped goat cheese, poached apples, and hot honey cauliflower topped with a honey tuile",
+      "price_usd": 5.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-HoneycombBowl.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Frozen Peach Cobbler",
+      "public_id": "e85cd357-74ab-5bfd-a1a6-c32332f720b5",
+      "description": "Frozen Peach Cobbler with streusel",
+      "price_usd": 5.29,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CobblerFreeze.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Frozen Peach Cobbler with blueberry vodka and streusel",
+      "public_id": "9a0ef28f-ff49-5192-87c9-720285ff3181",
+      "description": "Frozen Peach Cobbler with blueberry vodka and streusel",
+      "price_usd": 13.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Brew Hub Nectar Bloom IPA",
+      "public_id": "ebbcd5c7-ce69-5919-b6d8-f8a9e6c3c7fa",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "The Honey Bee-stro Hosted by National Honey Board",
+      "name": "Florida Orange Groves Winery Orange Blossom Honey Wine",
+      "public_id": "0770f3a9-b156-5a8f-a9e3-7e6e8f472929",
+      "description": "Beverage",
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Spicy Hot Dog",
+      "public_id": "53d2838e-2bd8-5c7a-bd3d-2a9701695136",
+      "description": "Spicy Hot Dog with pineapple chutney and plantain chips",
+      "price_usd": 7.99,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-SpicyHotDog.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Frozen Desert Violet Lemonade",
+      "public_id": "39644c3f-e2a0-5035-9bd6-e904b7d71809",
+      "description": "Minute Maid Premium Lemonade with desert pear and violet syrups",
+      "price_usd": 5.19,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-VioletLemonade.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Pineapple Float",
+      "public_id": "9a3f020a-600b-5755-9d28-8974c4b888d8",
+      "description": "DOLE Whip Pineapple and Fanta Pineapple",
+      "price_usd": 6.79,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PineappleFloat.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "DOLE Whip Pineapple",
+      "public_id": "8476c76a-3964-51ee-b8a4-126988ba3ef6",
+      "description": "Food Item (Plant-based)",
+      "price_usd": 5.79,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Breckenridge Brewery Mountain Beach Tropical Session Sour",
+      "public_id": "dccf1100-19d8-5bb5-8dea-6cb7dfc6fe16",
+      "description": "Beverage",
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Deschutes Brewery Tropical Fresh IPA",
+      "public_id": "00ade4b2-3b86-56b3-8220-ff3869dafea3",
+      "description": "Beverage",
+      "price_usd": 12.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Florida Orange Groves Winery Sparkling Pineapple Wine",
+      "public_id": "fd277411-ab91-5a5a-b1b7-210c860a2fb4",
+      "description": "Beverage",
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Pineapple Promenade",
+      "name": "Pineapple-Mango Cream Float",
+      "public_id": "31405675-301b-5499-9377-e53c40292fbc",
+      "description": "DOLE Whip Pineapple topped with Sōmrus Mango Cream Liqueur",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Miso Cola-glazed Sticky Pork Ribs",
+      "public_id": "2c665f1f-2305-5906-baa3-408ba8d1dd83",
+      "description": "Miso Cola-glazed Sticky Pork Ribs topped with spicy pickled peppers and peanuts",
+      "price_usd": 7.29,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PorkRibs.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Garden Vegetable Flatbread",
+      "public_id": "91c44e9b-2e78-5258-a9b0-874b883bcfa6",
+      "description": "Garden Vegetable Flatbread featuring Boursin Crumbles Garlic & Fine Herbs Cheese topped with roasted vegetables and arugula salad",
+      "price_usd": 5.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-VegetableFlatbread.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Chocolate Mousse Terrarium",
+      "public_id": "2128a252-24ed-5fc7-b9be-748a708247c5",
+      "description": "Chocolate Mousse Terrarium with matcha crumb and chocolate soil",
+      "price_usd": 5.49,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ChocolateMousse.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Botanical Slush",
+      "public_id": "848f419a-27c9-5df7-9653-4ece03f3dafc",
+      "description": "Botanical Slush featuring Twinings Mango & Pineapple Herbal Tea with Minute Maid Passion Fruit Orange Guava Juice, Simply Fruit Punch, and simple syrup",
+      "price_usd": 4.79,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BotanicalSlush.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Botanical Slush with Cruzan Mango Rum",
+      "public_id": "77b3d30b-e33f-5317-bfd6-68de1bbe245a",
+      "description": "Twinings Mango & Pineapple Herbal Tea, Minute Maid Passion Fruit Orange Guava Juice, Simply Fruit Punch, and simple syrup with Cruzan Mango Rum",
+      "price_usd": 11.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Trowel & Trellis",
+      "name": "Keel Farms Garden Bloom Hard Cider",
+      "public_id": "4bd245e5-c4c0-5e84-aa7b-a08a6fa4e35d",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Seared Scallops",
+      "public_id": "299619d8-697e-56d5-8abf-76b5863436b6",
+      "description": "Seared Scallops with french green beans, marble potatoes, and bacon vinaigrette",
+      "price_usd": 8.19,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-SearedScallops.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Beef Tenderloin Tips",
+      "public_id": "10532b0e-aa83-5d76-97f7-10c58e7525a7",
+      "description": "Beef Tenderloin Tips with mushroom bordelaise, whipped potatoes, and garden vegetables",
+      "price_usd": 7.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BeefTenderloin.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Chocolate-Maple Whiskey Cake",
+      "public_id": "2f51ef6b-0d84-5f8a-af01-8c0ce590fea2",
+      "description": "Food Item",
+      "price_usd": 4.79,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ChocolateCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Collective Arts Brewing Garden Shed Lager",
+      "public_id": "60c57b5a-4d46-525b-ad18-aac890b0ecbf",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Collective Arts Brewing Grapefruit Lime Sour",
+      "public_id": "82db4e12-2655-5a78-b262-53f47c3d7fdc",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Collective Arts Brewing Guava Gose",
+      "public_id": "324cfd99-7b65-5684-889c-0cce8d3a254f",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Beer Flight",
+      "public_id": "d18202ef-ef14-5565-9154-03df6bcc29d0",
+      "description": "Beverage",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Northern Bloom",
+      "name": "Florida Orange Groves Winery Sparkling Blackberry Wine",
+      "public_id": "b88fbaad-e613-566e-82b8-8b0e75f64363",
+      "description": "Beverage",
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Canada Popcorn Cart",
+      "name": "Blueberry-Ginger Smash",
+      "public_id": "8c961cd1-62ef-5d3f-94ac-b9328ee7101c",
+      "description": "Canadian Club Whisky, blueberry, lemon, and ginger",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BlueberryGingerSmash.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Yorkshire County Fish and Chips",
+      "name": "English Garden",
+      "public_id": "7b3f05ea-988e-5ab3-b32a-76e3aae90c00",
+      "description": "Fords Gin, St-Germain Elderflower Liqueur, Minute Maid Premium Lemonade, Minute Maid Apple Juice, and lemon juice topped with a cucumber",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-EnglishGarden.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Croissant au Fromage de Chèvre, Herbes et Ail Rôtie",
+      "public_id": "aa363977-d9f8-572b-a436-f72a058ac8d8",
+      "description": "Croissant with goat cheese, herbs, and roasted garlic",
+      "price_usd": 8.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CroissantAuFromage.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Canard Confit, Sauce Romarin et Champignons, Gâteau de Polenta aux Herbes",
+      "public_id": "86f8f88b-0b4f-55c3-9bf7-b6eff37d973e",
+      "description": "Pulled duck confit with rosemary-mushroom sauce and herbed polenta corn cake",
+      "price_usd": 9.95,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CanardConfit.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Tarte Aux Oignons Caramelises",
+      "public_id": "e31a7fa7-b432-5db6-84fa-e70d11c2734d",
+      "description": "Caramelized onions on a flaky pastry crust topped with bacon",
+      "price_usd": 8.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-OnionTart.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Beignet Caramélisé, Fourré Crème Vanille, Glacé au Caramel Fleur de Sel",
+      "public_id": "5e498e85-e979-5c8a-97d8-c987e68bb1d8",
+      "description": "Caramelized beignet filled with vanilla cream and glazed with caramel fleur de sel",
+      "price_usd": 7.95,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CaramelizedBeignet.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Kronenbourg 1664 Blanc",
+      "public_id": "0427f504-69b6-5645-afa0-2e50edfcf0a8",
+      "description": "Fruity white beer with citrus notes",
+      "price_usd": 6.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "André Brunel Côtes du Rhône Blend",
+      "public_id": "085ab2b4-4c34-5c1b-8a59-40cf498e6fa1",
+      "description": "Beverage",
+      "price_usd": 8.95,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "Guillaume Touton, Brut de Peche",
+      "public_id": "2fad4c0a-6af2-51a7-819c-97678831531d",
+      "description": "Beverage",
+      "price_usd": 8.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Fleur de Lys",
+      "name": "La Vie en Rose Frozen Slush",
+      "public_id": "9decbd17-211b-5400-b506-31db1aedd468",
+      "description": "Vodka, Grey Goose L’Orange Vodka, St-Germain Elderflower Liqueur, and white and red cranberry juices",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Jamaican Jerk Chicken",
+      "public_id": "33f8af58-8258-578a-a1b8-9535d9f97d89",
+      "description": "Jamaican Jerk Chicken with pigeon pea rice, roasted sweet plantains, and cinnamon butter ( Meet the chef who helped create it )",
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-JerkChicken.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Ceviche",
+      "public_id": "e4428770-3060-535b-98ba-edd51006e9b5",
+      "description": "Shrimp with mango, avocado, cucumber, lime, cilantro, tomato, and jalapeño served with plantain chips",
+      "price_usd": 7.49,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Ceviche.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Coconut-Chocolate Flan Bizcocho",
+      "public_id": "5e1fd404-72f4-554c-b4e0-bdc4b2cff932",
+      "description": "Chocolate cake, coconut custard, and passion fruit caramel (Plant-based)",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CoconutFlan.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Citrus Slushy",
+      "public_id": "fdbcbfd3-a6f9-57cc-8fac-6d848d32685e",
+      "description": "Simply Lemonade, Simply Grapefruit, and simple syrup",
+      "price_usd": 4.99,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CitrusSlushy.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Citrus Slushy with Don Q Limón Rum",
+      "public_id": "3c56ec59-37ae-5d6a-84a8-80b25dad0335",
+      "description": "Simply Lemonade, Simply Grapefruit, simple syrup, and Don Q Limón Rum",
+      "price_usd": 12.25,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Bold Rock Paradise Orchard Hard Cider",
+      "public_id": "839d1d96-08c9-505a-9ae7-bfcbdfee088b",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "La Isla Fresca",
+      "name": "Florida Orange Groves Winery Hurricane Class 5 Tropical Sangria",
+      "public_id": "cecadeb3-bbe7-5091-bd2b-0aadaa11d47c",
+      "description": "Beverage",
+      "price_usd": 11.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Moroccan Wrap",
+      "public_id": "64e4ee61-52a4-5756-b0ec-ab07937453db",
+      "description": "Moroccan Wrap with tomato-cucumber relish and garlic sauce served on warm Moroccan flatbread – Chermoula Chicken – Moroccan-spiced Lamb – Plant-based Falafel (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-WrapTrio.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Stone-baked Moroccan Bread",
+      "public_id": "dae631ad-db8e-5db0-af70-2f7a79c968f9",
+      "description": "Stone-baked Moroccan Bread with assorted dips",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BreadDips.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Orange Blossom-Saffron Cake",
+      "public_id": "7df74119-a8fc-58ad-adfc-d87c05fd1fe6",
+      "description": "Food Item",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-OrangeCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Pomegranate Mimosa",
+      "public_id": "f0a57d9d-d875-5507-b3eb-eef9c3ca10a9",
+      "description": "Sparkling wine and pomegranate juice",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PomegranateMimosa.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Keel Farms Hibiscus Honeycrisp Hard Cider",
+      "public_id": "22375d96-5238-51e6-9ad3-abdd21587d27",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Bold Rock Blueberry Lemon Hard Cider",
+      "public_id": "9366dd78-2eaa-5f10-8c4c-011210bac881",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Coppertail Brewing Co. Passion Fruit Basil Hard Cider",
+      "public_id": "286367a4-d05c-571a-9bee-f2801b192977",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Tangierine Café: Flavors of the Medina",
+      "name": "Hard Cider Flight",
+      "public_id": "f6aa6420-3eba-51a4-b4a2-adcd2063cbba",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Frushi",
+      "public_id": "4dbe879a-16fe-5d53-9de5-34ee72b2a54c",
+      "description": "Strawberry, pineapple, and honeydew wrapped in coconut rice and soy wrap paper served with coconut cream sauce and toasted coconut",
+      "price_usd": 7.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Frushi.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Japanese Curry Bread",
+      "public_id": "a45d53a0-005c-5ee9-87ee-91dae42d2912",
+      "description": "Golden, crispy fried bread filled with a fragrant Japanese vegetable curry",
+      "price_usd": 6.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CurryBread.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Ramen Cup",
+      "public_id": "9d7cea06-7253-5682-8868-82b8aa7461bd",
+      "description": "Cold ramen noodle salad in a cup with fresh vegetables and grilled chicken served with yuzu-soy vinaigrette and chili oil",
+      "price_usd": 8.5,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-RamenCup.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Minute Maid Strawberry Lemonade",
+      "public_id": "aa829b5f-9761-5330-bee0-8111c0e35753",
+      "description": "Minute Maid Strawberry Lemonade with popping strawberry boba",
+      "price_usd": 7.0,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "3 Daughters Brewing Strawberry Ichigo IPA",
+      "public_id": "70087a75-fcec-52a5-b2ac-f3cd1861bdc3",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Peach Momo Plum Wine",
+      "public_id": "9e9542b8-3520-593b-a835-7c5ad19f7838",
+      "description": "Beverage",
+      "price_usd": 9.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Sakura Beauty Sake",
+      "public_id": "f85306ea-1792-5576-95fd-ff07c0c6f746",
+      "description": "Beverage",
+      "price_usd": 11.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Hanami",
+      "name": "Lavender Lemonade",
+      "public_id": "309d6553-453f-5f85-af2b-687f1b73ce1d",
+      "description": "Sake with lavender and Minute Maid Premium Lemonade",
+      "price_usd": 8.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Blackened Shrimp Po’ Boy",
+      "public_id": "09414e71-49a9-5deb-8420-9c1343b9724a",
+      "description": "Blackened Shrimp Po’ Boy with lettuce, tomato, and Cajun rémoulade",
+      "price_usd": 7.49,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ShrimpPoBoy.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Grilled Gulf Oysters",
+      "public_id": "0d02c44b-2946-5567-9818-ccb75bff93b6",
+      "description": "Grilled Gulf Oysters with andouille sausage butter and lemon",
+      "price_usd": 7.99,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Oysters.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Spicy Chicken Gumbo",
+      "public_id": "f26a4a1b-04c0-5ace-8b11-e54e0ec9b511",
+      "description": "Spicy Chicken Gumbo featuring BEN’S ORIGINAL Long Grain & Wild Rice with andouille sausage",
+      "price_usd": 6.29,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Gumbo.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Bananas Foster Bread Pudding",
+      "public_id": "668beb9f-1e44-59c0-8037-c0561f4c549c",
+      "description": "Bananas Foster Bread Pudding with a rum-caramel sauce",
+      "price_usd": 5.19,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BreadPudding.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Southern Tier Brewing Company Early Bird Blackberry Lemonade Ale",
+      "public_id": "89f865fb-fbbe-5a8f-a639-da3f9339441d",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Copperpoint Brewing Co. Sweet Tea Amber Lager",
+      "public_id": "79487161-7136-56a9-997d-e31900c3d2bf",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Keel Farms King Cake Hard Cider",
+      "public_id": "af9e67c7-e28d-5cb0-9bf0-7c4b44737960",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Beverage Flight",
+      "public_id": "5250de3a-c490-5664-8ef8-5365dcd6b4d8",
+      "description": "Beverage",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Magnolia Terrace",
+      "name": "Spiced Rum Cocktail",
+      "public_id": "8f0edc60-b1e9-5b9d-923e-97c6a7bbd771",
+      "description": "Spiced rum, coconut rum, Simply Fruit Punch, and Minute Maid Orange Juice",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Block & Hans",
+      "name": "Frozen Wildberry Limeade",
+      "public_id": "44340bfd-7f4b-5105-9989-816629bd8f25",
+      "description": "Minute Maid Limeade, Minute Maid Strawberry Smoothie, and wildberry syrup with popping candy",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-WildberryLimeade.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Block & Hans",
+      "name": "Frozen Wildberry Limeade with Tito’s Handmade Vodka",
+      "public_id": "53dcfc68-9a58-5c62-921a-9308652df3e4",
+      "description": "Minute Maid Limeade, Minute Maid Strawberry Smoothie, and wildberry syrup with popping candy With Tito’s Handmade Vodka.",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Funnel Cake",
+      "name": "Bananas Foster Funnel Cake",
+      "public_id": "f3011d4b-88ec-58d1-852a-e4c89aac28f0",
+      "description": "Funnel cake with banana-chocolate chip ice cream and powdered sugar topped with whipped cream, rum-caramel sauce, and a banana-cinnamon sugar dusting",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FunnelCake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Insalata di Pasta",
+      "public_id": "8d1551b2-8ff8-5b5b-87a2-d731db226772",
+      "description": "Penne, apple, raisins, scallions, almonds, honey, and lemon dressing (Served chilled)",
+      "price_usd": 7.5,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-InsalataDiPasta.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Arancini",
+      "public_id": "3d8723fa-a7ab-5d1f-836a-f2284831066c",
+      "description": "Risotto, beef ragoût, peas, parmesan, and tomato sauce",
+      "price_usd": 7.75,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Arancini.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Raspberry Swirl Cheesecake",
+      "public_id": "73b8268b-e179-515e-b73f-b833acc03acc",
+      "description": "Raspberry Swirl Cheesecake with ricotta cheese, raspberries, and sweet whipped cream",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-RaspberryCheesecake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Peroni Pilsner",
+      "public_id": "4d346cce-3e67-5e7e-8c12-7d80e5686d48",
+      "description": "Beverage",
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Prosecco",
+      "public_id": "1841dde9-9d50-52a9-b124-2f82f8b83ff4",
+      "description": "Beverage",
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Moscato",
+      "public_id": "27ce4fd0-64b5-5d38-b2a6-4c5cda3362d4",
+      "description": "Beverage",
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Sauvignon Blanc",
+      "public_id": "f90b0f57-94d3-56c3-b6cb-9a9d80445b17",
+      "description": "Beverage",
+      "price_usd": 11.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Italian Red Sangria",
+      "public_id": "1a20cf35-8a15-5eb2-bebe-e82729eb6219",
+      "description": "Beverage",
+      "price_usd": 12.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Italian-inspired Margarita",
+      "public_id": "7f506217-7e18-5a92-a971-faaf884a64bf",
+      "description": "Italian-inspired Margarita with tequila and Fabrizia Blood Orange Liqueur",
+      "price_usd": 13.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Primavera Kitchen",
+      "name": "Elderflower Sparkling Cocktail",
+      "public_id": "e30193ea-33b0-5442-90a9-2e5a5abfe86c",
+      "description": "Mint-infused elderflower liqueur, prosecco, and blood orange soda",
+      "price_usd": 16.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Potato Pancakes",
+      "public_id": "79c54e81-1f7f-5ba1-b911-283a298afe91",
+      "description": "Potato Pancakes with house-made applesauce (Plant-based)",
+      "price_usd": 5.29,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PotatoPancake.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Toasted Pretzel Bread",
+      "public_id": "0634383b-8d86-59fc-b83b-f5e247f8d699",
+      "description": "Toasted Pretzel Bread topped with black forest ham and melted cheese",
+      "price_usd": 6.19,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-PretzelBread.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Warm Cheese Strudel",
+      "public_id": "0dbe55df-69c8-58d3-b658-ecfb30dfa7ce",
+      "description": "Warm Cheese Strudel with berry compote",
+      "price_usd": 4.99,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CheeseStrudel.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Apfelschaumwein",
+      "public_id": "46b653d2-65f7-522a-9a87-f4faf02c2c87",
+      "description": "Apple sparkling wine and apple liqueur",
+      "price_usd": 10.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Apfelschaumwein.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Gaffel Kölsch",
+      "public_id": "d435489f-90da-5261-873a-56960e14f55a",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Stiegl Brewery Raspberry Radler",
+      "public_id": "952f8927-d4c2-53ad-a561-c3159186ad8f",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Weihenstephaner Hefe Weissbier",
+      "public_id": "0e1a23e0-b1ec-55cc-800f-c298930014dc",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Bauernmarkt: Farmer’s Market",
+      "name": "Beer Flight",
+      "public_id": "7f7547c0-9fb9-5dbe-ad09-b137198124a8",
+      "description": "Beverage",
+      "price_usd": 12.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Sommerfest",
+      "name": "Zwiebelkuchen mit Spargel",
+      "public_id": "c1929793-94c9-5a93-bf39-651665b97778",
+      "description": "German onion cake with asparagus, caramelized onions, bacon, herbed goat cheese, and a savory custard",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-ZwiebelkuchenMitSpargel.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Sommerfest",
+      "name": "Blossom Spritz",
+      "public_id": "067b6d2f-6ea8-5f5f-a385-222d9f484da8",
+      "description": "St. Germain Elderflower Liqueur, Sekt Sparkling Wine, and soda water topped with fresh mint and lime",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "wine",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BlossomSpritz.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Nigerian Beef Pie",
+      "public_id": "4b546cd6-c0a5-5d3f-aaf1-aefec7a23e2a",
+      "description": "Nigerian Beef Pie with papaya syrup",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory",
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BeefPie.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Seasonal Fruit Parfait",
+      "public_id": "065c9d23-de51-53b1-bf3d-595e4b112421",
+      "description": "Seasonal Fruit Parfait with sweet chili sauce and DOLE Whip Mango (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": true,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FruitParfait.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Soft-serve in a Waffle Cone",
+      "public_id": "023a86c8-d989-5241-b5ab-507d3ccaf749",
+      "description": "– Tangerine – DOLE Whip Mango (Plant-based)",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "plant_based"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Ice Cream Float",
+      "public_id": "ddf2b680-429c-55f1-aa29-1f6d93c50f2d",
+      "description": "Tangerine soft-serve and Barq’s Red Creme Soda",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Carib Brewery Honeysuckle Hopped Wheat Ale",
+      "public_id": "eaea4560-a3f9-591a-b1eb-77d705bb645b",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Keel Farms Spicy Watermelon Hard Cider",
+      "public_id": "49b411d4-896d-5f51-a117-71154a3034c7",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "spicy"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "cider",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Ȯlōgy Brewing Co. Passion Fruit Dragon Slushhhhh",
+      "public_id": "cf84a7ed-9d04-5daf-b523-b178e00a19ac",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Refreshment Outpost Hosted by Coca-Cola",
+      "name": "Boyd & Blair Lavender Martini",
+      "public_id": "f6179ab7-ad7b-573e-8fa6-37d47e92a1bd",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "House-made Cheesy Crab Wontons",
+      "public_id": "8fa99837-e987-5f93-aedd-ea58ea194e9e",
+      "description": "Fried wontons filled with cream cheese, celery, and imitation crab stick",
+      "price_usd": 9.75,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-CrabWonton.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Sha Cha Beef Bao Bun",
+      "public_id": "8bbacfe2-96af-5953-a561-00451b73fcf9",
+      "description": "filled with pan-fried beef, red onion, and jalapeño in Chinese sha cha peanut sauce",
+      "price_usd": 7.75,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts",
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-BeefBao.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Pan-fried Vegetable Dumplings",
+      "public_id": "d0da7872-4022-5f27-bdea-7a699505fce0",
+      "description": "filled with bok choy, carrot, shiitake mushroom, ginger, garlic, and sesame",
+      "price_usd": 5.5,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-VegetableDumplings.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Tanghulu",
+      "public_id": "5bdb1633-3a7e-5ffa-a4d0-218b76a0df98",
+      "description": "Skewer of strawberries and grapes coated in candied sugar syrup",
+      "price_usd": 7.25,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Tanghulu.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Mango Bubble Tea",
+      "public_id": "944fb1da-c12a-55c9-8789-6a050d3f0be4",
+      "description": "Beverage",
+      "price_usd": 7.75,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Brew Hub Honey Jasmine Lager",
+      "public_id": "7f567d55-aa45-54e5-8205-524931d30fe9",
+      "description": "Beverage",
+      "price_usd": 6.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ],
+      "note": "Price for the smallest size; larger pours cost more."
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Dragon Dynasty",
+      "public_id": "9abe29bf-e461-5c78-9f40-3bcc10f1a6f8",
+      "description": "Baijiu spirit, light rum, dragon fruit syrup, piña colada mix, and soda water",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "First Emperor",
+      "public_id": "0d63725e-4053-52ac-b7b7-e35d598afe11",
+      "description": "Vodka, ginger kombucha, strawberry syrup, and lime juice",
+      "price_usd": 15.0,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Lan Yuan",
+      "name": "Tropical Moon",
+      "public_id": "8efa6e80-970c-580b-9880-a0296b0b105d",
+      "description": "Vodka, triple sec liqueur, passion fruit syrup, soda water, and white boba pearls",
+      "price_usd": 14.75,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026",
+        "blogmickey-2026-fg"
+      ]
+    },
+    {
+      "booth_name": "Norway Beer Cart",
+      "name": "Lemon Bolle",
+      "public_id": "19dc237c-7432-5878-8547-5e802ecc1daf",
+      "description": "Cardamom bun filled with lemon curd and meringue",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-LemonBolle.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Chilaquiles con Carne",
+      "public_id": "7ebfa9ab-7e7a-5a1c-91f2-4c390404b237",
+      "description": "Corn tortillas tossed in salsa ranchera and monterey jack with shaved rib-eye, poblano peppers, onions, queso fresco, and crema mexicana",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "spicy"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-Chilaquiles.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Taco de Calamar",
+      "public_id": "d82f55cf-0c10-55f9-a06b-9f8c9334d3af",
+      "description": "Flour tortilla filled with crispy calamari, fried garlic, pasilla aïoli, and chives",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_shellfish"
+      ],
+      "flavor_tags": [
+        "savory"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-TacoDeCalamar.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Flan de la Abuela",
+      "public_id": "b1e7713d-50f5-57a4-a054-b957b8663055",
+      "description": "Creamy hazelnut-chocolate flan with vanilla crème anglaise",
+      "price_usd": null,
+      "category": "food",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [
+        "sweet"
+      ],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-FlanDeLaAbuela.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Craft Mexican Draft Beer",
+      "public_id": "4c2ba000-92d8-5b3a-b315-6320a9da28f8",
+      "description": "Beverage",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "beer",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Flower Power Margarita",
+      "public_id": "4fd84ca3-6fea-5ef9-a472-7c7197014217",
+      "description": "Dulce Vida Blanco Tequila, orange-pineapple juice, blackcurrant-lavender liqueur, and Empress 1908 Gin with a rose petal flower salt rim",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Jardin de Fiestas",
+      "name": "Spicy Mango Margarita",
+      "public_id": "c63d9fb0-3fef-5854-b6b1-d299cde6d5e3",
+      "description": "100% de agave blanco tequila, reposado mezcal, tamarindo liqueur, mango purée, and lime-jalapeño juice with a chili-lime salt rim",
+      "price_usd": null,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol",
+        "spicy"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": "liquor",
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Very Berry Matcha Latte",
+      "public_id": "cac522c1-e6ae-5baf-a88c-2789c1d20f6f",
+      "description": "Matcha with strawberry syrup topped with whipped cream — World Showcase (Near Disney Traders)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-MatchaLatte.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    },
+    {
+      "booth_name": "Additional Festival Locations",
+      "name": "Dubai Chocolate Frozen Cappuccino",
+      "public_id": "d736baf8-65bc-5d97-9abf-6d6074418f0e",
+      "description": "Joffrey’s Frozen Cappuccino with pistachio syrup and dark chocolate sauce topped with whipped cream and chocolate sauce — World Showcase (Between United Kingdom and Canada)",
+      "price_usd": null,
+      "category": "non_alcoholic_beverage",
+      "dietary_tags": [
+        "contains_nuts"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "status": "2026-menu",
+      "stroll": false,
+      "sources": [
+        "disney-parks-blog-2026"
+      ],
+      "image_url": "https://disneyparksblog.com/app/uploads/2026/02/2026-WDW-FG-Foodie-Guide-DubaiChocolate.jpg",
+      "image_source": {
+        "credit": "Disney Parks Blog",
+        "site": "disneyparksblog.com",
+        "season": 2026,
+        "page_url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-flower-and-garden-festival-foodie-guide-2026/",
+        "via": "festival-photos"
+      }
+    }
+  ]
+}
