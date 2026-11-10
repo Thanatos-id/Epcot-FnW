@@ -1,0 +1,54 @@
+{
+  "key": "festival-of-the-arts",
+  "name": "EPCOT International Festival of the Arts 2027",
+  "year": 2027,
+  "start": "2027-01-15",
+  "end": "2027-03-01",
+  "official_url": "https://disneyworld.disney.go.com/events-tours/epcot/epcot-international-festival-of-the-arts/",
+  "researched_at": "2026-11-10",
+  "stroll_label": "Wonderful Walk",
+  "summary": "First pass from research. The 2027 festival (Jan 15 - Mar 1) has dates but no menus yet, so every Food Studio and dish here is the 2026 festival's, read from Disney's own 2026 Foodie Guide, with 2026 prices from WDWNT's posted menus (MickeyBlog for Gourmet Landscapes). Wonderful Walk of Colorful Cuisine dishes are labelled.",
+  "location_notes": [
+    "Every booth's location is Disney's own 'Location:' line. A studio in a pavilion that also hosts a Food & Wine marketplace is pinned on that marketplace's pin at 'anchored' precision, and says so in `pinned_from`; Refreshment Outpost, Tangierine Café and Swirled Showcase are the same venues as in Food & Wine and reuse their pins.",
+    "Unplaced: studios on the walkways (Near Test Track, The Odyssey, Between Morocco and France, Near Disney Traders, Near Port of Entry, the World Showcase-Imagination! walkway), Norway's Kringla, Connections Eatery and Sunshine Seasons."
+  ],
+  "sources": {
+    "disney-parks-blog-2026": {
+      "title": "Disney Eats: EPCOT International Festival of the Arts Foodie Guide 2026",
+      "publisher": "Disney Parks Blog",
+      "published": "2026-01-07",
+      "url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+      "used_for": "Every Food Studio, its location, every dish and description, Wonderful Walk and plant-based markers. Publishes no prices."
+    },
+    "wdwnt-2026-arts": {
+      "title": "Full Menus with Prices Posted for 2026 EPCOT Festival of the Arts",
+      "publisher": "WDWNT",
+      "published": "2026-01",
+      "url": "https://wdwnt.com/2026/01/full-menus-prices-2026-epcot-festival-of-the-arts/",
+      "used_for": "2026 prices, from the posted menu boards. Gourmet Landscapes' from MickeyBlog's price post; none published for Connections Eatery or Kringla."
+    },
+    "mickeyblog-2026-arts": {
+      "title": "Food Prices Released for the 2026 EPCOT Festival of the Arts",
+      "publisher": "MickeyBlog",
+      "published": "2026-01-13",
+      "url": "https://mickeyblog.com/2026/01/13/food-prices-released-for-the-2026-epcot-festival-of-the-arts/",
+      "used_for": "Gourmet Landscapes prices."
+    },
+    "blogmickey-2027-dates": {
+      "title": "2027 EPCOT Festival of the Arts Dates, Details & New Sponsor Announced",
+      "publisher": "BlogMickey",
+      "published": "2026-09-10",
+      "url": "https://blogmickey.com/2026/09/2027-epcot-festival-of-the-arts-dates-details-new-sponsor-announced/",
+      "used_for": "2027 dates (Jan 15 - Mar 1)."
+    }
+  },
+  "next_step": "Disney published 2026's guide on Jan 7. When the 2027 guide lands, re-check every dish in the Studio and add the guide to photo_pages.",
+  "photo_pages": [
+    {
+      "url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-arts-foodie-guide/",
+      "season": 2026
+    }
+  ],
+  "photo_pages_note": "Read by `epcot-fw festival photos`, newest first. Disney rewrites one guide per festival each year; add next year's guide here when it is published and re-run: its photos replace these, dish by dish.",
+  "photo_pages_older": "Checked 2023-2025 via Internet Archive copies of Disney's guides (web.archive.org): each booth had one group photo, never a photo per dish, so none can be attached to a dish. Per-dish photos start with the 2026 guide."
+}

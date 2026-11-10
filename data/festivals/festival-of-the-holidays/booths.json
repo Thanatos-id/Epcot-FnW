@@ -1,0 +1,377 @@
+{
+  "booths": [
+    {
+      "name": "Las Posadas Holiday Kitchen",
+      "public_id": "68c2007d-0cb9-5b0f-bcf6-1b1b0f7de0dc",
+      "category": "holiday_kitchen",
+      "location_description": "Mexico pavilion",
+      "latitude": 28.37152,
+      "longitude": -81.548231,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Mexico",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Pinned on the Food & Wine Mexico marketplace; holiday kitchens usually reuse the pavilion's festival spot."
+    },
+    {
+      "name": "Shanghai Holiday Kitchen",
+      "public_id": "9967b7e3-b44b-5bd4-8c6d-7cd0ab5d0c25",
+      "category": "holiday_kitchen",
+      "location_description": "China pavilion",
+      "latitude": 28.370057,
+      "longitude": -81.547004,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: China",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Refreshment Outpost",
+      "public_id": "25b9dea2-5942-5a03-a574-eee7e8de7dc7",
+      "category": "festival_location",
+      "location_description": "Outpost, between China and Germany",
+      "latitude": 28.369267,
+      "longitude": -81.546379,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Refreshment Outpost",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Same permanent counter as Food & Wine's Refreshment Outpost."
+    },
+    {
+      "name": "Bavaria Holiday Kitchen",
+      "public_id": "7b83adf2-3c73-586a-8317-1eb2e5eacb5b",
+      "category": "holiday_kitchen",
+      "location_description": "Germany pavilion",
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Germany",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Sommerfest",
+      "public_id": "ab06f48b-4f5a-5bea-9823-e334dc27672e",
+      "category": "festival_location",
+      "location_description": "Germany pavilion",
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Germany",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Permanent Germany counter; pinned on the pavilion until placed."
+    },
+    {
+      "name": "Tuscany Holiday Kitchen",
+      "public_id": "ccb3d8f0-e44e-5216-be85-4bbbd667a184",
+      "category": "holiday_kitchen",
+      "location_description": "Italy pavilion",
+      "latitude": 28.368229,
+      "longitude": -81.547906,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Italy",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "American Holiday Table",
+      "public_id": "174b3723-9e8b-5ddf-815c-c9ded752d117",
+      "category": "holiday_kitchen",
+      "location_description": "The American Adventure pavilion",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Pinned on Food & Wine's Hops & Barley, the American Adventure marketplace."
+    },
+    {
+      "name": "Fife and Drum",
+      "public_id": "845f9dd6-d8bc-530c-a337-51f285f779a2",
+      "category": "festival_location",
+      "location_description": "The American Adventure pavilion",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Regal Eagle Smokehouse",
+      "public_id": "d3edf41b-38ff-5f2c-be76-5465f471b0bc",
+      "category": "festival_location",
+      "location_description": "The American Adventure pavilion",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Block & Hans",
+      "public_id": "94447efd-5ee8-55e0-9a46-af24ecbd2913",
+      "category": "festival_location",
+      "location_description": "The American Adventure pavilion",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Funnel Cake",
+      "public_id": "25f2e09f-c167-5b35-88ef-168d8a5efd54",
+      "category": "festival_location",
+      "location_description": "The American Adventure pavilion",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Shi Wasu Holiday Kitchen",
+      "public_id": "5bf61188-3af8-5a83-99e9-a48c9892fdaf",
+      "category": "holiday_kitchen",
+      "location_description": "Japan pavilion",
+      "latitude": 28.368136,
+      "longitude": -81.550748,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Japan",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Tangierine Café: Flavors of the Medina",
+      "public_id": "5915093a-d692-5480-9395-5f8d0c47cace",
+      "category": "festival_location",
+      "location_description": "Morocco pavilion",
+      "latitude": 28.368349,
+      "longitude": -81.551827,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Tangierine Café: Flavors of the Medina",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Same permanent venue as in Food & Wine."
+    },
+    {
+      "name": "L'Chaim! Holiday Kitchen",
+      "public_id": "9b8a98d2-12e0-52f6-9cdc-c0b90302bba1",
+      "category": "holiday_kitchen",
+      "location_description": "Between Morocco and France",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Le Marché de Noël Holiday Kitchen",
+      "public_id": "be68a49d-151c-5eeb-a7fa-7d25e6bb1d37",
+      "category": "holiday_kitchen",
+      "location_description": "France pavilion",
+      "latitude": 28.369212,
+      "longitude": -81.55253,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: France",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Yukon Holiday Kitchen",
+      "public_id": "072d5837-af56-56f4-88f1-db96098565d6",
+      "category": "holiday_kitchen",
+      "location_description": "Canada pavilion",
+      "latitude": 28.371722,
+      "longitude": -81.550789,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Canada",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Refreshment Port",
+      "public_id": "a9a0139f-c020-51a6-8b0a-e9255eae8282",
+      "category": "festival_location",
+      "location_description": "Near Canada",
+      "latitude": 28.371754,
+      "longitude": -81.550568,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: La Poutinerie",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Assumed to be the counter Food & Wine runs as La Poutinerie (both serve the poutine); confirm."
+    },
+    {
+      "name": "Swirled Showcase",
+      "public_id": "99aa2bda-155b-5dcb-bfcd-feeb8ebe5514",
+      "category": "festival_location",
+      "location_description": "Between World Showcase and the Imagination! pavilion",
+      "latitude": 28.371811,
+      "longitude": -81.55041,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Swirled Showcase",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Same venue as in Food & Wine."
+    },
+    {
+      "name": "Mele Kalikimaka Holiday Kitchen",
+      "public_id": "827573d1-7360-537b-bf13-18f5f395847c",
+      "category": "holiday_kitchen",
+      "location_description": "Between World Showcase and the Imagination! pavilion",
+      "latitude": 28.371961,
+      "longitude": -81.549572,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hawai’i",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Pinned on Food & Wine's Hawai'i booth, the likely same structure; confirm."
+    },
+    {
+      "name": "Nochebuena Cocina",
+      "public_id": "c96cf78d-4674-5f5d-a910-e8a180b9d03e",
+      "category": "holiday_kitchen",
+      "location_description": "Between World Showcase and the Imagination! pavilion",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Chestnuts & Good Cheer Holiday Kitchen",
+      "public_id": "a0eec803-38d3-5a00-9cb5-6ea8ef74cf56",
+      "category": "holiday_kitchen",
+      "location_description": "Between World Showcase and the Imagination! pavilion",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Experimental Prototype Cookies of Tomorrow",
+      "public_id": "efae7401-782d-5b6b-b789-d84603b5026b",
+      "category": "holiday_kitchen",
+      "location_description": "CommuniCore Hall",
+      "latitude": 28.372385,
+      "longitude": -81.547957,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Brew-Wing Lab",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Pinned on CommuniCore Hall (Food & Wine's Brew-Wing Lab) until placed."
+    },
+    {
+      "name": "Favorites of Festivals Past",
+      "public_id": "90e99855-e59d-5b37-a0ef-028d4bdc237b",
+      "category": "holiday_kitchen",
+      "location_description": "CommuniCore Plaza",
+      "latitude": 28.37364,
+      "longitude": -81.549916,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Festival Favorites",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Pinned on Food & Wine's Festival Favorites in CommuniCore Plaza; confirm."
+    },
+    {
+      "name": "Holiday Hearth Desserts",
+      "public_id": "f06c99be-260d-5467-b932-b827f17a7717",
+      "category": "holiday_kitchen",
+      "location_description": "The Odyssey",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Holiday Sweets & Treats",
+      "public_id": "ca78069f-dde4-5eb1-b237-faf1010d58f0",
+      "category": "holiday_kitchen",
+      "location_description": "Near Port of Entry, World Showcase Plaza",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Where the Holiday Cookie Stroll is redeemed."
+    },
+    {
+      "name": "Connections Café & Eatery",
+      "public_id": "44a4e889-fc84-5930-8685-4ef30908899f",
+      "category": "festival_location",
+      "location_description": "World Celebration",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Disney lists Connections Café and Connections Eatery separately; one booth here."
+    },
+    {
+      "name": "Sunshine Seasons",
+      "public_id": "2df753a9-8b67-5f99-ab69-ec8a388333e9",
+      "category": "festival_location",
+      "location_description": "The Land pavilion",
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ]
+    },
+    {
+      "name": "Additional Festival Locations",
+      "public_id": "fdfd2950-b953-53fb-8b06-c0fa45fbc800",
+      "category": "global_marketplace",
+      "location_description": null,
+      "sources": [
+        "disney-parks-blog-2025",
+        "touringplans-2025"
+      ],
+      "note": "Items sold in several places at once (Joffrey's)."
+    }
+  ]
+}

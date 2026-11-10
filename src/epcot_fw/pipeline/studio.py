@@ -23,6 +23,10 @@ What happens here, in order:
      data/manual/booth_locations.json, preserving anything already there;
   3. the caller stages and re-resolves, exactly as `epcot-fw manual` does.
 
+A changeset whose `festival` names a festival that lives in data/festivals/
+(epcot_fw.festival_files) skips steps 2 and 3: its edits go back into that
+festival's own files, and there is nothing in the database to resolve.
+
 Steps 1 and 2 need no database, which is what makes the whole thing
 testable without one - and what lets `--dry-run` report on a changeset
 someone emailed you before any of it touches the disk.
@@ -40,6 +44,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from epcot_fw.festival_files import (
+    DATABASE_FESTIVAL_KEY,
+    FESTIVALS_DIR,
+    FILE_BACKED,
+    apply_entries,
+    festival_dir,
+)
 from epcot_fw.pipeline.manual import (
     DEFAULT_ITEMS_PATH,
     DEFAULT_PATH,
@@ -93,6 +104,10 @@ class ApplyReport:
     added: list[str] = field(default_factory=list)
     deleted: list[str] = field(default_factory=list)
     skipped: list[str] = field(default_factory=list)
+    # Set when the changeset came from a festival that lives in
+    # data/festivals/ rather than the database - see epcot_fw.festival_files.
+    festival: str | None = None
+    festival_dir: Path | None = None
 
     @property
     def total(self) -> int:
@@ -158,6 +173,7 @@ def apply_changeset(
     base_url: str,
     items_path: Path = DEFAULT_ITEMS_PATH,
     booths_path: Path = DEFAULT_PATH,
+    festivals_root: Path = FESTIVALS_DIR,
     dry_run: bool = False,
 ) -> ApplyReport:
     """Publish the changeset's photos and merge the rest into the curated
@@ -170,6 +186,20 @@ def apply_changeset(
     """
     payload = load_changeset(path)
     report = ApplyReport()
+
+    # Every changeset older builds wrote names no festival, and means the
+    # database one. A festival this build has never heard of is refused
+    # rather than guessed at: merged into data/manual/ it would land its
+    # dishes in Food & Wine.
+    festival = payload.get("festival")
+    if festival in (None, DATABASE_FESTIVAL_KEY):
+        festival = None
+    elif festival not in FILE_BACKED:
+        raise ChangesetError(
+            f"{path} is a changeset for festival {festival!r}, which this build does not "
+            f"know how to apply (it knows {DATABASE_FESTIVAL_KEY!r} and "
+            f"{', '.join(map(repr, FILE_BACKED))})."
+        )
 
     base = base_url.rstrip("/")
     slug = publish_dir.name
@@ -214,6 +244,14 @@ def apply_changeset(
             report.added.append(name)
         if raw.get("is_active") is False:
             report.deleted.append(name)
+
+    if festival is not None:
+        report.festival = festival
+        report.festival_dir = festival_dir(festival, festivals_root)
+        report.skipped.extend(
+            apply_entries(report.festival_dir, item_entries, booth_entries, dry_run=dry_run)
+        )
+        return report
 
     if not dry_run:
         if item_entries:

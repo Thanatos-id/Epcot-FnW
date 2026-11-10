@@ -82,11 +82,27 @@ nothing reaches `state.placements` until **Save location**, and Close,
 Cancel and Esc (with a confirmation when a draft exists) leave things as
 they were.
 
-The top bar switches between Epcot's four festivals. Only the festival the
-snapshot was built from is editable (`festival_catalog` marks it
-`has_data`); the curated files and `studio apply` know one festival, so a
-dish typed under another would export into this one. The others show an
-empty state until they are crawled.
+The top bar switches between Epcot's four festivals. A festival has rows from
+one of two places (`festival_catalog` marks it `has_data` and records the
+`source`):
+
+- **database**: the festival the snapshot was exported from (Food & Wine).
+- **research**: a festival researched by hand into `data/festivals/<key>/`
+  (Arts, Flower & Garden, Holidays). `build_artifact.py` reads these through
+  `epcot_fw.festival_files`. Each one appears in the switcher with a
+  "Research" note above the work and a label on every dish saying how sure
+  the research is (*2026 menu*, *Likely 2027*, *Confirmed 2027*), and
+  whether it's part of that festival's food stroll (*Cookie Stroll*,
+  *Garden Graze*, *Wonderful Walk*).
+
+One page load works on one festival. Its rows, its saved edits
+(`epcot-studio-v1:<key>`) and its photo store (`epcot-studio:<key>`) belong
+to that festival. The database festival keeps the unsuffixed keys it has
+always had. Switching to another festival with rows reloads the page. A
+research festival's changeset carries `"festival": "<key>"`, and
+`studio apply` writes it back into that folder rather than `data/manual/`.
+See `data/festivals/README.md`. A festival with neither source shows an
+empty state.
 
 The look is deliberately plain: white and light grey, square corners, 1px
 rules instead of shadows, Inter and Inter Tight, and one colour — orange —

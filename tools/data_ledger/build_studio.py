@@ -73,10 +73,11 @@ DEFAULT_CENTER = [28.3689, -81.5493]
 DEFAULT_ZOOM = 18
 
 # Epcot's four festivals, in calendar order. The database and the curated
-# files describe one festival at a time, so only the one this snapshot was
-# built from is editable; the others render as an honest empty state rather
-# than a switcher that pretends. `match` is what identifies a festival from
-# the snapshot's own name.
+# files describe one festival at a time; a festival researched by hand into
+# data/festivals/ (epcot_fw.festival_files) is a second source of rows. Any
+# festival with neither renders as an honest empty state rather than a
+# switcher that pretends. `match` is what identifies a festival from the
+# snapshot's own name.
 FESTIVALS = (
     {"key": "festival-of-the-arts", "name": "Festival of the Arts", "short": "Arts",
      "season": "January – February", "match": "festival of the arts"},
@@ -89,19 +90,42 @@ FESTIVALS = (
 )
 
 
-def festival_catalog(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
-    """The four festivals, with `has_data` on the one this snapshot is from.
+def festival_catalog(
+    snapshot: dict[str, Any], festivals: dict[str, dict[str, Any]] | None = None
+) -> list[dict[str, Any]]:
+    """The four festivals, with `has_data` on each one there are rows for.
 
-    Matched on the festival's name because that is all the snapshot carries;
-    "EPCOT International Food & Wine Festival" contains "food & wine". A
-    snapshot from no recognisable festival marks none, and the page then
-    refuses edits everywhere rather than guessing which one they belong to.
+    `source` says where those rows come from. "database" is the festival this
+    snapshot was exported from, matched on its name because that is all the
+    snapshot carries ("EPCOT International Food & Wine Festival" contains
+    "food & wine"). "research" is a festival from `festivals`, the
+    file-backed snapshots epcot_fw.festival_files builds; it carries the
+    research summary as `note`. A snapshot from no recognisable festival
+    marks none as "database", and its rows are then editable nowhere rather
+    than filed under a guess.
     """
+    festivals = festivals or {}
     name = ((snapshot.get("festival") or {}).get("name") or "").lower().replace(" and ", " & ")
-    return [
-        {k: v for k, v in festival.items() if k != "match"} | {"has_data": festival["match"] in name}
-        for festival in FESTIVALS
-    ]
+    catalog = []
+    for festival in FESTIVALS:
+        entry = {k: v for k, v in festival.items() if k != "match"}
+        if festival["match"] in name:
+            entry |= {"has_data": True, "source": "database"}
+        elif festival["key"] in festivals:
+            research = festivals[festival["key"]]
+            meta = research.get("meta") or {}
+            entry |= {
+                "has_data": True,
+                "source": "research",
+                "title": meta.get("name") or festival["name"],
+                "note": meta.get("summary") or "",
+                "start": meta.get("start"),
+                "end": meta.get("end"),
+            }
+        else:
+            entry |= {"has_data": False}
+        catalog.append(entry)
+    return catalog
 
 TEMPLATE = r"""<!doctype html>
 <html lang="en">
@@ -341,6 +365,9 @@ body.shell {
 .pill.unplaced, .pill.opens-later { color: var(--signal); border-color: currentColor; }
 .pill.deleted { color: var(--warn); border-color: currentColor; }
 .pill.curated { color: var(--ink); }
+.pill.badge.stale { color: var(--ink-3); border-style: dashed; }
+.pill.badge.confirmed { color: var(--good); border-color: currentColor; }
+.status-line.research .label { margin-right: var(--s2); }
 
 /* ---------- dish rows: a ruled list, not a stack of cards ---------- */
 .rows { display: flex; flex-direction: column; padding: 0 0 var(--s6); }
@@ -543,6 +570,10 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     <button type="button" class="primary" id="update-reload">Reload</button>
   </div>
   <div class="status-line warn hidden" id="storage-note"></div>
+  <div class="status-line research hidden" id="research-line">
+    <span class="label">Research</span><span id="research-note"></span><span class="spacer"></span>
+    <button type="button" class="quiet" id="research-dismiss">Hide</button>
+  </div>
   <div class="status-line hidden" id="settled-line">
     <span id="settled-note"></span><span class="spacer"></span>
     <button type="button" class="quiet" id="settled-dismiss">Dismiss</button>
@@ -709,6 +740,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
 </dialog>
 
 <script id="studio-data" type="application/json">__DATA_JSON__</script>
+<script id="studio-festivals" type="application/json">__FESTIVAL_DATA_JSON__</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function () {
@@ -724,8 +756,41 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   // a person can stand. Never offered for placement - see snapshot_rows.py.
   var AGGREGATE_BOOTH_NAME = __AGGREGATE_BOOTH_NAME__;
 
-  var STORE_KEY = 'epcot-studio-v1';
-  var DB_NAME = 'epcot-studio';
+  // Which festival's rows this page load works on. Chosen once, before any
+  // state is read, because everything below - the rows, the saved edits, the
+  // photo store - belongs to exactly one festival. Switching to another
+  // festival with rows reloads the page rather than swapping all of that
+  // out from under a half-drawn screen.
+  //
+  // The database festival keeps the storage it has always had, byte for
+  // byte, so edits saved by every earlier build are where they were. A
+  // festival researched into data/festivals/ gets its own keys: the same
+  // booth name ("Refreshment Outpost", "Swirled Showcase") turns up in more
+  // than one festival, and one shared store would file a Holidays price
+  // correction against the Food & Wine dish of that name.
+  var FESTIVAL_DATA = JSON.parse(document.getElementById('studio-festivals').textContent);
+  var FESTIVAL_PICK_KEY = 'epcot-studio-festival';
+  function pickedFestivalKey() {
+    try {
+      var picked = localStorage.getItem(FESTIVAL_PICK_KEY);
+      if (picked) return picked;
+      // Builds before this one kept the choice inside the database
+      // festival's own store.
+      return JSON.parse(localStorage.getItem('epcot-studio-v1') || '{}').festival || null;
+    } catch (e) {
+      return null;
+    }
+  }
+  var PRIMARY = FESTIVALS.filter(function (f) { return f.source === 'database'; })[0] || null;
+  var LOADED = FESTIVALS.filter(function (f) {
+    return f.key === pickedFestivalKey() && f.source === 'research' && FESTIVAL_DATA[f.key];
+  })[0] || PRIMARY;
+  var RESEARCH = !!(LOADED && LOADED.source === 'research');
+  if (RESEARCH) DATA = FESTIVAL_DATA[LOADED.key];
+  var SCOPE = RESEARCH ? ':' + LOADED.key : '';
+
+  var STORE_KEY = 'epcot-studio-v1' + SCOPE;
+  var DB_NAME = 'epcot-studio' + SCOPE;
   var DB_STORE = 'photos';
   // Downscaled before anything else touches it. A modern phone camera
   // produces 3-4MB per shot and a lap of the festival is dozens of dishes;
@@ -747,7 +812,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     noPhotoOnly: false, unplacedOnly: false, editedOnly: false, addedOnly: false,
     newOnly: false,
     expandedTags: null,
-    festival: null,                    // key into FESTIVALS; null = the one with data
+    festival: pickedFestivalKey(),     // key into FESTIVALS; null = the one loaded
     drawer: null                       // {booth, draft} while the map drawer is open
   };
 
@@ -804,7 +869,6 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       state.added = { items: (raw.added || {}).items || [], booths: (raw.added || {}).booths || [] };
       state.deleted = { items: (raw.deleted || {}).items || {}, booths: (raw.deleted || {}).booths || {} };
       state.selected = raw.selected || null;
-      state.festival = raw.festival || null;
     } catch (e) {
       // Private mode, storage off - start clean rather than refusing to run.
     }
@@ -1907,13 +1971,26 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     // heading, and repeating it 209 times was noise even when they didn't.
     // A deleted row says so whatever its origin - a crawled dish dimmed to
     // 55% and nothing else would read as a rendering glitch.
-    if (isAdded(row) || isDeleted(row)) {
+    var badges = row.badges || [];
+    if (isAdded(row) || isDeleted(row) || badges.length) {
       var head = document.createElement('div');
       head.className = 'row-head';
-      var pill = document.createElement('span');
-      pill.className = isDeleted(row) ? 'pill deleted' : 'pill curated';
-      pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
-      head.appendChild(pill);
+      if (isAdded(row) || isDeleted(row)) {
+        var pill = document.createElement('span');
+        pill.className = isDeleted(row) ? 'pill deleted' : 'pill curated';
+        pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
+        head.appendChild(pill);
+      }
+      // How sure the research is that this dish is on this year's menu,
+      // and whether it counts toward the Cookie Stroll. Read-only: set in
+      // the festival's own files, not here.
+      badges.forEach(function (text) {
+        var b = document.createElement('span');
+        b.className = 'pill badge' + (/^confirmed/i.test(text) ? ' confirmed' : '') +
+          (/^2025/.test(text) ? ' stale' : '');
+        b.textContent = text;
+        head.appendChild(b);
+      });
       fields.appendChild(head);
     }
 
@@ -2008,7 +2085,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var live = dishesOf(row.name).length;
     head.innerHTML = '<h2>' + esc(valueOf(row, 'name')) + '</h2>' +
       '<span class="count">' + live + (live === 1 ? ' dish' : ' dishes') + '</span>';
-    if (isAdded(row)) {
+    if (isAdded(row) || isDeleted(row)) {
       var pill = document.createElement('span');
       pill.className = isDeleted(row) ? 'pill deleted' : 'pill curated';
       pill.textContent = isDeleted(row) ? 'Deleted' : 'Added by hand';
@@ -2094,7 +2171,8 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var actions = document.createElement('span');
     actions.className = 'booth-actions';
     if (isRowChanged(row) && !row._id) actions.appendChild(button('Revert booth', 'linkish', function () { revert(row); }));
-    if (isAdded(row)) {
+    // A researched booth can go too: last year's kitchen may not return.
+    if (isAdded(row) || row.origin === 'researched') {
       actions.appendChild(isDeleted(row)
         ? button('Undo delete', 'linkish', function () { undelete(row); })
         : button('Delete booth', 'linkish', function () { removeRow(row); }));
@@ -2136,19 +2214,15 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   // one. The rest are shown, honestly empty, so the switcher is ready for
   // the day they are crawled.
   function currentFestival() {
-    var withData = null, picked = null;
-    FESTIVALS.forEach(function (f) {
-      if (f.has_data && !withData) withData = f;
-      if (f.key === state.festival) picked = f;
-    });
-    return picked || withData || FESTIVALS[0];
+    var picked = FESTIVALS.filter(function (f) { return f.key === state.festival; })[0];
+    return picked || LOADED || FESTIVALS[0];
   }
-  function liveFestival() {
-    return FESTIVALS.filter(function (f) { return f.has_data; })[0] || null;
-  }
+  function liveFestival() { return LOADED; }
+  // Only the festival whose rows this page load holds. Any other one with
+  // rows is a reload away, and one without rows has nothing to edit.
   function festivalEditable() {
     var f = currentFestival();
-    return !!(f && f.has_data);
+    return !!(f && f.has_data && LOADED && f.key === LOADED.key);
   }
 
   function renderFestivals() {
@@ -2162,10 +2236,14 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       b.title = f.name + ' · ' + f.season + (f.has_data ? '' : ' · no data yet');
       b.textContent = f.short;
       b.addEventListener('click', function () {
-        if (state.festival === f.key) return;
+        if (currentFestival().key === f.key) return;
         if (state.drawer) shutDrawer();
         state.festival = f.key;
+        try { localStorage.setItem(FESTIVAL_PICK_KEY, f.key); } catch (e) { /* stays for this load only */ }
         save();
+        // Another festival's rows: its edits and photos live under their own
+        // keys, which this load never opened. Everything is already saved.
+        if (f.has_data && (!LOADED || f.key !== LOADED.key)) { location.reload(); return; }
         render();
       });
       nav.appendChild(b);
@@ -2243,8 +2321,23 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
         : dishes.length + ' of ' + total;
   }
 
+  // A researched festival is a first pass, not a crawl, and says so above the
+  // work until it is waved away for this load.
+  var researchHidden = false;
+  function renderResearchNote() {
+    var line = document.getElementById('research-line');
+    var show = RESEARCH && festivalEditable() && !researchHidden && !!LOADED.note;
+    line.classList.toggle('hidden', !show);
+    if (show) document.getElementById('research-note').textContent = LOADED.note;
+  }
+  document.getElementById('research-dismiss').addEventListener('click', function () {
+    researchHidden = true;
+    renderResearchNote();
+  });
+
   function render() {
     renderFestivals();
+    renderResearchNote();
     var editable = festivalEditable();
     document.getElementById('layout').classList.toggle('hidden', !editable);
     document.getElementById('festival-empty').classList.toggle('hidden', editable);
@@ -2348,11 +2441,17 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       booths.push(entry);
     });
 
-    return { version: 1, generated_at: new Date().toISOString(), menu_items: menu_items, booths: booths };
+    var changeset = { version: 1, generated_at: new Date().toISOString(), menu_items: menu_items, booths: booths };
+    // Only a researched festival says which it is. A database changeset stays
+    // exactly what every earlier build wrote, and `studio apply` reads a
+    // changeset naming no festival as the database one.
+    if (RESEARCH) changeset.festival = LOADED.key;
+    return changeset;
   }
 
   function changesetFilename() {
-    return 'epcot-changeset-' + new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19) + '.json';
+    return 'epcot-changeset-' + (RESEARCH ? LOADED.key + '-' : '') +
+      new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19) + '.json';
   }
 
   var exportDialog = document.getElementById('export-dialog');
@@ -2644,22 +2743,40 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
 """
 
 
-def render(snapshot: dict[str, Any], *, generated_at: str = "") -> str:
-    """Snapshot in, complete self-contained page out."""
+def render(
+    snapshot: dict[str, Any],
+    *,
+    generated_at: str = "",
+    festivals: dict[str, dict[str, Any]] | None = None,
+) -> str:
+    """Snapshot in, complete self-contained page out.
+
+    `festivals` maps a festival key to a snapshot-shaped dict for a festival
+    that is not in the database - epcot_fw.festival_files.build_snapshot -
+    each of which becomes a festival of its own in the switcher.
+    """
     rows = studio_rows(snapshot)
     # `</` is broken up because the blob sits inside a <script> element, where
     # the HTML parser ends the element at the first `</script>` regardless of
     # what the JSON quoting thinks.
     payload = json.dumps(rows, default=str).replace("</", "<\\/")
+    catalog = festival_catalog(snapshot, festivals)
+    research = {
+        f["key"]: studio_rows(festivals[f["key"]])
+        for f in catalog
+        if f.get("source") == "research"
+    }
+    festival_payload = json.dumps(research, default=str).replace("</", "<\\/")
     return (
         TEMPLATE.replace("__CATEGORIES__", json.dumps(list(CATEGORIES)))
         .replace("__TAGS__", json.dumps(list(TAGS)))
         .replace("__FLAVOUR_TAGS__", json.dumps(list(FLAVOUR_TAGS)))
         .replace("__ALCOHOL_KINDS__", json.dumps(list(ALCOHOL_KINDS)))
-        .replace("__FESTIVALS__", json.dumps(festival_catalog(snapshot)).replace("</", "<\\/"))
+        .replace("__FESTIVALS__", json.dumps(catalog, default=str).replace("</", "<\\/"))
         .replace("__CENTER_JSON__", json.dumps(DEFAULT_CENTER))
         .replace("__ZOOM__", str(DEFAULT_ZOOM))
         .replace("__AGGREGATE_BOOTH_NAME__", json.dumps(AGGREGATE_BOOTH_NAME))
         .replace("__GENERATED_AT__", generated_at or "")
+        .replace("__FESTIVAL_DATA_JSON__", festival_payload)
         .replace("__DATA_JSON__", payload)
     )

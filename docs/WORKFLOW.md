@@ -65,6 +65,15 @@ published Pages path, merges the rest into `data/manual/menu_items.json` and
 it. Everything lands under the `manual` source at `priority_rank 0`, so it
 beats every crawled source and survives the next refresh.
 
+**A changeset from Arts, Flower & Garden or Holidays goes somewhere else.**
+Its file is named after the festival, for example
+`epcot-changeset-festival-of-the-holidays-…json`, and carries
+`"festival": "<key>"`. The same command writes it back into
+`data/festivals/<key>/`. It doesn't touch the
+database or `data/manual/`, and doesn't resolve anything. The `--dry-run`
+output names the folder. Afterwards, rebuild the page with
+`python tools/data_ledger/build_artifact.py` and commit that folder.
+
 ## 4. Let this season's photos win
 
 ```bash

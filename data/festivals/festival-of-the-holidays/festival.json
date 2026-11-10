@@ -1,0 +1,62 @@
+{
+  "key": "festival-of-the-holidays",
+  "name": "EPCOT International Festival of the Holidays 2026",
+  "year": 2026,
+  "start": "2026-11-27",
+  "end": "2026-12-30",
+  "official_url": "https://disneyworld.disney.go.com/events-tours/epcot/epcot-international-festival-of-the-holidays/",
+  "researched_at": "2026-11-10",
+  "summary": "First pass from research. Disney has announced the 2026 dates but not the 2026 holiday kitchen menus, so every booth and dish here is the 2025 festival's, from Disney's own 2025 Foodie Guide cross-checked against TouringPlans' priced 2025 menus. Prices are 2025's. Dishes already confirmed for 2026 are labelled; the rest say 2025 menu until the 2026 guide is out.",
+  "location_notes": [
+    "No source publishes coordinates. A kitchen in a pavilion that also hosts a Food & Wine marketplace is pinned on that marketplace's Studio pin with precision 'anchored' (pavilion-level, 30-50m), and says so in `pinned_from`.",
+    "Permanent venues shared with Food & Wine (Refreshment Outpost, Tangierine Café, Swirled Showcase) reuse the Food & Wine pin at its own precision.",
+    "Unplaced on purpose, because nothing pins them: L'Chaim! (between Morocco and France), Nochebuena Cocina and Chestnuts & Good Cheer (between World Showcase and Imagination!), Holiday Hearth Desserts (The Odyssey), Holiday Sweets & Treats (near Port of Entry), Connections Café & Eatery, Sunshine Seasons."
+  ],
+  "sources": {
+    "disney-parks-blog-2025": {
+      "title": "Disney Eats: EPCOT International Festival of the Holidays Foodie Guide 2025",
+      "publisher": "Disney Parks Blog",
+      "published": "2025-11-13",
+      "url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+      "used_for": "Booth names and locations, every dish, Cookie Stroll and plant-based markers. Publishes no prices."
+    },
+    "touringplans-2025": {
+      "title": "2025 EPCOT Festival of the Holidays Menus",
+      "publisher": "TouringPlans",
+      "published": "2025-11-14",
+      "url": "https://touringplans.com/blog/2025-epcot-festival-of-the-holidays-menus/",
+      "used_for": "2025 prices, checked dish by dish against the Disney guide. The two list the same booths and dishes."
+    },
+    "disney-parks-blog-2026-dates": {
+      "title": "2026 EPCOT International Festival of the Holidays Dates and Details",
+      "publisher": "Disney Parks Blog",
+      "published": "2026-06-24",
+      "url": "https://disneyparksblog.com/wdw/epcot-festival-of-the-holidays-dates-details/",
+      "used_for": "2026 dates (Nov 27 - Dec 30). Holiday Kitchens and the Cookie Stroll return; no booth or menu detail."
+    },
+    "disney-food-blog-2026-09-08": {
+      "title": "4 Menu Items CONFIRMED for 2026 EPCOT Festival of the Holidays!",
+      "publisher": "Disney Food Blog",
+      "published": "2026-09-08",
+      "url": "https://www.disneyfoodblog.com/2026/09/08/4-menu-items-confirmed-for-2026-epcot-festival-of-the-holidays/",
+      "used_for": "Creamy Eggnog (Chestnuts & Good Cheer) and Turkey Poutine confirmed; a seasonal shake and a macaron confirmed without flavours. Read through search summaries: the site refuses automated fetches."
+    },
+    "touringplans-2026-guide": {
+      "title": "2026 Guide to EPCOT's Festival of the Holidays",
+      "publisher": "TouringPlans",
+      "published": "2026-10-22",
+      "url": "https://touringplans.com/blog/2026-guide-to-epcots-festival-of-the-holidays/",
+      "used_for": "Confirms 2026 menus were not yet published as of Oct 22 and that 19+ kitchens return."
+    }
+  },
+  "next_step": "Disney's 2026 Foodie Guide for this festival is still to come (the 2024 guide ran Nov 14, 2025's Nov 13). When it lands, re-check every dish: correct names and prices in the Studio, delete what did not return, add what is new.",
+  "photo_pages": [
+    {
+      "url": "https://disneyparksblog.com/wdw/disney-eats-epcot-international-festival-of-the-holidays-foodie-guide-2025/",
+      "season": 2025
+    }
+  ],
+  "photo_pages_note": "Read by `epcot-fw festival photos`, newest first. Disney rewrites one guide per festival each year; add next year's guide here when it is published and re-run: its photos replace these, dish by dish.",
+  "stroll_label": "Cookie Stroll",
+  "photo_pages_older": "Checked 2022-2024 (2024 live, 2022-2023 via the Internet Archive): each kitchen had one group photo, never a photo per dish. Per-dish photos start with the 2025 guide."
+}

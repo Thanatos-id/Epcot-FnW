@@ -1,0 +1,273 @@
+{
+  "booths": [
+    {
+      "name": "Opening Bites",
+      "category": "food_studio",
+      "location_description": "CommuniCore Plaza",
+      "latitude": 28.37364,
+      "longitude": -81.549916,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Festival Favorites",
+      "public_id": "60f0786e-5209-5e48-8b55-89b924d5d1ec",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Connections Eatery",
+      "category": "festival_location",
+      "location_description": null,
+      "public_id": "0252bdd3-2aec-57f5-a93d-f122e2012313",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Deconstructed Dish",
+      "category": "food_studio",
+      "location_description": "Near Test Track",
+      "public_id": "bda281ca-2826-5984-8fd1-8076e9df637f",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Figment’s Inspiration Station at The Odyssey",
+      "category": "food_studio",
+      "location_description": "The Odyssey",
+      "public_id": "3faac404-38f8-5f2c-aa62-d1bfe03d665e",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "El Artista Hambriento",
+      "category": "food_studio",
+      "location_description": "Mexico",
+      "latitude": 28.37152,
+      "longitude": -81.548231,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Mexico",
+      "public_id": "2546d4c9-3c0e-5da3-b467-e1bdb7f189dc",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Kringla Bakeri Og Kafe",
+      "category": "festival_location",
+      "location_description": "Norway",
+      "public_id": "06f91888-c670-5967-ac24-6df0fb000a12",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Painted Panda",
+      "category": "food_studio",
+      "location_description": "China",
+      "latitude": 28.370057,
+      "longitude": -81.547004,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: China",
+      "public_id": "d6eaa3f2-8d13-588b-bfef-0ee9ba9d252e",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Refreshment Outpost",
+      "category": "festival_location",
+      "location_description": "In between China and Germany",
+      "latitude": 28.369267,
+      "longitude": -81.546379,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Refreshment Outpost",
+      "public_id": "dc920ba5-7c0a-51e7-bf80-27cc02f2102d",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Pastoral Palate",
+      "category": "food_studio",
+      "location_description": "Germany",
+      "latitude": 28.368498,
+      "longitude": -81.546735,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Germany",
+      "public_id": "7088b5d2-66ca-5b59-853d-db4c61745082",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "L’Arte di Mangiare",
+      "category": "food_studio",
+      "location_description": "Italy",
+      "latitude": 28.368229,
+      "longitude": -81.547906,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Italy",
+      "public_id": "37ee65ce-c07d-581e-b38b-24e91e7d8c5e",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Artist’s Table",
+      "category": "food_studio",
+      "location_description": "The American Adventure",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "public_id": "57677874-2075-5641-a59d-41168fd53d96",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Funnel Cake",
+      "category": "festival_location",
+      "location_description": "The American Adventure",
+      "latitude": 28.367782,
+      "longitude": -81.549857,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Hops & Barley",
+      "public_id": "1290f69a-0bd0-55fe-886a-19330d01ed48",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Goshiki",
+      "category": "food_studio",
+      "location_description": "Japan",
+      "latitude": 28.368136,
+      "longitude": -81.550748,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Japan",
+      "public_id": "12a6f970-21e9-5331-84b3-4425c6cb3303",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Tangierine Café: Flavors of the Medina",
+      "category": "festival_location",
+      "location_description": "Morocco",
+      "latitude": 28.368349,
+      "longitude": -81.551827,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Tangierine Café: Flavors of the Medina",
+      "public_id": "c671f987-3ffc-510d-abdb-2ea38c8db0e8",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Vibrante & Vívido",
+      "category": "food_studio",
+      "location_description": "Between Morocco and France",
+      "public_id": "658ab4f6-e320-5d42-82a2-fb49323f24ab",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "L’Art de la Cuisine Française",
+      "category": "food_studio",
+      "location_description": "France",
+      "latitude": 28.369212,
+      "longitude": -81.55253,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: France",
+      "public_id": "735a47ff-544d-557d-8d0b-37f2d2ec7f64",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Gourmet Landscapes",
+      "category": "food_studio",
+      "location_description": "Canada",
+      "latitude": 28.371722,
+      "longitude": -81.550789,
+      "location_precision": "anchored",
+      "pinned_from": "Food & Wine 2026: Canada",
+      "public_id": "b3c699c2-a974-5f64-b954-605373de581d",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Fictional Victuals",
+      "category": "food_studio",
+      "location_description": "Near Disney Traders",
+      "public_id": "4cca1de2-acfb-5578-9d6c-c7935c533787",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Deco Delights",
+      "category": "food_studio",
+      "location_description": "Near Port of Entry",
+      "public_id": "5ecfdcbf-e038-59b8-842c-b1c1a26fa3bf",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Pop Eats",
+      "category": "food_studio",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "public_id": "72d013d6-1611-577a-98e0-cfb311efb4f8",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Swirled Showcase",
+      "category": "festival_location",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "latitude": 28.371811,
+      "longitude": -81.55041,
+      "location_precision": "mapped",
+      "pinned_from": "Food & Wine 2026: Swirled Showcase",
+      "public_id": "8263c278-d455-5720-8659-0232bcb0ea96",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "The Craftsman’s Courtyard",
+      "category": "food_studio",
+      "location_description": "Walkway between World Showcase and Imagination! Pavilion",
+      "public_id": "14b372f3-db81-544f-9e5f-a059274d003d",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Sunshine Seasons",
+      "category": "festival_location",
+      "location_description": null,
+      "public_id": "809ef903-3c58-5947-a0f3-4cd81cdfc498",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    },
+    {
+      "name": "Additional Festival Locations",
+      "category": "global_marketplace",
+      "location_description": null,
+      "note": "Items sold in several places at once (Joffrey's).",
+      "public_id": "41b9d4fd-e1d5-5662-909d-529fda87ac4e",
+      "sources": [
+        "disney-parks-blog-2026"
+      ]
+    }
+  ]
+}
