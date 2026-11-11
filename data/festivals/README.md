@@ -23,7 +23,26 @@ chooses the festival every crawl and every export runs against: the running
 one, otherwise the next one to start. A Holidays row seeded now would take
 over the daily refresh the morning after Food & Wine closes on Nov 21, and
 point the Food & Wine source adapters at it. Nothing here touches the
-database, `data/manual/` or the published feed (`docs/v1/`).
+database, `data/manual/` or the single-festival feed (`docs/v1/snapshot.json`).
+
+## Publishing to the app
+
+Each folder is published as its own snapshot, beside an index of all four
+festivals (see `docs/CLIENT_API.md`, "More than one festival"):
+
+```bash
+epcot-fw festival feed
+git add docs/v1/ && git commit && git push
+```
+
+It needs no database. Three fields in `festival.json` are what the app's
+festival picker shows:
+
+- `short_name`: the name in the picker ("Festival of the Holidays").
+- `typical_dates`: when the festival usually runs, as display text.
+- `menu_season`: the year these menus come from. While it is earlier than
+  `year` the app says "Showing 2025 menus". **Set it to `year` when the new
+  edition's menus go in**, and the app says the menus are up to date.
 
 ## Working on one
 

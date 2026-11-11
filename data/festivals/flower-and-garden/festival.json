@@ -1,9 +1,12 @@
 {
   "key": "flower-and-garden",
   "name": "EPCOT International Flower & Garden Festival 2027",
+  "short_name": "Flower & Garden",
   "year": 2027,
   "start": "2027-03-10",
   "end": "2027-05-31",
+  "typical_dates": "Early March to early June",
+  "menu_season": 2026,
   "official_url": "https://disneyworld.disney.go.com/events-tours/epcot/epcot-international-flower-and-garden-festival/",
   "researched_at": "2026-11-10",
   "stroll_label": "Garden Graze",

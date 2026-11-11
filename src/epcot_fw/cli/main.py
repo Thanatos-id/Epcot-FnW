@@ -415,6 +415,28 @@ festival_app = typer.Typer(help="Festivals researched into data/festivals/ rathe
 app.add_typer(festival_app, name="festival")
 
 
+@festival_app.command("feed")
+def festival_feed() -> None:
+    """Rebuild the multi-festival client feed under docs/v1/.
+
+    Writes docs/v1/festivals.json and one docs/v1/festivals/<key>/snapshot.json
+    per festival, from data/festivals/ and the already published
+    docs/v1/snapshot.json. Needs no database, so it is the command to run
+    after editing a file-backed festival. `export_snapshot.py` runs the same
+    step after it republishes the database festival.
+    """
+    from epcot_fw import festival_files
+    from epcot_fw.client_feed import write_feed
+
+    client_dir = festival_files.FESTIVALS_DIR.parents[1] / "docs" / "v1"
+    for entry in write_feed(client_dir):
+        console.print(
+            f"wrote {client_dir / entry['snapshot']} "
+            f"({entry['short_name']}, {entry['menu_season']} menus, {entry['status']})"
+        )
+    console.print(f"wrote {client_dir / 'festivals.json'} - commit + push docs/v1/ to publish.")
+
+
 @festival_app.command("photos")
 def festival_photos(
     festival: str = typer.Argument("festival-of-the-holidays", help="Key of a folder in data/festivals/"),
