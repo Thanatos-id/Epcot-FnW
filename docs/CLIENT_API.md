@@ -64,6 +64,60 @@ a tree.
 | `data_updated_at` | When the data last changed, not when the file was built — so an unchanged database produces an identical file and a stable ETag. |
 | `min_app_version` | Null today. Setting it is how a future breaking change gets rolled out: publish `/v2/`, then set this on `/v1/` so old builds show "please update" instead of quietly misreading data. Read it and honour it from your first release, or it is useless when you need it. |
 
+## More than one festival
+
+`snapshot.json` above is one festival, whichever is current, and builds
+that only know one festival keep reading it. Beside it:
+
+```
+https://thanatos-id.github.io/Epcot-FnW/v1/festivals.json
+https://thanatos-id.github.io/Epcot-FnW/v1/festivals/<key>/snapshot.json
+```
+
+Keys are `festival-of-the-arts`, `flower-and-garden`, `food-and-wine` and
+`festival-of-the-holidays`. Each per-festival file is the same contract as
+`snapshot.json`, decoded by the same code, with `key`, `short_name`,
+`typical_dates` and `menu_season` added to its `festival` object.
+
+`festivals.json` lists them in calendar order:
+
+```jsonc
+{
+  "schema_version": 1,
+  "min_app_version": null,
+  "festivals": [
+    {
+      "key": "festival-of-the-holidays",
+      "name": "EPCOT International Festival of the Holidays",
+      "short_name": "Festival of the Holidays",
+      "year": 2026,
+      "start_date": "2026-11-27",
+      "end_date": "2026-12-30",
+      "status": "upcoming",
+      "typical_dates": "Late November to late December",
+      "menu_season": 2025,
+      "data_updated_at": "2026-11-11T01:54:50.621012+00:00",
+      "snapshot": "festivals/festival-of-the-holidays/snapshot.json"
+    }
+  ]
+}
+```
+
+| field | why |
+|---|---|
+| `start_date` / `end_date` | The edition's announced dates. **Work out which festival is current from these on the device**, in park time, with the end date inclusive. `status` is only as fresh as the last publish. |
+| `menu_season` | The year the menus come from. Earlier than `year` means the next edition's menus are not out and last year's are standing in; say so in the UI. |
+| `typical_dates` | Display text for when the festival usually runs. |
+| `data_updated_at` | The same stamp as that festival's snapshot, so a client can skip fetching a snapshot it already holds. |
+| `snapshot` | Path relative to the index. |
+
+Things that differ in the three festivals researched from files
+(`data/festivals/`): `origin` is `researched`, integer `id`s are positions in
+the files (as ever, save `public_id`), many booths have no coordinates yet,
+and `public_id` is unique across all four festivals.
+
+Written by `epcot-fw festival feed`, which `export_snapshot.py` also runs.
+
 ## Fetching it
 
 ```swift

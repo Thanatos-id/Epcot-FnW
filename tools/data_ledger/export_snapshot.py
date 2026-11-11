@@ -26,6 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
 from epcot_fw.api.routers.snapshot import build_snapshot  # noqa: E402
+from epcot_fw.client_feed import write_feed  # noqa: E402
 from epcot_fw.db.base import SessionLocal  # noqa: E402
 from epcot_fw.db.models import (  # noqa: E402
     Booth,
@@ -175,6 +176,13 @@ def export() -> None:
             f"{len(client['menu_items'])} items, {size_kb:.0f} KB, "
             f"schema v{client['schema_version']})"
         )
+
+    # The multi-festival feed: this festival's snapshot again under its own
+    # key, the file-backed festivals beside it, and the index that lists
+    # them. Read back from the file just written - see epcot_fw.client_feed.
+    for entry in write_feed(CLIENT_DIR):
+        print(f"wrote {CLIENT_DIR / entry['snapshot']} ({entry['short_name']}, {entry['menu_season']} menus)")
+    print(f"wrote {CLIENT_DIR / 'festivals.json'}")
 
 
 if __name__ == "__main__":

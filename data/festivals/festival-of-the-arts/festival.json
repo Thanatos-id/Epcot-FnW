@@ -1,9 +1,12 @@
 {
   "key": "festival-of-the-arts",
   "name": "EPCOT International Festival of the Arts 2027",
+  "short_name": "Festival of the Arts",
   "year": 2027,
   "start": "2027-01-15",
   "end": "2027-03-01",
+  "typical_dates": "Mid-January to late February",
+  "menu_season": 2026,
   "official_url": "https://disneyworld.disney.go.com/events-tours/epcot/epcot-international-festival-of-the-arts/",
   "researched_at": "2026-11-10",
   "stroll_label": "Wonderful Walk",
