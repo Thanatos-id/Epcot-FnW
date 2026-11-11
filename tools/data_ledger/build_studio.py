@@ -41,6 +41,7 @@ photos included, is inlined.
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from snapshot_rows import AGGREGATE_BOOTH_NAME, studio_rows
@@ -106,10 +107,16 @@ def festival_catalog(
     """
     festivals = festivals or {}
     name = ((snapshot.get("festival") or {}).get("name") or "").lower().replace(" and ", " & ")
+    database = {festival["key"] for festival in FESTIVALS if festival["match"] in name}
+    return _catalog(database, festivals)
+
+
+def _catalog(database: set[str], festivals: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """The catalog, given which keys the database holds and which are researched."""
     catalog = []
     for festival in FESTIVALS:
         entry = {k: v for k, v in festival.items() if k != "match"}
-        if festival["match"] in name:
+        if festival["key"] in database:
             entry |= {"has_data": True, "source": "database"}
         elif festival["key"] in festivals:
             research = festivals[festival["key"]]
@@ -126,6 +133,53 @@ def festival_catalog(
             entry |= {"has_data": False}
         catalog.append(entry)
     return catalog
+
+
+def _script_json(value: Any) -> str:
+    # `</` is broken up because the blob sits inside a <script> element, where
+    # the HTML parser ends the element at the first `</script>` regardless of
+    # what the JSON quoting thinks.
+    return json.dumps(value, default=str).replace("</", "<\\/")
+
+
+def _research_rows(
+    catalog: list[dict[str, Any]], festivals: dict[str, dict[str, Any]]
+) -> dict[str, dict[str, list[dict[str, Any]]]]:
+    return {f["key"]: studio_rows(festivals[f["key"]]) for f in catalog if f.get("source") == "research"}
+
+
+_CATALOG_LINE_RE = re.compile(r"^(  var FESTIVALS = )(.*)(;)$", re.MULTILINE)
+_FESTIVAL_BLOB_RE = re.compile(
+    r'(<script id="studio-festivals" type="application/json">)(.*?)(</script>)', re.DOTALL
+)
+
+
+def embed_festivals(html: str, festivals: dict[str, dict[str, Any]]) -> str:
+    """An already rendered page, with its researched festivals replaced.
+
+    A full `render()` needs the database snapshot, which is megabytes of
+    inlined photos, gitignored, and only ever exists on the machine with the
+    database. The researched festivals need none of it: this swaps their
+    rows and their catalog entries in place and leaves every other byte -
+    the database festival's rows above all - exactly as it was. It is what
+    lets a publish that only touched data/festivals/ rebuild the Studio
+    anywhere, and for the same inputs it produces the same page `render()`
+    does.
+
+    Raises ValueError on a page it does not recognise rather than returning
+    one it only half updated.
+    """
+    line = _CATALOG_LINE_RE.search(html)
+    blob = _FESTIVAL_BLOB_RE.search(html)
+    if line is None or blob is None:
+        raise ValueError("not a studio page this build can re-embed festivals into")
+    existing = json.loads(line.group(2))
+    database = {entry["key"] for entry in existing if entry.get("source") == "database"}
+    catalog = _catalog(database, festivals)
+    html = _FESTIVAL_BLOB_RE.sub(
+        lambda m: m.group(1) + _script_json(_research_rows(catalog, festivals)) + m.group(3), html, count=1
+    )
+    return _CATALOG_LINE_RE.sub(lambda m: m.group(1) + _script_json(catalog) + m.group(3), html, count=1)
 
 TEMPLATE = r"""<!doctype html>
 <html lang="en">
@@ -2755,24 +2809,15 @@ def render(
     that is not in the database - epcot_fw.festival_files.build_snapshot -
     each of which becomes a festival of its own in the switcher.
     """
-    rows = studio_rows(snapshot)
-    # `</` is broken up because the blob sits inside a <script> element, where
-    # the HTML parser ends the element at the first `</script>` regardless of
-    # what the JSON quoting thinks.
-    payload = json.dumps(rows, default=str).replace("</", "<\\/")
+    payload = _script_json(studio_rows(snapshot))
     catalog = festival_catalog(snapshot, festivals)
-    research = {
-        f["key"]: studio_rows(festivals[f["key"]])
-        for f in catalog
-        if f.get("source") == "research"
-    }
-    festival_payload = json.dumps(research, default=str).replace("</", "<\\/")
+    festival_payload = _script_json(_research_rows(catalog, festivals or {}))
     return (
         TEMPLATE.replace("__CATEGORIES__", json.dumps(list(CATEGORIES)))
         .replace("__TAGS__", json.dumps(list(TAGS)))
         .replace("__FLAVOUR_TAGS__", json.dumps(list(FLAVOUR_TAGS)))
         .replace("__ALCOHOL_KINDS__", json.dumps(list(ALCOHOL_KINDS)))
-        .replace("__FESTIVALS__", json.dumps(catalog, default=str).replace("</", "<\\/"))
+        .replace("__FESTIVALS__", _script_json(catalog))
         .replace("__CENTER_JSON__", json.dumps(DEFAULT_CENTER))
         .replace("__ZOOM__", str(DEFAULT_ZOOM))
         .replace("__AGGREGATE_BOOTH_NAME__", json.dumps(AGGREGATE_BOOTH_NAME))

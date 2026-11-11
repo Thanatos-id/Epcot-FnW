@@ -14,6 +14,42 @@ how you know it took — it reads `(.venv) … Epcot %` afterwards. Without the
 venv, `epcot-fw` is not on your PATH and none of the commands below resolve,
 and a `cd` that failed leaves the rest of them running somewhere else.
 
+## The short way
+
+After **Export** in the studio, one command does everything below it on this
+page:
+
+```bash
+epcot-fw studio publish --dry-run "$(ls -t ~/Downloads/epcot-changeset-*.json | head -1)"
+```
+
+```bash
+epcot-fw studio publish "$(ls -t ~/Downloads/epcot-changeset-*.json | head -1)"
+```
+
+The first runs the checks and writes nothing. The second applies the
+changeset, rebuilds what it affects, commits on the current branch and pushes
+it. GitHub Pages serves `main`, so run it there for the change to go live.
+
+It refuses, and says why, when:
+
+- anything in the changeset could not be applied (a skipped entry is an edit
+  that would silently not happen);
+- a booth or dish would disappear that the changeset did not delete;
+- two rows could not be told apart, or a dish's booth is missing from the feed.
+
+A refused publish of Arts, Flower & Garden or Holidays writes nothing at all:
+the changeset is rehearsed on a copy first. Those three need no database. A
+Food & Wine changeset resolves in Postgres, so it only publishes on the
+machine that has it; its guard allows the few rows a crawl may have retired
+since the last export, and refuses a publish that would lose more.
+
+`--no-commit` applies and rebuilds but leaves the result for you to look at;
+`--no-push` commits without pushing.
+
+The numbered steps below are what that command does, and how to do any one
+of them by hand.
+
 ## 1. Work in the studio
 
 Open `docs/studio.html` — off disk, or the published copy. Pick a booth on

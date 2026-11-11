@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 
@@ -409,6 +410,73 @@ def studio_apply(
         console.print(
             f"Commit + push {publish_dir}/ and data/manual/ to publish the new photos."
         )
+
+
+@studio_app.command("publish")
+def studio_publish(
+    changeset: Path = typer.Argument(..., help="The .json file docs/studio.html downloaded"),
+    base_url: str = typer.Option(
+        DEFAULT_PAGES_BASE_URL, "--base-url", help="Public base URL the published photos will be served from"
+    ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Run the checks and report; write nothing"),
+    no_commit: bool = typer.Option(
+        False, "--no-commit", help="Apply and rebuild, but leave the changes uncommitted"
+    ),
+    no_push: bool = typer.Option(False, "--no-push", help="Commit on the current branch but do not push"),
+    report_json: Path = typer.Option(None, "--report-json", help="Also write the report here as JSON"),
+) -> None:
+    """Take a changeset all the way to a pushed commit, in one step.
+
+    Applies it, rebuilds everything it affects - the festival's files or the
+    database, the app's feed, the pages - and checks the result before
+    anything is committed: nothing the changeset asked for may be skipped,
+    and no booth or dish may disappear unless the changeset deleted it. A
+    refusal says why and exits 1.
+
+    Arts, Flower & Garden and Holidays need no database. Food & Wine does,
+    so its changesets only publish on the machine that has it.
+
+    Commits on the current branch and pushes it. GitHub Pages serves `main`,
+    so run it there for the change to go live.
+    """
+    from epcot_fw.pipeline import publish
+    from epcot_fw.pipeline.studio import ChangesetError
+
+    try:
+        report = publish.publish_changeset(changeset, base_url=base_url, dry_run=dry_run)
+    except ChangesetError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    if report.ok and report.written and not no_commit:
+        publish.commit(report, push=not no_push)
+    if report_json is not None:
+        report_json.write_text(json.dumps(report.to_dict(), indent=2) + "\n")
+
+    console.print(f"[bold]{report.headline()}[/bold]")
+    for label in report.dishes + report.booths:
+        mark = "+" if label in report.added else "-" if label in report.deleted else "~"
+        console.print(f"  {mark} {label}")
+    for refusal in report.refusals:
+        console.print(f"[red]refused[/red] {refusal}")
+    if not report.ok:
+        console.print(
+            "Nothing was published."
+            + (" The database and data/manual/ were updated; check them before retrying." if report.written else "")
+        )
+        raise typer.Exit(code=1)
+    if dry_run:
+        console.print("Checks passed. Nothing was written. Drop --dry-run to publish.")
+    elif not report.total:
+        console.print("Nothing to publish.")
+    elif report.pushed:
+        console.print(f"Committed {report.commit[:7]} and pushed. Pages publishes `main` in about a minute.")
+    elif report.commit:
+        console.print(f"Committed {report.commit[:7]}. Not pushed.")
+    elif no_commit:
+        console.print("Applied and rebuilt. Left uncommitted: " + ", ".join(report.paths))
+    else:
+        console.print("Already published: applying it again changed nothing.")
 
 
 festival_app = typer.Typer(help="Festivals researched into data/festivals/ rather than crawled")

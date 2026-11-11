@@ -49,14 +49,16 @@ festival picker shows:
 - **The Studio** (`docs/studio.html`) shows each folder as a festival in the
   switcher, and you can edit it. Its edits, pins and photos are saved in the
   browser under their own key, so they never mix with Food & Wine's.
-- **`epcot-fw studio apply <file>`** reads the changeset's `festival` key and
-  writes the changes back into that folder: field edits, renames, added and
-  deleted rows, and pins. It publishes photos to `docs/dish-photos/` the same
-  way as for Food & Wine. It does not resolve anything. Rebuild the page to
-  see the result:
-  ```bash
-  python tools/data_ledger/build_artifact.py
-  ```
+- **`epcot-fw studio publish <file>`** takes a changeset from one of these
+  festivals all the way to a pushed commit, with no database: it rehearses
+  the changeset on a copy, checks nothing would be skipped or lost, then
+  writes this folder, the app's feed under `docs/v1/` and the Studio's
+  embedded copy. `--dry-run` only runs the checks. See `docs/WORKFLOW.md`.
+- **`epcot-fw studio apply <file>`** is the first of those steps by itself. It
+  reads the changeset's `festival` key and writes the changes back into that
+  folder: field edits, renames, added and deleted rows, pins, and a dish's
+  `status` and `stroll`. It publishes photos to `docs/dish-photos/` the same
+  way as for Food & Wine. It does not resolve anything.
 
 ## Photos
 
@@ -97,8 +99,8 @@ doesn't try to get past that.
 - `status` (dishes) says how sure the research is that a dish is on the
   coming festival's menu: `<year>-menu` (it was on that year's menu),
   `likely-<year>` or `confirmed-<year>`. The Studio
-  shows it as a label. Change it here by hand when a source confirms a dish;
-  nothing in the Studio sets it.
+  shows it as a label. A changeset can set it; until the Studio has a control
+  for it, change it here by hand when a source confirms a dish.
 - `stroll` (dishes) marks a dish in the festival's food stroll. The stroll's
   name is `stroll_label` in `festival.json`: Cookie Stroll for Holidays, Garden
   Graze for Flower & Garden, Wonderful Walk for Arts.
