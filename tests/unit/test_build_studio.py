@@ -644,3 +644,19 @@ def test_a_research_dish_s_status_is_editable_and_exported():
     js = _script(build_studio.render(_snapshot(_booth("Spain")), festivals=_research()))
     assert "function makeStatusCell(row)" in js
     assert "if (RESEARCH && Object.prototype.hasOwnProperty.call(e, 'status') && e.status) entry.status = e.status;" in js
+
+
+def test_the_catalogue_heading_is_the_booth_name_alone():
+    """A proposal names its booth by copying the heading; a location on the
+    same line came back as part of the name and matched no booth."""
+    js = _script(build_studio.render(_snapshot(_booth("Spain")), festivals=_research()))
+    assert "lines.push('## ' + valueOf(booth, 'name'));" in js
+    assert "if (where) lines.push('Location: ' + where);" in js
+    assert "' - ' + where" not in js
+
+
+def test_a_booth_named_with_extra_text_still_finds_its_booth():
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    finder = js[js.index("  function findBooth(name) {"):js.index("  // A proposal Claude made")]
+    assert "want.indexOf(n) === 0" in finder
+    assert "String(valueOf(b, 'name')).length - String(valueOf(a, 'name')).length" in finder

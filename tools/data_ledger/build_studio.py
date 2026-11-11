@@ -3204,7 +3204,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   var INSTRUCTIONS = [
     'You help curate the menu database behind an Epcot festival companion app. The catalogue below is the festival as it stands, including edits not yet published. You propose changes; a person accepts or rejects each one.',
     '',
-    'Answer only with JSON matching the schema. Each proposal names its booth and dish exactly as the catalogue writes them; for an add, `dish` is the new dish\'s name. In `changes`, set only the fields that should change and leave every other field null. Never repeat a value a dish already has.',
+    'Answer only with JSON matching the schema. Each proposal names its booth exactly as the catalogue\'s "## " heading writes it (the heading only, never its Location line) and its dish exactly as the catalogue writes it; for an add, `dish` is the new dish\'s name. In `changes`, set only the fields that should change and leave every other field null. Never repeat a value a dish already has.',
     '',
     'Vocabulary:',
     '- category: ' + CATEGORIES.join(', ') + '. A drink with alcohol is alcoholic_beverage; a drink without is non_alcoholic_beverage.',
@@ -3223,8 +3223,12 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var lines = ['# ' + (LOADED ? (LOADED.title || LOADED.name) : 'Festival') + (RESEARCH && LOADED.menu_season ? ' (menus from ' + LOADED.menu_season + ')' : ''), ''];
     boothRows().forEach(function (booth) {
       if (isDeleted(booth) || (boothNames && boothNames.indexOf(booth.name) === -1)) return;
+      // The heading is the booth's name and nothing else: a proposal names
+      // its booth by copying it, so a location on the same line came back
+      // as part of the name and matched no booth.
       var where = valueOf(booth, 'location_description');
-      lines.push('## ' + valueOf(booth, 'name') + (where ? ' - ' + where : ''));
+      lines.push('## ' + valueOf(booth, 'name'));
+      if (where) lines.push('Location: ' + where);
       dishesOf(booth.name).forEach(function (row) {
         if (isDeleted(row)) return;
         var price = valueOf(row, 'price');
@@ -3444,11 +3448,21 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     return rows.filter(function (r) { return String(valueOf(r, 'name')).trim() === String(name).trim(); })[0] ||
       rows.filter(function (r) { return String(valueOf(r, 'name')).trim().toLowerCase() === want; })[0] || null;
   }
+  // Exact first. Failing that, a booth whose name the proposal starts with
+  // and then carries on past (" - France", "(Japan)"): a model sometimes
+  // copies more of the line than the name. The longest such name wins, so
+  // "Refreshment Outpost Hosted by Coca-Cola" is never taken for a shorter
+  // booth that happens to begin the same way.
   function findBooth(name) {
     var want = String(name || '').trim().toLowerCase();
-    return boothRows().filter(function (b) {
-      return !isDeleted(b) && String(valueOf(b, 'name')).trim().toLowerCase() === want;
-    })[0] || null;
+    var live = boothRows().filter(function (b) { return !isDeleted(b); });
+    var exact = live.filter(function (b) { return String(valueOf(b, 'name')).trim().toLowerCase() === want; })[0];
+    if (exact) return exact;
+    var prefixed = live.filter(function (b) {
+      var n = String(valueOf(b, 'name')).trim().toLowerCase();
+      return want.indexOf(n) === 0 && /^[\s\-–—:(,]/.test(want.slice(n.length));
+    }).sort(function (a, b) { return String(valueOf(b, 'name')).length - String(valueOf(a, 'name')).length; });
+    return prefixed[0] || null;
   }
 
   // A proposal Claude made, reduced to exactly what accepting it would do,
