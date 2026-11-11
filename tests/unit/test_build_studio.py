@@ -214,8 +214,8 @@ def test_the_map_centers_on_world_showcase():
 
 def test_leaflet_and_both_tile_providers_are_present():
     html = build_studio.render(_snapshot(_booth("Spain")))
-    assert "leaflet@1.9.4/dist/leaflet.js" in html
-    assert "leaflet@1.9.4/dist/leaflet.css" in html
+    assert '<script src="vendor/leaflet/leaflet.js"></script>' in html
+    assert '<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />' in html
     assert "arcgisonline.com" in html  # satellite tiles
     assert "tile.openstreetmap.org" in html  # street tiles
 
@@ -229,15 +229,27 @@ def test_dropped_pins_are_staged_as_mapped_precision():
     assert "precision: 'mapped'" in html
 
 
-def test_the_page_is_self_contained_apart_from_leaflet_and_its_typeface():
+def test_the_page_names_every_other_host_it_touches():
     """Inter comes from Google Fonts with a system-font fallback, so the page
-    still reads cleanly offline - it just reads in San Francisco."""
+    still reads cleanly offline - it just reads in San Francisco. Map tiles
+    come from two providers. GitHub's API and Anthropic's are where Publish
+    and the assistant send requests, and nothing else is."""
     html = build_studio.render(_snapshot(_booth("France", [_item("Crème Brûlée")])))
     assert 'name="viewport"' in html
-    external = re.findall(r'https?://[^"\s]+', html)
-    allowed = ("unpkg.com/leaflet", "arcgisonline.com", "tile.openstreetmap.org", "www.w3.org",
-               "fonts.googleapis.com", "fonts.gstatic.com")
+    external = re.findall(r'https?://[^"\s\'<>)]+', html)
+    allowed = ("arcgisonline.com", "tile.openstreetmap.org", "www.w3.org", "fonts.googleapis.com",
+               "fonts.gstatic.com", "api.github.com", "api.anthropic.com", "https://github.com/")
     assert [u for u in external if not any(a in u for a in allowed)] == []
+
+
+def test_the_page_runs_no_script_from_another_host():
+    """It can hold a GitHub token and an API key in browser storage."""
+    html = build_studio.render(_snapshot(_booth("France")))
+    assert re.findall(r'<script[^>]+src="(?!vendor/)[^"]*"', html) == []
+    assert "unpkg.com" not in html
+    policy = re.search(r'http-equiv="Content-Security-Policy" content="([^"]+)"', html).group(1)
+    assert "script-src 'self' 'unsafe-inline';" in policy
+    assert "connect-src 'self' https://api.github.com https://api.anthropic.com;" in policy
 
 
 # ---------------------------------------------------------------------------
@@ -527,3 +539,47 @@ def test_re_embedding_can_add_and_remove_a_researched_festival():
 def test_re_embedding_refuses_a_page_it_does_not_recognise():
     with pytest.raises(ValueError):
         build_studio.embed_festivals("<html><body>not the studio</body></html>", _research())
+
+
+# ---------------------------------------------------------------------------
+# publishing from the page
+# ---------------------------------------------------------------------------
+
+
+def test_a_token_never_travels_with_the_edits():
+    """Secrets are kept under their own key, apart from the store an export
+    and Discard all work on."""
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "var SECRETS_KEY = 'epcot-studio-secrets-v1';" in html
+    save = html[html.index("  function save() {"):html.index("  // ---------- settling what has already shipped")]
+    assert "secret" not in save.lower()
+    changeset = html[html.index("  function buildChangeset() {"):html.index("  function changesetFilename() {")]
+    assert "secret" not in changeset.lower() and "token" not in changeset.lower()
+    assert 'type="password" id="github-token" autocomplete="off"' in html
+
+
+def test_publish_talks_to_one_repository_and_only_pushes_request_branches():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert f"var PUBLISH_REPO = {json.dumps(build_studio.PUBLISH_REPO)};" in html
+    assert "fetch('https://api.github.com/repos/' + PUBLISH_REPO + path" in html
+    assert "var branch = 'studio/' + prefix + '-' + requestId();" in html
+    assert "var branch = 'studio/revert-' + c.sha.slice(0, 12) + '-' + requestId();" in html
+    # The page never writes to main: the only ref it creates is the request's.
+    assert html.count("gh('POST', '/git/refs'") == 1
+    assert "refs/heads/main" not in html.replace("'/git/ref/heads/main'", "")
+
+
+def test_the_preview_and_the_changeset_are_built_from_the_same_state():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "function describeChanges()" in html
+    assert "renderChangeList(document.getElementById('export-changes'), describeChanges());" in html
+    assert 'id="export-publish"' in html and 'id="export-dryrun"' in html
+
+
+def test_the_workflow_and_the_page_agree_on_the_request_branches():
+    workflow = (Path(__file__).parent.parent.parent / ".github/workflows/studio-publish.yml").read_text()
+    for prefix in ("studio/publish-*", "studio/dryrun-*", "studio/revert-*"):
+        assert f'- "{prefix}"' in workflow
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "publishFromDialog('publish')" in html and "publishFromDialog('dryrun')" in html
+    assert "<!-- studio-publish-report -->" in workflow and "<!-- studio-publish-report -->" in html

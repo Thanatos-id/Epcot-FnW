@@ -14,6 +14,34 @@ how you know it took — it reads `(.venv) … Epcot %` afterwards. Without the
 venv, `epcot-fw` is not on your PATH and none of the commands below resolve,
 and a `cd` that failed leaves the rest of them running somewhere else.
 
+## From the Studio: Publish
+
+With a GitHub token saved under **⋯ → Connections**, the studio's primary
+button reads **Publish** instead of Export, and nothing below this section is
+needed for Arts, Flower & Garden or Holidays.
+
+1. **Publish** opens a preview of every change: each field as it was and as it
+   will be, plus adds, deletes, photos and pins.
+2. Confirming pushes one branch to GitHub, `studio/publish-<id>`, holding the
+   changeset. The page never writes to `main`.
+3. `.github/workflows/studio-publish.yml` runs main's own code on it: the same
+   checks as the command below, then the whole test suite, then a commit to
+   `main`. Pages publishes about a minute later.
+4. The studio shows each stage, then **Published**. When the update notice
+   appears, **Reload**: the edits that landed clear by themselves.
+
+**Check only** runs every check on GitHub and publishes nothing. **⋯ → Publish
+history** lists what has been published and can undo one publish; an undo is
+refused if the same dishes have been edited again since.
+
+A refused or failed publish changes nothing, says why in the studio, and
+leaves your edits where they were. A Food & Wine publish is only checked on
+GitHub: it has to resolve in the database, so it waits for the Mac.
+
+The token: fine-grained, this repository only, **Contents: Read and write** and
+nothing else, with an expiry. It is kept in that browser's storage, apart
+from your edits, and is never part of an export.
+
 ## The short way
 
 After **Export** in the studio, one command does everything below it on this
