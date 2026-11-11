@@ -86,6 +86,11 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
             # when there are some, so a database row's shape is unchanged.
             if item.get("badges"):
                 row["badges"] = list(item["badges"])
+            # Only a researched festival has these (see epcot_fw.festival_files):
+            # the status is editable in the Studio, the stroll mark is not.
+            for key in ("status", "stroll"):
+                if key in item:
+                    row[key] = item[key]
             items.append(row)
     return {"booths": booths, "items": items}
 

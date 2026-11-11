@@ -128,6 +128,43 @@ Because the page can now hold a token:
   from the edits. `thanatos-id.github.io` is one origin shared by every Pages
   site on the account, so another of the account's own sites could read them.
 
+### The assistant
+
+With a Claude API key saved under ⋯ → Connections, an **Assistant** button
+opens four jobs:
+
+- **Audit**: wrong category or drink kind, missing tags, duplicates, names
+  that carry a description, and odd prices.
+- **Import a menu**: paste a menu, or a link Claude reads with web fetch. It
+  proposes returning, changed, new and removed dishes, and sets a researched
+  festival's menu status.
+- **Bulk edit**: one instruction becomes the edits it implies.
+- **Photos & copy**: checks each photo shows its dish, and tidies descriptions.
+
+Claude proposes; you decide. Each proposal is checked against the page before
+it is shown: the booth and dish must exist, the edit must change something,
+and the price and status must be ones the festival uses. Anything that fails
+is listed with its reason. Accepting a proposal goes through the same
+`setValue` / Add / `removeRow` paths a hand edit does, so it becomes an
+ordinary pending edit: orange, revertable, in the Publish preview, and live
+only once published. Claude's text reaches the page only as text.
+
+How it calls Claude:
+
+- **Direct from the browser:** raw HTTP to `api.anthropic.com` with the
+  browser-access header. No SDK, because the page has no build step.
+- **Model and output:** `claude-opus-5-5`, streamed, with structured output
+  (`output_config.format`). Audit and import run at effort high, the other
+  two at medium.
+- **Refusals:** a declined request retries on Anthropic's recommended
+  fallback model (`fallbacks: "default"`).
+- **Caching:** the festival's catalogue is cached, so a second run on the
+  same festival reads it at a tenth of the price. The panel shows each run's
+  approximate cost.
+
+A researched dish's menu status is now an editable field (the small select
+beside its labels), and changesets carry it.
+
 ### As an installed app
 
 The studio installs from Chrome as **Epcot Studio**, a standalone app with
