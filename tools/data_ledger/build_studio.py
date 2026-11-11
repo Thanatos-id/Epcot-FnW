@@ -596,7 +596,11 @@ dialog.wide { max-width: min(860px, 96vw); }
 .changes .change-detail s { color: var(--ink-3); }
 .changes .when { color: var(--ink-3); font-size: 12px; font-family: var(--mono); }
 .changes .row-end { display: flex; gap: var(--s3); align-items: center; justify-content: space-between; }
-.dialog-body input[type="password"] { width: 100%; font-family: var(--mono); }
+/* The token and the key are typed into plain text fields drawn as dots, not
+   password fields. A password field made Safari treat saving them as a
+   sign-in and offer to store a "password" against one of the person's own
+   accounts the next time the page reloaded. */
+.dialog-body input.secret { width: 100%; font-family: var(--mono); -webkit-text-security: disc; text-security: disc; }
 .dialog-note { font-size: 12.5px; color: var(--ink-2); }
 .dialog-note.bad { color: var(--warn); }
 .dialog-note.good { color: var(--good); }
@@ -833,7 +837,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     <h2>Connections</h2>
     <p>Kept in this browser only. Never part of an export, and never sent anywhere but the service it belongs to.</p>
     <label class="label" for="github-token">GitHub token</label>
-    <input type="password" id="github-token" autocomplete="off" spellcheck="false" placeholder="github_pat_…" />
+    <input type="text" class="secret" id="github-token" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other" placeholder="github_pat_…" />
     <p class="dialog-note" id="github-status" style="margin-top:6px"></p>
     <p class="dialog-note">
       Lets <b>Publish</b> send your edits to GitHub, where they are checked and go live. Create a
@@ -841,7 +845,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       limited to this repository, with <b>Contents: Read and write</b> and nothing else, and give it an expiry date.
     </p>
     <label class="label" for="anthropic-key" style="margin-top:var(--s5)">Claude API key</label>
-    <input type="password" id="anthropic-key" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" />
+    <input type="text" class="secret" id="anthropic-key" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other" placeholder="sk-ant-…" />
     <p class="dialog-note" id="anthropic-status" style="margin-top:6px"></p>
     <p class="dialog-note">
       Turns on the <b>Assistant</b>: it reads this festival's menu and proposes edits for you to accept or
@@ -3204,7 +3208,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   var INSTRUCTIONS = [
     'You help curate the menu database behind an Epcot festival companion app. The catalogue below is the festival as it stands, including edits not yet published. You propose changes; a person accepts or rejects each one.',
     '',
-    'Answer only with JSON matching the schema. Each proposal names its booth and dish exactly as the catalogue writes them; for an add, `dish` is the new dish\'s name. In `changes`, set only the fields that should change and leave every other field null. Never repeat a value a dish already has.',
+    'Answer only with JSON matching the schema. Each proposal names its booth exactly as the catalogue\'s "## " heading writes it (the heading only, never its Location line) and its dish exactly as the catalogue writes it; for an add, `dish` is the new dish\'s name. In `changes`, set only the fields that should change and leave every other field null. Never repeat a value a dish already has.',
     '',
     'Vocabulary:',
     '- category: ' + CATEGORIES.join(', ') + '. A drink with alcohol is alcoholic_beverage; a drink without is non_alcoholic_beverage.',
@@ -3223,8 +3227,12 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var lines = ['# ' + (LOADED ? (LOADED.title || LOADED.name) : 'Festival') + (RESEARCH && LOADED.menu_season ? ' (menus from ' + LOADED.menu_season + ')' : ''), ''];
     boothRows().forEach(function (booth) {
       if (isDeleted(booth) || (boothNames && boothNames.indexOf(booth.name) === -1)) return;
+      // The heading is the booth's name and nothing else: a proposal names
+      // its booth by copying it, so a location on the same line came back
+      // as part of the name and matched no booth.
       var where = valueOf(booth, 'location_description');
-      lines.push('## ' + valueOf(booth, 'name') + (where ? ' - ' + where : ''));
+      lines.push('## ' + valueOf(booth, 'name'));
+      if (where) lines.push('Location: ' + where);
       dishesOf(booth.name).forEach(function (row) {
         if (isDeleted(row)) return;
         var price = valueOf(row, 'price');
@@ -3444,11 +3452,21 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     return rows.filter(function (r) { return String(valueOf(r, 'name')).trim() === String(name).trim(); })[0] ||
       rows.filter(function (r) { return String(valueOf(r, 'name')).trim().toLowerCase() === want; })[0] || null;
   }
+  // Exact first. Failing that, a booth whose name the proposal starts with
+  // and then carries on past (" - France", "(Japan)"): a model sometimes
+  // copies more of the line than the name. The longest such name wins, so
+  // "Refreshment Outpost Hosted by Coca-Cola" is never taken for a shorter
+  // booth that happens to begin the same way.
   function findBooth(name) {
     var want = String(name || '').trim().toLowerCase();
-    return boothRows().filter(function (b) {
-      return !isDeleted(b) && String(valueOf(b, 'name')).trim().toLowerCase() === want;
-    })[0] || null;
+    var live = boothRows().filter(function (b) { return !isDeleted(b); });
+    var exact = live.filter(function (b) { return String(valueOf(b, 'name')).trim().toLowerCase() === want; })[0];
+    if (exact) return exact;
+    var prefixed = live.filter(function (b) {
+      var n = String(valueOf(b, 'name')).trim().toLowerCase();
+      return want.indexOf(n) === 0 && /^[\s\-–—:(,]/.test(want.slice(n.length));
+    }).sort(function (a, b) { return String(valueOf(b, 'name')).length - String(valueOf(a, 'name')).length; });
+    return prefixed[0] || null;
   }
 
   // A proposal Claude made, reduced to exactly what accepting it would do,
