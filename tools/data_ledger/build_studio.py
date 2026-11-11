@@ -299,11 +299,11 @@ input[type="file"] { display: none; }
    each scroll on their own, so the list you choose from stays beside the
    list you are working through. */
 body.shell {
-  display: grid; grid-template-rows: var(--bar) auto minmax(0, 1fr);
+  display: grid; grid-template-rows: auto minmax(0, 1fr);
   height: 100vh; height: 100dvh; overflow: hidden;
 }
 .bar {
-  display: flex; align-items: center; gap: var(--s4); padding: 0 var(--s4);
+  display: flex; align-items: center; gap: var(--s4); padding: 0 var(--s4); min-height: var(--bar);
   background: var(--surface); border-bottom: 1px solid var(--line); min-width: 0;
 }
 .wordmark { font-family: var(--font-head); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
@@ -320,6 +320,8 @@ body.shell {
 .festivals button:last-child, .segmented button:last-child { border-right: none; }
 .festivals button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 .festivals button .dot { width: 5px; height: 5px; background: currentColor; opacity: 0.5; }
+/* Short names ("F&G") only where the switcher has a phone's width to fit in. */
+.festivals .compact { display: none; }
 .bar .spacer { flex: 1 1 auto; }
 .bar .count { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
 .bar .count b { color: var(--signal); font-weight: 600; }
@@ -338,13 +340,58 @@ body.shell {
 .menu-list > :last-child { border-bottom: none; }
 .menu-list button:hover, .menu-list a:hover { background: var(--surface-2); }
 
-.status { display: flex; flex-direction: column; }
-.status-line {
-  display: flex; align-items: center; gap: var(--s3); padding: 6px var(--s4);
-  font-size: 12.5px; border-bottom: 1px solid var(--line); background: var(--surface);
+/* ---------- alerts: a bell to look back, toasts to look now ----------
+   Everything the page has to say - research notes, publish progress, edits
+   that landed, a newer version - arrives as a light-blue toast at the foot
+   of the screen and stays listed under the bell until cleared. Toasts float
+   clear of the work: the panes scroll far enough to bring their last row
+   above them, the open map drawer hides them, and on a phone they sit above
+   the rail's Add booth button. */
+:root {
+  --note-bg: #eaf3fe; --note-line: #b9d4f5; --note-ink: #12355f; --note-strong: #2f6fd1;
 }
-.status-line.warn { color: var(--warn); }
-.status-line .spacer { flex: 1 1 auto; }
+.toasts {
+  position: fixed; z-index: 1300; right: var(--s5); bottom: calc(var(--s5) + env(safe-area-inset-bottom, 0px));
+  width: min(440px, calc(100vw - 2 * var(--s4))); display: flex; flex-direction: column; gap: var(--s2);
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto; display: flex; gap: var(--s3); align-items: flex-start;
+  background: var(--note-bg); border: 1px solid var(--note-line); color: var(--note-ink);
+  padding: var(--s3) var(--s3) var(--s3) var(--s4); font-size: 13px; line-height: 1.45;
+  box-shadow: 0 6px 24px rgba(18, 53, 95, 0.12); border-radius: var(--control-radius);
+}
+.toast.important { border-left: 3px solid var(--note-strong); }
+.toast-body { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; max-height: 40vh; overflow-y: auto; }
+.toast-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.toast.expanded .toast-text { display: block; -webkit-line-clamp: none; }
+.toast button.toast-more { height: auto; padding: 0; margin-top: 2px; border: none; background: none; color: var(--note-strong); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.toast-label, .alert-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--note-strong); display: block; margin-bottom: 2px; }
+.toast.bad .toast-label, .alert-item.bad .alert-label { color: var(--warn); }
+.toast-actions { display: flex; flex-direction: column; gap: var(--s1); align-items: flex-end; flex: none; }
+.toast-actions a { color: var(--note-ink); font-size: 12.5px; }
+.toast button { height: 28px; min-width: 0; font-size: 12.5px; padding: 0 10px; background: #fff; border-color: var(--note-line); }
+.toast button.toast-close { width: 28px; padding: 0; background: transparent; border-color: transparent; color: var(--note-ink); font-size: 18px; }
+.toast button.toast-close:hover { border-color: var(--note-line); }
+.drawer.open ~ .toasts { display: none; }
+
+button.bell { position: relative; }
+.bell-dot { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; background: var(--note-strong); border-radius: 50%; }
+button.bell.unread { background: var(--note-bg); border-color: var(--note-line); color: var(--note-ink); }
+button.bell.urgent { background: var(--note-bg); border-color: var(--note-strong); color: var(--note-strong); }
+button.bell.urgent .bell-dot { background: var(--signal); box-shadow: 0 0 0 2px #fff; }
+.alerts-panel { width: min(380px, calc(100vw - 2 * var(--s4))); max-height: min(70vh, 560px); }
+.alerts-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px 4px var(--s3); border-bottom: 1px solid var(--line); }
+.alerts-head button { height: 30px; }
+.alerts-items { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+.alert-item { padding: var(--s3); border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.alert-item.unread { background: var(--note-bg); }
+.alert-item:last-child { border-bottom: none; }
+.alert-item .alert-when { color: var(--ink-3); font-size: 11.5px; font-weight: 400; letter-spacing: 0; text-transform: none; margin-left: var(--s2); }
+.alert-item .alert-actions { display: flex; gap: var(--s2); margin-top: var(--s2); align-items: center; }
+.alert-item .alert-actions button { height: 28px; min-width: 0; font-size: 12.5px; }
+.alerts-empty { padding: var(--s4) var(--s3); color: var(--ink-3); font-size: 13px; }
+.mobile-only { display: none !important; }
 
 .workspace { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); min-height: 0; }
 .rail {
@@ -359,6 +406,8 @@ body.shell {
 .chips { display: flex; gap: var(--s1); flex-wrap: wrap; }
 .booth-list, .detail {
   overflow-y: auto; overscroll-behavior: contain; min-height: 0; scrollbar-gutter: stable;
+  /* Room to scroll the last row clear of any toast (set in alerts code). */
+  padding-bottom: var(--toast-space, 0px);
 }
 .booth-list { flex: 1 1 auto; }
 .rail-foot { border-top: 1px solid var(--line); padding: var(--s2) var(--s4); }
@@ -370,8 +419,15 @@ body.shell {
   border-bottom: 1px solid var(--line); border-left: 2px solid transparent; background: var(--surface);
   font-weight: 400; white-space: normal; min-width: 0; border-radius: 0; line-height: 1.5;
 }
-.booth-item:hover { background: var(--surface-2); }
 .booth-item.selected { background: var(--bg); border-left-color: var(--ink); }
+/* Hover is unmistakable - the whole row goes black - and the booth already
+   open keeps its own look, so the two never read the same. Only where a
+   pointer can actually hover: a tap on a phone would leave it stuck. */
+@media (hover: hover) {
+  .booth-item:not(.selected):hover { background: var(--ink); border-left-color: var(--ink); color: #fff; }
+  .booth-item:not(.selected):hover .booth-item-count,
+  .booth-item:not(.selected):hover .booth-item-meta { color: rgba(255, 255, 255, 0.72); }
+}
 .booth-item.deleted { opacity: 0.45; }
 .booth-item-name { font-weight: 500; font-size: 13.5px; overflow-wrap: anywhere; }
 .booth-item-count { font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 6px; }
@@ -434,7 +490,6 @@ body.shell {
 .pill.curated { color: var(--ink); }
 .pill.badge.stale { color: var(--ink-3); border-style: dashed; }
 .pill.badge.confirmed { color: var(--good); border-color: currentColor; }
-.status-line.research .label { margin-right: var(--s2); }
 
 /* ---------- dish rows: a ruled list, not a stack of cards ---------- */
 .rows { display: flex; flex-direction: column; padding: 0 0 var(--s6); }
@@ -570,6 +625,8 @@ select, select.cell-input, select.cell-input.changed {
 dialog {
   border: 1px solid var(--ink); background: var(--surface); color: var(--ink);
   max-width: min(560px, 92vw); width: 100%; padding: 0;
+  /* Always scrollable inside the screen, phone or landscape alike. */
+  max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain;
 }
 dialog::backdrop { background: rgba(17,17,17,0.32); }
 dialog.wide { max-width: min(860px, 96vw); }
@@ -604,7 +661,6 @@ dialog.wide { max-width: min(860px, 96vw); }
 .dialog-note { font-size: 12.5px; color: var(--ink-2); }
 .dialog-note.bad { color: var(--warn); }
 .dialog-note.good { color: var(--good); }
-.status-line a { color: inherit; }
 pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s3); font-family: var(--mono); font-size: 12px; overflow-x: auto; margin: 0; }
 .help ol { margin: 0 0 var(--s3); padding-left: 18px; color: var(--ink-2); font-size: 13px; }
 .help li { margin-bottom: var(--s2); }
@@ -623,14 +679,38 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   .booth-fields { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
-  .wordmark, .bar > .spacer { display: none; }
-  /* The switcher takes the room the wordmark gave up and scrolls sideways
-     rather than shrinking to nothing. */
-  .festivals { flex: 1 1 auto; }
-  .festivals button { flex: none; }
-  .row { grid-template-columns: 104px minmax(0, 1fr); gap: var(--s3); }
-  .thumb { width: 104px; }
-  #map-btn { display: none; }
+  /* Two rows: the edit count and the actions, then the festival switcher
+     across the full width with short names, so all four fit. */
+  .bar { flex-wrap: wrap; gap: var(--s2); padding: var(--s2) var(--s3); }
+  .wordmark { display: none; }
+  .bar .count { display: inline; order: 1; }
+  .bar > .spacer { order: 2; }
+  .bar > button, .bar > .menu { order: 3; }
+  .festivals { order: 9; flex: 1 1 100%; }
+  .festivals button { flex: 1 1 0; padding: 0 var(--s2); }
+  .festivals .long { display: none; }
+  .festivals .compact { display: inline; }
+  #map-btn, #assistant-btn { display: none !important; }
+  .mobile-only { display: flex !important; }
+  .mobile-only.hidden { display: none !important; }
+  /* On a phone the menu toolbar scrolls away with the menu: pinned, it took
+     a quarter of the screen from the dishes. */
+  .toolbar { position: static; }
+  .toolbar-title { flex: 1 1 100%; max-width: none; }
+  .row { grid-template-columns: 96px minmax(0, 1fr); gap: var(--s3); }
+  .thumb { width: 96px; }
+  dialog { max-width: calc(100vw - 16px); }
+  .dialog-body { padding: var(--s4); }
+  .toasts { right: var(--s2); left: var(--s2); width: auto; bottom: calc(var(--s2) + env(safe-area-inset-bottom, 0px)); }
+  /* Above the rail's Add booth button while the rail is what is showing. */
+  .workspace:not(.picked) ~ .toasts { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .alerts-panel { position: fixed; left: var(--s2); right: var(--s2); top: auto; width: auto; margin-top: 4px; }
+}
+/* A phone on its side: too short to give anything a pinned place. */
+@media (max-height: 560px) {
+  .toolbar { position: static; }
+  .toasts { bottom: var(--s2); }
+  .toast-body { max-height: 22vh; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -644,10 +724,22 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   <button type="button" class="hidden" id="assistant-btn">Assistant</button>
   <button type="button" id="map-btn">Map</button>
   <button type="button" class="primary" id="export" disabled>Export</button>
+  <div class="menu" id="alerts-wrap">
+    <button type="button" class="icon bell" id="alerts-btn" aria-haspopup="true" aria-expanded="false" aria-label="Alerts">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="bell-dot hidden" id="alerts-dot"></span>
+    </button>
+    <div class="menu-list alerts-panel hidden" id="alerts-panel" role="dialog" aria-label="Alerts">
+      <div class="alerts-head"><span class="label">Alerts</span><button type="button" class="quiet" id="alerts-clear">Clear all</button></div>
+      <ul class="alerts-items" id="alerts-items"></ul>
+    </div>
+  </div>
   <div class="menu">
     <button type="button" class="icon" id="menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="More">⋯</button>
     <div class="menu-list hidden" id="menu-list" role="menu">
       <button type="button" role="menuitem" class="hidden" id="install-btn">Install as app</button>
+      <button type="button" role="menuitem" class="mobile-only hidden" id="menu-assistant">Assistant</button>
+      <button type="button" role="menuitem" class="mobile-only" id="menu-map">Map</button>
       <button type="button" role="menuitem" id="connections-btn">Connections</button>
       <button type="button" role="menuitem" id="history-btn">Publish history</button>
       <button type="button" role="menuitem" id="help-btn">How this works</button>
@@ -657,27 +749,6 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     </div>
   </div>
 </header>
-
-<div class="status">
-  <div class="status-line hidden" id="update-line">
-    <span>A newer version of the Studio is ready. Your edits are saved and carry over.</span><span class="spacer"></span>
-    <button type="button" class="primary" id="update-reload">Reload</button>
-  </div>
-  <div class="status-line warn hidden" id="storage-note"></div>
-  <div class="status-line hidden" id="publish-line">
-    <span class="label">Publish</span><span id="publish-note"></span>
-    <a class="hidden" id="publish-link" target="_blank" rel="noopener">Details</a><span class="spacer"></span>
-    <button type="button" class="quiet" id="publish-dismiss">Dismiss</button>
-  </div>
-  <div class="status-line research hidden" id="research-line">
-    <span class="label">Research</span><span id="research-note"></span><span class="spacer"></span>
-    <button type="button" class="quiet" id="research-dismiss">Hide</button>
-  </div>
-  <div class="status-line hidden" id="settled-line">
-    <span id="settled-note"></span><span class="spacer"></span>
-    <button type="button" class="quiet" id="settled-dismiss">Dismiss</button>
-  </div>
-</div>
 
 <main class="workspace" id="layout">
   <aside class="rail">
@@ -925,6 +996,8 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   </form>
 </dialog>
 
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
 <script id="studio-data" type="application/json">__DATA_JSON__</script>
 <script id="studio-festivals" type="application/json">__FESTIVAL_DATA_JSON__</script>
 <script src="vendor/leaflet/leaflet.js"></script>
@@ -1041,11 +1114,243 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  function warn(message) {
-    var el = document.getElementById('storage-note');
-    el.textContent = message;
-    el.classList.remove('hidden');
+  // ---------- alerts ----------
+  // Everything the page has to tell you goes through notify(): it becomes a
+  // light-blue toast at the foot of the screen until dismissed, and stays in
+  // the list under the bell until cleared. The list is kept across reloads -
+  // switching festival reloads the page - so an important alert (a failed
+  // publish, say) is still flagged on the bell wherever you go next.
+  //
+  // An alert with the same id replaces the last one: one line per subject
+  // (this festival's research note, the current publish), not a pile.
+  // Unchanged text keeps whether it was dismissed, so a research note waved
+  // away once does not pop up again on every visit.
+  var ALERTS_KEY = 'epcot-studio-alerts-v1';
+  var MAX_ALERTS = 30;
+  var MAX_TOASTS = 3;
+  // True only for this page as loaded: a reload makes them moot.
+  var TRANSIENT_ALERTS = { update: true, storage: true };
+  var alertActions = {}, alertDismissHooks = {};
+  var alertList = (function () {
+    try {
+      var raw = JSON.parse(localStorage.getItem(ALERTS_KEY) || '[]');
+      return (Array.isArray(raw) ? raw : []).filter(function (a) { return a && a.id && !TRANSIENT_ALERTS[a.id]; });
+    } catch (e) { return []; }
+  })();
+  function saveAlerts() {
+    try {
+      localStorage.setItem(ALERTS_KEY, JSON.stringify(alertList.filter(function (a) {
+        return !TRANSIENT_ALERTS[a.id];
+      }).slice(0, MAX_ALERTS)));
+    } catch (e) { /* the list is a convenience; the toasts still show */ }
   }
+  function findAlert(id) { return alertList.filter(function (a) { return a.id === id; })[0] || null; }
+
+  function notify(o) {
+    var record = findAlert(o.id);
+    var tone = o.tone || 'info';
+    var changed = !record || record.text !== o.text || record.tone !== tone;
+    if (!record) { record = { id: o.id }; alertList.unshift(record); }
+    record.label = o.label || 'Studio';
+    record.text = o.text;
+    record.tone = tone;
+    record.important = !!o.important;
+    record.link = o.link || null;
+    // Which festival it belongs to, if any: only that festival's page pops
+    // it up, unless it is important enough to follow you everywhere.
+    record.scope = o.scope || null;
+    if (changed) {
+      record.at = Date.now();
+      record.read = false;
+      record.dismissed = false;
+      alertList.splice(alertList.indexOf(record), 1);
+      alertList.unshift(record);
+    }
+    if (o.action) alertActions[o.id] = o.action;
+    if (o.onDismiss) alertDismissHooks[o.id] = o.onDismiss;
+    saveAlerts();
+    renderAlerts();
+  }
+  function dismissAlert(id) {
+    var record = findAlert(id);
+    if (!record) return;
+    record.dismissed = true;
+    if (alertDismissHooks[id]) alertDismissHooks[id](record);
+    saveAlerts();
+    renderAlerts();
+  }
+  function warn(message) {
+    notify({ id: 'storage', label: 'Storage', text: message, tone: 'bad', important: true });
+  }
+
+  function alertControls(record, closeLabel) {
+    var wrap = document.createDocumentFragment();
+    var action = alertActions[record.id];
+    if (action) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = action.label;
+      b.addEventListener('click', action.run);
+      wrap.appendChild(b);
+    }
+    if (record.link) {
+      var a = document.createElement('a');
+      a.href = record.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Details';
+      wrap.appendChild(a);
+    }
+    return wrap;
+  }
+
+  function renderToasts() {
+    var box = document.getElementById('toasts');
+    box.innerHTML = '';
+    // A phone shows two at most: the rest are a tap away under the bell.
+    var room = window.innerWidth <= 640 ? 2 : MAX_TOASTS;
+    var here = LOADED ? LOADED.key : null;
+    alertList.filter(function (a) {
+      return !a.dismissed && (a.important || !a.scope || a.scope === here);
+    }).slice(0, room).forEach(function (record) {
+      var t = document.createElement('div');
+      t.className = 'toast' + (record.important ? ' important' : '') + (record.tone === 'bad' ? ' bad' : '');
+      t.setAttribute('role', record.important ? 'alert' : 'status');
+      var body = document.createElement('div');
+      body.className = 'toast-body';
+      var label = document.createElement('span');
+      label.className = 'toast-label';
+      label.textContent = record.label;
+      body.appendChild(label);
+      var text = document.createElement('span');
+      text.className = 'toast-text';
+      text.textContent = record.text;
+      body.appendChild(text);
+      t.appendChild(body);
+      var actions = document.createElement('div');
+      actions.className = 'toast-actions';
+      var close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'toast-close';
+      close.setAttribute('aria-label', 'Dismiss');
+      close.textContent = '×';
+      close.addEventListener('click', function () { dismissAlert(record.id); });
+      actions.appendChild(close);
+      actions.appendChild(alertControls(record));
+      t.appendChild(actions);
+      box.appendChild(t);
+      // Three lines unless asked for more, so a long note does not sit on
+      // half the menu.
+      if (text.scrollHeight > text.clientHeight + 1) {
+        var more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'toast-more';
+        more.textContent = 'More';
+        more.addEventListener('click', function () {
+          var open = t.classList.toggle('expanded');
+          more.textContent = open ? 'Less' : 'More';
+          renderToastSpace();
+        });
+        body.appendChild(more);
+      }
+    });
+    renderToastSpace();
+  }
+  // The panes scroll this much further, so a toast never sits on top of the
+  // last row's buttons.
+  function renderToastSpace() {
+    var box = document.getElementById('toasts');
+    var space = box.childNodes.length ? box.offsetHeight + 24 : 0;
+    document.documentElement.style.setProperty('--toast-space', space + 'px');
+  }
+
+  var alertsBtn = document.getElementById('alerts-btn');
+  var alertsPanel = document.getElementById('alerts-panel');
+  function renderBell() {
+    var unread = alertList.filter(function (a) { return !a.read; });
+    var urgent = unread.some(function (a) { return a.important; });
+    alertsBtn.classList.toggle('unread', unread.length > 0 && !urgent);
+    alertsBtn.classList.toggle('urgent', urgent);
+    document.getElementById('alerts-dot').classList.toggle('hidden', !unread.length);
+    alertsBtn.setAttribute('aria-label', unread.length ? 'Alerts, ' + unread.length + ' new' : 'Alerts');
+  }
+  function whenText(at) {
+    var mins = Math.round((Date.now() - at) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + ' min ago';
+    var d = new Date(at);
+    return d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  }
+  function renderAlertList() {
+    var list = document.getElementById('alerts-items');
+    list.innerHTML = '';
+    if (!alertList.length) {
+      var empty = document.createElement('li');
+      empty.className = 'alerts-empty';
+      empty.textContent = 'Nothing to report.';
+      list.appendChild(empty);
+    }
+    alertList.forEach(function (record) {
+      var li = document.createElement('li');
+      li.className = 'alert-item' + (record.read ? '' : ' unread') + (record.tone === 'bad' ? ' bad' : '');
+      var label = document.createElement('span');
+      label.className = 'alert-label';
+      label.textContent = record.label;
+      var when = document.createElement('span');
+      when.className = 'alert-when';
+      when.textContent = whenText(record.at);
+      label.appendChild(when);
+      li.appendChild(label);
+      li.appendChild(document.createTextNode(record.text));
+      var actions = document.createElement('div');
+      actions.className = 'alert-actions';
+      actions.appendChild(alertControls(record));
+      if (record.dismissed) {
+        var again = document.createElement('button');
+        again.type = 'button';
+        again.className = 'quiet';
+        again.textContent = 'Show';
+        again.addEventListener('click', function () { record.dismissed = false; saveAlerts(); renderAlerts(); });
+        actions.appendChild(again);
+      }
+      if (actions.childNodes.length) li.appendChild(actions);
+      list.appendChild(li);
+    });
+  }
+  function renderAlerts() {
+    renderToasts();
+    renderBell();
+    if (!alertsPanel.classList.contains('hidden')) renderAlertList();
+  }
+  function closeAlerts() {
+    alertsPanel.classList.add('hidden');
+    alertsBtn.setAttribute('aria-expanded', 'false');
+  }
+  alertsBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (!alertsPanel.classList.contains('hidden')) { closeAlerts(); return; }
+    if (typeof closeMenu === 'function') closeMenu();
+    renderAlertList();
+    alertsPanel.classList.remove('hidden');
+    alertsBtn.setAttribute('aria-expanded', 'true');
+    // Opening the list is reading it.
+    alertList.forEach(function (a) { a.read = true; });
+    saveAlerts();
+    renderBell();
+  });
+  document.getElementById('alerts-clear').addEventListener('click', function () {
+    alertList.splice(0, alertList.length);
+    saveAlerts();
+    renderAlerts();
+    renderAlertList();
+  });
+  document.addEventListener('click', function (e) {
+    if (!alertsPanel.contains(e.target) && e.target !== alertsBtn) closeAlerts();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAlerts(); });
+  window.addEventListener('resize', renderToasts);
+  // Whatever was still unread or showing when the page last closed.
+  renderAlerts();
 
   // ---------- persistence ----------
   function load() {
@@ -1220,10 +1525,11 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var cleared = Object.keys(touched).length;
     if (cleared) {
       save();
-      var note = document.getElementById('settled-note');
-      note.textContent = 'Cleared ' + cleared + (cleared === 1 ? ' row' : ' rows') +
-        ' whose changes this build already includes — they were applied, so there is nothing left to export for them.';
-      document.getElementById('settled-line').classList.remove('hidden');
+      notify({
+        id: 'settled' + SCOPE, label: 'Edits', scope: LOADED ? LOADED.key : null,
+        text: 'Cleared ' + cleared + (cleared === 1 ? ' row' : ' rows') +
+          ' whose changes this build already includes — they went live, so there is nothing left to publish for them.'
+      });
     }
     return cleared;
   }
@@ -2206,8 +2512,10 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     // heading, and repeating it 209 times was noise even when they didn't.
     // A deleted row says so whatever its origin - a crawled dish dimmed to
     // 55% and nothing else would read as a rendering glitch.
-    var badges = researchBadges(row);
     var hasStatus = RESEARCH && Object.prototype.hasOwnProperty.call(row, 'status');
+    // The status select says the status; the labels say only the rest.
+    var statusText = statusLabel(valueOf(row, 'status'));
+    var badges = researchBadges(row).filter(function (b) { return !hasStatus || b !== statusText; });
     if (isAdded(row) || isDeleted(row) || badges.length || hasStatus) {
       var head = document.createElement('div');
       head.className = 'row-head';
@@ -2473,7 +2781,8 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       b.type = 'button';
       b.setAttribute('aria-pressed', f.key === current.key ? 'true' : 'false');
       b.title = f.name + ' · ' + f.season + (f.has_data ? '' : ' · no data yet');
-      b.textContent = f.short;
+      var COMPACT = { 'flower-and-garden': 'F&G', 'food-and-wine': 'F&W' };
+      b.innerHTML = '<span class="long">' + esc(f.short) + '</span><span class="compact">' + esc(COMPACT[f.key] || f.short) + '</span>';
       b.addEventListener('click', function () {
         if (currentFestival().key === f.key) return;
         if (state.drawer) shutDrawer();
@@ -2560,19 +2869,14 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
         : dishes.length + ' of ' + total;
   }
 
-  // A researched festival is a first pass, not a crawl, and says so above the
-  // work until it is waved away for this load.
-  var researchHidden = false;
+  // A researched festival is a first pass, not a crawl, and says so once:
+  // dismissed, the note stays under the bell and does not come back until
+  // its text changes.
   function renderResearchNote() {
-    var line = document.getElementById('research-line');
-    var show = RESEARCH && festivalEditable() && !researchHidden && !!LOADED.note;
-    line.classList.toggle('hidden', !show);
-    if (show) document.getElementById('research-note').textContent = LOADED.note;
+    if (RESEARCH && festivalEditable() && LOADED.note) {
+      notify({ id: 'research:' + LOADED.key, label: 'Research · ' + LOADED.short, text: LOADED.note, scope: LOADED.key });
+    }
   }
-  document.getElementById('research-dismiss').addEventListener('click', function () {
-    researchHidden = true;
-    renderResearchNote();
-  });
 
   function render() {
     renderFestivals();
@@ -2979,19 +3283,16 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   }
 
   function publishNote(text, tone, link) {
-    var line = document.getElementById('publish-line');
-    line.classList.remove('hidden');
-    line.classList.toggle('warn', tone === 'bad');
-    document.getElementById('publish-note').textContent = text;
-    var a = document.getElementById('publish-link');
-    a.classList.toggle('hidden', !link);
-    if (link) a.href = link;
+    notify({
+      id: 'publish' + SCOPE, label: 'Publish · ' + (LOADED ? LOADED.short : ''), text: text, link: link || null,
+      scope: LOADED ? LOADED.key : null,
+      tone: tone === 'bad' ? 'bad' : 'info', important: tone === 'bad',
+      onDismiss: function () {
+        var record = pendingPublish();
+        if (record && record.done) setPendingPublish(null);
+      }
+    });
   }
-  document.getElementById('publish-dismiss').addEventListener('click', function () {
-    document.getElementById('publish-line').classList.add('hidden');
-    var record = pendingPublish();
-    if (record && record.done) setPendingPublish(null);
-  });
 
   // The workflow's answer: a comment on the request's own commit, holding
   // the same report the command line prints.
@@ -3197,7 +3498,9 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   });
 
   function renderAssistantButton() {
-    document.getElementById('assistant-btn').classList.toggle('hidden', !secrets().anthropic || !festivalEditable());
+    var off = !secrets().anthropic || !festivalEditable();
+    document.getElementById('assistant-btn').classList.toggle('hidden', off);
+    document.getElementById('menu-assistant').classList.toggle('hidden', off);
   }
 
   // ---- what Claude is told ----
@@ -3932,8 +4235,19 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     menuList.classList.add('hidden');
     menuBtn.setAttribute('aria-expanded', 'false');
   }
+  // On a phone the top bar has no room for Map and Assistant, so they live
+  // in this menu there.
+  document.getElementById('menu-map').addEventListener('click', function () {
+    closeMenu();
+    if (festivalEditable()) openDrawer(null);
+  });
+  document.getElementById('menu-assistant').addEventListener('click', function () {
+    closeMenu();
+    document.getElementById('assistant-btn').click();
+  });
   menuBtn.addEventListener('click', function (e) {
     e.stopPropagation();
+    closeAlerts();
     var open = menuList.classList.toggle('hidden') === false;
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
@@ -3949,9 +4263,6 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   });
   document.getElementById('help-close').addEventListener('click', function () {
     if (helpDialog.close) helpDialog.close(); else helpDialog.removeAttribute('open');
-  });
-  document.getElementById('settled-dismiss').addEventListener('click', function () {
-    document.getElementById('settled-line').classList.add('hidden');
   });
   document.getElementById('filter-cat').addEventListener('change', function (e) {
     state.category = e.target.value;
@@ -4030,14 +4341,19 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     serverVersion().then(function (v) {
       if (!v) return;
       if (loadedVersion === null) { loadedVersion = v; return; }
-      if (v !== loadedVersion) document.getElementById('update-line').classList.remove('hidden');
+      if (v !== loadedVersion) {
+        notify({
+          id: 'update', label: 'Update', important: true,
+          text: 'A newer version of the Studio is ready. Your edits are saved and carry over.',
+          action: { label: 'Reload', run: function () { location.reload(); } }
+        });
+      }
     });
   }
   checkForUpdate();
   window.addEventListener('focus', checkForUpdate);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) checkForUpdate(); });
   setInterval(checkForUpdate, 5 * 60 * 1000);
-  document.getElementById('update-reload').addEventListener('click', function () { location.reload(); });
 })();
 </script>
 </body>
