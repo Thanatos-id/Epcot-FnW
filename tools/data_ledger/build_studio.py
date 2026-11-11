@@ -73,6 +73,10 @@ ALCOHOL_KINDS = ("beer", "wine", "liquor", "cider")
 DEFAULT_CENTER = [28.3689, -81.5493]
 DEFAULT_ZOOM = 18
 
+# Where the Publish button sends a changeset: a branch on this repository,
+# which .github/workflows/studio-publish.yml turns into a commit on main.
+PUBLISH_REPO = "Thanatos-id/Epcot-FnW"
+
 # Epcot's four festivals, in calendar order. The database and the curated
 # files describe one festival at a time; a festival researched by hand into
 # data/festivals/ (epcot_fw.festival_files) is a second source of rows. Any
@@ -187,6 +191,12 @@ TEMPLATE = r"""<!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
+<!-- This page can hold a GitHub token and an API key in its browser storage,
+     so it says exactly what it may run and where it may send anything. No
+     script from another host (Leaflet is vendored), and requests only to
+     this site, GitHub's API and Anthropic's. Photos and map tiles are images
+     and come from wherever the data points. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api.github.com https://api.anthropic.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'" />
 <meta name="description" content="Curation studio for the Epcot festival database - correct a dish, attach a photo, place a booth on the map, or add what the crawl missed, and export the result as curated overrides." />
 <title>Studio — Epcot Festivals</title>
 <link rel="manifest" href="studio.webmanifest" />
@@ -200,7 +210,7 @@ TEMPLATE = r"""<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&display=swap" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
 <style>
 /* One light palette, flat and square. Separation comes from 1px rules and
    white on grey, never from shadow or rounding; colour is reserved for one
@@ -568,6 +578,19 @@ dialog::backdrop { background: rgba(17,17,17,0.32); }
 .summary { list-style: none; padding: 0; margin: 0 0 var(--s4); font-size: 13px; border-top: 1px solid var(--line); }
 .summary li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .summary b { font-family: var(--mono); font-weight: 500; }
+.changes { list-style: none; padding: 0; margin: 0 0 var(--s4); font-size: 13px; border-top: 1px solid var(--line); max-height: 40vh; overflow-y: auto; }
+.changes li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.changes .what { display: flex; gap: var(--s2); align-items: baseline; font-weight: 500; }
+.changes .what .pill { flex: none; }
+.changes .change-detail { color: var(--ink-2); font-size: 12.5px; margin-top: 2px; overflow-wrap: anywhere; }
+.changes .change-detail s { color: var(--ink-3); }
+.changes .when { color: var(--ink-3); font-size: 12px; font-family: var(--mono); }
+.changes .row-end { display: flex; gap: var(--s3); align-items: center; justify-content: space-between; }
+.dialog-body input[type="password"] { width: 100%; font-family: var(--mono); }
+.dialog-note { font-size: 12.5px; color: var(--ink-2); }
+.dialog-note.bad { color: var(--warn); }
+.dialog-note.good { color: var(--good); }
+.status-line a { color: inherit; }
 pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s3); font-family: var(--mono); font-size: 12px; overflow-x: auto; margin: 0; }
 .help ol { margin: 0 0 var(--s3); padding-left: 18px; color: var(--ink-2); font-size: 13px; }
 .help li { margin-bottom: var(--s2); }
@@ -610,6 +633,8 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     <button type="button" class="icon" id="menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="More">⋯</button>
     <div class="menu-list hidden" id="menu-list" role="menu">
       <button type="button" role="menuitem" class="hidden" id="install-btn">Install as app</button>
+      <button type="button" role="menuitem" id="connections-btn">Connections</button>
+      <button type="button" role="menuitem" id="history-btn">Publish history</button>
       <button type="button" role="menuitem" id="help-btn">How this works</button>
       <a role="menuitem" href="index.html">Open the ledger</a>
       <a role="menuitem" href="survey.html">In-park GPS survey</a>
@@ -624,6 +649,11 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     <button type="button" class="primary" id="update-reload">Reload</button>
   </div>
   <div class="status-line warn hidden" id="storage-note"></div>
+  <div class="status-line hidden" id="publish-line">
+    <span class="label">Publish</span><span id="publish-note"></span>
+    <a class="hidden" id="publish-link" target="_blank" rel="noopener">Details</a><span class="spacer"></span>
+    <button type="button" class="quiet" id="publish-dismiss">Dismiss</button>
+  </div>
   <div class="status-line research hidden" id="research-line">
     <span class="label">Research</span><span id="research-note"></span><span class="spacer"></span>
     <button type="button" class="quiet" id="research-dismiss">Hide</button>
@@ -765,19 +795,55 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
 
 <dialog id="export-dialog">
   <div class="dialog-body">
-    <h2>Export</h2>
-    <p>Download the changeset, then apply it from the repo root:</p>
+    <h2 id="export-title">Export</h2>
+    <p id="export-lede"></p>
+    <ul class="changes" id="export-changes"></ul>
     <ul class="summary" id="export-summary"></ul>
-    <pre class="cmd" id="export-cmd">epcot-fw studio apply ~/Downloads/epcot-changeset.json</pre>
-    <p style="margin-top:12px">
-      That writes any attached photos into <code>docs/dish-photos/</code>, merges the rest into
-      <code>data/manual/menu_items.json</code> and <code>data/manual/booth_locations.json</code>,
-      and re-resolves. Commit and push those to publish.
-    </p>
+    <div id="export-manual">
+      <p>Download the changeset, then publish it from the repo root:</p>
+      <pre class="cmd" id="export-cmd">epcot-fw studio publish ~/Downloads/epcot-changeset.json</pre>
+      <p style="margin-top:12px">
+        That applies it, rebuilds what it affects, checks nothing was skipped or lost, commits and pushes.
+        To publish from here instead, add a GitHub token under <b>⋯ → Connections</b>.
+      </p>
+    </div>
+    <p class="dialog-note hidden" id="export-error"></p>
     <div class="dialog-actions">
       <button type="button" id="export-close">Close</button>
-      <button type="button" class="primary" id="export-download">Download changeset</button>
+      <button type="button" id="export-download">Download changeset</button>
+      <button type="button" class="hidden" id="export-dryrun" title="Run every check on GitHub without publishing">Check only</button>
+      <button type="button" class="primary hidden" id="export-publish">Publish</button>
     </div>
+  </div>
+</dialog>
+
+<dialog id="connections-dialog">
+  <form class="dialog-body" id="connections-form" autocomplete="off">
+    <h2>Connections</h2>
+    <p>Kept in this browser only. Never part of an export, and never sent anywhere but the service it belongs to.</p>
+    <label class="label" for="github-token">GitHub token</label>
+    <input type="password" id="github-token" autocomplete="off" spellcheck="false" placeholder="github_pat_…" />
+    <p class="dialog-note" id="github-status" style="margin-top:6px"></p>
+    <p class="dialog-note">
+      Lets <b>Publish</b> send your edits to GitHub, where they are checked and go live. Create a
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a>
+      limited to this repository, with <b>Contents: Read and write</b> and nothing else, and give it an expiry date.
+    </p>
+    <div class="dialog-actions">
+      <button type="button" class="danger" id="github-forget">Forget token</button>
+      <span style="flex:1 1 auto"></span>
+      <button type="button" id="connections-close">Close</button>
+      <button type="submit" class="primary" id="connections-save">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="history-dialog">
+  <div class="dialog-body">
+    <h2>Publish history</h2>
+    <p id="history-lede"></p>
+    <ul class="changes" id="history-list"></ul>
+    <div class="dialog-actions"><button type="button" class="primary" id="history-close">Done</button></div>
   </div>
 </dialog>
 
@@ -795,7 +861,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
 
 <script id="studio-data" type="application/json">__DATA_JSON__</script>
 <script id="studio-festivals" type="application/json">__FESTIVAL_DATA_JSON__</script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="vendor/leaflet/leaflet.js"></script>
 <script>
 (function () {
   var DATA = JSON.parse(document.getElementById('studio-data').textContent);
@@ -804,6 +870,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   var FLAVOUR_TAGS = __FLAVOUR_TAGS__;
   var ALCOHOL_KINDS = __ALCOHOL_KINDS__;
   var FESTIVALS = __FESTIVALS__;
+  var PUBLISH_REPO = __PUBLISH_REPO__;
   var CENTER = __CENTER_JSON__;
   var ZOOM = __ZOOM__;
   // A heading covering dishes sold in several places at once, not somewhere
@@ -2258,6 +2325,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     document.getElementById('edit-count').innerHTML =
       n === 0 ? 'No changes' : '<b>' + n + '</b> changed';
     document.getElementById('export').disabled = n === 0 || !festivalEditable();
+    document.getElementById('export').textContent = connected() ? 'Publish' : 'Export';
     document.getElementById('map-btn').disabled = !festivalEditable();
   }
 
@@ -2511,6 +2579,166 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   var exportDialog = document.getElementById('export-dialog');
   var pendingName = null;
 
+  function openDialog(d) { if (d.showModal) d.showModal(); else d.setAttribute('open', ''); }
+  function closeDialog(d) { if (d.close) d.close(); else d.removeAttribute('open'); }
+
+  // ---------- connections ----------
+  // Secrets live in this browser's storage and nowhere else: the page is
+  // published with no login, so nothing secret can be built into it. They
+  // are kept apart from the edits - never in an export, never in a
+  // changeset, untouched by Discard all.
+  var SECRETS_KEY = 'epcot-studio-secrets-v1';
+  function secrets() {
+    try { return JSON.parse(localStorage.getItem(SECRETS_KEY) || '{}') || {}; } catch (e) { return {}; }
+  }
+  function setSecret(name, value) {
+    var all = secrets();
+    if (value) all[name] = value; else delete all[name];
+    try { localStorage.setItem(SECRETS_KEY, JSON.stringify(all)); } catch (e) { warn('This browser refused to save the token.'); }
+  }
+  function connected() { return !!secrets().github; }
+
+  // Every request to GitHub goes through here, to this one repository.
+  function gh(method, path, body) {
+    return fetch('https://api.github.com/repos/' + PUBLISH_REPO + path, {
+      method: method,
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': 'Bearer ' + secrets().github,
+        'X-GitHub-Api-Version': '2022-11-28'
+      },
+      body: body === undefined ? undefined : JSON.stringify(body)
+    }).then(function (r) {
+      if (r.status === 204) return null;
+      return r.json().catch(function () { return null; }).then(function (data) {
+        if (r.ok) return data;
+        var err = new Error((data && data.message) || ('GitHub answered ' + r.status));
+        err.status = r.status;
+        throw err;
+      });
+    });
+  }
+
+  function githubProblem(err) {
+    if (err.status === 401) return 'GitHub did not accept the token. It may have expired - add a new one under Connections.';
+    if (err.status === 403 || err.status === 404) return 'The token cannot write to this repository. It needs Contents: Read and write on ' + PUBLISH_REPO + '.';
+    if (!err.status) return 'Could not reach GitHub. Check the connection and try again - your edits are still here.';
+    return 'GitHub said: ' + err.message;
+  }
+
+  var connectionsDialog = document.getElementById('connections-dialog');
+  var tokenInput = document.getElementById('github-token');
+  function tokenStatus(text, tone) {
+    var el = document.getElementById('github-status');
+    el.textContent = text;
+    el.className = 'dialog-note' + (tone ? ' ' + tone : '');
+  }
+  function describeToken() {
+    var t = secrets().github;
+    tokenInput.value = '';
+    tokenInput.placeholder = t ? 'Saved, ending …' + t.slice(-4) : 'github_pat_…';
+    tokenStatus(t ? 'A token is saved in this browser.' : 'No token saved. Publish is off; Export still works.', '');
+    document.getElementById('github-forget').classList.toggle('hidden', !t);
+  }
+  document.getElementById('connections-btn').addEventListener('click', function () {
+    closeMenu();
+    describeToken();
+    openDialog(connectionsDialog);
+  });
+  document.getElementById('connections-close').addEventListener('click', function () { closeDialog(connectionsDialog); });
+  document.getElementById('github-forget').addEventListener('click', function () {
+    setSecret('github', null);
+    describeToken();
+    renderCounts();
+  });
+  document.getElementById('connections-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var typed = tokenInput.value.trim();
+    if (!typed) { closeDialog(connectionsDialog); return; }
+    var previous = secrets().github;
+    setSecret('github', typed);
+    tokenStatus('Checking with GitHub…', '');
+    // Proves the token before it is trusted: it must reach this repository
+    // and be allowed to write to it.
+    gh('GET', '').then(function (repo) {
+      if (!repo || !repo.permissions || !repo.permissions.push) {
+        var err = new Error('read-only'); err.status = 403; throw err;
+      }
+      describeToken();
+      tokenStatus('Connected. Publish is on in this browser.', 'good');
+      renderCounts();
+    }).catch(function (err) {
+      setSecret('github', previous || null);
+      tokenInput.value = '';
+      tokenStatus(githubProblem(err), 'bad');
+      renderCounts();
+    });
+  });
+
+  // ---------- what is about to change ----------
+  var FIELD_LABELS = {
+    name: 'Name', description: 'Description', price: 'Price', category: 'Category', tags: 'Dietary',
+    flavor_tags: 'Flavour', alcohol_kind: 'Kind', is_new_this_year: 'New this year', image_url: 'Photo link',
+    location_description: 'Location description', opens_at: 'Opening'
+  };
+  function shown(key, value) {
+    if (value === null || value === undefined || value === '') return '—';
+    if (Array.isArray(value)) return value.length ? value.join(', ').replace(/_/g, ' ') : 'none';
+    if (key === 'price') return '$' + Number(value).toFixed(2);
+    if (value === true) return 'yes';
+    if (value === false) return 'no';
+    return String(value).replace(/_/g, ' ');
+  }
+  // One entry per changed row, in the words on screen: what it is, and each
+  // field as it was and as it will be. Built from the same state the
+  // changeset is, so the preview cannot say one thing and the file another.
+  function describeChanges() {
+    var out = [];
+    function rowChanges(row) {
+      var e = bucketFor(row)[rowKey(row)] || {};
+      var item = isItem(row);
+      var title = item ? (row.booth + ' / ' + valueOf(row, 'name')) : valueOf(row, 'name');
+      var kind = isDeleted(row) ? 'deleted' : row._id ? 'added' : 'edited';
+      var details = [];
+      if (kind === 'edited') {
+        Object.keys(e).forEach(function (key) {
+          details.push({ label: FIELD_LABELS[key] || key, was: shown(key, row[key]), now: shown(key, e[key]) });
+        });
+      } else if (kind === 'added' && item) {
+        details.push({ label: 'New dish', now: [shown('category', valueOf(row, 'category') || 'food'),
+          shown('price', valueOf(row, 'price'))].join(' · ') });
+      }
+      if (item && photos[photoKey(row)]) details.push({ label: 'Photo', now: 'attached from this device' });
+      if (!item && state.placements[row.name]) {
+        var pin = state.placements[row.name], old = row.latitude == null ? null
+          : Number(row.latitude).toFixed(5) + ', ' + Number(row.longitude).toFixed(5);
+        details.push({ label: 'Pin', was: old || 'not placed',
+          now: pin.latitude.toFixed(5) + ', ' + pin.longitude.toFixed(5) });
+      }
+      out.push({ title: title, kind: kind, details: details });
+    }
+    itemRows().forEach(function (row) { if (isRowChanged(row)) rowChanges(row); });
+    boothRows().forEach(function (row) { if (isRowChanged(row)) rowChanges(row); });
+    return out;
+  }
+  function renderChangeList(target, changes) {
+    target.innerHTML = changes.map(function (c) {
+      var pill = c.kind === 'edited' ? '' : '<span class="pill ' + (c.kind === 'deleted' ? 'deleted' : 'curated') + '">' +
+        (c.kind === 'deleted' ? 'Delete' : 'Add') + '</span>';
+      var details = c.details.map(function (d) {
+        return '<div class="change-detail">' + esc(d.label) + ': ' +
+          (d.was !== undefined ? '<s>' + esc(d.was) + '</s> → ' : '') + esc(d.now) + '</div>';
+      }).join('');
+      return '<li><div class="what">' + pill + '<span>' + esc(c.title) + '</span></div>' + details + '</li>';
+    }).join('');
+  }
+
+  function exportError(text) {
+    var el = document.getElementById('export-error');
+    el.textContent = text || '';
+    el.className = 'dialog-note bad' + (text ? '' : ' hidden');
+  }
+
   document.getElementById('export').addEventListener('click', function () {
     if (!festivalEditable()) return;
     var changeset = buildChangeset();
@@ -2521,21 +2749,37 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var deletedCount = changeset.menu_items.filter(function (i) { return i.is_active === false; }).length +
                        changeset.booths.filter(function (b) { return b.is_active === false; }).length;
 
-    var rowsHtml = [
+    renderChangeList(document.getElementById('export-changes'), describeChanges());
+    document.getElementById('export-summary').innerHTML = [
       ['Dishes changed', changeset.menu_items.length],
       ['Booths changed', changeset.booths.length],
       ['Photos attached', photoCount],
       ['Pins dropped', pinCount],
       ['Added by hand', addedCount],
       ['Marked deleted', deletedCount]
-    ].map(function (pair) {
+    ].filter(function (pair) { return pair[1] > 0; }).map(function (pair) {
       return '<li><span>' + pair[0] + '</span><b>' + pair[1] + '</b></li>';
     }).join('');
-    document.getElementById('export-summary').innerHTML = rowsHtml;
+
+    var on = connected();
+    var festival = liveFestival();
+    document.getElementById('export-title').textContent = on ? 'Publish' : 'Export';
+    document.getElementById('export-lede').textContent = on
+      ? 'This is everything that will change in ' + (festival ? festival.short : 'this festival') +
+        '. GitHub checks it, then it goes live - usually within three minutes.' +
+        (RESEARCH ? '' : ' Food & Wine edits wait for your Mac to pick them up.')
+      : 'This is everything that has changed.';
+    document.getElementById('export-manual').classList.toggle('hidden', on);
+    document.getElementById('export-publish').classList.toggle('hidden', !on);
+    document.getElementById('export-dryrun').classList.toggle('hidden', !on);
+    document.getElementById('export-download').classList.toggle('primary', !on);
+    document.getElementById('export-publish').disabled = false;
+    document.getElementById('export-dryrun').disabled = false;
+    exportError('');
 
     pendingName = changesetFilename();
-    document.getElementById('export-cmd').textContent = 'epcot-fw studio apply ~/Downloads/' + pendingName;
-    if (exportDialog.showModal) exportDialog.showModal(); else exportDialog.setAttribute('open', '');
+    document.getElementById('export-cmd').textContent = 'epcot-fw studio publish ~/Downloads/' + pendingName;
+    openDialog(exportDialog);
   });
 
   document.getElementById('export-download').addEventListener('click', function () {
@@ -2550,9 +2794,261 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   });
 
-  document.getElementById('export-close').addEventListener('click', function () {
-    if (exportDialog.close) exportDialog.close(); else exportDialog.removeAttribute('open');
+  document.getElementById('export-close').addEventListener('click', function () { closeDialog(exportDialog); });
+
+  // ---------- publish ----------
+  // The page cannot write to main, and should not be able to. It pushes a
+  // branch holding one file - the changeset - and a workflow on GitHub does
+  // the rest behind the same checks `epcot-fw studio publish` runs:
+  //
+  //   studio/publish-<id>   apply, test, commit to main
+  //   studio/dryrun-<id>    every check, nothing published
+  //   studio/revert-<sha>   undo one publish
+  //
+  // Edits stay in this browser until the rebuilt page carries them, which is
+  // when settle() clears them - so a publish that fails, or a tab closed
+  // halfway, loses nothing.
+  var MAX_REQUEST_BYTES = 30 * 1024 * 1024;
+  var PUBLISH_KEY = 'epcot-studio-publish' + SCOPE;
+
+  function utf8ToBase64(text) {
+    var bytes = new TextEncoder().encode(text), binary = '', step = 0x8000;
+    for (var i = 0; i < bytes.length; i += step) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + step));
+    }
+    return btoa(binary);
+  }
+
+  function requestId() {
+    return new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6);
+  }
+
+  // Creates the branch in one step, already pointing at the commit that
+  // holds the changeset, so the workflow starts once and finds its file.
+  function pushRequest(branch, file) {
+    return gh('GET', '/git/ref/heads/main').then(function (ref) {
+      var main = ref.object.sha;
+      if (!file) return main;
+      return gh('GET', '/git/commits/' + main).then(function (commit) {
+        return gh('POST', '/git/blobs', { content: utf8ToBase64(file.content), encoding: 'base64' }).then(function (blob) {
+          return gh('POST', '/git/trees', {
+            base_tree: commit.tree.sha,
+            tree: [{ path: 'inbox/' + file.name, mode: '100644', type: 'blob', sha: blob.sha }]
+          });
+        }).then(function (tree) {
+          return gh('POST', '/git/commits', { message: 'Studio request: ' + file.name, tree: tree.sha, parents: [main] });
+        }).then(function (made) { return made.sha; });
+      });
+    }).then(function (sha) {
+      return gh('POST', '/git/refs', { ref: 'refs/heads/' + branch, sha: sha }).then(function () {
+        return { branch: branch, sha: sha };
+      });
+    });
+  }
+
+  function pendingPublish() {
+    try { return JSON.parse(localStorage.getItem(PUBLISH_KEY) || 'null'); } catch (e) { return null; }
+  }
+  function setPendingPublish(record) {
+    try {
+      if (record) localStorage.setItem(PUBLISH_KEY, JSON.stringify(record)); else localStorage.removeItem(PUBLISH_KEY);
+    } catch (e) { /* tracking is a convenience; the publish itself is on GitHub */ }
+  }
+
+  function publishNote(text, tone, link) {
+    var line = document.getElementById('publish-line');
+    line.classList.remove('hidden');
+    line.classList.toggle('warn', tone === 'bad');
+    document.getElementById('publish-note').textContent = text;
+    var a = document.getElementById('publish-link');
+    a.classList.toggle('hidden', !link);
+    if (link) a.href = link;
+  }
+  document.getElementById('publish-dismiss').addEventListener('click', function () {
+    document.getElementById('publish-line').classList.add('hidden');
+    var record = pendingPublish();
+    if (record && record.done) setPendingPublish(null);
   });
+
+  // The workflow's answer: a comment on the request's own commit, holding
+  // the same report the command line prints.
+  function readReport(sha) {
+    return gh('GET', '/commits/' + sha + '/comments?per_page=100').then(function (comments) {
+      for (var i = (comments || []).length - 1; i >= 0; i--) {
+        var body = comments[i].body || '';
+        if (body.indexOf('<!-- studio-publish-report -->') === -1) continue;
+        var match = body.match(/```json\s*([\s\S]*?)```/);
+        if (!match) continue;
+        try { return JSON.parse(match[1]); } catch (e) { /* keep looking */ }
+      }
+      return null;
+    }).catch(function () { return null; });
+  }
+
+  var OUTCOME_TEXT = {
+    live: 'Published. It is on the live site in about a minute.',
+    reverted: 'Undone. The live site updates in about a minute.',
+    checked: 'Checked: every check passed. Nothing was published.',
+    queued: 'Checked. Food & Wine edits publish when your Mac next picks them up.'
+  };
+  var trackTimer = null;
+  function finishTracking(record, text, tone, link) {
+    clearTimeout(trackTimer);
+    record.done = true;
+    setPendingPublish(record.outcome === 'queued' ? record : null);
+    publishNote(text, tone, link);
+    // The published page is how the edits clear: once it is out, the
+    // existing update notice offers a reload and settle() does the rest.
+    if (record.outcome === 'live' || record.outcome === 'reverted') {
+      var tries = 0, nudge = setInterval(function () {
+        checkForUpdate();
+        if (++tries >= 24) clearInterval(nudge);
+      }, 10000);
+    }
+  }
+  function trackPublish(record) {
+    clearTimeout(trackTimer);
+    var waited = Date.now() - record.startedAt;
+    if (waited > 20 * 60 * 1000) {
+      finishTracking(record, 'GitHub has not answered after 20 minutes. Your edits are still here; check the run, or publish again.', 'bad',
+        'https://github.com/' + PUBLISH_REPO + '/actions');
+      return;
+    }
+    gh('GET', '/actions/runs?per_page=1&event=push&branch=' + encodeURIComponent(record.branch)).then(function (data) {
+      var run = data && data.workflow_runs && data.workflow_runs[0];
+      if (!run || run.status !== 'completed') {
+        publishNote(!run ? 'Sent to GitHub. Waiting for it to start…'
+          : run.status === 'in_progress' ? 'GitHub is checking and testing it…' : 'Queued on GitHub…', '', run && run.html_url);
+        trackTimer = setTimeout(function () { trackPublish(record); }, 6000);
+        return;
+      }
+      return readReport(record.sha).then(function (report) {
+        var outcome = report && report.outcome;
+        record.outcome = outcome || (run.conclusion === 'success' ? 'live' : 'failed');
+        if (OUTCOME_TEXT[record.outcome] && run.conclusion === 'success') {
+          finishTracking(record, OUTCOME_TEXT[record.outcome], '', run.html_url);
+          return;
+        }
+        var why = report && report.refusals && report.refusals.length
+          ? report.refusals[0] + (report.refusals.length > 1 ? ' (and ' + (report.refusals.length - 1) + ' more)' : '')
+          : record.outcome === 'failed' ? 'the tests did not pass on the result' : 'the run did not finish';
+        finishTracking(record, 'Not published: ' + why + '. Nothing changed, and your edits are still here.', 'bad', run.html_url);
+      });
+    }).catch(function (err) {
+      // A dropped connection is not a failed publish. Keep looking.
+      publishNote(err.status ? githubProblem(err) : 'Lost the connection. Still watching…', err.status ? 'bad' : '');
+      if (!err.status) trackTimer = setTimeout(function () { trackPublish(record); }, 10000);
+    });
+  }
+
+  function startRequest(prefix, file, label) {
+    var branch = 'studio/' + prefix + '-' + requestId();
+    return pushRequest(branch, file).then(function (made) {
+      var record = { branch: made.branch, sha: made.sha, startedAt: Date.now(), label: label };
+      setPendingPublish(record);
+      publishNote('Sent to GitHub. Waiting for it to start…', '');
+      trackPublish(record);
+    });
+  }
+
+  function publishFromDialog(prefix) {
+    var content = JSON.stringify(buildChangeset());
+    if (content.length > MAX_REQUEST_BYTES) {
+      exportError('This is too large to send in one go - mostly photos. Download the changeset instead, or publish some booths first.');
+      return;
+    }
+    var buttons = [document.getElementById('export-publish'), document.getElementById('export-dryrun')];
+    buttons.forEach(function (b) { b.disabled = true; });
+    exportError('');
+    startRequest(prefix, { name: pendingName || changesetFilename(), content: content }, prefix)
+      .then(function () { closeDialog(exportDialog); })
+      .catch(function (err) {
+        buttons.forEach(function (b) { b.disabled = false; });
+        exportError(githubProblem(err));
+      });
+  }
+  document.getElementById('export-publish').addEventListener('click', function () { publishFromDialog('publish'); });
+  document.getElementById('export-dryrun').addEventListener('click', function () { publishFromDialog('dryrun'); });
+
+  // A reload mid-publish picks the watch back up; a queued Food & Wine
+  // request is done once its branch is gone, which is the Mac clearing it.
+  (function resumeTracking() {
+    var record = pendingPublish();
+    if (!record || !connected()) return;
+    if (record.outcome === 'queued') {
+      gh('GET', '/git/ref/heads/' + record.branch).then(function () {
+        publishNote(OUTCOME_TEXT.queued, '');
+      }).catch(function (err) {
+        if (err.status !== 404) return;
+        setPendingPublish(null);
+        publishNote('Your Mac published the Food & Wine edits. Reload when the update notice appears.', '');
+      });
+      return;
+    }
+    if (!record.done) trackPublish(record);
+  })();
+
+  // ---------- publish history ----------
+  var historyDialog = document.getElementById('history-dialog');
+  var PUBLISH_SUBJECT = 'Studio publish - ', REVERT_SUBJECT = 'Studio revert - ';
+  function renderHistory(commits) {
+    var list = document.getElementById('history-list');
+    var rows = (commits || []).filter(function (c) {
+      var subject = c.commit.message.split('\n')[0];
+      return subject.indexOf(PUBLISH_SUBJECT) === 0 || subject.indexOf(REVERT_SUBJECT) === 0;
+    });
+    document.getElementById('history-lede').textContent = rows.length
+      ? 'Most recent first. Undo reverses one publish; later publishes of other dishes are kept.'
+      : 'Nothing has been published from the Studio for this festival yet.';
+    list.innerHTML = '';
+    rows.forEach(function (c) {
+      var subject = c.commit.message.split('\n')[0];
+      var isPublish = subject.indexOf(PUBLISH_SUBJECT) === 0;
+      var li = document.createElement('li');
+      var when = new Date(c.commit.committer.date).toLocaleString(undefined,
+        { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      li.innerHTML = '<div class="row-end"><div><div class="what"><span>' +
+        esc(isPublish ? subject.slice(PUBLISH_SUBJECT.length) : 'Undid: ' + subject.slice(REVERT_SUBJECT.length)) +
+        '</span></div><div class="when">' + esc(when) + ' · ' + esc(c.sha.slice(0, 7)) + '</div></div></div>';
+      if (isPublish && RESEARCH) {
+        li.querySelector('.row-end').appendChild(button('Undo', 'small', function () {
+          ask({
+            title: 'Undo this publish?',
+            message: subject.slice(PUBLISH_SUBJECT.length) + ' - published ' + when +
+              '. GitHub reverses it and runs the same checks. If the same dishes were edited again since, it will refuse.',
+            okLabel: 'Undo publish'
+          }).then(function (yes) {
+            if (!yes) return;
+            closeDialog(historyDialog);
+            var branch = 'studio/revert-' + c.sha.slice(0, 12) + '-' + requestId();
+            pushRequest(branch, null).then(function (made) {
+              var record = { branch: made.branch, sha: made.sha, startedAt: Date.now(), label: 'revert' };
+              setPendingPublish(record);
+              publishNote('Undo sent to GitHub. Waiting for it to start…', '');
+              trackPublish(record);
+            }).catch(function (err) { publishNote(githubProblem(err), 'bad'); });
+          });
+        }));
+      }
+      list.appendChild(li);
+    });
+  }
+  document.getElementById('history-btn').addEventListener('click', function () {
+    closeMenu();
+    var list = document.getElementById('history-list');
+    list.innerHTML = '';
+    openDialog(historyDialog);
+    if (!connected()) {
+      document.getElementById('history-lede').textContent = 'Add a GitHub token under Connections to see and undo publishes.';
+      return;
+    }
+    document.getElementById('history-lede').textContent = 'Loading…';
+    var path = RESEARCH ? 'data/festivals/' + LOADED.key : 'data/manual';
+    gh('GET', '/commits?per_page=30&sha=main&path=' + encodeURIComponent(path)).then(renderHistory).catch(function (err) {
+      document.getElementById('history-lede').textContent = githubProblem(err);
+    });
+  });
+  document.getElementById('history-close').addEventListener('click', function () { closeDialog(historyDialog); });
 
   document.getElementById('discard').addEventListener('click', function () {
     closeMenu();
@@ -2820,6 +3316,7 @@ def render(
         .replace("__FESTIVALS__", _script_json(catalog))
         .replace("__CENTER_JSON__", json.dumps(DEFAULT_CENTER))
         .replace("__ZOOM__", str(DEFAULT_ZOOM))
+        .replace("__PUBLISH_REPO__", json.dumps(PUBLISH_REPO))
         .replace("__AGGREGATE_BOOTH_NAME__", json.dumps(AGGREGATE_BOOTH_NAME))
         .replace("__GENERATED_AT__", generated_at or "")
         .replace("__FESTIVAL_DATA_JSON__", festival_payload)
