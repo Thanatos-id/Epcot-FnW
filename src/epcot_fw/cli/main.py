@@ -479,6 +479,40 @@ def studio_publish(
         console.print("Already published: applying it again changed nothing.")
 
 
+@studio_app.command("revert")
+def studio_revert(
+    commit: str = typer.Argument(..., help="The publish commit to undo (a sha, or its first characters)"),
+    no_commit: bool = typer.Option(False, "--no-commit", help="Undo and rebuild, but leave it uncommitted"),
+    no_push: bool = typer.Option(False, "--no-push", help="Commit on the current branch but do not push"),
+    report_json: Path = typer.Option(None, "--report-json", help="Also write the report here as JSON"),
+) -> None:
+    """Undo one `studio publish` of Arts, Flower & Garden or Holidays.
+
+    Reverses what that publish changed in the festival's files, then
+    rebuilds the feed and the Studio from the result. Refuses when the commit
+    is not a publish, or when later edits changed the same dishes.
+    """
+    from epcot_fw.pipeline import publish
+
+    report = publish.revert(commit)
+    if report.ok and report.written and not no_commit:
+        publish.commit(report, push=not no_push)
+    if report_json is not None:
+        report_json.write_text(json.dumps(report.to_dict(), indent=2) + "\n")
+
+    for refusal in report.refusals:
+        console.print(f"[red]refused[/red] {refusal}")
+    if not report.ok:
+        raise typer.Exit(code=1)
+    console.print(f"[bold]{report.headline()}[/bold]")
+    if report.pushed:
+        console.print(f"Committed {report.commit[:7]} and pushed.")
+    elif report.commit:
+        console.print(f"Committed {report.commit[:7]}. Not pushed.")
+    else:
+        console.print("Undone and rebuilt. Left uncommitted: " + ", ".join(report.paths))
+
+
 festival_app = typer.Typer(help="Festivals researched into data/festivals/ rather than crawled")
 app.add_typer(festival_app, name="festival")
 

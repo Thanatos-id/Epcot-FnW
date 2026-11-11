@@ -1130,6 +1130,10 @@ if ASSETS_DIR.is_dir():
     # before it will offer "Install".
     for name in ("studio.webmanifest", "studio-sw.js"):
         shutil.copy2(ASSETS_DIR / name, DOCS_DIR / name)
+    # Leaflet is served from here rather than a CDN: the studio can hold a
+    # GitHub token and an API key in its browser storage, and a page that
+    # holds secrets should run no script it does not ship itself.
+    shutil.copytree(ASSETS_DIR / "vendor", DOCS_DIR / "vendor", dirs_exist_ok=True)
     print(f"copied {copied} icon file(s), manifest.json and the studio app files into {DOCS_DIR}")
 
 # A missing icon silently degrades to a blank home-screen tile, so fail loudly
@@ -1137,7 +1141,8 @@ if ASSETS_DIR.is_dir():
 missing = [
     ref
     for ref in ("icons/favicon.ico", "icons/icon.svg", "icons/apple-touch-icon.png", "manifest.json",
-                "studio.webmanifest", "studio-sw.js")
+                "studio.webmanifest", "studio-sw.js",
+                "vendor/leaflet/leaflet.js", "vendor/leaflet/leaflet.css")
     if not (DOCS_DIR / ref).exists()
 ]
 if missing:

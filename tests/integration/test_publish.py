@@ -40,16 +40,21 @@ def repo(tmp_path):
         "start": "2026-11-27", "end": "2026-12-30", "menu_season": 2025, "summary": "First pass.",
         "stroll_label": "Cookie Stroll", "typical_dates": "Late November to late December",
     }))
-    (directory / "booths.json").write_text(json.dumps({"booths": [
+    # Written the way the real files are - indented, one field a line - so a
+    # diff of one dish is a few lines and not the whole file.
+    def write(name, payload):
+        (directory / name).write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+
+    write("booths.json", {"booths": [
         {"name": YUKON, "public_id": "b-yukon", "category": "holiday_kitchen"},
         {"name": "Refreshment Port", "public_id": "b-port", "category": "festival_location"},
-    ]}))
-    (directory / "menu_items.json").write_text(json.dumps({"menu_items": [
+    ]})
+    write("menu_items.json", {"menu_items": [
         _dish("Beef Bourguignon", "i-beef"),
         _dish("Seared Salmon", "i-salmon"),
         {"booth_name": "Refreshment Port", "name": "Turkey Poutine", "public_id": "i-poutine",
          "category": "food", "status": "confirmed-2026"},
-    ]}))
+    ]})
     docs = tmp_path / "docs"
     (docs / "v1").mkdir(parents=True)
     festivals = {KEY: festival_files.build_snapshot(KEY, tmp_path / "data" / "festivals")}
@@ -336,3 +341,60 @@ def test_a_refused_publish_is_never_committed(git_repo):
     report = publish.commit(_publish(git_repo), repo=git_repo)
     assert report.commit is None
     assert _git(git_repo, "status", "--porcelain", "--", "data", "docs") == ""
+
+
+# ---------------------------------------------------------------------------
+# undoing a publish
+# ---------------------------------------------------------------------------
+
+
+def _published(git_repo, **payload):
+    _changeset(git_repo, **payload)
+    return publish.commit(_publish(git_repo), repo=git_repo).commit
+
+
+def test_undoing_a_publish_restores_the_files_the_feed_and_the_studio(git_repo):
+    start = {p: p.read_bytes() for p in (git_repo / "data").rglob("*.json")}
+    sha = _published(git_repo, **PRICE_CHANGE)
+    report = publish.commit(publish.revert(sha[:10], repo=git_repo), repo=git_repo)
+    assert report.ok and report.commit
+    assert {p: p.read_bytes() for p in (git_repo / "data").rglob("*.json")} == start
+    beef = next(i for i in _feed(git_repo)["menu_items"] if i["public_id"] == "i-beef")
+    assert beef["price_usd"] == "7.25"
+    assert next(i for i in _studio_rows(git_repo)["items"] if i["public_id"] == "i-beef")["price"] == 7.25
+    assert _git(git_repo, "log", "-1", "--format=%s").strip() == "Studio revert - Holidays: 1 dish"
+
+
+def test_an_undo_survives_a_later_publish_of_other_dishes(git_repo):
+    """A plain `git revert` would conflict in the feed and the Studio page."""
+    sha = _published(git_repo, **PRICE_CHANGE)
+    _published(git_repo, menu_items=[{"booth_name": "Refreshment Port", "name": "Turkey Poutine", "price_usd": 9.5}])
+    report = publish.commit(publish.revert(sha, repo=git_repo), repo=git_repo)
+    assert report.ok
+    prices = {i["public_id"]: i["price_usd"] for i in _feed(git_repo)["menu_items"]}
+    assert prices["i-beef"] == "7.25" and prices["i-poutine"] == "9.50"
+
+
+def test_an_undo_is_refused_once_the_same_dish_has_been_edited_again(git_repo):
+    sha = _published(git_repo, **PRICE_CHANGE)
+    _published(git_repo, menu_items=[{"booth_name": YUKON, "name": "Beef Bourguignon", "price_usd": 8.5}])
+    report = publish.revert(sha, repo=git_repo)
+    assert not report.ok and "later edits" in report.refusals[0]
+    assert _git(git_repo, "status", "--porcelain", "--", "data", "docs") == ""
+
+
+def test_only_a_publish_can_be_undone(git_repo):
+    start = _git(git_repo, "rev-parse", "HEAD").strip()
+    report = publish.revert(start, repo=git_repo)
+    assert not report.ok and "not a Studio publish" in report.refusals[0]
+
+
+def test_undoing_a_publish_removes_the_photo_it_added(git_repo):
+    import base64
+    photo = {"id": "i-beef", "mime": "image/png", "data_base64": base64.b64encode(b"\x89PNG-bytes").decode()}
+    sha = _published(git_repo, menu_items=[{"booth_name": YUKON, "name": "Beef Bourguignon", "photo": photo}])
+    assert (git_repo / "docs" / "dish-photos" / "i-beef.png").exists()
+    report = publish.commit(publish.revert(sha, repo=git_repo), repo=git_repo)
+    assert report.ok and report.commit
+    assert not (git_repo / "docs" / "dish-photos" / "i-beef.png").exists()
+    assert not _items(git_repo)["Beef Bourguignon"].get("image_url")

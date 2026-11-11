@@ -108,6 +108,26 @@ The look is deliberately plain: white and light grey, square corners, 1px
 rules instead of shadows, Inter and Inter Tight, and one colour — orange —
 reserved for "this has changed" and "this is the pin you are placing".
 
+### Publishing from the page
+
+**Publish** (the primary button once a GitHub token is saved under ⋯ →
+Connections) previews every change, then pushes one branch,
+`studio/publish-<id>`, holding the changeset. `.github/workflows/studio-publish.yml`
+checks it, tests the result and commits it to `main`. The page tracks the run
+and reads the outcome from a comment the workflow leaves on the request's
+commit. `studio/dryrun-<id>` runs the checks only; `studio/revert-<sha>` undoes
+one publish. See `docs/WORKFLOW.md`.
+
+Because the page can now hold a token:
+
+- Leaflet is vendored (`assets/vendor/leaflet/`, copied to `docs/vendor/`), so
+  the page runs no script from another host.
+- A Content-Security-Policy meta tag limits requests to this site, GitHub's
+  API and Anthropic's. Images (photos, map tiles) may come from any https host.
+- Secrets live under their own storage key, `epcot-studio-secrets-v1`, apart
+  from the edits. `thanatos-id.github.io` is one origin shared by every Pages
+  site on the account, so another of the account's own sites could read them.
+
 ### As an installed app
 
 The studio installs from Chrome as **Epcot Studio**, a standalone app with

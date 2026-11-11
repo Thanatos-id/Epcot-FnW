@@ -12,11 +12,13 @@
 // merge to main) is what the app shows next time it opens. The cache is
 // only ever the fallback, never the answer while the server can be reached.
 //
-// Registered with scope "./studio", so it sees the Studio's own files and
-// nothing else: the ledger and the survey are served exactly as before.
+// Registered with scope "./studio", so it controls the Studio's own page and
+// nothing else: the ledger and the survey are served exactly as before. The
+// page's same-origin requests (the vendored Leaflet among them) pass through
+// here too, which is how the map still opens offline.
 
-const CACHE = 'epcot-studio-shell-v1';
-const SHELL = ['studio.html', 'studio.webmanifest'];
+const CACHE = 'epcot-studio-shell-v2';
+const SHELL = ['studio.html', 'studio.webmanifest', 'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

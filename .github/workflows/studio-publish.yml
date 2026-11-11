@@ -1,0 +1,223 @@
+name: Studio publish
+
+# The Studio's Publish button, from the other side.
+#
+# The Studio is a static page and cannot write to main. What it can do, with
+# a token that only allows writing file contents to this one repository, is
+# push a branch:
+#
+#   studio/publish-<id>   one file, inbox/<name>.json - a changeset to publish
+#   studio/dryrun-<id>    the same, but nothing is pushed to main
+#   studio/revert-<sha>   no file; undo the publish commit <sha>
+#
+# This job turns that request into a commit on main, behind the same checks
+# `epcot-fw studio publish` runs anywhere: nothing the changeset asked for
+# may be skipped, no booth or dish may disappear unless the changeset deleted
+# it, and the whole test suite has to pass before anything is pushed.
+#
+# Two things keep a request from being more than data:
+#
+# - The code that runs is always main's. The request branch is only ever
+#   read with `git show`, never checked out.
+# - A token without the separate Workflows permission cannot change this
+#   file on any branch, and only the repository's owner can trigger the job.
+#
+# Arts, Flower & Garden and Holidays publish here, start to finish. A Food &
+# Wine changeset has to resolve in the Postgres database on the Mac, so this
+# job only checks it and leaves the branch in place; the Mac's publisher
+# picks it up (scripts/launchd/run_publisher.sh).
+
+on:
+  push:
+    branches:
+      - "studio/publish-*"
+      - "studio/dryrun-*"
+      - "studio/revert-*"
+
+permissions:
+  contents: write
+  pages: write
+
+# One at a time, in order. A second publish waits for the first rather than
+# racing it to main.
+concurrency:
+  group: studio-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: publish
+    if: github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: epcot_fw
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      # As in ci.yml. The publish itself never connects to a database - only
+      # the test suite does, to its own throwaway one.
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/epcot_fw
+      TEST_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/epcot_fw_test
+      USER_AGENT_CONTACT: ci@example.invalid
+      GH_TOKEN: ${{ github.token }}
+      # Passed through the environment rather than written into the scripts
+      # below, so a branch name is never interpreted as shell.
+      REQUEST_REF: ${{ github.ref_name }}
+      REQUEST_SHA: ${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,data_ledger]"
+
+      - name: Read the request
+        id: request
+        run: |
+          set -euo pipefail
+          echo "refused" > "$RUNNER_TEMP/outcome"
+          case "$REQUEST_REF" in
+            studio/publish-*) mode=publish ;;
+            studio/dryrun-*)  mode=dryrun ;;
+            studio/revert-*)  mode=revert ;;
+            *) echo "unexpected branch $REQUEST_REF" >&2; exit 1 ;;
+          esac
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+          if [ "$mode" = revert ]; then
+            target="${REQUEST_REF#studio/revert-}"
+            target="${target%%-*}"
+            if ! [[ "$target" =~ ^[0-9a-f]{7,40}$ ]]; then
+              echo "'$target' is not a commit id" >&2; exit 1
+            fi
+            git fetch --no-tags --quiet --unshallow origin main
+            full="$(git rev-parse --verify "${target}^{commit}")"
+            git merge-base --is-ancestor "$full" HEAD
+            echo "target=$full" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git fetch --no-tags --quiet --depth=1 origin "refs/heads/${REQUEST_REF}"
+          mapfile -t files < <(git ls-tree -r --name-only FETCH_HEAD -- inbox/ | grep '\.json$' || true)
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "expected exactly one changeset under inbox/, found ${#files[@]}" >&2; exit 1
+          fi
+          git show "FETCH_HEAD:${files[0]}" > "$RUNNER_TEMP/changeset.json"
+          echo "name=$(basename "${files[0]}")" >> "$GITHUB_OUTPUT"
+
+      - name: Check the changeset
+        id: check
+        if: steps.request.outputs.mode != 'revert'
+        run: |
+          set -euo pipefail
+          epcot-fw studio publish "$RUNNER_TEMP/changeset.json" --dry-run --report-json "$RUNNER_TEMP/report.json"
+          festival="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["festival"])' "$RUNNER_TEMP/report.json")"
+          echo "festival=$festival" >> "$GITHUB_OUTPUT"
+          echo "checked" > "$RUNNER_TEMP/outcome"
+
+      - name: Leave Food & Wine for the Mac
+        if: steps.request.outputs.mode == 'publish' && steps.check.outputs.festival == 'food-and-wine'
+        run: echo "queued" > "$RUNNER_TEMP/outcome"
+
+      - name: Apply
+        id: apply
+        if: >-
+          steps.request.outputs.mode == 'revert' ||
+          (steps.request.outputs.mode == 'publish' && steps.check.outputs.festival != 'food-and-wine')
+        env:
+          MODE: ${{ steps.request.outputs.mode }}
+          TARGET: ${{ steps.request.outputs.target }}
+        run: |
+          set -euo pipefail
+          echo "refused" > "$RUNNER_TEMP/outcome"
+          git config user.name "studio-publish[bot]"
+          git config user.email "studio-publish[bot]@users.noreply.github.com"
+          if [ "$MODE" = revert ]; then
+            epcot-fw studio revert "$TARGET" --no-push --report-json "$RUNNER_TEMP/report.json"
+          else
+            epcot-fw studio publish "$RUNNER_TEMP/changeset.json" --no-push --report-json "$RUNNER_TEMP/report.json"
+          fi
+          echo "failed" > "$RUNNER_TEMP/outcome"
+
+      - name: Create the test database
+        if: steps.apply.outcome == 'success'
+        env:
+          PGPASSWORD: postgres
+        run: psql -h localhost -U postgres -c 'CREATE DATABASE epcot_fw_test'
+
+      - name: Test what is about to go live
+        if: steps.apply.outcome == 'success'
+        run: pytest -q
+
+      - name: Go live
+        if: steps.apply.outcome == 'success'
+        env:
+          MODE: ${{ steps.request.outputs.mode }}
+        run: |
+          set -euo pipefail
+          # Nothing to push when the same changeset is published twice.
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            git push --quiet origin HEAD:main
+            # A push made with this job's own token may not start a Pages
+            # build by itself, so ask for one.
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" --silent || true
+          fi
+          if [ "$MODE" = revert ]; then echo "reverted" > "$RUNNER_TEMP/outcome"; else echo "live" > "$RUNNER_TEMP/outcome"; fi
+
+      # What the Studio reads back. Posted on the request's own commit, which
+      # is how the page that pushed it finds the answer.
+      - name: Report
+        if: always() && steps.request.outputs.mode != ''
+        run: |
+          set -uo pipefail
+          outcome="$(cat "$RUNNER_TEMP/outcome" 2>/dev/null || echo failed)"
+          [ -f "$RUNNER_TEMP/report.json" ] || echo '{}' > "$RUNNER_TEMP/report.json"
+          {
+            echo "<!-- studio-publish-report -->"
+            echo "Studio request \`${REQUEST_REF}\`: **${outcome}**"
+            echo
+            echo '```json'
+            python -c 'import json,sys; r=json.load(open(sys.argv[1])); r["outcome"]=sys.argv[2]; print(json.dumps(r, indent=2))' "$RUNNER_TEMP/report.json" "$outcome"
+            echo '```'
+            echo
+            echo "[Run ${GITHUB_RUN_ID}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})"
+          } > "$RUNNER_TEMP/comment.md"
+          gh api "repos/${GITHUB_REPOSITORY}/commits/${REQUEST_SHA}/comments" -F body=@"$RUNNER_TEMP/comment.md" --silent || true
+          cat "$RUNNER_TEMP/comment.md" >> "$GITHUB_STEP_SUMMARY"
+
+      # A finished request has no reason to linger. One that was refused or
+      # failed stays, so it can be looked at; a queued Food & Wine one stays
+      # because the Mac has not handled it yet.
+      - name: Clear the request
+        if: always()
+        run: |
+          outcome="$(cat "$RUNNER_TEMP/outcome" 2>/dev/null || echo failed)"
+          case "$outcome" in
+            live|reverted|checked)
+              if [ "$outcome" != checked ] || [[ "$REQUEST_REF" == studio/dryrun-* ]]; then
+                git push --quiet origin --delete "$REQUEST_REF" || true
+              fi ;;
+          esac

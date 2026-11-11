@@ -56,6 +56,11 @@ FESTIVAL_NAMES = {
 # festival also carries whatever the daily crawl has retired since the last
 # export, so it gets a small allowance - and a publish that would drop more
 # than that is far more likely a broken resolve than a real menu change.
+# What every publish commit's subject starts with. `revert` only undoes
+# commits that carry it: this is an undo for publishes, not a way to back out
+# arbitrary history from a browser.
+SUBJECT_PREFIX = "Studio publish - "
+
 DATABASE_LOSS_FLOOR = 5
 DATABASE_LOSS_SHARE = 0.10
 
@@ -77,6 +82,9 @@ class PublishReport:
     written: bool = False
     commit: str | None = None
     pushed: bool = False
+    # Set on a revert: the commit being undone, and what it had published.
+    reverts: str | None = None
+    reverted_headline: str | None = None
 
     @property
     def ok(self) -> bool:
@@ -91,6 +99,8 @@ class PublishReport:
         return FESTIVAL_NAMES.get(self.festival, self.festival)
 
     def headline(self) -> str:
+        if self.reverts:
+            return f"undo {self.reverted_headline or self.reverts[:7]}"
         parts = []
         if self.dishes:
             parts.append(f"{len(self.dishes)} dish{'es' if len(self.dishes) != 1 else ''}")
@@ -101,7 +111,9 @@ class PublishReport:
         return f"{self.festival_name}: " + (", ".join(parts) or "nothing to change")
 
     def commit_message(self) -> str:
-        lines = [f"Studio publish - {self.headline()}", ""]
+        if self.reverts:
+            return f"Studio revert - {self.reverted_headline}\n\nReverts {self.reverts}.\n"
+        lines = [f"{SUBJECT_PREFIX}{self.headline()}", ""]
         for label in (self.dishes + self.booths)[:20]:
             mark = "+" if label in self.added else "-" if label in self.deleted else "~"
             lines.append(f"{mark} {label}")
@@ -403,6 +415,76 @@ def _git(repo: Path, *args: str) -> str:
     return done.stdout.strip()
 
 
+def _rebuild_file_festivals(repo: Path) -> None:
+    root = repo / "data" / "festivals"
+    client_feed.write_feed(repo / "docs" / "v1", root)
+    studio = repo / "docs" / "studio.html"
+    festivals = {k: festival_files.build_snapshot(k, root) for k in festival_files.available(root)}
+    studio.write_text(_build_studio().embed_festivals(studio.read_text(), festivals))
+
+
+def revert(sha: str, *, repo: Path = REPO_ROOT) -> PublishReport:
+    """Undo one publish of a file-backed festival.
+
+    Not `git revert`: a publish commit also carries the feed and the Studio
+    page, which are single-line files any later publish rewrites, so a plain
+    revert conflicts the moment anything else has been published since. Only
+    what the publish changed in the festival's own files (and any photos it
+    added) is reversed, and the feed and the Studio are rebuilt from the
+    result - the same way a publish builds them.
+
+    Refuses rather than guesses when the commit is not a publish, when it
+    was a database-festival publish (undoing that means re-resolving, which
+    needs the database), or when later edits touch the same lines.
+    """
+    full = _git(repo, "rev-parse", "--verify", f"{sha}^{{commit}}")
+    subject = _git(repo, "log", "-1", "--format=%s", full)
+    report = PublishReport(festival="", changeset=f"revert of {full[:7]}", reverts=full)
+    if not subject.startswith(SUBJECT_PREFIX):
+        report.refusals.append(f"{full[:7]} is not a Studio publish, so there is nothing here to undo")
+        return report
+    report.reverted_headline = subject.removeprefix(SUBJECT_PREFIX)
+
+    changed = _git(repo, "show", "--name-only", "--format=", full).splitlines()
+    keys = sorted({p.split("/")[2] for p in changed if p.startswith("data/festivals/") and p.count("/") >= 3})
+    if any(p.startswith("data/manual/") for p in changed) or not keys:
+        report.festival = festival_files.DATABASE_FESTIVAL_KEY
+        report.refusals.append(
+            "this was a Food & Wine publish; undoing it needs the database, so it can only be done "
+            "on the machine that has it"
+        )
+        return report
+    report.festival = keys[0]
+
+    sources = [f"data/festivals/{key}" for key in keys] + ["docs/dish-photos"]
+    patch = subprocess.run(
+        ["git", "-C", str(repo), "diff", "--binary", full, f"{full}^", "--", *sources],
+        check=True, capture_output=True,
+    ).stdout
+    if not patch.strip():
+        report.refusals.append(f"{full[:7]} changed nothing in the festival's own files")
+        return report
+    applied = subprocess.run(
+        ["git", "-C", str(repo), "apply", "--whitespace=nowarn", "-"], input=patch, capture_output=True
+    )
+    if applied.returncode != 0:
+        report.refusals.append(
+            "later edits changed the same dishes, so this publish can no longer be undone on its own; "
+            "correct them in the Studio and publish instead"
+        )
+        return report
+
+    _rebuild_file_festivals(repo)
+    problems: list[str] = []
+    for key in keys:
+        feed = inventory_of_client_snapshot(client_feed.build_file_snapshot(key, repo / "data" / "festivals"))
+        problems += [f"in the app's feed, {problem}" for problem in feed.problems]
+    report.refusals = problems
+    report.written = True
+    report.paths = [*sources[:-1], "docs/v1/festivals.json", "docs/v1/festivals", "docs/studio.html", "docs/dish-photos"]
+    return report
+
+
 def commit(report: PublishReport, *, repo: Path = REPO_ROOT, push: bool = False) -> PublishReport:
     """Commit what a publish wrote, on the current branch, and optionally push it.
 
@@ -412,8 +494,9 @@ def commit(report: PublishReport, *, repo: Path = REPO_ROOT, push: bool = False)
     """
     if not report.written or not report.ok:
         return report
-    existing = [p for p in report.paths if (repo / p).exists()]
-    _git(repo, "add", "--", *existing)
+    # `-A` scoped to these paths, so a file a revert removed is staged too.
+    existing = [p for p in report.paths if (repo / p).exists() or _git(repo, "ls-files", "--", p)]
+    _git(repo, "add", "-A", "--", *existing)
     if not _git(repo, "diff", "--cached", "--name-only"):
         return report
     _git(repo, "commit", "-q", "-m", report.commit_message())
