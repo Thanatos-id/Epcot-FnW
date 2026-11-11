@@ -189,6 +189,11 @@ def build_snapshot(key: str, root: Path = FESTIVALS_DIR) -> dict[str, Any]:
         badges = _badges(entry, meta.get("stroll_label") or "Food stroll")
         if badges:
             item["badges"] = badges
+        # The fields behind those labels, so the Studio can edit the status
+        # and redraw the labels from what is on screen.
+        if entry.get("status"):
+            item["status"] = entry["status"]
+        item["stroll"] = bool(entry.get("stroll") or entry.get("cookie_stroll"))
         booth["items"].append(item)
 
     return {

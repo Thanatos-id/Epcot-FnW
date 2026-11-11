@@ -238,7 +238,9 @@ def test_the_page_names_every_other_host_it_touches():
     assert 'name="viewport"' in html
     external = re.findall(r'https?://[^"\s\'<>)]+', html)
     allowed = ("arcgisonline.com", "tile.openstreetmap.org", "www.w3.org", "fonts.googleapis.com",
-               "fonts.gstatic.com", "api.github.com", "api.anthropic.com", "https://github.com/")
+               "fonts.gstatic.com", "api.github.com", "api.anthropic.com", "https://github.com/",
+               # Links and placeholder text, never requested by the page:
+               "platform.claude.com/settings", "disneyparksblog.com/wdw/")
     assert [u for u in external if not any(a in u for a in allowed)] == []
 
 
@@ -583,3 +585,62 @@ def test_the_workflow_and_the_page_agree_on_the_request_branches():
     html = build_studio.render(_snapshot(_booth("Spain")))
     assert "publishFromDialog('publish')" in html and "publishFromDialog('dryrun')" in html
     assert "<!-- studio-publish-report -->" in workflow and "<!-- studio-publish-report -->" in html
+
+
+# ---------------------------------------------------------------------------
+# the assistant
+# ---------------------------------------------------------------------------
+
+
+def _script(html):
+    return re.findall(r"<script>(.*?)</script>", html, re.DOTALL)[-1]
+
+
+def test_the_assistant_asks_the_current_model_for_structured_proposals():
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    assert "var CLAUDE_MODEL = 'claude-opus-5-5';" in js
+    assert "var ANTHROPIC_VERSION = '2026-10-21';" in js
+    assert "'anthropic-dangerous-direct-browser-access': 'true'" in js
+    assert "format: { type: 'json_schema', schema: PROPOSAL_SCHEMA }" in js
+    # A declined request is retried on the recommended fallback, and a
+    # refusal or a cut-off answer is reported rather than parsed.
+    assert "fallbacks: 'default'" in js and "'server-side-fallback-2026-07-01'" in js
+    assert "message.stop_reason === 'refusal'" in js and "message.stop_reason === 'max_tokens'" in js
+    # The festival's catalogue is the cached part of the prompt.
+    assert "{ type: 'text', text: catalogueText(boothNames), cache_control: { type: 'ephemeral' } }" in js
+
+
+def test_the_proposal_schema_is_closed_and_uses_the_studio_s_own_vocabulary():
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    schema = js[js.index("var PROPOSAL_SCHEMA = {"):js.index("var JOBS = {")]
+    assert schema.count("additionalProperties: false") == 3
+    for vocabulary in ("enum: CATEGORIES", "enum: TAGS", "enum: FLAVOUR_TAGS", "ALCOHOL_KINDS.concat(['none'])"):
+        assert vocabulary in schema
+
+
+def test_a_proposal_only_ever_becomes_an_ordinary_pending_edit():
+    """Claude proposes; accepting goes through the same paths a hand edit does."""
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    accept = js[js.index("  function acceptProposal(q) {"):js.index("  // ---- the panel ----")]
+    assert "setValue(q.row, k, q.changes[k])" in accept
+    assert "state.added.items.push(added)" in accept
+    assert "removeRow(q.row)" in accept
+    assert "fetch(" not in accept and "innerHTML" not in accept
+    # Everything Claude wrote reaches the page as text, never as markup.
+    panel = js[js.index("  function renderProposals("):js.index("  document.getElementById('assistant-run')")]
+    assert "innerHTML = ''" in panel and "innerHTML = " not in panel.replace("innerHTML = ''", "")
+
+
+def test_the_claude_key_is_a_secret_like_the_token():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert 'type="password" id="anthropic-key" autocomplete="off"' in html
+    js = _script(html)
+    assert "'x-api-key': secrets().anthropic" in js
+    changeset = js[js.index("  function buildChangeset() {"):js.index("  function changesetFilename() {")]
+    assert "anthropic" not in changeset.lower()
+
+
+def test_a_research_dish_s_status_is_editable_and_exported():
+    js = _script(build_studio.render(_snapshot(_booth("Spain")), festivals=_research()))
+    assert "function makeStatusCell(row)" in js
+    assert "if (RESEARCH && Object.prototype.hasOwnProperty.call(e, 'status') && e.status) entry.status = e.status;" in js

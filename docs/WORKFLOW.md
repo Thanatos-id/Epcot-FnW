@@ -42,6 +42,19 @@ The token: fine-grained, this repository only, **Contents: Read and write** and
 nothing else, with an expiry. It is kept in that browser's storage, apart
 from your edits, and is never part of an export.
 
+## The assistant
+
+With a Claude API key saved under **⋯ → Connections** (use a key from its own
+workspace with a monthly spend limit), the top bar gets **Assistant**: Audit,
+Import a menu, Bulk edit, and Photos & copy, for one booth or the whole
+festival. It proposes edits, and you accept or reject each one. An accepted
+proposal is a normal pending edit, published with everything else. A run
+costs a few cents to about $0.30, and the panel shows each run's cost.
+
+When Disney publishes a festival's new Foodie Guide, **Import a menu** with
+the guide's link is the quickest way to update it: review the proposals,
+accept, then Publish.
+
 ## The short way
 
 After **Export** in the studio, one command does everything below it on this
