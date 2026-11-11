@@ -73,6 +73,9 @@ def status_label(status: str | None) -> str | None:
 _ITEM_FIELDS = (
     "description", "price_usd", "category", "dietary_tags", "flavor_tags",
     "alcohol_kind", "is_new_this_year", "image_url", "is_active",
+    # Only file-backed festivals have these - see "Fields only these files
+    # have" in data/festivals/README.md.
+    "status", "stroll",
 )
 _BOOTH_FIELDS = (
     "latitude", "longitude", "location_precision", "location_description",
@@ -258,6 +261,11 @@ def apply_entries(
             continue
         if booth_name not in booth_index:
             skipped.append(f"menu item {label}: no booth {booth_name!r}")
+            continue
+        status = raw.get("status")
+        if status is not None and status_label(status) is None:
+            skipped.append(f"menu item {label}: status {status!r} is not <year>-menu, "
+                           f"likely-<year> or confirmed-<year>")
             continue
         row = item_index.get((booth_name, name))
         if row is None:

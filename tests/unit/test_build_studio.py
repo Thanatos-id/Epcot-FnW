@@ -477,3 +477,53 @@ def test_only_a_researched_festival_names_itself_in_its_changeset():
 def test_without_research_the_page_embeds_no_second_festival():
     html = build_studio.render(_snapshot(_booth("Spain")))
     assert _embedded_festivals(html) == {}
+
+
+# ---------------------------------------------------------------------------
+# re-embedding researched festivals into a page that is already built
+# ---------------------------------------------------------------------------
+
+
+def _database_snapshot():
+    snapshot = _snapshot(_booth("Spain", [_item("Paella", image_data_uri="data:image/jpeg;base64,AAAA")]))
+    snapshot["festival"] = {"name": "EPCOT International Food & Wine Festival"}
+    return snapshot
+
+
+def _edited_research():
+    research = _research()
+    holidays = research["festival-of-the-holidays"]
+    holidays["meta"]["summary"] = "Second pass </script> and all."
+    holidays["booths"][0]["items"].append({**_item("Eggnog", public_id="22222222-2222-4222-8222-222222222222"),
+                                           "badges": ["Confirmed 2026"]})
+    return research
+
+
+def test_re_embedding_gives_the_page_a_full_render_would():
+    """A publish that only touched data/festivals/ rebuilds the Studio without
+    the database snapshot, so it had better be the same page."""
+    page = build_studio.render(_database_snapshot(), generated_at="Nov 10", festivals=_research())
+    rebuilt = build_studio.embed_festivals(page, _edited_research())
+    assert rebuilt == build_studio.render(_database_snapshot(), generated_at="Nov 10", festivals=_edited_research())
+    assert rebuilt != page
+
+
+def test_re_embedding_leaves_the_database_festival_s_rows_alone():
+    page = build_studio.render(_database_snapshot(), festivals=_research())
+    rebuilt = build_studio.embed_festivals(page, _edited_research())
+    assert _embedded(rebuilt) == _embedded(page)
+    assert [i["name"] for i in _embedded_festivals(rebuilt)["festival-of-the-holidays"]["items"]] == [
+        "Turkey Poutine", "Eggnog",
+    ]
+
+
+def test_re_embedding_can_add_and_remove_a_researched_festival():
+    page = build_studio.render(_database_snapshot())
+    added = build_studio.embed_festivals(page, _research())
+    assert added == build_studio.render(_database_snapshot(), festivals=_research())
+    assert build_studio.embed_festivals(added, {}) == page
+
+
+def test_re_embedding_refuses_a_page_it_does_not_recognise():
+    with pytest.raises(ValueError):
+        build_studio.embed_festivals("<html><body>not the studio</body></html>", _research())

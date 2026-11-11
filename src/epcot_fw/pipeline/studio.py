@@ -88,7 +88,12 @@ _MENU_ITEM_KEYS = frozenset({
     "category", "image_url", "dietary_tags", "flavor_tags",
     "alcohol_kind", "is_new_this_year",
     "is_active", "new",
+    "status", "stroll",
 })
+# Meaningful only to a festival that lives in data/festivals/. The database
+# has no column for either, so on the database path they are dropped rather
+# than written into a curated file where they would sit meaning nothing.
+_FILE_FESTIVAL_ONLY_KEYS = frozenset({"status", "stroll"})
 _BOOTH_KEYS = frozenset({
     "name", "latitude", "longitude", "location_precision",
     "location_description", "region_theme", "category", "opens_at",
@@ -244,6 +249,12 @@ def apply_changeset(
             report.added.append(name)
         if raw.get("is_active") is False:
             report.deleted.append(name)
+
+    if festival is None:
+        item_entries = [
+            {k: v for k, v in entry.items() if k not in _FILE_FESTIVAL_ONLY_KEYS}
+            for entry in item_entries
+        ]
 
     if festival is not None:
         report.festival = festival
