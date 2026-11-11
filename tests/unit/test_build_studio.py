@@ -557,7 +557,7 @@ def test_a_token_never_travels_with_the_edits():
     assert "secret" not in save.lower()
     changeset = html[html.index("  function buildChangeset() {"):html.index("  function changesetFilename() {")]
     assert "secret" not in changeset.lower() and "token" not in changeset.lower()
-    assert 'type="password" id="github-token" autocomplete="off"' in html
+    assert 'type="text" class="secret" id="github-token" autocomplete="off"' in html
 
 
 def test_publish_talks_to_one_repository_and_only_pushes_request_branches():
@@ -633,7 +633,7 @@ def test_a_proposal_only_ever_becomes_an_ordinary_pending_edit():
 
 def test_the_claude_key_is_a_secret_like_the_token():
     html = build_studio.render(_snapshot(_booth("Spain")))
-    assert 'type="password" id="anthropic-key" autocomplete="off"' in html
+    assert 'type="text" class="secret" id="anthropic-key" autocomplete="off"' in html
     js = _script(html)
     assert "'x-api-key': secrets().anthropic" in js
     changeset = js[js.index("  function buildChangeset() {"):js.index("  function changesetFilename() {")]
@@ -660,3 +660,11 @@ def test_a_booth_named_with_extra_text_still_finds_its_booth():
     finder = js[js.index("  function findBooth(name) {"):js.index("  // A proposal Claude made")]
     assert "want.indexOf(n) === 0" in finder
     assert "String(valueOf(b, 'name')).length - String(valueOf(a, 'name')).length" in finder
+
+
+def test_no_field_on_the_page_looks_like_a_sign_in_to_the_browser():
+    """Safari offered to save the token as a password for one of the
+    person's own accounts. The secrets are masked text fields instead."""
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert 'type="password"' not in html
+    assert "-webkit-text-security: disc" in html
