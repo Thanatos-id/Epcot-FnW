@@ -108,6 +108,33 @@ The look is deliberately plain: white and light grey, square corners, 1px
 rules instead of shadows, Inter and Inter Tight, and one colour — orange —
 reserved for "this has changed" and "this is the pin you are placing".
 
+### Alerts, phones, and the rail
+
+- **Toasts.** Everything the page has to say (a festival's research note,
+  publish progress, edits that went live, a storage problem, a newer
+  version) arrives as a light-blue toast at the foot of the screen. Each can
+  be dismissed. Long ones show three lines with More.
+- **What toasts where.** A festival's own notes toast only on that festival.
+  Important alerts, like a failed publish or a newer version, toast wherever
+  you are.
+- **Staying clear of the work.** The panes scroll far enough to bring their
+  last row above any toast, the open map drawer hides them, and on a phone
+  they sit above the rail's Add booth button.
+- **The bell.** Every alert stays listed under the bell in the top bar until
+  cleared, including dismissed ones (with a Show button). The bell goes blue
+  for anything unread and blue with an orange dot for something important.
+  The list is kept across the reload a festival switch does, so it's
+  `notify()` in the page script, stored under `epcot-studio-alerts-v1`.
+- **Phones (≤ 640px).** The top bar becomes two rows: the edit count and
+  actions, then the festival switcher across the full width (Arts, F&G, F&W,
+  Holidays). Map and Assistant move into the ⋯ menu. The menu toolbar scrolls
+  away instead of pinning, and so it does on any screen under 560px tall,
+  such as a phone held sideways. Dialogs always scroll within the screen.
+- **The rail.** Hovering a booth turns its row black with white text. The
+  open booth keeps its own look, so the two never read the same. Hover only
+  applies where a pointer can hover, so a tap on a phone doesn't leave a row
+  stuck black.
+
 ### Publishing from the page
 
 **Publish** (the primary button once a GitHub token is saved under ⋯ →

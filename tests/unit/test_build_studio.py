@@ -409,7 +409,7 @@ def test_edits_already_applied_are_settled_on_load():
     was checked in the browser against a real 72-row backlog."""
     html = build_studio.render(_snapshot(_booth("Belgium", [_item("Belgian Waffle")])))
     assert "loadPhotos().then(settle)" in html
-    assert 'id="settled-note"' in html
+    assert "id: 'settled' + SCOPE, label: 'Edits'" in html
 
 
 def test_the_studio_installs_as_its_own_app():
@@ -420,7 +420,7 @@ def test_the_studio_installs_as_its_own_app():
     assert '<link rel="manifest" href="studio.webmanifest" />' in html
     assert "navigator.serviceWorker.register('studio-sw.js', { scope: './studio' })" in html
     assert 'id="install-btn"' in html
-    assert 'id="update-line"' in html
+    assert "id: 'update', label: 'Update', important: true" in html
 
     assets = Path(build_studio.__file__).parent / "assets"
     manifest = json.loads((assets / "studio.webmanifest").read_text())
@@ -668,3 +668,69 @@ def test_no_field_on_the_page_looks_like_a_sign_in_to_the_browser():
     html = build_studio.render(_snapshot(_booth("Spain")))
     assert 'type="password"' not in html
     assert "-webkit-text-security: disc" in html
+
+
+# ---------------------------------------------------------------------------
+# alerts, the rail, and phones
+# ---------------------------------------------------------------------------
+
+
+def test_every_message_is_a_toast_with_a_place_under_the_bell():
+    html = build_studio.render(_snapshot(_booth("Spain")), festivals=_research())
+    assert 'id="toasts"' in html and 'id="alerts-btn"' in html and 'id="alerts-panel"' in html
+    # The old stack of lines above the work is gone.
+    for gone in ("research-line", "publish-line", "settled-line", "update-line", "storage-note"):
+        assert f'id="{gone}"' not in html
+    js = _script(html)
+    for subject in ("id: 'research:' + LOADED.key", "id: 'publish' + SCOPE", "id: 'storage'", "id: 'update'"):
+        assert subject in js
+    # Kept across the reload a festival switch does, but never the secrets.
+    assert "var ALERTS_KEY = 'epcot-studio-alerts-v1';" in js
+    assert "secrets()" not in js[js.index("  // ---------- alerts ----------"):js.index("  // ---------- persistence ----------")]
+
+
+def test_alert_text_reaches_the_page_as_text():
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    block = js[js.index("  function renderToasts() {"):js.index("  function renderAlerts() {")]
+    assert "document.createTextNode(record.text)" in block
+    assert "innerHTML = ''" in block and "innerHTML = " not in block.replace("innerHTML = ''", "")
+
+
+def test_toasts_stay_clear_of_the_work():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "padding-bottom: var(--toast-space, 0px);" in html
+    assert ".drawer.open ~ .toasts { display: none; }" in html
+    assert ".workspace:not(.picked) ~ .toasts" in html
+    # The toast container comes after the drawer and the workspace, which is
+    # what lets those two rules reach it.
+    assert html.index('id="map-drawer"') < html.index('id="toasts"')
+    assert html.index('id="layout"') < html.index('id="toasts"')
+
+
+def test_hovering_a_booth_turns_it_black_but_never_the_open_one():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert ".booth-item:not(.selected):hover { background: var(--ink);" in html
+    assert "@media (hover: hover)" in html
+
+
+def test_a_phone_gets_the_festivals_on_their_own_row_and_map_in_the_menu():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    phone = html[html.index("@media (max-width: 640px) {"):]
+    assert ".festivals { order: 9; flex: 1 1 100%; }" in phone
+    assert ".toolbar { position: static; }" in phone
+    assert 'id="menu-map"' in html and 'id="menu-assistant"' in html
+    assert "max-height: calc(100dvh - 24px); overflow-y: auto;" in html
+
+
+def test_a_festival_s_own_notes_pop_up_only_on_that_festival():
+    """Important alerts follow you everywhere; a research note for Holidays
+    does not interrupt work on Flower & Garden."""
+    js = _script(build_studio.render(_snapshot(_booth("Spain")), festivals=_research()))
+    assert "return !a.dismissed && (a.important || !a.scope || a.scope === here);" in js
+    assert "scope: LOADED.key });" in js
+
+
+def test_a_long_toast_shows_three_lines_until_asked():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert "-webkit-line-clamp: 3;" in html
+    assert "more.textContent = 'More';" in _script(html)
