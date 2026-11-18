@@ -88,7 +88,7 @@ def studio_rows(snapshot: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
                 row["badges"] = list(item["badges"])
             # Only a researched festival has these (see epcot_fw.festival_files):
             # the status is editable in the Studio, the stroll mark is not.
-            for key in ("status", "stroll"):
+            for key in ("status", "stroll", "price_note"):
                 if key in item:
                     row[key] = item[key]
             items.append(row)

@@ -7,10 +7,12 @@ folder here holds another festival, researched by hand, as files:
 |---|---|---|
 | `festival-of-the-arts/` | 2027 (Jan 15 – Mar 1) | Disney's 2026 Foodie Guide, 2026 prices |
 | `flower-and-garden/` | 2027 (Mar 10 – May 31) | Disney's 2026 Foodie Guide, 2026 prices |
-| `festival-of-the-holidays/` | 2026 (Nov 27 – Dec 30) | Disney's 2025 Foodie Guide, 2025 prices |
+| `festival-of-the-holidays/` | 2026 (Nov 27 – Dec 30) | Disney's official 2026 Foodie Guide (published Nov 12), no prices yet |
 
-Each is the last edition's menu, standing in until Disney publishes the next
-one. The files in each folder:
+Arts and Flower & Garden are the last edition's menu, standing in until Disney
+publishes the next one. Holidays is the festival's own official 2026 menu: its
+`menu_season` equals its `year`, so the guide's "New!" marks are kept as
+`is_new_this_year`. The files in each folder:
 
 | File | What it is |
 |---|---|
@@ -101,6 +103,11 @@ doesn't try to get past that.
   `likely-<year>` or `confirmed-<year>`. The Studio
   shows it as a label. A changeset can set it; until the Studio has a control
   for it, change it here by hand when a source confirms a dish.
+- `price_note` (dishes) is shown in place of a price while a dish has none:
+  "Coming soon" for the Holidays 2026 menu, since Disney's guides publish no
+  prices. The Studio shows it as the price box's placeholder, and the app's feed
+  carries it as `price_note` on a dish whose `price_usd` is null. Entering a
+  price makes it say nothing more.
 - `stroll` (dishes) marks a dish in the festival's food stroll. The stroll's
   name is `stroll_label` in `festival.json`: Cookie Stroll for Holidays, Garden
   Graze for Flower & Garden, Wonderful Walk for Arts.

@@ -111,6 +111,12 @@ Keys are `festival-of-the-arts`, `flower-and-garden`, `food-and-wine` and
 | `data_updated_at` | The same stamp as that festival's snapshot, so a client can skip fetching a snapshot it already holds. |
 | `snapshot` | Path relative to the index. |
 
+A dish in a per-festival file whose price is not published yet has
+`price_usd: null` and, additively, `price_note` (for example `"Coming soon"`).
+The key is absent on every dish that has a price, and in `snapshot.json`
+and Food & Wine's file, so a build that does not read it is unaffected. Show it
+where the price would go.
+
 Things that differ in the three festivals researched from files
 (`data/festivals/`): `origin` is `researched`, integer `id`s are positions in
 the files (as ever, save `public_id`), many booths have no coordinates yet,

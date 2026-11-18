@@ -252,3 +252,25 @@ def test_an_archived_guide_falls_back_to_the_archive_s_copy_when_the_original_is
     tostada = _archived(tmp_path, live=False)
     assert tostada["image_url"].startswith("https://web.archive.org/web/20250207090202im_/")
     assert tostada["image_source"]["credit"] == "Disney Parks Blog"
+
+
+GUIDE_LOCATION_HEADINGS = """
+<main>
+<h2>World Celebration</h2>
+<p class="p01"><strong>Season’s Eatings <em>(NEW)</em><br/>Location</strong>: CommuniCore Plaza</p>
+<div class="card-container"><div class="card-image"><img src="https://example.test/bahn-mi.jpg" alt="Holly Jolly Bánh Mì"></div>
+  <div class="content-container"><div>New!</div><h4>Holly Jolly Bánh Mì</h4><p>Pulled pork on a baguette</p></div></div>
+<p class="p01"><strong>Regal Eagle Smokehouse: Craft Drafts &amp; Barbecue<br/>Location</strong>: The American Adventure</p>
+<div class="card-container"><div class="card-image"><img src="https://example.test/shake.jpg" alt="Cherry shake"></div>
+  <div class="content-container"><h4>Chocolate-covered Cherry Shake</h4></div></div>
+</main>
+"""
+
+
+def test_a_kitchen_named_by_its_location_line_owns_the_cards_after_it():
+    photos = {p.url.rsplit("/", 1)[-1]: p for p in parse_guide(GUIDE_LOCATION_HEADINGS)}
+    # "(NEW)" is not part of the kitchen's name, and a colon inside the name
+    # is not where the location starts.
+    assert photos["bahn-mi.jpg"].heading == "Season’s Eatings"
+    assert photos["shake.jpg"].heading == "Regal Eagle Smokehouse: Craft Drafts & Barbecue"
+    assert photos["shake.jpg"].alt == "Chocolate-covered Cherry Shake"
