@@ -270,8 +270,14 @@ def test_the_shipped_research_is_internally_consistent(festival):
 
 @pytest.mark.parametrize("festival", SHIPPED_KEYS)
 def test_nothing_in_the_research_claims_to_be_new_this_year_yet(festival):
-    """Last edition's "(New)" marks say nothing about the next, and the app filters on this."""
-    assert not any(i["is_new_this_year"] for i in _shipped("menu_items.json", "menu_items", festival))
+    """Last edition's "(New)" marks say nothing about the next, and the app
+    filters on this. Only a festival whose menu is its own year's official one
+    (menu_season == year) may carry them."""
+    meta = festival_files.load_meta(festival)
+    claimed = [i for i in _shipped("menu_items.json", "menu_items", festival) if i["is_new_this_year"]]
+    if meta.get("menu_season") == meta.get("year"):
+        return
+    assert not claimed
 
 
 @pytest.mark.parametrize("festival", SHIPPED_KEYS)
@@ -280,3 +286,39 @@ def test_every_shipped_photo_says_where_it_came_from(festival):
         if item.get("image_url"):
             source = item.get("image_source") or {}
             assert source.get("credit") and source.get("page_url") and source.get("season"), item["name"]
+
+
+def test_a_dish_with_no_price_says_why_until_it_has_one(workspace):
+    items_path = workspace["dir"] / "menu_items.json"
+    payload = json.loads(items_path.read_text())
+    payload["menu_items"][0].update({"price_usd": None, "price_note": "Coming soon"})
+    items_path.write_text(json.dumps(payload))
+    beef = next(i for b in festival_files.build_snapshot(KEY, workspace["root"])["booths"] for i in b["items"]
+                if i["name"] == "Beef Bourguignon")
+    assert beef["price"] is None and beef["price_note"] == "Coming soon"
+    # Once a price is entered the note says nothing more.
+    _apply(workspace, {"festival": KEY, "menu_items": [
+        {"booth_name": "Yukon Holiday Kitchen", "name": "Beef Bourguignon", "price_usd": 7.5}]})
+    beef = next(i for b in festival_files.build_snapshot(KEY, workspace["root"])["booths"] for i in b["items"]
+                if i["name"] == "Beef Bourguignon")
+    assert beef["price"] == 7.5 and "price_note" not in beef
+
+
+def test_the_feed_carries_price_note_only_where_it_applies(workspace):
+    from epcot_fw import client_feed
+    items_path = workspace["dir"] / "menu_items.json"
+    payload = json.loads(items_path.read_text())
+    payload["menu_items"][0].update({"price_usd": None, "price_note": "Coming soon"})
+    items_path.write_text(json.dumps(payload))
+    feed = client_feed.build_file_snapshot(KEY, workspace["root"])
+    by_name = {i["canonical_name"]: i for i in feed["menu_items"]}
+    assert by_name["Beef Bourguignon"]["price_usd"] is None
+    assert by_name["Beef Bourguignon"]["price_note"] == "Coming soon"
+    assert "price_note" not in by_name["Maple Leaf Shortbread Cookie"]
+
+
+def test_every_shipped_dish_without_a_price_says_coming_soon_or_nothing():
+    for festival in SHIPPED_KEYS:
+        for item in _shipped("menu_items.json", "menu_items", festival):
+            if item.get("price_note"):
+                assert item.get("price_usd") is None, (festival, item["name"])

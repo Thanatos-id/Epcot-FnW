@@ -132,7 +132,7 @@ _EMOJI_RE = re.compile(r"[\U0001F300-\U0001FAFF\u2600-\u27BF]\ufe0f?")
 def parse_guide(html: str) -> list[GuidePhoto]:
     """Every dish photo with a name, tagged with the menu it belongs to.
 
-    Disney has laid these guides out two ways, and a page can be read
+    Disney has laid these guides out three ways, and a page can be read
     without knowing which:
 
     - **a run of photos, then its "... Menu" heading** (Holidays, Arts): a
@@ -140,7 +140,8 @@ def parse_guide(html: str) -> list[GuidePhoto]:
       The level of that heading moves between years (h3 in 2025, h4 in 2024,
       under a park-area heading that can fall between a photo and its menu),
       so only "... Menu" decides anything.
-    - **a menu heading, then a card per dish** (Flower & Garden 2026): a
+    - **a menu heading, then a card per dish** (Flower & Garden 2026; and
+      Holidays 2026, whose heading reads "<Name> Location: <where>"): a
       photo inside a card belongs to the menu heading before it, and the
       card's own title names the dish - better than any alt text. Cards are
       repeated for phone and desktop; each photo is taken once.
@@ -178,6 +179,14 @@ def parse_guide(html: str) -> list[GuidePhoto]:
             continue
         if card is not None:
             continue
+        # Third layout (Holidays 2026): a kitchen is a bold "<Name> Location:
+        # <where>" line - sometimes "<Name> (NEW)" - above its cards.
+        if node.name == "p":
+            strong = node.find("strong")
+            if strong is not None and re.search(r"\bLocation\s*:", _text(node)) and _text(strong).endswith("Location"):
+                head = _text(strong)[: -len("Location")]
+                current = re.sub(r"\s*\(\s*new\s*\)", "", head, flags=re.IGNORECASE).strip()
+                continue
         text = _NEW_PREFIX_RE.sub("", _text(node))
         if node.name == "p" and (len(text) > 90 or "(" in text):
             continue

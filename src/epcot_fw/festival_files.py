@@ -193,6 +193,10 @@ def build_snapshot(key: str, root: Path = FESTIVALS_DIR) -> dict[str, Any]:
         # and redraw the labels from what is on screen.
         if entry.get("status"):
             item["status"] = entry["status"]
+        # "Coming soon" where the festival has not published a price yet.
+        # Only while there is no price, so a price entered later wins.
+        if entry.get("price_usd") is None and entry.get("price_note"):
+            item["price_note"] = entry["price_note"]
         item["stroll"] = bool(entry.get("stroll") or entry.get("cookie_stroll"))
         booth["items"].append(item)
 

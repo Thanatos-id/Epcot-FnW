@@ -163,6 +163,11 @@ def build_file_snapshot(key: str, root: Path = festival_files.FESTIVALS_DIR) -> 
                 "flavor_tags": [_tag(code) for code in sorted(entry.get("flavor_tags") or [])],
             }
         )
+        # Additive and only present where it applies: a dish with no price yet
+        # says why ("Coming soon"). Absent everywhere else, so the database
+        # festival's feed is unchanged.
+        if entry.get("price_usd") is None and entry.get("price_note"):
+            menu_items[-1]["price_note"] = entry["price_note"]
 
     booths.sort(key=lambda b: b["canonical_name"])
     menu_items.sort(key=lambda i: i["canonical_name"])

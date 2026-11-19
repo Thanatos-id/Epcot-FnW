@@ -531,7 +531,9 @@ input.cell-input:hover, textarea.cell-input:hover, select.cell-input:hover { bor
 textarea.cell-input { height: auto; min-height: calc(var(--control) * 2); padding: var(--s2) var(--control-px); color: var(--ink-2); }
 input.cell-input[placeholder="Dish name"] { font-weight: 600; }
 input.cell-input.changed, textarea.cell-input.changed, select.cell-input.changed { border-color: var(--signal); background: var(--signal-soft); }
-input.price { flex: 0 0 112px; width: 112px; font-family: var(--mono); }
+input.price { flex: 0 0 128px; width: 128px; font-family: var(--mono); }
+/* "Coming soon" is words, not a number: the proportional face, so it fits. */
+input.price::placeholder { font-family: var(--font); }
 select.cell-input { width: auto; }
 /* Every dropdown draws its own chevron. The native arrow ignores padding and
    sits hard against the right edge; this one sits the same 12px in that the
@@ -2544,7 +2546,9 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
 
     var line = document.createElement('div');
     line.className = 'field-row';
-    line.appendChild(makeInput(row, 'price', 'price', 'Price'));
+    // A dish with no price yet says so ("Coming soon") instead of an empty box.
+    var noPrice = valueOf(row, 'price') === null || valueOf(row, 'price') === undefined || valueOf(row, 'price') === '';
+    line.appendChild(makeInput(row, 'price', 'price', (RESEARCH && noPrice && row.price_note) || 'Price'));
     line.appendChild(makeInput(row, 'category', 'select'));
     fields.appendChild(line);
 
