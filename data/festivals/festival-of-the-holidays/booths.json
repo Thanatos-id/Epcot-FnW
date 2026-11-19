@@ -34,7 +34,10 @@
       "location_description": "World Celebration",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.374367,
+      "longitude": -81.548915,
+      "location_precision": "mapped"
     },
     {
       "name": "Connections Eatery",
@@ -43,7 +46,10 @@
       "location_description": "World Celebration",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.374347,
+      "longitude": -81.548874,
+      "location_precision": "mapped"
     },
     {
       "name": "Holiday Hearth Desserts",
@@ -52,7 +58,10 @@
       "location_description": "The Odyssey",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.372471,
+      "longitude": -81.54796,
+      "location_precision": "mapped"
     },
     {
       "name": "Refreshment Station Hosted by Coca-Cola",
@@ -61,7 +70,10 @@
       "location_description": "World Discovery",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.373855,
+      "longitude": -81.547509,
+      "location_precision": "mapped"
     },
     {
       "name": "Sunshine Seasons",
@@ -70,7 +82,10 @@
       "location_description": "World Nature",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.373985,
+      "longitude": -81.551937,
+      "location_precision": "mapped"
     },
     {
       "name": "Chestnuts & Good Cheer Holiday Kitchen",
@@ -79,7 +94,10 @@
       "location_description": "Near Disney Traders",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.371835,
+      "longitude": -81.549038,
+      "location_precision": "mapped"
     },
     {
       "name": "Las Posadas Holiday Kitchen",
@@ -101,7 +119,10 @@
       "location_description": "Norway",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.370573,
+      "longitude": -81.547067,
+      "location_precision": "mapped"
     },
     {
       "name": "Shanghai Holiday Kitchen",
@@ -240,7 +261,10 @@
       "location_description": "Between France and Morocco",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.368688,
+      "longitude": -81.552082,
+      "location_precision": "mapped"
     },
     {
       "name": "Le Marché de Noël Holiday Kitchen",
@@ -262,7 +286,10 @@
       "location_description": "United Kingdom",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.37058,
+      "longitude": -81.55165,
+      "location_precision": "mapped"
     },
     {
       "name": "Yukon Holiday Kitchen",
@@ -297,7 +324,10 @@
       "location_description": "Near Port of Entry",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.371743,
+      "longitude": -81.550083,
+      "location_precision": "mapped"
     },
     {
       "name": "Swirled Showcase",
@@ -333,7 +363,10 @@
       "note": "New to the festival in 2026.",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.372397,
+      "longitude": -81.55041,
+      "location_precision": "mapped"
     },
     {
       "name": "Nochebuena Cocina",
@@ -342,7 +375,10 @@
       "location_description": "Walkway Between World Showcase and the Imagination! Pavilion",
       "sources": [
         "disney-parks-blog-2026-holidays"
-      ]
+      ],
+      "latitude": 28.372682,
+      "longitude": -81.550704,
+      "location_precision": "mapped"
     },
     {
       "name": "Additional Festival Locations",
