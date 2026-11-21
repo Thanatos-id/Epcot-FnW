@@ -217,6 +217,20 @@ used when the server cannot be reached. A window left open notices a newer
 build on focus and offers **Reload** — edits are saved as they are made, so
 nothing is lost by taking it.
 
+An app on a phone's home screen has no reload button, and the studio's panes
+scroll inside a fixed shell, so the browser's own pull to refresh never
+fires. The page does it instead: pull down from the top of a list or the
+menu, let go at **Release to refresh**, and it reloads. Not while a dialog
+or menu is open, not from a text field or the map, and not when what is
+under the finger is scrolled down (then a pull is a scroll back up).
+**⋯ → Refresh** does the same with a mouse.
+
+The festival switcher shows full names when they fit the bar and short ones
+(*Arts, F&G, F&W, Holiday*) when they do not; when even those do not fit, it
+takes a row of its own. `fitBar()` measures this on every render, resize,
+rotation and fold rather than trusting one breakpoint, so a folding phone, a
+split screen and a narrow window each get what fits them.
+
 An app installed from `localhost:8123` and one installed from GitHub Pages
 are different origins, and so keep separate unexported edits.
 

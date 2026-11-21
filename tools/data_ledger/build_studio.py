@@ -320,8 +320,30 @@ body.shell {
 .festivals button:last-child, .segmented button:last-child { border-right: none; }
 .festivals button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 .festivals button .dot { width: 5px; height: 5px; background: currentColor; opacity: 0.5; }
-/* Short names ("F&G") only where the switcher has a phone's width to fit in. */
+/* Short names ("F&G") whenever the full ones do not fit the bar, at any
+   width: fitBar() measures and sets the class. A bar too narrow even for
+   those gives the switcher a row of its own. */
 .festivals .compact { display: none; }
+.festivals.is-compact .long { display: none; }
+.festivals.is-compact .compact { display: inline; }
+.festivals button { white-space: nowrap; }
+/* While fitBar() measures: the switcher at its natural width, unsqueezed. */
+.festivals.measuring, .festivals.measuring button { flex-shrink: 0; }
+.bar.stacked { flex-wrap: wrap; gap: var(--s2); padding: var(--s2) var(--s3); }
+.bar.stacked .festivals { order: 9; flex: 1 1 100%; }
+.bar.stacked .festivals button { flex: 1 1 0; padding: 0 var(--s2); }
+/* Pull to refresh: a pill that follows the finger down from the top. */
+.ptr {
+  position: fixed; left: 50%; top: env(safe-area-inset-top, 0px); z-index: 1500;
+  display: flex; align-items: center; gap: var(--s2); padding: 6px 14px; border-radius: 999px;
+  background: var(--ink); color: #fff; font-size: 13px; white-space: nowrap; pointer-events: none;
+  transform: translate(-50%, -120%); transition: transform 0.18s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+.ptr.pulling { transition: none; }
+.ptr .ptr-arrow { display: inline-block; transition: transform 0.15s ease; }
+.ptr.ready .ptr-arrow { transform: rotate(180deg); }
+.ptr.refreshing .ptr-arrow { animation: ptr-spin 0.8s linear infinite; }
+@keyframes ptr-spin { to { transform: rotate(360deg); } }
 .bar .spacer { flex: 1 1 auto; }
 .bar .count { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
 .bar .count b { color: var(--signal); font-weight: 600; }
@@ -720,10 +742,11 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   .toasts { bottom: var(--s2); }
   .toast-body { max-height: 22vh; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } .ptr.refreshing .ptr-arrow { animation: none; } }
 </style>
 </head>
 <body class="shell">
+<div class="ptr" id="ptr" role="status" aria-live="polite"><span class="ptr-arrow" aria-hidden="true">↓</span><span id="ptr-label">Pull to refresh</span></div>
 <header class="bar">
   <span class="wordmark">Studio</span>
   <nav class="festivals" id="festivals" aria-label="Festival"></nav>
@@ -745,6 +768,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   <div class="menu">
     <button type="button" class="icon" id="menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="More">⋯</button>
     <div class="menu-list hidden" id="menu-list" role="menu">
+      <button type="button" role="menuitem" id="refresh-btn">Refresh</button>
       <button type="button" role="menuitem" class="hidden" id="install-btn">Install as app</button>
       <button type="button" role="menuitem" class="mobile-only hidden" id="menu-assistant">Assistant</button>
       <button type="button" role="menuitem" class="mobile-only" id="menu-map">Map</button>
@@ -2784,6 +2808,31 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     return !!(f && f.has_data && LOADED && f.key === LOADED.key);
   }
 
+  // The switcher's names where the bar has no room for the full ones.
+  var COMPACT = { 'festival-of-the-arts': 'Arts', 'flower-and-garden': 'F&G', 'food-and-wine': 'F&W',
+                  'festival-of-the-holidays': 'Holiday' };
+
+  // Full names when they fit; short ones when they do not; and when even
+  // those do not, the switcher on a row of its own. Measured, not guessed
+  // from the screen width, so a folding phone, a split screen and a narrow
+  // window all get what fits them.
+  function fitBar() {
+    var bar = document.querySelector('.bar'), nav = document.getElementById('festivals');
+    if (!bar || !nav) return;
+    nav.classList.remove('is-compact');
+    bar.classList.remove('stacked');
+    // On a phone the switcher already has a row of its own and short names.
+    // The buttons would rather shrink and clip their names than overflow,
+    // so measure with the switcher held at its natural width.
+    nav.classList.add('measuring');
+    function overflows() { return bar.scrollWidth > bar.clientWidth + 1; }
+    if (overflows()) {
+      nav.classList.add('is-compact');
+      if (overflows()) bar.classList.add('stacked');
+    }
+    nav.classList.remove('measuring');
+  }
+
   function renderFestivals() {
     var nav = document.getElementById('festivals');
     var current = currentFestival();
@@ -2793,7 +2842,6 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       b.type = 'button';
       b.setAttribute('aria-pressed', f.key === current.key ? 'true' : 'false');
       b.title = f.name + ' · ' + f.season + (f.has_data ? '' : ' · no data yet');
-      var COMPACT = { 'flower-and-garden': 'F&G', 'food-and-wine': 'F&W' };
       b.innerHTML = '<span class="long">' + esc(f.short) + '</span><span class="compact">' + esc(COMPACT[f.key] || f.short) + '</span>';
       b.addEventListener('click', function () {
         if (currentFestival().key === f.key) return;
@@ -2808,6 +2856,7 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
       });
       nav.appendChild(b);
     });
+    fitBar();
   }
 
   function renderFestivalEmpty() {
@@ -3513,6 +3562,8 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
     var off = !secrets().anthropic || !festivalEditable();
     document.getElementById('assistant-btn').classList.toggle('hidden', off);
     document.getElementById('menu-assistant').classList.toggle('hidden', off);
+    // The bar just gained or lost a button: what fits has changed.
+    fitBar();
   }
 
   // ---- what Claude is told ----
@@ -4426,6 +4477,84 @@ pre.cmd { background: var(--bg); border: 1px solid var(--line); padding: var(--s
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     navigator.serviceWorker.register('studio-sw.js', { scope: './studio' }).catch(function () {});
   }
+
+  // ---------- refresh ----------
+  // An app on the home screen has no reload button and no address bar, and
+  // the page's panes scroll inside a fixed shell, so the browser's own pull
+  // to refresh never fires. This is that gesture, done by the page: pull
+  // down from the top of whatever you are looking at, let go past the mark,
+  // and the page reloads. The service worker fetches the newest page from
+  // the server, and edits are saved as they are made, so nothing is lost.
+  var ptr = document.getElementById('ptr'), ptrLabel = document.getElementById('ptr-label');
+  var PULL_READY = 64, PULL_MAX = 96;
+  var pull = null;
+  function showPull(d) {
+    ptr.classList.add('pulling');
+    ptr.classList.toggle('ready', d >= PULL_READY);
+    ptrLabel.textContent = d >= PULL_READY ? 'Release to refresh' : 'Pull to refresh';
+    ptr.style.transform = 'translate(-50%, ' + (Math.min(d, PULL_MAX) - 40) + 'px)';
+  }
+  function hidePull() {
+    ptr.classList.remove('pulling', 'ready');
+    ptr.style.transform = '';
+  }
+  function refreshNow() {
+    ptr.classList.remove('pulling', 'ready');
+    ptr.classList.add('refreshing');
+    ptr.style.transform = 'translate(-50%, ' + (PULL_READY - 40) + 'px)';
+    ptrLabel.textContent = 'Refreshing…';
+    // A moment for the pill to show, and for any save in flight to land.
+    setTimeout(function () { location.reload(); }, 150);
+  }
+  // Not from inside something the finger is working with, not while a
+  // dialog or menu is open, and not when anything under the finger is
+  // scrolled down: then a pull down is a scroll back up.
+  function pullAllowed(target) {
+    if (document.querySelector('dialog[open]')) return false;
+    if (document.querySelector('.menu-list:not(.hidden)')) return false;
+    if (target.closest && target.closest('input, textarea, select, [contenteditable="true"], #map, .leaflet-container')) return false;
+    for (var el = target; el && el !== document.documentElement; el = el.parentElement) {
+      if (el.scrollTop > 0) return false;
+    }
+    return window.scrollY <= 0;
+  }
+  document.addEventListener('touchstart', function (e) {
+    pull = null;
+    if (e.touches.length !== 1 || ptr.classList.contains('refreshing') || !pullAllowed(e.target)) return;
+    pull = { x: e.touches[0].clientX, y: e.touches[0].clientY, d: 0, active: false };
+  }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (!pull) return;
+    if (e.touches.length !== 1) { pull = null; hidePull(); return; }
+    var t = e.touches[0], dy = t.clientY - pull.y, dx = Math.abs(t.clientX - pull.x);
+    if (!pull.active) {
+      // Up or sideways first: an ordinary scroll or swipe, left alone.
+      if (dy < 10) { if (dy < -4 || dx > 12) pull = null; return; }
+      if (dx > dy) { pull = null; return; }
+      pull.active = true;
+    }
+    e.preventDefault();
+    pull.d = Math.max(0, dy - 10) * 0.55;
+    showPull(pull.d);
+  }, { passive: false });
+  function endPull() {
+    if (!pull) return;
+    var ready = pull.active && pull.d >= PULL_READY;
+    pull = null;
+    if (ready) refreshNow(); else hidePull();
+  }
+  document.addEventListener('touchend', endPull);
+  document.addEventListener('touchcancel', function () { pull = null; hidePull(); });
+  document.getElementById('refresh-btn').addEventListener('click', function () { closeMenu(); refreshNow(); });
+
+  // Turning the phone, unfolding it, or resizing the window changes what fits.
+  // Measured again a frame later too: some browsers report the new size
+  // before they have laid the page out at it.
+  function refit() { fitBar(); requestAnimationFrame(fitBar); }
+  window.addEventListener('resize', refit);
+  window.addEventListener('orientationchange', refit);
+  if (window.ResizeObserver) new ResizeObserver(fitBar).observe(document.querySelector('.bar'));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBar);
 
   // Chrome's own install icon sits in the address bar, which an app window
   // does not have; the menu item is the same prompt from inside the page.
