@@ -9,7 +9,7 @@
   "menu_season": 2026,
   "official_url": "https://disneyworld.disney.go.com/events-tours/epcot/epcot-international-festival-of-the-holidays/",
   "researched_at": "2026-11-10",
-  "summary": "The official 2026 menus, read from Disney's Foodie Guide (published Nov 12), with 98 new dishes across 20 Holiday Kitchens. Disney publishes no prices in its guides, so every price shows Coming soon until a priced menu is posted. Dish photos are Disney's own.",
+  "summary": "The official 2026 menus, read from Disney's Foodie Guide (published Nov 12), with 98 new dishes across 20 Holiday Kitchens. Prices come from Disney's posted menus as reported on Nov 20-21 and cross-checked across four sites; 164 of 176 dishes are priced, and the 12 Disney hasn't priced yet show Coming soon. Dish photos are Disney's own.",
   "location_notes": [
     "Kitchen locations are Disney's own 'Location:' lines. A kitchen in a pavilion that also hosts a Food & Wine marketplace is pinned on that marketplace's pin at 'anchored' precision, and says so in `pinned_from`; Refreshment Outpost, Tangierine Café, Swirled Showcase and La Poutinerie are the same venues as in Food & Wine and reuse their pins.",
     "Left unplaced because nothing pins them closely: kitchens on the walkways and near Disney Traders, Port of Entry and the Odyssey, the carts, Connections, Sunshine Seasons and Refreshment Station."
@@ -29,6 +29,30 @@
       "url": "https://disneyparksblog.com/wdw/epcot-festival-of-the-holidays-dates-details/",
       "used_for": "2026 dates (Nov 27 - Dec 30). Holiday Kitchens and the Cookie Stroll return; no booth or menu detail."
     },
+    "wdwnt-2026-holidays-menus": {
+      "title": "Full Menus (With Prices) Revealed for 2026 EPCOT International Festival of the Holidays",
+      "publisher": "WDW News Today",
+      "url": "https://wdwnt.com/2026/11/full-menus-revealed-for-2026-epcot-international-festival-of-the-holidays/",
+      "used_for": "Prices. A price was taken only where at least two of the four priced-menu sources agreed and none disagreed, or three of four agreed."
+    },
+    "blogmickey-2026-holidays-menus": {
+      "title": "2026 EPCOT Festival of the Holidays Full Menus Revealed: New Kiosks & 98 New Items",
+      "publisher": "BlogMickey",
+      "url": "https://blogmickey.com/2026/11/2026-epcot-festival-of-the-holidays-full-menus-revealed-new-kiosks-98-new-items/",
+      "used_for": "Price cross-check. Its prices for Season's Eatings dishes that the other sites list as not posted were not used."
+    },
+    "dvcshop-2026-holidays-menus": {
+      "title": "Full Menus and Prices for the 2026 EPCOT International Festival of the Holidays",
+      "publisher": "DVC Shop",
+      "url": "https://dvcshop.com/full-menus-and-prices-for-the-2026-epcot-international-festival-of-the-holidays/",
+      "used_for": "Price cross-check and tie-breaks."
+    },
+    "wdwprepschool-2026-holidays-menus": {
+      "title": "2026 EPCOT Festival of the Holidays Menus, Prices & Map",
+      "publisher": "WDW Prep School",
+      "url": "https://wdwprepschool.com/festival-of-the-holidays-booth-menus/",
+      "used_for": "Price cross-check, and which prices are not posted yet."
+    },
     "disney-parks-blog-2025": {
       "title": "Disney Eats: EPCOT International Festival of the Holidays Foodie Guide 2025",
       "publisher": "Disney Parks Blog",
@@ -37,7 +61,7 @@
       "used_for": "The first pass of this festival, before the 2026 guide was published. Replaced by the 2026 guide; kept as a fallback photo source."
     }
   },
-  "next_step": "When priced menus are posted, add the prices in the Studio (the Assistant's Import a menu can read a priced page). A dish with a price drops its 'Coming soon' by itself.",
+  "next_step": "Twelve dishes still show Coming soon (four Season's Eatings dishes, the Holiday Hearth beer flight and Nocturna cider, Norway's Salted Chai Bolle, and the five spirited drinks). Add each price in the Studio once Disney posts it; a dish with a price drops its 'Coming soon' by itself.",
   "photo_pages": [
     {
       "url": "https://disneyparksblog.com/wdw/disney-eats-foodie-guide-to-epcot-international-festival-of-the-holidays/",
@@ -46,5 +70,5 @@
   ],
   "photo_pages_note": "Read by `epcot-fw festival photos`. The 2026 photos are already attached, straight from the guide's own cards.",
   "stroll_label": "Cookie Stroll",
-  "price_note": "Prices: none published yet. Dishes carry price_note 'Coming soon' until a priced menu is posted (WDWNT and BlogMickey post them around opening). Add each price in the Studio, or ask for the import."
+  "price_note": "Prices from Disney's posted menus as reported Nov 20-21, 2026, cross-checked across WDWNT, BlogMickey, DVC Shop and WDW Prep School. A beer or cider sold in two sizes carries its smaller-size price. Dishes without a posted price keep price_note 'Coming soon'."
 }
