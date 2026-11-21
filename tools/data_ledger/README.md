@@ -158,10 +158,19 @@ Because the page can now hold a token:
 ### The assistant
 
 With a Claude API key saved under ⋯ → Connections, an **Assistant** button
-opens four jobs:
+opens five jobs:
 
 - **Audit**: wrong category or drink kind, missing tags, duplicates, names
   that carry a description, and odd prices.
+- **Price check**: two calls. The first gives Claude web search and web
+  fetch and asks for notes, one line per dish with every site's price; it
+  has no output schema, because web search always cites its sources and
+  citations cannot be combined with `output_config.format`. The second has
+  no tools and turns the notes into proposals under the usual schema: a
+  price where at least two sites agree and none disagrees (or all but one of
+  three or more), the smaller size of a two-size price, never a plain drink's
+  price on its spirited version. It may only edit prices; anything else it
+  proposes is dropped. The notes are shown under the proposals as text.
 - **Import a menu**: paste a menu, or a link Claude reads with web fetch. It
   proposes returning, changed, new and removed dishes, and sets a researched
   festival's menu status.

@@ -45,15 +45,24 @@ from your edits, and is never part of an export.
 ## The assistant
 
 With a Claude API key saved under **⋯ → Connections** (use a key from its own
-workspace with a monthly spend limit), the top bar gets **Assistant**: Audit,
-Import a menu, Bulk edit, and Photos & copy, for one booth or the whole
-festival. It proposes edits, and you accept or reject each one. An accepted
-proposal is a normal pending edit, published with everything else. A run
-costs a few cents to about $0.30, and the panel shows each run's cost.
+workspace with a monthly spend limit), the top bar gets **Assistant** (on a phone it is in the **⋯** menu): Audit,
+Price check, Import a menu, Bulk edit, and Photos & copy, for one booth or the
+whole festival. It proposes edits, and you accept or reject each one. An
+accepted proposal is a normal pending edit, published with everything else.
+Most runs cost a few cents to about $0.30, and the panel shows each run's cost.
 
 When Disney publishes a festival's new Foodie Guide, **Import a menu** with
 the guide's link is the quickest way to update it: review the proposals,
 accept, then Publish.
+
+Disney's guides carry no prices. Once the priced menus are posted, around
+opening, **Price check** finds them: Claude searches the web, reads at least
+three sites, and proposes a price only where the sites agree. Dishes nobody
+has priced yet, and dishes where the sites disagree, are left alone, and
+**What the sources said** shows every site's price for each dish. Accept,
+then Publish. A whole festival takes a few minutes and about $1-2; one booth
+is quicker. Run it again later in the festival to pick up late prices and
+price changes.
 
 ## The short way
 

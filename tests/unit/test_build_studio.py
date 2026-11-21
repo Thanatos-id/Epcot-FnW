@@ -607,7 +607,28 @@ def test_the_assistant_asks_the_current_model_for_structured_proposals():
     assert "fallbacks: 'default'" in js and "'server-side-fallback-2026-07-01'" in js
     assert "message.stop_reason === 'refusal'" in js and "message.stop_reason === 'max_tokens'" in js
     # The festival's catalogue is the cached part of the prompt.
-    assert "{ type: 'text', text: catalogueText(boothNames), cache_control: { type: 'ephemeral' } }" in js
+    assert "var catalogue = catalogueText(boothNames);" in js
+    assert "{ type: 'text', text: catalogue, cache_control: { type: 'ephemeral' } }" in js
+
+
+def test_the_price_check_researches_first_then_proposes_under_the_schema():
+    """Web search always cites its sources, and cited text cannot be held to
+    a JSON schema: the search runs on its own, with no schema, and a second
+    call with no tools turns its notes into proposals."""
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert 'data-job="prices"' in html and 'id="assistant-findings"' in html
+    js = _script(html)
+    research = js[js.index("    function researchBody() {"):js.index("    document.getElementById('assistant-results').classList.add('hidden');")]
+    assert "type: 'web_search_20260209'" in research and "type: 'web_fetch_20260209'" in research
+    assert "format:" not in research and "RESEARCH_INSTRUCTIONS" in research
+    propose = js[js.index("    function proposalBody(promptText) {"):js.index("    function researchBody() {")]
+    assert "web_search" not in propose
+    assert "format: { type: 'json_schema', schema: PROPOSAL_SCHEMA }" in propose
+    # The notes reach the page as text, and a price check edits prices only.
+    assert "findingsEl.querySelector('pre').textContent = findings;" in js
+    assert "only: ['price']" in js and "checkProposal(p, job.only)" in js
+    check = js[js.index("  function checkProposal(p, only) {"):js.index("  function acceptProposal(q) {")]
+    assert "if (only && p.action !== 'edit')" in check and "(only || CHANGE_FIELDS).forEach" in check
 
 
 def test_the_proposal_schema_is_closed_and_uses_the_studio_s_own_vocabulary():
