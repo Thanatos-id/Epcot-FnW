@@ -755,3 +755,32 @@ def test_a_long_toast_shows_three_lines_until_asked():
     html = build_studio.render(_snapshot(_booth("Spain")))
     assert "-webkit-line-clamp: 3;" in html
     assert "more.textContent = 'More';" in _script(html)
+
+
+def test_the_switcher_fits_its_names_to_the_bar_rather_than_to_one_breakpoint():
+    js = _script(build_studio.render(_snapshot(_booth("Spain"))))
+    assert "'festival-of-the-arts': 'Arts', 'flower-and-garden': 'F&G', 'food-and-wine': 'F&W'" in js
+    assert "'festival-of-the-holidays': 'Holiday'" in js
+    fit = js[js.index("  function fitBar() {"):js.index("  function renderFestivals() {")]
+    # Measured with the buttons held at their natural width: squeezed, they
+    # clip their names instead of overflowing, which a plain check misses.
+    assert "nav.classList.add('measuring')" in fit and "nav.classList.add('is-compact')" in fit
+    assert "bar.classList.add('stacked')" in fit
+    # Re-fit whenever the bar's buttons or the window change.
+    renderers = js[js.index("  function renderAssistantButton() {"):js.index("  // ---- what Claude is told ----")]
+    assert "fitBar();" in renderers
+    assert "new ResizeObserver(fitBar).observe(document.querySelector('.bar'))" in js
+
+
+def test_an_installed_app_can_be_pulled_to_refresh():
+    html = build_studio.render(_snapshot(_booth("Spain")))
+    assert 'id="ptr"' in html and 'id="refresh-btn"' in html
+    js = _script(html)
+    pull = js[js.index("  // ---------- refresh ----------"):js.index("  // Chrome's own install icon")]
+    assert "document.addEventListener('touchmove'" in pull and "{ passive: false }" in pull
+    assert "location.reload()" in pull
+    # Never while a dialog or menu is open, from a field or the map, or when
+    # the finger is on something scrolled down.
+    assert "dialog[open]" in pull and ".menu-list:not(.hidden)" in pull
+    assert "input, textarea, select" in pull and "#map" in pull
+    assert "el.scrollTop > 0" in pull
