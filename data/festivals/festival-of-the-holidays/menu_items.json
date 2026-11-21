@@ -195,7 +195,7 @@
       "name": "Reuben Croquettes",
       "public_id": "c0151e98-a6fd-5628-8e20-87857e5b092c",
       "description": "Reuben Croquettes with pastrami, sauerkraut, and Swiss cheese featuring Kraft Thousand Island Dressing",
-      "price_usd": 6.0,
+      "price_usd": 6.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -223,8 +223,7 @@
       "name": "Holly Jolly Bánh Mì",
       "public_id": "af55ba04-49a6-5d53-b786-86ab3d5a720b",
       "description": "Vietnamese-style sandwich with smoked turkey, cranberry-Chambord liqueur mayonnaise, pickled vegetables, cucumbers, Fresno chilis, and cilantro",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "food",
       "dietary_tags": [
         "spicy"
@@ -253,8 +252,7 @@
       "name": "Cranberry-Almond Frangipane Bar",
       "public_id": "130677c7-c91f-520d-b105-0a6dedab91d7",
       "description": "Cranberry-Almond Frangipane Bar with cranberry-cherry compote, whipped cream, and a candied orange peel",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.99,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -283,8 +281,7 @@
       "name": "Great Lakes Brewing Co Christmas Ale",
       "public_id": "78d2b0ce-a84f-5636-ada9-e2410a8cdfc8",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -303,8 +300,7 @@
       "name": "Southern Tier Brewing Company Black Forest Cake Imperial Stout",
       "public_id": "5ea594dd-59d7-5253-a3bd-5f0adfdbec45",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -323,7 +319,7 @@
       "name": "Keel Farms Pecan Pie Hard Cider",
       "public_id": "f105cd01-553d-5aa2-baf4-0d862dcddf91",
       "description": null,
-      "price_usd": 6.0,
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -344,7 +340,7 @@
       "name": "Beverage Flight",
       "public_id": "74701624-3fd5-5aa2-ad5e-f06d94d22efe",
       "description": null,
-      "price_usd": 12.75,
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -4330,6 +4326,40 @@
         "page_url": "https://disneyparksblog.com/wdw/disney-eats-foodie-guide-to-epcot-international-festival-of-the-holidays/",
         "via": "festival-photos"
       }
+    },
+    {
+      "booth_name": "Season’s Eatings",
+      "name": "Seasonal White Wine",
+      "public_id": "6bb75eba-22de-4e08-920f-9d4d5243eb6e",
+      "origin": "curated",
+      "description": null,
+      "price_usd": 7.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "stroll": false,
+      "sources": []
+    },
+    {
+      "booth_name": "Season’s Eatings",
+      "name": "Seasonal Red Wine",
+      "public_id": "0b3f1f7c-0278-45fc-b35d-e426b595ba6a",
+      "origin": "curated",
+      "description": null,
+      "price_usd": 6.5,
+      "category": "alcoholic_beverage",
+      "dietary_tags": [
+        "contains_alcohol"
+      ],
+      "flavor_tags": [],
+      "alcohol_kind": null,
+      "is_new_this_year": false,
+      "stroll": false,
+      "sources": []
     }
   ]
 }
