@@ -253,14 +253,17 @@ def test_the_shipped_research_is_internally_consistent(festival):
         label = f"{item['booth_name']} / {item['name']}"
         assert item["booth_name"] in booth_names, label
         assert item["category"] in festival_files.MENU_ITEM_CATEGORIES, label
-        assert festival_files.status_label(item["status"]), label
-        assert set(item["sources"]) <= set(sources), label
+        # A dish added by hand in the Studio has no research status: a person
+        # typed it in from the menu. One that has a status must be readable.
+        if item.get("status") is not None:
+            assert festival_files.status_label(item["status"]), label
+        assert set(item.get("sources") or []) <= set(sources), label
         if item["category"] == "alcoholic_beverage":
-            assert "contains_alcohol" in item["dietary_tags"], label
+            assert "contains_alcohol" in (item.get("dietary_tags") or []), label
             assert item["alcohol_kind"] in KINDS | {None}, label
         else:
             assert item["alcohol_kind"] is None, label
-            assert "contains_alcohol" not in item["dietary_tags"], label
+            assert "contains_alcohol" not in (item.get("dietary_tags") or []), label
     for booth in booths:
         if booth.get("latitude") is not None:
             lo_lat, hi_lat, lo_lon, hi_lon = EPCOT_BOX
@@ -274,7 +277,7 @@ def test_nothing_in_the_research_claims_to_be_new_this_year_yet(festival):
     filters on this. Only a festival whose menu is its own year's official one
     (menu_season == year) may carry them."""
     meta = festival_files.load_meta(festival)
-    claimed = [i for i in _shipped("menu_items.json", "menu_items", festival) if i["is_new_this_year"]]
+    claimed = [i for i in _shipped("menu_items.json", "menu_items", festival) if i.get("is_new_this_year")]
     if meta.get("menu_season") == meta.get("year"):
         return
     assert not claimed
@@ -322,3 +325,34 @@ def test_every_shipped_dish_without_a_price_says_coming_soon_or_nothing():
         for item in _shipped("menu_items.json", "menu_items", festival):
             if item.get("price_note"):
                 assert item.get("price_usd") is None, (festival, item["name"])
+
+
+def test_a_price_entered_in_the_studio_clears_coming_soon_in_the_file(workspace):
+    items_path = workspace["dir"] / "menu_items.json"
+    payload = json.loads(items_path.read_text())
+    payload["menu_items"][0].update({"price_usd": None, "price_note": "Coming soon"})
+    items_path.write_text(json.dumps(payload))
+    name, booth = payload["menu_items"][0]["name"], payload["menu_items"][0]["booth_name"]
+    _apply(workspace, {"festival": KEY, "menu_items": [{"booth_name": booth, "name": name, "price_usd": 6.29}]})
+    row = next(i for i in json.loads(items_path.read_text())["menu_items"] if i["name"] == name)
+    assert row["price_usd"] == 6.29 and "price_note" not in row
+
+
+def test_a_dish_added_in_the_studio_has_the_shape_of_a_researched_one(workspace):
+    """A new wine from the Studio carries only a name, a category and a
+    price; it is filed with every key a researched dish has, and with the
+    alcohol tag the app's drink filter reads."""
+    booth = json.loads((workspace["dir"] / "booths.json").read_text())["booths"][0]["name"]
+    _apply(workspace, {"festival": KEY, "menu_items": [
+        {"booth_name": booth, "name": "Seasonal Red Wine", "new": True, "category": "alcoholic_beverage", "price_usd": 6.5}]})
+    row = next(i for i in json.loads((workspace["dir"] / "menu_items.json").read_text())["menu_items"]
+               if i["name"] == "Seasonal Red Wine")
+    assert row["origin"] == "curated" and "status" not in row
+    assert row["dietary_tags"] == ["contains_alcohol"] and row["alcohol_kind"] is None
+    assert row["is_new_this_year"] is False and row["sources"] == [] and row["flavor_tags"] == []
+    # Marked non-alcoholic later, the tag and the kind go with it.
+    _apply(workspace, {"festival": KEY, "menu_items": [
+        {"booth_name": booth, "name": "Seasonal Red Wine", "category": "non_alcoholic_beverage"}]})
+    row = next(i for i in json.loads((workspace["dir"] / "menu_items.json").read_text())["menu_items"]
+               if i["name"] == "Seasonal Red Wine")
+    assert row["dietary_tags"] == [] and row["alcohol_kind"] is None
