@@ -5,8 +5,7 @@
       "name": "Prototype Cookie",
       "public_id": "73f61058-931c-55fc-b8d0-c3873c40e868",
       "description": "Caramel blondie with peanut butter buttercream featuring TWIX cookie bar pieces on a shortbread cookie",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.99,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -19,7 +18,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PrototypeCookie.jpg",
       "image_source": {
@@ -35,8 +35,7 @@
       "name": "Salted Caramel Spaceship Earth Cookie",
       "public_id": "b5366bba-fc76-5348-b0fa-b2495716f719",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.49,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -47,7 +46,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SpaceshipEarthCookie.jpg",
       "image_source": {
@@ -63,8 +63,7 @@
       "name": "Ginger-Molasses Cookie",
       "public_id": "8c851402-2159-5fc1-938a-9b37860cae3f",
       "description": "Ginger-Molasses Cookie with cream cheese icing",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 3.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -75,7 +74,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-GingerCookie.jpg",
       "image_source": {
@@ -91,8 +91,7 @@
       "name": "Jelly Doughnut Milkshake",
       "public_id": "d62da96b-e3db-57ff-98ff-ef435e312659",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.79,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -101,7 +100,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-DoughnutMilkshake.jpg",
       "image_source": {
@@ -117,8 +117,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee",
       "public_id": "3031ec2c-cccc-582d-849d-db9ad31a90ef",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.19,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -127,7 +126,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -135,8 +135,7 @@
       "name": "Keel Farms Gingerbread Hard Cider",
       "public_id": "a3944466-27be-524d-9a0b-beed3ba74825",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -147,7 +146,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -155,8 +155,7 @@
       "name": "Intracoastal Brewing Company Blueberry Shortbread Cookie Blonde Stout",
       "public_id": "62d7eba7-58bd-565f-b722-65ae16dc9eb7",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -167,7 +166,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -175,8 +175,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee with whipped cream vodka",
       "public_id": "26ad335e-e869-568f-9ddc-1b9ac6bd5e9d",
       "description": "Hot Cocoa by Joffrey’s Coffee with whipped cream vodka",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -187,7 +186,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -195,8 +195,7 @@
       "name": "Reuben Croquettes",
       "public_id": "c0151e98-a6fd-5628-8e20-87857e5b092c",
       "description": "Reuben Croquettes with pastrami, sauerkraut, and Swiss cheese featuring Kraft Thousand Island Dressing",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.0,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -207,7 +206,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ReubenCroquettes.jpg",
       "image_source": {
@@ -323,8 +323,7 @@
       "name": "Keel Farms Pecan Pie Hard Cider",
       "public_id": "f105cd01-553d-5aa2-baf4-0d862dcddf91",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -336,7 +335,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -344,8 +344,7 @@
       "name": "Beverage Flight",
       "public_id": "74701624-3fd5-5aa2-ad5e-f06d94d22efe",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -356,7 +355,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -364,8 +364,7 @@
       "name": "Wreath Matcha Mochi Doughnut",
       "public_id": "f83fbe58-afa0-57e6-b0af-4b67849f1a00",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -376,7 +375,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MochiDoughnut.jpg",
       "image_source": {
@@ -392,8 +392,7 @@
       "name": "Cranberry-Oatmeal Cookie",
       "public_id": "f80146f2-0d7f-53ef-ba7e-838ee8dd5276",
       "description": "(Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.79,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -406,7 +405,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-OatmealCookie.jpg",
       "image_source": {
@@ -422,8 +422,7 @@
       "name": "Sausage Pizza",
       "public_id": "751e1f81-fcee-58e8-9133-51047f5ada29",
       "description": "Sausage Pizza with peppers, onions, and Calabrian honey",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -434,7 +433,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SausagePizza.jpg",
       "image_source": {
@@ -450,8 +450,7 @@
       "name": "Mistletoe Margarita",
       "public_id": "e3846359-915d-5362-87ab-6bbd6bfd9854",
       "description": "Teremana Blanco Tequila, lime juice, agave, and Grand Marnier liqueur with coconut milk garnished with cranberries and rosemary",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 17.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -462,7 +461,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MistletoeMargarita.jpg",
       "image_source": {
@@ -478,8 +478,7 @@
       "name": "Milk Chocolate Minnie Bows and Mickey-shaped Nonpareils",
       "public_id": "e1ddf71c-38c9-5b4e-b233-39ddc48fc8d0",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -490,7 +489,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Nonpareils.jpg",
       "image_source": {
@@ -506,8 +506,7 @@
       "name": "Peppermint Bark",
       "public_id": "20060d5d-5bd4-51ac-a3c0-bd1836bdc2fa",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -518,7 +517,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PeppermintBark.jpg",
       "image_source": {
@@ -534,8 +534,7 @@
       "name": "Hot Chocolate Mousse Cup",
       "public_id": "6632d1de-f20c-56d0-9379-04c72fbb8aa2",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -546,7 +545,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MousseCup.jpg",
       "image_source": {
@@ -562,8 +562,7 @@
       "name": "Apple-Caramel Crumb Cake",
       "public_id": "88dbdbae-55e6-5cef-8b5e-4d997550a7b3",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.19,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -574,7 +573,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-AppleCake.jpg",
       "image_source": {
@@ -590,8 +590,7 @@
       "name": "Christmas Sugar Cookie",
       "public_id": "cbedacbe-4f00-57b1-a086-01dbe9c32f84",
       "description": "Christmas Sugar Cookie featuring M&M’S Milk Chocolate Candies Holiday Blend",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 3.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -602,7 +601,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SugarCookie.jpg",
       "image_source": {
@@ -618,8 +618,7 @@
       "name": "Frozen Caramel Hot Cocoa",
       "public_id": "872c0bf5-3bc4-5248-b47c-dbe0d8040f92",
       "description": "Frozen Caramel Hot Cocoa featuring TWIX Bits and whipped cream",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.59,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -628,7 +627,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-FrozenCocoa.jpg",
       "image_source": {
@@ -644,8 +644,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee",
       "public_id": "b5d82b48-bd55-5fdb-b12d-90b4851d6a5c",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.19,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -654,7 +653,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -662,8 +662,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee with DeKuyper Peppermint Schnapps Liqueur",
       "public_id": "cb636695-3d8c-50b9-8e3a-3ece910d11df",
       "description": "Hot Cocoa by Joffrey’s Coffee with DeKuyper Peppermint Schnapps Liqueur",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -674,7 +673,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CocoaWarmer.jpg",
       "image_source": {
@@ -690,8 +690,7 @@
       "name": "Central 28 Beer Company No Snowsuit Required S’mores Inspired Brown Ale",
       "public_id": "f3d38a9d-0bde-59f5-bd31-0ed887b0c48b",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -702,7 +701,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -710,8 +710,7 @@
       "name": "Crooked Can Brewing Company Christmas Cookie Ale",
       "public_id": "8c254c92-59e4-5bf7-a99d-d56e5856cc98",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -722,7 +721,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -730,8 +730,7 @@
       "name": "Keel Farms Strawberry Snowflake Hard Cider",
       "public_id": "f998c2d8-3317-5136-b8c2-e5bee7f1bb13",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -742,7 +741,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -770,8 +770,7 @@
       "name": "3 Daughters Brewing Jingle Juice Hard Cider",
       "public_id": "1b61b06a-b80a-5acb-9100-e9f9c0d5b5f7",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -782,7 +781,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -790,8 +790,7 @@
       "name": "Wicked Weed Brewing Jack Frost IPA",
       "public_id": "6a556d0d-24b6-5f45-acf7-1af52ff2d4b5",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -802,7 +801,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -830,8 +830,7 @@
       "name": "Hard Cider Flight",
       "public_id": "b95798f0-5d81-5cd4-9f3c-44c4730e4fde",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -842,7 +841,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -850,8 +850,7 @@
       "name": "Frozen Crafted Soda",
       "public_id": "0735df91-e29c-5838-b624-cb23d7d04bcb",
       "description": "Coca-Cola with cookie butter syrup and French vanilla sweet cream; or Fanta Orange with cranberry and cinnamon syrup and French vanilla sweet cream",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.99,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -860,7 +859,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-FrozenCocaCola.jpg",
       "image_source": {
@@ -876,8 +876,7 @@
       "name": "Mickey-shaped Caramel-Gingerbread Macaron",
       "public_id": "2602ab80-11b5-5884-9364-47c221b5f7df",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -888,7 +887,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MickeyMacaron.jpg",
       "image_source": {
@@ -904,8 +904,7 @@
       "name": "Snickerdoodle Milkshake",
       "public_id": "1c4f5d98-cfdb-5853-ba6a-0dc625726c26",
       "description": "Snickerdoodle Milkshake topped with a spiced cookie and snickerdoodle Bundt cake",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 10.99,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -914,7 +913,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SnickerdoodleShake.jpg",
       "image_source": {
@@ -930,8 +930,7 @@
       "name": "Cinnamon-glazed Cashews",
       "public_id": "27c86676-0495-5246-bc5d-473902bdbede",
       "description": "(Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.99,
       "category": "food",
       "dietary_tags": [
         "contains_nuts",
@@ -945,7 +944,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Cashews.jpg",
       "image_source": {
@@ -961,8 +961,7 @@
       "name": "Cinnamon-glazed Pecans",
       "public_id": "7b5da8ff-ad05-5b69-8295-888f86ff90ca",
       "description": "(Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.99,
       "category": "food",
       "dietary_tags": [
         "contains_nuts",
@@ -976,7 +975,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CInnamonPecans.jpg",
       "image_source": {
@@ -992,8 +992,7 @@
       "name": "Fire-roasted Chestnuts",
       "public_id": "ca958321-5fbe-518e-ab79-903ba55b2c5a",
       "description": "(Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.49,
       "category": "food",
       "dietary_tags": [
         "contains_nuts",
@@ -1005,7 +1004,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Chestnuts.jpg",
       "image_source": {
@@ -1021,8 +1021,7 @@
       "name": "Eggnog",
       "public_id": "c6636c5d-163b-5749-bb1d-929e957af8eb",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.19,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -1031,7 +1030,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1039,8 +1039,7 @@
       "name": "Eggnog with Fireball Cinnamon Whisky or Skrewball Peanut Butter Whiskey",
       "public_id": "f24238e9-e189-5b2d-9098-88a133fa5ef9",
       "description": "Eggnog with choice of liqueur (Fireball Cinnamon Whisky or Skrewball Peanut Butter Whiskey)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -1052,7 +1051,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Eggnog.jpg",
       "image_source": {
@@ -1068,8 +1068,7 @@
       "name": "Ivanhoe Park Brewing Co. Toasted Pecan Porter",
       "public_id": "788468d3-101f-5385-8c37-9578400a9a12",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -1081,7 +1080,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1089,8 +1089,7 @@
       "name": "Empanada de Carnitas",
       "public_id": "a18b1281-8481-5297-9a39-86f4ca94d643",
       "description": "Fried corn tortilla filled with pork carnitas and potatoes topped with salsa verde, crema Mexicana, queso fresco, and pickled onions",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1101,7 +1100,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CarnitasEmpanada.jpg",
       "image_source": {
@@ -1117,8 +1117,7 @@
       "name": "Taco Nochebuena",
       "public_id": "60031dbd-63b9-5615-a12d-316776f8d8ef",
       "description": "Barbacoa beef in a corn tortilla with crispy grilled Monterey Jack, birria sauce, and pickled vegetables",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.75,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1129,7 +1128,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-VampiroTaco.jpg",
       "image_source": {
@@ -1145,8 +1145,7 @@
       "name": "Dulce de Leche-filled Churro",
       "public_id": "033731f1-a0dd-5ea6-8838-b08c5ab55543",
       "description": "Dulce de Leche-filled Churro sprinkled with cinnamon sugar",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.75,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1157,7 +1156,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-DulceDeLecheChurro.jpg",
       "image_source": {
@@ -1173,8 +1173,7 @@
       "name": "Festive Margarita",
       "public_id": "8e17149c-919b-5fc3-b079-cdde9e16d284",
       "description": "Blanco tequila, red wine-fruit juice blend, and spiced chocolate syrup Served warm or iced",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1185,7 +1184,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1193,8 +1193,7 @@
       "name": "Churro-Horchata Margarita",
       "public_id": "e04c6202-6f6f-5437-8ac8-45062ea88c7e",
       "description": "Blanco tequila, cinnamon-infused Ilegal Mezcal, agua de horchata, and churro liqueur",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1205,7 +1204,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1213,8 +1213,7 @@
       "name": "Holiday Cerveza",
       "public_id": "745a9f8d-58e5-5a9d-8ca6-90a6aa3197a6",
       "description": "Mexican artisanal craft lager with blackcurrant liqueur",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1225,7 +1224,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1261,8 +1261,7 @@
       "name": "BBQ Char Siu Pork Fried Rice",
       "public_id": "c4e8c23f-5c37-54a1-944b-af6892e82c83",
       "description": "BBQ Char Siu Pork Fried Rice with Chinese La Chang sausage, egg, yellow onion, green onion, and sesame",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1273,7 +1272,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-FriedRice.jpg",
       "image_source": {
@@ -1289,8 +1289,7 @@
       "name": "Beef Noodle Soup Bowl",
       "public_id": "11755273-44fa-56e8-b54f-2ba500172f30",
       "description": "Beef Noodle Soup Bowl with slow-braised beef shank, green onion, and house-made chili oil",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.75,
       "category": "food",
       "dietary_tags": [
         "spicy"
@@ -1303,7 +1302,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-NoodleSoup.jpg",
       "image_source": {
@@ -1319,8 +1319,7 @@
       "name": "Vegetable Spring Rolls",
       "public_id": "d4f3eb3a-75cc-569f-b1b9-30df58a60d71",
       "description": "Vegetable Spring Rolls with citrus sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1331,7 +1330,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SpringRolls.jpg",
       "image_source": {
@@ -1347,8 +1347,7 @@
       "name": "Taro Bubble Milk Tea",
       "public_id": "f1cf7304-4c16-56cb-a2dc-5bc30ccda740",
       "description": "Taro Bubble Milk Tea with coconut foam and tapioca boba",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.75,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -1357,7 +1356,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1365,8 +1365,7 @@
       "name": "Crooked Can Brewing Company Oolong Tea White Ale",
       "public_id": "66bde3b1-9842-5c71-bfdb-7d58641e6443",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1377,7 +1376,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1385,8 +1385,7 @@
       "name": "Phoenix Lantern",
       "public_id": "0cb106bb-2bc6-586d-b6cb-2bc711c764a1",
       "description": "Butterfly pea blossom gin, vodka, prickly pear syrup, lychee syrup, and white boba",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1397,7 +1396,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1405,8 +1405,7 @@
       "name": "Lychee Martini",
       "public_id": "65237ef9-0d3b-5eb1-b6fb-0f9f8b1b492d",
       "description": "Vodka, lychee syrup, and vermouth",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1417,7 +1416,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1425,8 +1425,7 @@
       "name": "Peach of Longevity",
       "public_id": "618e4e38-9ada-5079-8996-b168540b275c",
       "description": "Peach schnapps, citrus vodka, piña colada mix, and Minute Maid Orange Juice",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1437,7 +1436,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1445,8 +1445,7 @@
       "name": "Spiced Shrimp Stew",
       "public_id": "75db6994-3085-5304-a996-239c976666be",
       "description": "Spiced Shrimp Stew with jollof rice",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.19,
       "category": "food",
       "dietary_tags": [
         "contains_shellfish"
@@ -1459,7 +1458,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ShrimpStew.jpg",
       "image_source": {
@@ -1475,8 +1475,7 @@
       "name": "DOLE Whip Raspberry",
       "public_id": "55f8337f-9893-5b25-9911-4bedbcb1c47c",
       "description": "DOLE Whip Raspberry in a waffle cone (Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -1489,7 +1488,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1497,8 +1497,7 @@
       "name": "Boyd & Blair Chai Tea Mule",
       "public_id": "3f9c0c72-8deb-50e8-945d-b1401a9905fa",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1509,7 +1508,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChaiMule.jpg",
       "image_source": {
@@ -1525,8 +1525,7 @@
       "name": "SweetWater Brewing Company Festive Ale Winter Warmer",
       "public_id": "2e0e3965-0fac-569f-86ea-9e284442003b",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1537,7 +1536,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1545,8 +1545,7 @@
       "name": "Sixpoint Brewery Dubai Chocolate Stout",
       "public_id": "bc5f6f49-a31c-5d26-8ca3-ac1795f0adbd",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1557,7 +1556,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1565,8 +1565,7 @@
       "name": "Bold Rock Apple Crumble Hard Cider",
       "public_id": "c425763f-0d5b-5591-b9ef-1bf77e806cb9",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1577,7 +1576,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1585,8 +1585,7 @@
       "name": "Pork Schnitzel",
       "public_id": "52755204-76ce-5ebf-ab10-ac9907b2c25c",
       "description": "Pork Schnitzel with mushroom sauce, spätzle, and braised red cabbage",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1597,7 +1596,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PorkSchnitzel.jpg",
       "image_source": {
@@ -1613,8 +1613,7 @@
       "name": "Cheese Fondue",
       "public_id": "ce03f4de-1c04-58ad-af5d-b522f0dd2dda",
       "description": "Cheese Fondue in a bread bowl with steamed baby vegetables and marble potatoes",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1625,7 +1624,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CheeseFondue.jpg",
       "image_source": {
@@ -1641,8 +1641,7 @@
       "name": "Hazelnut Linzer Cookie",
       "public_id": "e2211c9e-1556-5b83-8a15-02f51319d540",
       "description": "Hazelnut Linzer Cookie with raspberry jam",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 3.99,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -1655,7 +1654,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-LinzerCookie.jpg",
       "image_source": {
@@ -1671,8 +1671,7 @@
       "name": "Glühwein",
       "public_id": "02e4a87e-075d-521a-9b9a-b16cb8eb9c33",
       "description": "House-made hot spiced wine, served warm",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1683,7 +1682,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Gluhwein.jpg",
       "image_source": {
@@ -1699,8 +1699,7 @@
       "name": "Possmann Pure Hard Cider",
       "public_id": "f4ebaf98-3d49-5f42-93ef-e2c1622f02bd",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1711,7 +1710,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1719,8 +1719,7 @@
       "name": "Weihenstephaner Kristallweissbier",
       "public_id": "ee1d0bc1-4c56-52e0-a680-8931ba4f4b99",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1731,7 +1730,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1739,8 +1739,7 @@
       "name": "Regional Riesling",
       "public_id": "c5e6fa1d-6cee-5f9a-9c12-cec3ef256803",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1751,7 +1750,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1759,8 +1759,7 @@
       "name": "Christmas Market Bratwurst",
       "public_id": "e127dcd3-3d19-5cff-95cc-9060e276854f",
       "description": "Beef and pork bratwurst with sauerbraten pot roast, red cabbage, and sweet mustard on a warm pretzel roll served with paprika-curry chips",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1771,7 +1770,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Bratwurst.jpg",
       "image_source": {
@@ -1787,8 +1787,7 @@
       "name": "Carbonara",
       "public_id": "1db42aed-727f-5332-bb96-d44f892d49ae",
       "description": "Cheese tortellini, carbonara sauce, pecorino romano, and crispy pancetta",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.75,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1799,7 +1798,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Carbonara.jpg",
       "image_source": {
@@ -1815,8 +1815,7 @@
       "name": "Croquette di Patate",
       "public_id": "3348af7a-8784-56d2-ba7a-172fe91baaec",
       "description": "Potato and cheese croquette with pomodoro sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -1827,7 +1826,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CroquetteDiPatate.jpg",
       "image_source": {
@@ -1843,8 +1843,7 @@
       "name": "Biscotto all'Arancia e Pistacchio",
       "public_id": "c9d97484-5bae-5477-8e8a-46c4cb984bc5",
       "description": "Freshly baked cookie with candied orange, crushed pistachio, and white chocolate",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.0,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -1857,7 +1856,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-BiscottoAllArancia.jpg",
       "image_source": {
@@ -1873,8 +1873,7 @@
       "name": "Saracco Moscato d’Asti",
       "public_id": "a2629830-76bb-5fa1-8fa1-b9d40107a81c",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1885,7 +1884,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1893,8 +1893,7 @@
       "name": "Villa Matilde Greco di Tufo",
       "public_id": "06b2eca9-86c9-5288-a191-18b2d84feba7",
       "description": "Crisp white wine from Campania",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1905,7 +1904,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1913,8 +1913,7 @@
       "name": "Villa Matilde Aglianico",
       "public_id": "aa11f0e8-08fd-5e33-a92d-f93eb3597114",
       "description": "Robust red wine from Campania",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1925,7 +1924,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1933,8 +1933,7 @@
       "name": "Italian White Sangria",
       "public_id": "d1ae355a-a159-5c7d-b8e0-4b17126e6cb7",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1945,7 +1944,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1953,8 +1953,7 @@
       "name": "Lambrusco Cloud",
       "public_id": "584dee14-5174-5f41-b212-1849bdd665c4",
       "description": "Lucci Lambrusco sparkling red wine with frozen Italian white sangria",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 16.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1965,7 +1964,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1973,8 +1973,7 @@
       "name": "Peroni Pilsner",
       "public_id": "8e9ed098-164d-588e-8feb-3cf3b8c6cf24",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -1985,7 +1984,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -1993,8 +1993,7 @@
       "name": "Prosecco",
       "public_id": "66c1f4e8-b49c-5639-8ddd-e2d407b1046f",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2005,7 +2004,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2013,8 +2013,7 @@
       "name": "Italian-inspired Blood Orange Margarita",
       "public_id": "7a4512cf-df80-5c95-87c3-6d068359c959",
       "description": "Tequila, Triple Sec, and Fabrizia Blood Orange Liqueur",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 15.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2025,7 +2024,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2033,8 +2033,7 @@
       "name": "Chocolate-covered Cherry Shake",
       "public_id": "f480fdb0-a228-59ff-9588-7f9bae55c8e0",
       "description": "Chocolate-covered Cherry Shake topped with whipped cream",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -2043,7 +2042,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CherryShake.jpg",
       "image_source": {
@@ -2059,8 +2059,7 @@
       "name": "Frozen Merry Punch",
       "public_id": "561da032-3d63-5d78-8721-273a0145e6d8",
       "description": "Minute Maid Strawberry Smoothie Mix, cranberry juice, and raspberry syrup topped with sprinkles",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -2069,7 +2068,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-BerryPunch.jpg",
       "image_source": {
@@ -2113,8 +2113,7 @@
       "name": "Carved Roasted Ham",
       "public_id": "9416b343-7c4e-567a-ba4b-657589441f28",
       "description": "Carved Roasted Ham with sweet potato casserole, fried apples, and whiskey-mustard glaze",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2125,7 +2124,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CarvedHam.jpg",
       "image_source": {
@@ -2141,8 +2141,7 @@
       "name": "Slow-roasted Turkey",
       "public_id": "965457e8-adfa-57e6-82da-67e4d686cb9f",
       "description": "Slow-roasted Turkey with stuffing, mashed potatoes, green beans, and cranberry sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2153,7 +2152,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-RoastedTurkey.jpg",
       "image_source": {
@@ -2169,8 +2169,7 @@
       "name": "Chocolate Cookie",
       "public_id": "390b53d9-02b8-5195-b419-400a036f0e2e",
       "description": "Chocolate Cookie featuring SNICKERS bar pieces and salted caramel",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 3.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2181,7 +2180,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChocolateCookie.jpg",
       "image_source": {
@@ -2197,8 +2197,7 @@
       "name": "Crooked Can Brewing Company Snowball Protocol Stout",
       "public_id": "5237423f-4c48-5d0f-926e-c8ce2835a389",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2209,7 +2208,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2217,8 +2217,7 @@
       "name": "Country Boy Brewing Mocha Latte Porter",
       "public_id": "321180d4-abca-57df-9fdb-d900815c0e9b",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2229,7 +2228,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2237,8 +2237,7 @@
       "name": "3 Daughters Brewing Eggnog White Porter",
       "public_id": "ea79fe4a-f1a8-5e88-a1d2-4e995baf7359",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2249,7 +2248,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2257,8 +2257,7 @@
       "name": "Beer Flight",
       "public_id": "5e3a2067-1cb9-545b-a6f1-7d4facf83049",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2269,7 +2268,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2277,8 +2277,7 @@
       "name": "Hot Cocoa Funnel Cake",
       "public_id": "f193b416-f322-58bc-bb37-4668a8c9cfe2",
       "description": "Funnel cake with chocolate-chocolate chip ice cream topped with powdered sugar, marshmallow whipped cream, mini marshmallows, cocoa cinnamon sugar, and dark chocolate sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2289,7 +2288,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CocoaFunnelCake.jpg",
       "image_source": {
@@ -2305,8 +2305,7 @@
       "name": "Miso Ramen",
       "public_id": "a327d3ac-83bf-5b1a-9f2f-4441ac7e7a05",
       "description": "Japanese-style ramen noodles in a savory miso-based broth topped with grilled chicken, corn, and butter",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2317,7 +2316,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MisoRamen.jpg",
       "image_source": {
@@ -2333,8 +2333,7 @@
       "name": "Sushi Tree Roll",
       "public_id": "e2228750-e05b-5479-beb5-8cbabceaae6b",
       "description": "Christmas tree-shaped sushi roll with krab meat and cream cheese garnished with spicy mayonnaise and colorful rice pearls",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.75,
       "category": "food",
       "dietary_tags": [
         "spicy"
@@ -2347,7 +2346,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SushiTree.jpg",
       "image_source": {
@@ -2363,8 +2363,7 @@
       "name": "Toshikoshi Soba",
       "public_id": "7dc68f76-0616-5f6f-be2b-c8543aa0fefc",
       "description": "Buckwheat soba noodles in hot dashi fish-based soup topped with shrimp tempura and chopped green onion",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.5,
       "category": "food",
       "dietary_tags": [
         "contains_shellfish"
@@ -2377,7 +2376,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ToshikoshiSoba.jpg",
       "image_source": {
@@ -2393,8 +2393,7 @@
       "name": "Strawberry-Chocolate Bun",
       "public_id": "f61ed75f-dae2-5441-b44e-97019289b1c6",
       "description": "Dessert bao with soft strawberry flavor and sweet chocolate cream filling",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.0,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2405,7 +2404,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChocolateBun.jpg",
       "image_source": {
@@ -2421,8 +2421,7 @@
       "name": "Soba Beer Ale",
       "public_id": "f4f1d276-6331-52d4-ae46-40b6f202743c",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2433,7 +2432,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2441,8 +2441,7 @@
       "name": "Spicy Plum Sake",
       "public_id": "c3dc080d-d7e5-52b6-86ff-b5a787a66e89",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -2454,7 +2453,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2462,8 +2462,7 @@
       "name": "Yuzu Refresher",
       "public_id": "59858c2f-ac5e-5a51-969b-1a1418a1f59e",
       "description": "Yuzu and passion fruit drink with Minute Maid Premium Lemonade and popping green apple boba pearls",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.0,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -2472,7 +2471,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2480,8 +2480,7 @@
       "name": "Chocolate Nigori Sake",
       "public_id": "9798a654-8e68-56bd-9f93-ba2272185574",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2492,7 +2491,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2500,8 +2500,7 @@
       "name": "Japanese Punch",
       "public_id": "f02c5022-aae3-5e59-8c10-a1a8c3f5559a",
       "description": "Shōchū Japanese spirit, plum wine, white cranberry juice, and lemon juice",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 8.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2512,7 +2511,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2520,8 +2520,7 @@
       "name": "Chorba",
       "public_id": "ff3441b5-b2e0-553d-a8c9-32986ec2e899",
       "description": "Hearty stew of lamb, chickpeas, tomatoes, and farro served with pita",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2532,7 +2531,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Chorba.jpg",
       "image_source": {
@@ -2548,8 +2548,7 @@
       "name": "Chermoula Chicken Hummus Bowl",
       "public_id": "c1bfd53b-709f-5ccf-a8b6-8fbdca5fc918",
       "description": "Chermoula Chicken Hummus Bowl with apricot chutney and grilled shishito peppers",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2560,7 +2559,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChickenHummusBowl.jpg",
       "image_source": {
@@ -2576,8 +2576,7 @@
       "name": "Spiced Flank Steak Hummus Bowl",
       "public_id": "81b7c7b8-5e85-519d-9a56-cb324a4f30fd",
       "description": "Spiced Flank Steak Hummus Bowl with harissa yogurt and roasted peppers",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.29,
       "category": "food",
       "dietary_tags": [
         "spicy"
@@ -2590,7 +2589,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SteakHummusBowl.jpg",
       "image_source": {
@@ -2606,8 +2606,7 @@
       "name": "Ras el Hanout Cauliflower Bowl",
       "public_id": "c0cd1ea5-9661-52d9-af22-af2b531c40ba",
       "description": "Ras el Hanout Cauliflower Bowl with chickpea salad, golden raisin relish, and parsley (Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.49,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -2620,7 +2619,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CauliflowerBowl.jpg",
       "image_source": {
@@ -2636,8 +2636,7 @@
       "name": "Coronado Brewing Co. Vanilla Chai Hard Cider",
       "public_id": "9589ad68-c747-5dd2-956f-be149139af6c",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2648,7 +2647,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2656,8 +2656,7 @@
       "name": "Keel Farms Fig & Cranberry Hard Cider",
       "public_id": "4d58d855-bb6b-58d5-8333-c9d3f0c6cbf2",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2668,7 +2667,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2676,8 +2676,7 @@
       "name": "B. Nektar Spiced Poached Perry Hard Cider",
       "public_id": "006336f6-9b46-5649-b585-2d0c3250a48d",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2688,7 +2687,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2696,8 +2696,7 @@
       "name": "Hard Cider Flight",
       "public_id": "b42fd5ad-f810-5cb9-ad66-37120508b46a",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 11.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2708,7 +2707,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2716,8 +2716,7 @@
       "name": "Sparkling Holiday Fig Cocktail",
       "public_id": "f923f9d3-66cf-5cf9-8006-d53577f12bae",
       "description": "Sparkling wine, Kleiner Feigling liqueur, and white cranberry juice",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 11.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2728,7 +2727,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2736,8 +2736,7 @@
       "name": "Brisket Nosh",
       "public_id": "300be46e-a9c9-58c8-9b4e-729f7c410986",
       "description": "Brisket Nosh with roasted root vegetables and dried fruit",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2748,7 +2747,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-BrisketNosh.jpg",
       "image_source": {
@@ -2764,8 +2764,7 @@
       "name": "Smoked Salmon Potato Latke",
       "public_id": "76215578-8e40-53b5-9bca-3b2f37fbfd3b",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.49,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2776,7 +2775,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2025/11/2025-WDW-FOTH-Foodie-Guide-Salmon-Latkes.jpg",
       "image_source": {
@@ -2792,8 +2792,7 @@
       "name": "Potato Latkes",
       "public_id": "31f3b82b-94bf-530d-bbda-4d815e97190f",
       "description": "(Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.99,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -2806,7 +2805,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Latkes.jpg",
       "image_source": {
@@ -2822,8 +2822,7 @@
       "name": "Raspberry-Walnut Rugelach",
       "public_id": "1c8e9c0d-43ba-50da-8040-1b91392c2983",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.29,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -2836,7 +2835,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Rugelach.jpg",
       "image_source": {
@@ -2852,8 +2852,7 @@
       "name": "Mickey-shaped Almond Black and White Cookie",
       "public_id": "fbbec470-17fe-580a-938e-b3944fedb82b",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.29,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -2866,7 +2865,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-BlackAndWhiteCookie.jpg",
       "image_source": {
@@ -2882,8 +2882,7 @@
       "name": "Frozen New York Whiskey Sour",
       "public_id": "771a56bb-8556-5c69-849e-fb31b2f54d17",
       "description": "Alias Straight Rye Whiskey and Manischewitz Blackberry Wine",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2894,7 +2893,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-WhiskeySour.jpg",
       "image_source": {
@@ -2910,8 +2910,7 @@
       "name": "Brooklyn Brewery Black Chocolate Stout",
       "public_id": "e40691ad-423a-580b-ae71-62385d492c12",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -2922,7 +2921,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -2930,8 +2930,7 @@
       "name": "Poulet Truffe",
       "public_id": "76d85696-b0b4-5015-b12f-1e482f0629d0",
       "description": "Poulet Truffe et Champignons, Épinards Sautés, Sauce à l’estragon, Échalotes et Vin Blanc Truffled chicken and mushrooms with sautéed spinach and tarragon-shallot-white wine sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.95,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2942,7 +2941,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PouletTruffe.jpg",
       "image_source": {
@@ -2958,8 +2958,7 @@
       "name": "Burger de Saumon, Brioche Maison, Mayo à l'aneth et aux Câpres",
       "public_id": "e295acad-3973-5d46-98d1-42030ccebff3",
       "description": "Salmon burger on house-made brioche with dill mayonnaise and capers",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.95,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2970,7 +2969,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SaumonBurger.jpg",
       "image_source": {
@@ -2986,8 +2986,7 @@
       "name": "Macaron de Noël aux Épices",
       "public_id": "a389a9a7-8adb-5c05-9eba-f7f3de4ce0b2",
       "description": "Large gingerbread macaron with spiced filling",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.5,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -2998,7 +2997,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-GingerbreadMacaron.jpg",
       "image_source": {
@@ -3014,8 +3014,7 @@
       "name": "Maison Andel Cuvée Brut Rosé, Crémant de Bourgogne",
       "public_id": "78affa22-1594-5cf8-9116-a44d52aaf6be",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3026,7 +3025,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3034,8 +3034,7 @@
       "name": "Vin Chaud French Mulled Wine",
       "public_id": "93bd5af6-9717-5898-a4a5-8b68da4f7653",
       "description": "Vin Chaud French Mulled Wine flavored with orange and cinnamon spices, served warm",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 9.95,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3046,7 +3045,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3054,8 +3054,7 @@
       "name": "Frozen Hot Chocolate Martini",
       "public_id": "322d2116-f15a-5949-847c-9fb301915153",
       "description": "Vodka, cocoa, and whipped cream",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3066,7 +3065,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3074,8 +3074,7 @@
       "name": "Christmas Cake Coffee",
       "public_id": "71fc4c75-352f-5a3e-ab79-cd36a9c44646",
       "description": "Joffrey’s Coffee, E&J Brandy, Frangelico Liqueur, Amaretto Liqueur, and Baileys Original Irish Cream Liqueur",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 18.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -3087,7 +3086,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChristmasCakeCoffee.jpg",
       "image_source": {
@@ -3103,8 +3103,7 @@
       "name": "Seared Salmon",
       "public_id": "3ab93528-e076-5922-bbb9-840d849b0539",
       "description": "Seared Salmon with butternut squash purée, maple-bourbon glaze, and fennel-arugula salad",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3115,7 +3114,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-SearedSalmon.jpg",
       "image_source": {
@@ -3131,8 +3131,7 @@
       "name": "Beef Bourguignon",
       "public_id": "f6aac325-ff92-50bf-a88e-0f46d321f29f",
       "description": "Beef Bourguignon with bacon and crushed potatoes",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3143,7 +3142,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-BeefBourguigon.jpg",
       "image_source": {
@@ -3159,8 +3159,7 @@
       "name": "Maple Leaf Shortbread Cookie",
       "public_id": "7b91c5e6-af60-5c01-a61c-7d534950ab69",
       "description": "Maple Leaf Shortbread Cookie with maple buttercream",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3171,7 +3170,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MapleShortbread.jpg",
       "image_source": {
@@ -3187,8 +3187,7 @@
       "name": "Frozen Joffrey’s Coffee",
       "public_id": "90e36e11-80c3-565e-b015-d2828e96ffcb",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.29,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3197,7 +3196,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3205,8 +3205,7 @@
       "name": "Collective Arts Brewing Stranger Than Chocolate & Orange Stout",
       "public_id": "604b9fc9-9e44-5c8f-a623-629274f70ca3",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3217,7 +3216,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3225,8 +3225,7 @@
       "name": "81Bay Brewing Co. Peanut Butter Banana Porter",
       "public_id": "f8080c7e-ede0-57ad-aff3-eef5c51bf4a3",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -3238,7 +3237,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3246,8 +3246,7 @@
       "name": "Playalinda Brewing Co. Maple Cookie Blonde Ale",
       "public_id": "7c0a4fd8-2431-50c8-8fc4-489717f770be",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3258,7 +3257,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3266,8 +3266,7 @@
       "name": "Beer Flight",
       "public_id": "5e01c70b-3d92-5380-be41-164748226d93",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3278,7 +3277,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3286,8 +3286,7 @@
       "name": "Frozen Joffrey’s Coffee with maple whiskey",
       "public_id": "6a9604d8-0c13-5aee-9c55-924716b1aeb7",
       "description": "Frozen Joffrey’s Coffee with maple whiskey",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3298,7 +3297,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3306,8 +3306,7 @@
       "name": "London, England: The English Pub Poutine",
       "public_id": "339a9db1-a066-5147-9740-b5620456c86b",
       "description": "Chips, cheese curds, and bangers topped with caramelized onion gravy",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 11.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3318,7 +3317,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-LondonPoutine.jpg",
       "image_source": {
@@ -3334,8 +3334,7 @@
       "name": "Northern Crimson Slushy",
       "public_id": "b94f3f3c-b7db-5e3e-bf53-588670385798",
       "description": "Frozen ginger beer blended with lively lime and tart cranberry",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3344,7 +3343,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CrimsonSlushy.jpg",
       "image_source": {
@@ -3360,8 +3360,7 @@
       "name": "Northern Crimson Mule",
       "public_id": "de071433-be62-56d0-8d7c-9481dc545410",
       "description": "Frozen ginger beer blended with lively lime and tart cranberry with vodka",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 15.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3372,7 +3371,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CrimsonMule.jpg",
       "image_source": {
@@ -3388,8 +3388,7 @@
       "name": "Chocolate-Peppermint Soft-serve",
       "public_id": "7e9f7886-e7a8-5243-a3cb-5de849ae19a0",
       "description": "Chocolate-Peppermint Soft-serve in a waffle cone bowl",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3400,7 +3399,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PeppermintSundae.jpg",
       "image_source": {
@@ -3416,8 +3416,7 @@
       "name": "Chocolate-Peppermint Shake",
       "public_id": "f669ae41-4823-5979-b986-ceb8991beaad",
       "description": "Chocolate-Peppermint Shake featuring Twinings Peppermint Cheer Herbal Tea",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.29,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3426,7 +3425,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PeppermintShake.jpg",
       "image_source": {
@@ -3442,8 +3442,7 @@
       "name": "Chocolate-Peppermint Shake with Twinings Peppermint Cheer Herbal Tea and whipped cream vodka",
       "public_id": "9cabbbf8-a656-58ac-8c1c-fc081a2d0bf7",
       "description": "Chocolate-Peppermint Shake with Twinings Peppermint Cheer Herbal Tea and whipped cream vodka",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3454,7 +3453,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PeppermintShakeAlcoholic.jpg",
       "image_source": {
@@ -3470,8 +3470,7 @@
       "name": "Playalinda Brewing Co. Eggnog Cheesecake White Stout",
       "public_id": "6af2639d-4636-5316-827a-a304fbfa04b8",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3482,7 +3481,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3490,8 +3490,7 @@
       "name": "Intracoastal Brewing Company Red Velvet Cake Cream Ale",
       "public_id": "0aa9b638-6c84-58d8-ba49-a9c225a81080",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3502,7 +3501,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3510,8 +3510,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee",
       "public_id": "912b2160-6536-57f3-a211-850c8aa1fe1e",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.19,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3520,7 +3519,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3528,8 +3528,7 @@
       "name": "Festive Flight with Hot Cocoa by Joffrey’s Coffee",
       "public_id": "896d19e3-5940-5808-8c17-7a903567b9c2",
       "description": "Christmas Sugar Cookie Hot Cocoa topped with whipped cream and sprinkles Gingerbread Hot Cocoa topped with whipped cream and gingerbread garnish Cookie Butter Hot Cocoa topped with whipped cream and Speculoos spice",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3538,7 +3537,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3546,8 +3546,7 @@
       "name": "Hot Cocoa by Joffrey’s Coffee with Baileys Original Irish Cream Liqueur, Buffalo Trace Bourbon Cream Liqueur, or Skrewball Peanut Butter Whiskey",
       "public_id": "e0d28f94-a558-52db-9080-28d799297ff3",
       "description": "Hot Cocoa by Joffrey’s Coffee with choice of liqueur (Baileys Original Irish Cream Liqueur, Buffalo Trace Bourbon Cream Liqueur, or Skrewball Peanut Butter Whiskey)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -3559,7 +3558,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3567,8 +3567,7 @@
       "name": "Liquid Nitrogen Eggnog Cheesecake Mousse",
       "public_id": "31476278-9e5a-5415-b940-f7ab610868de",
       "description": "Liquid Nitrogen Eggnog Cheesecake Mousse featuring PHILADELPHIA Cream Cheese with cranberry-cherry compote and Speculoos cookie pieces",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3579,7 +3578,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-EggnogCheesecake.jpg",
       "image_source": {
@@ -3595,8 +3595,7 @@
       "name": "Dubai-style Chocolate Liqueur Float",
       "public_id": "1809a093-3107-508b-8a87-085bedf6df37",
       "description": "Dubai-style Chocolate Liqueur Float with pistachio soft-serve",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 13.5,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol",
@@ -3608,7 +3607,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-DubaiChocolateFloat.jpg",
       "image_source": {
@@ -3624,8 +3624,7 @@
       "name": "Yuletide Float",
       "public_id": "6a25691c-43cb-5bbb-8eb7-70b45238339e",
       "description": "Fireball Cinnamon Whisky and Barq’s Red Creme Soda with apple-cinnamon soft-serve",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.75,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3636,7 +3635,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-YuletideFloat.jpg",
       "image_source": {
@@ -3652,8 +3652,7 @@
       "name": "Soft-serve in a waffle cone",
       "public_id": "ed728b38-2b35-5844-8b68-8638f93b4440",
       "description": "Vanilla Apple-cinnamon Dark chocolate Pistachio",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -3666,7 +3665,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3674,8 +3674,7 @@
       "name": "Soda Float",
       "public_id": "885ad445-41f5-5856-9e32-21c36e475c6d",
       "description": "Barq’s Red Creme Soda or Barq’s Root Beer with vanilla soft-serve",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -3684,7 +3683,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3692,8 +3692,7 @@
       "name": "Kālua Pork",
       "public_id": "35100ed7-1f30-5614-ab7f-6b0fe8b3ce5b",
       "description": "Kālua Pork with coconut, sweet potatoes, and mango salad",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.29,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3704,7 +3703,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-KaluaPork.jpg",
       "image_source": {
@@ -3720,8 +3720,7 @@
       "name": "Lomilomi Salmon",
       "public_id": "1076d2e0-ba37-58a0-aaae-31e5f3534236",
       "description": "Lomilomi Salmon with tomatoes, onions, salmon roe, yuzu mayonnaise, and yuca chips",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3732,7 +3731,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-LomiLomiSalmon.jpg",
       "image_source": {
@@ -3748,8 +3748,7 @@
       "name": "Coffee-Mocha Cookie",
       "public_id": "6a4f4976-8320-5386-8223-6b55e689f3d4",
       "description": "Coffee-Mocha Cookie topped with coffee-infused buttercream and cacao nibs",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 3.99,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3760,7 +3759,8 @@
       "status": "confirmed-2026",
       "stroll": true,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-CoffeeCookie.jpg",
       "image_source": {
@@ -3776,8 +3776,7 @@
       "name": "Melon Breeze",
       "public_id": "5dc0f2e4-1d7f-5c59-b316-fae99e42c505",
       "description": "DOLE pineapple juice, lime juice, melon liqueur, and Sailor Jerry Spiced Rum",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 14.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3788,7 +3787,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MelonBreeze.jpg",
       "image_source": {
@@ -3804,8 +3804,7 @@
       "name": "Florida Orange Groves Winery POG Sparkling Wine",
       "public_id": "fcb2cb23-3dda-5f4b-9f13-5b75702b24fe",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 12.0,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3816,7 +3815,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3824,8 +3824,7 @@
       "name": "Civil Society Brewing Sticky Business IPA",
       "public_id": "74adfa9d-33e3-5359-b209-a8dde30605ac",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -3836,7 +3835,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3844,8 +3844,7 @@
       "name": "Pani Puri",
       "public_id": "1e30b269-ad8c-5b9d-b461-bdb4f187fbda",
       "description": "Pani Puri filled with curry-spiced potatoes and chickpeas served with tamarind water (Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.99,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -3858,7 +3857,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PaniPuri.jpg",
       "image_source": {
@@ -3874,8 +3874,7 @@
       "name": "Chicken Biryani",
       "public_id": "9f13eb5a-b80b-556b-b1bb-88a4911faa46",
       "description": "Spicy chicken and long-grain basmati rice topped with yogurt sauce, pomegranate seeds, and bird’s eye chilis",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.49,
       "category": "food",
       "dietary_tags": [
         "spicy"
@@ -3888,7 +3887,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-ChickenBiryani.jpg",
       "image_source": {
@@ -3904,8 +3904,7 @@
       "name": "Mango Mousse Cup",
       "public_id": "de04c791-6ffd-5d4f-9242-56ad86de2e43",
       "description": "Mango Mousse Cup topped with plant-based lime whipped cream and cardamom cookie streusel (Plant-based)",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.99,
       "category": "food",
       "dietary_tags": [
         "plant_based"
@@ -3918,7 +3917,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-MangoMousse.jpg",
       "image_source": {
@@ -3934,8 +3934,7 @@
       "name": "Thandai Milkshake",
       "public_id": "3242e311-3712-5d12-8887-762a5e59f83d",
       "description": "A traditional blend of milk with almond, fennel, poppy seed, cardamom, and saffron flavors garnished with rose petals and toasted almonds",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.49,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [
         "contains_nuts"
@@ -3946,7 +3945,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -3954,8 +3954,7 @@
       "name": "Rotisserie Lechón",
       "public_id": "b5cc5e6d-3185-5bea-8c48-523fbd76af2e",
       "description": "Pork with arroz mamposteao, pickled red onions, maduros, and salsa verde",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.79,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3966,7 +3965,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-RotisserieLechon.jpg",
       "image_source": {
@@ -3982,8 +3982,7 @@
       "name": "Plancha-seared Corvina",
       "public_id": "7cae51c3-4434-5bb1-bfe7-fc0345bebe72",
       "description": "Plancha-seared Corvina with vegetable-sofrito hash and romesco sauce",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.49,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -3994,7 +3993,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Corvina.jpg",
       "image_source": {
@@ -4010,8 +4010,7 @@
       "name": "Pan de Jamón",
       "public_id": "9f9cd7c0-04d7-52d1-ac47-df20508004c4",
       "description": "Traditional Latin Christmas bread, rolled ham, raisins, and green olives",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.19,
       "category": "food",
       "dietary_tags": [],
       "flavor_tags": [
@@ -4022,7 +4021,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PanDeJamon.jpg",
       "image_source": {
@@ -4038,8 +4038,7 @@
       "name": "Bauducco Chocottone",
       "public_id": "0431191f-f3c9-5d0f-8eb0-c0b17f597125",
       "description": "Bauducco Chocottone with almond turrón ice cream and pistachio sauce. Served warm",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 5.49,
       "category": "food",
       "dietary_tags": [
         "contains_nuts"
@@ -4052,7 +4051,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-Panettone.jpg",
       "image_source": {
@@ -4068,8 +4068,7 @@
       "name": "Ponche Navideño",
       "public_id": "a485e4a4-d203-5f6f-83dc-e0c058497b3f",
       "description": "Christmas punch with apples, pears, guava, oranges, dried hibiscus, brown sugar, tamarind, cinnamon sticks, and cloves. Served warm.",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 4.29,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -4078,7 +4077,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-PoncheNavideno.jpg",
       "image_source": {
@@ -4094,8 +4094,7 @@
       "name": "3 Daughters Brewing 3 Kings Cake Hard Cider",
       "public_id": "74729421-3133-51e4-8f83-1fd2ecd6efdf",
       "description": null,
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 6.25,
       "category": "alcoholic_beverage",
       "dietary_tags": [
         "contains_alcohol"
@@ -4106,7 +4105,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ]
     },
     {
@@ -4114,8 +4114,7 @@
       "name": "Mallow Drop Latte",
       "public_id": "0ac1e694-c7cd-5bce-81d1-4c90a389ad5d",
       "description": "Espresso, dark mocha sauce, and toasted marshmallow syrup topped with whipped cream, mocha swirl, and graham cracker crumbs, served hot or iced Sold at Joffrey's Coffee & Tea Company, The American Adventure.",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.49,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -4124,7 +4123,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-JoffreysLattes-2.jpg",
       "image_source": {
@@ -4168,8 +4168,7 @@
       "name": "Candy Cane Latte",
       "public_id": "61c9d60c-2472-5c01-abbc-7bf593ee4804",
       "description": "Espresso, peppermint syrup, and vanilla syrup topped with whipped cream and candy cane pieces, served hot or iced Sold at Joffrey's Coffee & Tea Company, Near Disney Traders.",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.49,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [],
       "flavor_tags": [],
@@ -4178,7 +4177,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-JoffreysLattes-3.jpg",
       "image_source": {
@@ -4222,8 +4222,7 @@
       "name": "Berry Merry Snowball Latte",
       "public_id": "98130b6f-799a-5ddb-ac29-66cf9f6ac320",
       "description": "Espresso, almond syrup, and raspberry syrup topped with whipped cream and raspberry swirl, served hot or iced Sold at Joffrey's Coffee & Tea Company, Between United Kingdom and Canada.",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.49,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [
         "contains_nuts"
@@ -4234,7 +4233,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-JoffreysLattes-1.jpg",
       "image_source": {
@@ -4279,8 +4279,7 @@
       "name": "Sugar Sleigh Bells Latte",
       "public_id": "d3aa34a2-8321-5c42-bc0d-05614a1240e4",
       "description": "Espresso, caramel sauce, and almond syrup topped with whipped cream and Merry Sugar sprinkles, served hot or iced Sold at Joffrey's Coffee & Tea Company, World Discovery.",
-      "price_usd": null,
-      "price_note": "Coming soon",
+      "price_usd": 7.49,
       "category": "non_alcoholic_beverage",
       "dietary_tags": [
         "contains_nuts"
@@ -4291,7 +4290,8 @@
       "status": "confirmed-2026",
       "stroll": false,
       "sources": [
-        "disney-parks-blog-2026-holidays"
+        "disney-parks-blog-2026-holidays",
+        "wdwnt-2026-holidays-menus"
       ],
       "image_url": "https://disneyparksblog.com/app/uploads/2026/11/2026-WDW-FOTH-Foodie-Guide-JoffreysLattes-4.jpg",
       "image_source": {
