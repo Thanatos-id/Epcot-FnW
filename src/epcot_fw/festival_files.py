@@ -212,6 +212,24 @@ def build_snapshot(key: str, root: Path = FESTIVALS_DIR) -> dict[str, Any]:
     }
 
 
+def _agree_with_category(row: dict[str, Any]) -> None:
+    """Keep the alcohol tag and drink kind in step with the category.
+
+    The app filters drinks on the `contains_alcohol` tag, so a dish marked
+    alcoholic in the Studio without its tags would slip past that filter.
+    """
+    tags = list(row.get("dietary_tags") or [])
+    if row.get("category") == "alcoholic_beverage":
+        if "contains_alcohol" not in tags:
+            tags.append("contains_alcohol")
+    else:
+        tags = [t for t in tags if t != "contains_alcohol"]
+        if "alcohol_kind" in row:
+            row["alcohol_kind"] = None
+    if tags or "dietary_tags" in row:
+        row["dietary_tags"] = sorted(tags)
+
+
 def apply_entries(
     directory: Path,
     menu_items: list[dict[str, Any]],
@@ -281,13 +299,23 @@ def apply_entries(
             if not raw.get("new"):
                 skipped.append(f"menu item {label}: not in {items_path.name}")
                 continue
+            # The same shape as a researched dish, so nothing reading these
+            # files has to ask whether a key is there. No status: a person
+            # typed it in from the menu, the strongest evidence there is.
             row = {"booth_name": booth_name, "name": name, "public_id": str(uuid.uuid4()),
-                   "origin": "curated"}
+                   "origin": "curated", "description": None, "price_usd": None,
+                   "category": "food", "dietary_tags": [], "flavor_tags": [],
+                   "alcohol_kind": None, "is_new_this_year": False, "stroll": False,
+                   "sources": []}
             item_rows.append(row)
             item_index[(booth_name, name)] = row
         for field in _ITEM_FIELDS:
             if field in raw:
                 row[field] = raw[field]
+        # "Coming soon" stops being true the moment a price is entered.
+        if row.get("price_usd") is not None:
+            row.pop("price_note", None)
+        _agree_with_category(row)
         rename_to = (raw.get("rename_to") or "").strip()
         if rename_to and rename_to != name:
             if (booth_name, rename_to) in item_index:
